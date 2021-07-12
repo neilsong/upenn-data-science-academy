@@ -1,0 +1,1119 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{Data Acquisition, Preparation and EDA}
+\author{}
+\date{\vspace{-2.5em}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Data Acquisition, Preparation and EDA},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+\AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction-and-objectives}{%
+\section{Introduction and
+Objectives}\label{introduction-and-objectives}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Data Science} connects statistics, computer science, and
+  domain knowledge.
+\item
+  We look for patterns \& reasons for differences/changes in datasets.
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+- Once we have the data, we proceed to extract useful information - BUT
+we must understand the data first \\
+- In this lecture: - basic data acquisition/preparation - understand the
+nature of the data via \textbf{exploratory data analysis (EDA)} -
+explore plausible variable relationships - \emph{We defer formal
+modeling for later} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Introduction and Objectives}
+
+\begin{itemize}
+\tightlist
+\item
+  Data mining tools:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    expanding dramatically in the past 20 yrs
+  \end{itemize}
+\item
+  R
+
+  \begin{itemize}
+  \tightlist
+  \item
+    popular among data scientists \& in academia
+  \item
+    open-source
+  \item
+    most SOTA methods have R package implementations
+  \end{itemize}
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+- This module will focus on \textbf{data preparation}, \textbf{data
+cleaning}, and \textbf{exploratory data analysis (EDA)}. - R and R
+Markdown will be used. See advanced\_R\_tutorial.Rmd for extremely
+useful EDA tools such as \texttt{dplyr}, \texttt{ggplot},
+\texttt{data.table}, and more. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Contents}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{-1}
+\tightlist
+\item
+  Suggested extra readings/doing:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    run and study Get\_staRted.Rmd
+  \item
+    run and study advanced\_R\_tutorial.Rmd and
+    advanced\_R\_tutorial.html
+  \item
+    read \texttt{50\ years\ of\ data\ science} and
+    \texttt{Teaching\ data\ science} available in Canvas. (skip this)
+  \item
+    Data set: \texttt{MLPayData\_Total.csv}
+  \end{itemize}
+\item
+  Case Study: Billion dollar Billy Beane
+\item
+  Study flow:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Study design
+  \item
+    Gathering data
+  \item
+    Process data (tidy data)
+  \item
+    Exploratory Data Analysis (EDA)
+  \item
+    Conclusion/Challenges
+  \end{itemize}
+\item
+  R functions
+
+  \begin{itemize}
+  \tightlist
+  \item
+    basic r functions
+  \item
+    dplyr
+  \item
+    ggplot
+  \end{itemize}
+\end{enumerate}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\textbf{Background} \\
+- In the article
+\href{https://fivethirtyeight.com/features/billion-dollar-billy-beane/}{Billion
+Dollar Billy Beane}: - author: Benjamin Morris - studies a regression of
+performance vs.~total payroll from all 30 teams over a 17 yr period -
+Oakland A's performance is comparable to the Boston Red Sox - therefore
+argues that Billy Beane is worth \$12 million over 5 years - Article
+link:
+\url{https://fivethirtyeight.com/features/billion-dollar-billy-beane/} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Case Study: Baseball}
+
+\textbf{Objectives}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Reproduce Benjamin's study.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Is Billy Beane (Oakland A's GM) worth 12.5 million dollars for a
+  period of 5 years, as argued in the article?
+\item
+  We challenge Benjamin's reasoning behind his argument.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Explore general questions:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  How does pay and performance relate to each other?
+\item
+  Will a team perform better when they are paid more?
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\textbf{Data:} \texttt{MLPayData\_Total.csv}, consists of winning
+records and the payroll of all 30 ML teams from 1998 to 2014 (17 years).
+There are 162 games in each season. \\
+The variables included are: \\
+* \texttt{team\ name}: team names * \texttt{p2014}: total pay in 2014 in
+\textbf{millions} and other years indicated by year * \texttt{X2014}:
+number of games won in 2014 and other years labeled *
+\texttt{X2014.pct}: percent winning in 2014 and other years (We only
+need one of the two variables from above.) \\
+\#\# Data Preparation \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Data Preparation}
+
+\begin{alertblock}{}
+Before we do any analysis, it is a \textbf{MUST} that we take a look at the data.
+\end{alertblock}
+
+In particular, we will try to:
+
+\textbf{Tidy the data:}
+
+\begin{itemize}
+\tightlist
+\item
+  Import data/Data preparation
+\item
+  Data format
+\item
+  Missing values/peculiarity
+\item
+  Understand the variables: unit, format, unusual values, etc.
+\item
+  Put data into a standard data format
+\end{itemize}
+
+Columns: variables\\
+Rows: subjects
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\textbf{What is in the dataset?} Take a quick look at the data. Pay
+attention to what is in the data, any missing values, and the variable
+format. \tiny \\
+\texttt{r\ names(datapay)} \\
+\texttt{\#\#\ \ {[}1{]}\ "Team.name.2014"\ "p1998"\ \ \ \ \ \ \ \ \ \ "p1999"\ \ \ \ \ \ \ \ \ \ "p2000"\ \ \ \ \ \ \ \ \ \ "p2001"\ \ \ \ \ \ \ \ \ \ "p2002"\ \ \ \ \ \ \ \ \ \ "p2003"\ \ \ \ \ \ \ \ \ \ "p2004"\ \ \ \ \ \ \ \ \ \ "p2005"\ \ \ \ \ \ \ \ \ \ "p2006"\ \ \ \ \ \ \ \ \ \ "p2007"\ \ \ \ \ \ \ \ \ \ "p2008"\ \ \ \ \ \ \ \ \ \ "p2009"\ \ \ \ \ \ \ \ \ \ "p2010"\ \ \ \ \ \ \ \ \ \ "p2011"\ \#\#\ {[}16{]}\ "p2012"\ \ \ \ \ \ \ \ \ \ "p2013"\ \ \ \ \ \ \ \ \ \ "p2014"\ \ \ \ \ \ \ \ \ \ "X2014"\ \ \ \ \ \ \ \ \ \ "X2013"\ \ \ \ \ \ \ \ \ \ "X2012"\ \ \ \ \ \ \ \ \ \ "X2011"\ \ \ \ \ \ \ \ \ \ "X2010"\ \ \ \ \ \ \ \ \ \ "X2009"\ \ \ \ \ \ \ \ \ \ "X2008"\ \ \ \ \ \ \ \ \ \ "X2007"\ \ \ \ \ \ \ \ \ \ "X2006"\ \ \ \ \ \ \ \ \ \ "X2005"\ \ \ \ \ \ \ \ \ \ "X2004"\ \ \ \ \ \ \ \ \ \ "X2003"\ \#\#\ {[}31{]}\ "X2002"\ \ \ \ \ \ \ \ \ \ "X2001"\ \ \ \ \ \ \ \ \ \ "X2000"\ \ \ \ \ \ \ \ \ \ "X1999"\ \ \ \ \ \ \ \ \ \ "X1998"\ \ \ \ \ \ \ \ \ \ "X2014.pct"\ \ \ \ \ \ "X2013.pct"\ \ \ \ \ \ "X2012.pct"\ \ \ \ \ \ "X2011.pct"\ \ \ \ \ \ "X2010.pct"\ \ \ \ \ \ "X2009.pct"\ \ \ \ \ \ "X2008.pct"\ \ \ \ \ \ "X2007.pct"\ \ \ \ \ \ "X2006.pct"\ \ \ \ \ \ "X2005.pct"\ \#\#\ {[}46{]}\ "X2004.pct"\ \ \ \ \ \ "X2003.pct"\ \ \ \ \ \ "X2002.pct"\ \ \ \ \ \ "X2001.pct"\ \ \ \ \ \ "X2000.pct"\ \ \ \ \ \ "X1999.pct"\ \ \ \ \ \ "X1998.pct"}
+\normalsize Is anything bothering you? We may want to change names of
+teams to a shorter, neater name. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Data Preparation}
+
+Everything seems to be OK at the moment other than changing one variable
+name.\\
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#summary(datapay)}
+\FunctionTok{summary}\NormalTok{(datapay)[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{] }\CommentTok{\# quick summary. missing values may be shown}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Length:30         " "Class :character  " "Mode  :character  " NA                   NA                   NA                   "Min.   : 8.3  "     "1st Qu.:27.7  "     "Median :43.9  "     "Mean   :41.1  "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(datapay) }\CommentTok{\# data structure}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    30 obs. of  52 variables:
+##  $ Team.name.2014: chr  "Arizona Diamondbacks" "Atlanta Braves" "Baltimore Orioles" "Boston Red Sox" ...
+##  $ p1998         : num  31.6 61.7 71.9 59.5 49.8 ...
+##  $ p1999         : num  70.5 74.9 72.2 71.7 42.1 ...
+##  $ p2000         : num  81 84.5 81.4 77.9 60.5 ...
+##  $ p2001         : num  81.2 91.9 72.4 109.6 64 ...
+##  $ p2002         : num  102.8 93.5 60.5 108.4 75.7 ...
+##  $ p2003         : num  80.6 106.2 73.9 99.9 79.9 ...
+##  $ p2004         : num  70.2 88.5 51.2 125.2 91.1 ...
+##  $ p2005         : num  63 85.1 74.6 121.3 87.2 ...
+##  $ p2006         : num  59.7 90.2 72.6 120.1 94.4 ...
+##  $ p2007         : num  52.1 87.3 93.6 143 99.7 ...
+##  $ p2008         : num  66.2 102.4 67.2 133.4 118.3 ...
+##  $ p2009         : num  73.6 96.7 67.1 122.7 135.1 ...
+##  $ p2010         : num  60.7 84.4 81.6 162.7 146.9 ...
+##  $ p2011         : num  53.6 87 85.3 161.4 125.5 ...
+##  $ p2012         : num  74.3 83.3 81.4 173.2 88.2 ...
+##  $ p2013         : num  89.1 89.8 91 150.7 104.3 ...
+##  $ p2014         : num  113 111 107 163 89 ...
+##  $ X2014         : int  64 79 96 71 73 73 76 85 66 90 ...
+##  $ X2013         : int  81 96 85 97 66 63 90 92 74 93 ...
+##  $ X2012         : int  81 94 93 69 61 85 97 68 64 88 ...
+##  $ X2011         : int  94 89 69 90 71 79 79 80 73 95 ...
+##  $ X2010         : int  65 91 66 89 75 88 91 69 83 81 ...
+##  $ X2009         : int  70 86 64 95 83 79 78 65 92 86 ...
+##  $ X2008         : int  82 72 68 95 97 89 74 81 74 74 ...
+##  $ X2007         : int  90 84 69 96 85 72 72 96 90 88 ...
+##  $ X2006         : int  76 79 70 86 66 90 80 78 76 95 ...
+##  $ X2005         : int  77 90 74 95 79 99 73 93 67 71 ...
+##  $ X2004         : int  51 96 78 98 89 83 76 80 68 72 ...
+##  $ X2003         : int  84 101 71 95 88 86 69 68 74 43 ...
+##  $ X2002         : int  98 101 67 93 67 81 78 74 73 55 ...
+##  $ X2001         : int  92 88 63 82 88 83 66 91 73 66 ...
+##  $ X2000         : int  85 95 74 85 65 95 85 90 82 79 ...
+##  $ X1999         : int  100 103 78 94 67 75 96 97 72 69 ...
+##  $ X1998         : int  65 106 79 92 90 80 77 89 77 65 ...
+##  $ X2014.pct     : num  0.395 0.488 0.593 0.438 0.451 ...
+##  $ X2013.pct     : num  0.5 0.593 0.525 0.599 0.407 ...
+##  $ X2012.pct     : num  0.5 0.58 0.574 0.426 0.377 ...
+##  $ X2011.pct     : num  0.58 0.549 0.426 0.556 0.438 ...
+##  $ X2010.pct     : num  0.401 0.562 0.407 0.549 0.463 ...
+##  $ X2009.pct     : num  0.432 0.531 0.395 0.586 0.516 ...
+##  $ X2008.pct     : num  0.506 0.444 0.422 0.586 0.602 ...
+##  $ X2007.pct     : num  0.556 0.519 0.426 0.593 0.525 ...
+##  $ X2006.pct     : num  0.469 0.488 0.432 0.531 0.407 ...
+##  $ X2005.pct     : num  0.475 0.556 0.457 0.586 0.488 ...
+##  $ X2004.pct     : num  0.315 0.593 0.481 0.605 0.549 ...
+##  $ X2003.pct     : num  0.519 0.623 0.438 0.586 0.543 ...
+##  $ X2002.pct     : num  0.605 0.631 0.414 0.574 0.414 ...
+##  $ X2001.pct     : num  0.568 0.543 0.391 0.509 0.543 ...
+##  $ X2000.pct     : num  0.525 0.586 0.457 0.525 0.401 ...
+##  $ X1999.pct     : num  0.617 0.636 0.481 0.58 0.414 ...
+##  $ X1998.pct     : num  0.401 0.654 0.488 0.568 0.552 ...
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+The original format of the dataset \texttt{MLPayData\_Total.csv} is not
+in a desirable format. Each row lists multiple results. Also the
+variable \texttt{year} is missing. \tiny \\
+\texttt{r\ datapay{[}1:4,\ 1:5{]}\ \ \#\ list\ a\ few\ lines\ (subsetting)} \\
+\texttt{\#\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ team\ p1998\ p1999\ p2000\ p2001\ \#\#\ 1\ Arizona\ Diamondbacks\ \ 31.6\ \ 70.5\ \ 81.0\ \ 81.2\ \#\#\ 2\ \ \ \ \ \ \ Atlanta\ Braves\ \ 61.7\ \ 74.9\ \ 84.5\ \ 91.9\ \#\#\ 3\ \ \ \ Baltimore\ Orioles\ \ 71.9\ \ 72.2\ \ 81.4\ \ 72.4\ \#\#\ 4\ \ \ \ \ \ \ Boston\ Red\ Sox\ \ 59.5\ \ 71.7\ \ 77.9\ 109.6} \\
+\texttt{r\ \#datapay\$team\ \#\ get\ variables} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Data Preparation: Reshape the data}
+
+We would like to reshape the data into the following table format:
+
+\begin{itemize}
+\tightlist
+\item
+  columns (variables) contain all variables\\
+\item
+  each row records one result(s)
+\end{itemize}
+
+In our case we have four variables: team, year, pay, win\_number and
+win\_percentage. Let's rearrange the data into the following form:
+
+team \textbar{} year \textbar{} payroll \textbar{} win\_number
+\textbar{} win\_percentage
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+Let's create the other variables. \tiny \\
+```r win\_num \textless- datapay \%\textgreater\% \# create variable:
+win\_num and year select(team, X1998:X2014) \%\textgreater\%
+pivot\_longer(cols = X1998:X2014, names\_to = ``year'', names\_prefix =
+``X'', values\_to = ``win\_num'') \\
+win\_pct \textless- datapay \%\textgreater\% \# create variable:
+win\_pct and year select(team, X1998.pct:X2014.pct) \%\textgreater\%
+pivot\_longer(cols = X1998.pct:X2014.pct, names\_to = ``year'',
+names\_prefix = ``X'', values\_to = ``win\_pct'') \%\textgreater\%
+mutate(year = substr(year, 1, 4)) ``` \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Data Preparation: Reshape the data  }
+
+Finally, we join the tables into team, year, payroll, win\_num, and
+win\_pct.\\
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datapay\_long }\OtherTok{\textless{}{-}}\NormalTok{ payroll }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{inner\_join}\NormalTok{(win\_num, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"team"}\NormalTok{, }\StringTok{"year"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{inner\_join}\NormalTok{(win\_pct, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"team"}\NormalTok{, }\StringTok{"year"}\NormalTok{)) }
+\FunctionTok{head}\NormalTok{(datapay\_long, }\DecValTok{2}\NormalTok{)  }\CommentTok{\# see first 2 rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   team                 year  payroll win_num win_pct
+##   <chr>                <chr>   <dbl>   <int>   <dbl>
+## 1 Arizona Diamondbacks 1998     31.6      65   0.401
+## 2 Arizona Diamondbacks 1999     70.5     100   0.617
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+After processing, save this cleaned data file into a new table called
+\texttt{baseball.csv}. Let's output this table to the /data folder in
+our working folder. From now on we will only use the data file
+\texttt{baseball}. \tiny \\
+\texttt{r\ write.csv(datapay\_long,\ "data/baseball.csv",\ row.names\ =\ F)}
+\normalsize \\
+\# Exploratory Data Analysis (EDA) - All the analyses done in this
+lecture will be exploratory. - The goal is to
+\alert{see what information we might be able to extract} so that it will
+support the goal of our study. This is an extremely important first step
+of the data analyses. - We try to understand the data, summarize the
+data, then finally explore the relationships among the variables through
+useful visualization. \\
+\#\# Part I: Analyze aggregated variables \\
+In this section: \\
+- Try to use aggregated information such as: - the total pay for each
+team - average performance - Look for the relationship between
+performance and the payroll as suggested in Morris's post. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Input the data}
+
+First, input the clean data \texttt{baseball} and quickly explore the
+data.\\
+Everything seems fine: no missing values, names of variables are good.
+The class of each variable matches its nature. (numeric, factor,
+characters\ldots)\\
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baseball }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/baseball.csv"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stringsAsFactors =}\NormalTok{ F)}
+\FunctionTok{names}\NormalTok{(baseball)}
+\FunctionTok{str}\NormalTok{(baseball)}
+\FunctionTok{summary}\NormalTok{(baseball)}
+\CommentTok{\#View(baseball)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "team"    "year"    "payroll" "win_num" "win_pct"
+## 'data.frame':    510 obs. of  5 variables:
+##  $ team   : chr  "Arizona Diamondbacks" "Arizona Diamondbacks" "Arizona Diamondbacks" "Arizona Diamondbacks" ...
+##  $ year   : int  1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 ...
+##  $ payroll: num  31.6 70.5 81 81.2 102.8 ...
+##  $ win_num: int  65 100 85 92 98 84 51 77 76 90 ...
+##  $ win_pct: num  0.401 0.617 0.525 0.568 0.605 ...
+##      team                year         payroll         win_num       win_pct     
+##  Length:510         Min.   :1998   Min.   :  8.3   Min.   : 43   Min.   :0.265  
+##  Class :character   1st Qu.:2002   1st Qu.: 51.3   1st Qu.: 72   1st Qu.:0.444  
+##  Mode  :character   Median :2006   Median : 73.3   Median : 81   Median :0.500  
+##                     Mean   :2006   Mean   : 78.1   Mean   : 81   Mean   :0.500  
+##                     3rd Qu.:2010   3rd Qu.: 95.0   3rd Qu.: 90   3rd Qu.:0.556  
+##                     Max.   :2014   Max.   :235.3   Max.   :116   Max.   :0.716
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+To summarize a continuous variable (such as \texttt{payroll\_total} or
+\texttt{win\_pct\_ave}), we use the following measurements: \\
++ \textbf{Center}: sample mean/median + \textbf{Spread}: sample standard
+deviation + \textbf{Range}: minimum and maximum + \textbf{Distribution}:
+quantiles \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Descriptive statistics}
+
+First, let us take a look at \texttt{payroll\_total}.
+
+\textbf{Base \texttt{R} way:} \tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total)}
+\FunctionTok{sd}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total) }
+\FunctionTok{quantile}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total, }\AttributeTok{prob =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.25}\NormalTok{))}
+\FunctionTok{median}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total)}
+\FunctionTok{max}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total)}
+\FunctionTok{min}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total)}
+\FunctionTok{summary}\NormalTok{(data\_agg}\SpecialCharTok{$}\NormalTok{payroll\_total)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.33
+## [1] 0.45
+##    0%   25%   50%   75%  100% 
+## 0.698 1.022 1.264 1.517 2.857 
+## [1] 1.26
+## [1] 2.86
+## [1] 0.698
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.698   1.022   1.264   1.328   1.517   2.857
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+Find the team with the max/min payroll. \\
+\textbf{Base \texttt{R} way:} \tiny \\
+\texttt{r\ data\_agg\$team{[}which.max(data\_agg\$payroll\_total){]}} \\
+\texttt{\#\#\ {[}1{]}\ "New\ York\ Yankees"} \\
+\texttt{r\ data\_agg\$team{[}which.min(data\_agg\$payroll\_total){]}} \\
+\texttt{\#\#\ {[}1{]}\ "Miami\ Marlins"} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Descriptive statistics}
+
+Rearrange the data to see the ranks of team by \texttt{payroll}.
+
+But we can easily rearrange the whole data set \texttt{data\_agg} by
+ordering one variable, say \texttt{payroll\_total}.
+
+\textbf{Base \texttt{R} way:} \tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To rank teams by payroll in decreasing order}
+\FunctionTok{arrange}\NormalTok{(data\_agg, }\FunctionTok{desc}\NormalTok{(payroll\_total))[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,] }\CommentTok{\#default decs=T}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   team                  payroll_total win_pct_ave
+##   <chr>                         <dbl>       <dbl>
+## 1 New York Yankees               2.86       0.594
+## 2 Boston Red Sox                 2.10       0.553
+## 3 Los Angeles Dodgers            1.87       0.529
+## 4 New York Mets                  1.72       0.502
+## 5 Philadelphia Phillies          1.69       0.519
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#arrange(data\_agg, win\_pct\_ave) \# default???}
+\CommentTok{\#arrange(data\_agg, {-}desc(payroll\_total))[1:5,] }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\textbf{\texttt{ggplot} plots:} \tiny \\
+```r p1 \textless- ggplot(data\_agg) + geom\_histogram(aes(x =
+payroll\_total), bins = 10, fill = ``blue'') + labs( title = ``Histogram
+of Payroll (frequency)'', x = ``Payroll'' , y = ``Frequency'') \\
+p2 \textless- ggplot(data\_agg) + geom\_histogram(aes(x =
+payroll\_total, y = ..density..), bins = 10, fill = ``light blue'') +
+labs( title = ``Histogram of Payroll (percentage)'', x = ``Payroll'' , y
+= ``Percentage'') \\
+grid.arrange(p1, p2, ncol = 2) \# facet the two plots side by side
+``` \\
+\includegraphics{DataPreparationEDASlides_files/figure-latex/facet hist-1.pdf} \\
+\normalsize Notice, the two plots above look identical but with
+different \texttt{y-scale}. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Displaying variables: Boxplots}
+
+A \textbf{boxplot} captures the spread by showing median, quantiles and
+outliers:
+
+\textbf{\texttt{ggplot} plots:}\\
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data\_agg) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{""}\NormalTok{, }\AttributeTok{y=}\NormalTok{payroll\_total)) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"Boxplot of Pay Total"}\NormalTok{, }\AttributeTok{x=}\StringTok{""}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataPreparationEDASlides_files/figure-latex/boxplot-1.pdf}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+Take a look at the histogram of \texttt{win}. Here we impose a
+\textbf{normal curve} with the center being 0.5 and the spread, sd =
+0.038. \\
+\textbf{\texttt{ggplot} way:} \tiny \\
+\texttt{r\ ggplot(data\_agg)\ +\ geom\_histogram(aes(x=win\_pct\_ave,\ y\ =\ ..density..),\ bins=10,\ fill=\ "blue"\ )\ +\ stat\_function(fun\ =\ dnorm,\ args\ =\ list(mean\ =\ mean(data\_agg\$win\_pct\_ave),\ sd\ =\ sd(data\_agg\$win\_pct\_ave)),\ colour\ =\ "red",\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\ =\ 1.5)+\ labs(\ title\ =\ "Histogram\ of\ win\_pct\_ave",\ x\ =\ "win\_pct\_ave"\ ,\ y\ =\ "Frequency")} \\
+\includegraphics{DataPreparationEDASlides_files/figure-latex/hist w normal-1.pdf} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Normal variables}
+
+The smoothed normal curve captures the shape of the histogram of win. Or
+we will say that the variable \texttt{win} follows a normal distribution
+approximately. Then we can describe the distribution of \texttt{win}
+using the two numbers: mean and sd.
+
+Roughly speaking:
+
+\begin{itemize}
+\item
+  68\% of teams with \texttt{win} to be within one sd from the mean.
+  \[ 0.5 \pm 0.038= [0.462, 
+  0.538]\]
+\item
+  95\% of the teams with \texttt{win} to be within 2 sd from the mean:
+  \[ 0.5 \pm 2 * 0.038= [0.425, 
+  0.575]\]
+\item
+  2.5\% of the teams with \texttt{win} to be higher 2.5 times of sd
+  above the mean: \[ > 0.5 + 2 * 0.038= 
+  0.575\]
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\textbf{\texttt{ggplot} plots} (shown on next slide) \tiny \\
+\texttt{r\ data\_agg\ \%\textgreater{}\%\ ggplot(aes(x\ =\ payroll\_total,\ y\ =\ win\_pct\_ave))\ +\ \#\ geometric\ options:\ color,\ size,\ shape,\ alpha:\ transparency\ (range:\ 0\ to\ 1)\ geom\_point(color\ =\ "blue",\ size=\ 3,\ alpha\ =\ .8)\ +\ geom\_text\_repel(aes(label\ =\ team),\ size\ =\ 3)\ +\ labs(title\ =\ "MLB\ Team\textquotesingle{}s\ Overall\ Win\ \ vs.\ Payroll",\ x\ =\ "Payroll\_total",\ y\ =\ "Win\_pct\_ave")} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Explore variable relationships: Scatter plots  }
+
+\textbf{We notice the positive association:}\\
+\textbf{when \texttt{payroll\_total} increases, so does
+\texttt{win\_pct\_ave}.}
+
+\includegraphics{DataPreparationEDASlides_files/figure-latex/scatter p with team names 2-1.pdf}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+We can bring in other variables to adjust the color, size, and alpha of
+the scatter plot via \textbf{aesthetic mapping}. \\
+\includegraphics{DataPreparationEDASlides_files/figure-latex/scatter p with team names with mappings 2-1.pdf} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Explore variable relationships}
+
+\textbf{Least Squared Lines}
+
+\begin{itemize}
+\tightlist
+\item
+  The simplest function to capture the relationship between pay and
+  performance is through the linear model.\\
+\item
+  We impose the least squared equation on top of the scatter plot using
+  \texttt{ggplot()} with \texttt{geom\_smooth()}.\\
+\item
+  We also annotate the two teams \texttt{Oakland\ Athletics} and
+  \texttt{Boston\ Red\ Sox}.
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\emph{Answer to Question 1:} \\
+HERE is how the article concludes that Beane is worth as much as the GM
+in Red Sox. By looking at the above plot, Oakland A's win pct is more or
+less the same as that of Red Sox, so based on the LS equation, the team
+should have paid 2 billion! \\
+Do you agree with this argument? Why or why not? \\
+\emph{Answer to Question 2:} \\
+From this regression line, we see a clear upward trend. Or precisely the
+least squared equation has a positive coefficient. Consequently, the
+more a team is paid the better performance we expect the team has. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Conclusions/Discussions}
+
+\textbf{Questions for you:}
+
+\begin{itemize}
+\tightlist
+\item
+  Do you agree with the conclusions made based on a regression analysis
+  shown above?\\
+\item
+  How would you carry out a study which may have done a better job? In
+  what way?
+\end{itemize}
+
+\hypertarget{part-ii-analyze-pay-and-winning-percent-over-time-and-by-team}{%
+\subsection{Part II: Analyze pay and winning percent over time and by
+team}\label{part-ii-analyze-pay-and-winning-percent-over-time-and-by-team}}
+
+\begin{itemize}
+\tightlist
+\item
+  Payroll and performance varies depending on teams and years.\\
+\item
+  We investigate changes over time and by teams to see how payroll
+  relates to performance.
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+Summary statistics can not describe the distributions of either payroll
+or performances. Back to back boxplots of payroll or winning percentage
+would capture the variability in details. \\
+\tiny \\
+\texttt{r\ baseball\ \%\textgreater{}\%\ ggplot(aes(x\ =\ team,\ y\ =\ win\_pct,\ fill\ =\ team))\ +\ geom\_boxplot()\ +\ xlab("Team")\ +\ ylab("Winning\ percentage")\ +\ ggtitle("Winning\ percentage\ by\ team")\ +\ theme\_bw()\ +\ theme(legend.position\ =\ "none",\ \#\ adjust\ for\ margins\ around\ the\ plot;\ t:\ top;\ r:\ right;\ b:\ bottom;\ l:\ left\ plot.margin\ =\ margin(t\ =\ 5,\ r\ =\ 50,\ b\ =\ 5,\ l\ =\ 0,\ unit\ =\ "pt"),\ axis.text.x\ =\ element\_text(angle\ =\ -60,\ vjust\ =\ 0,\ hjust\ =\ 0))} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Compare payroll and performance}
+
+Summary statistics can not describe the distributions of either payroll
+or performances. Back to back boxplots of payroll or winning percentage
+would capture the variability in details.
+\includegraphics{DataPreparationEDASlides_files/figure-latex/back to back boxplots 2-1.pdf}
+
+\normalsize
+
+We see clearly that the medians/means and spreads are very different. Is
+there a more informative way to display this?
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+We probably want to display the comparison by ranking the median for
+example:
+\includegraphics{DataPreparationEDASlides_files/figure-latex/unnamed-chunk-13-1.pdf} \\
+\normalsize We see that \texttt{NY\ Yankees} and \texttt{Red\ Sox} are
+consistently good teams while \texttt{Oakland\ A\textquotesingle{}s} has
+a good overall team performance but the performance varies. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Compare payroll and performance}
+
+\begin{itemize}
+\tightlist
+\item
+  Next: compare both \texttt{payroll} and \texttt{win\_pct} by teams.\\
+\item
+  Let us try to line up two back to back boxplots together.\\
+\item
+  Notice that we tried to rank one variable while carrying the other
+  variable in the same order.\\
+\item
+  The hope is to reveal the relationship between \texttt{payroll} and
+  \texttt{performance}.
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+\includegraphics{DataPreparationEDASlides_files/figure-latex/unnamed-chunk-14-1.pdf} \\
+Bingo! While \texttt{Oakland\ A\textquotesingle{}s} payroll are
+consistently lower than that of \texttt{Red\ Sox}, they have similar
+performance!!! \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Compare payroll and performance  }
+
+Alternative boxplot faceting \tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# use reorder\_within() and scale\_x\_reordered() from tidytext to order boxplot within each facet}
+\FunctionTok{library}\NormalTok{(tidytext)}
+\CommentTok{\# facet names}
+\NormalTok{facet\_names }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"payroll"} \OtherTok{=} \StringTok{"Payroll"}\NormalTok{,}
+                 \StringTok{"win\_pct"} \OtherTok{=} \StringTok{"Winning percentage"}\NormalTok{)}
+\NormalTok{baseball }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{win\_num) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(}\StringTok{"payroll"}\NormalTok{, }\StringTok{"win\_pct"}\NormalTok{),}
+               \AttributeTok{names\_to =} \StringTok{"variable"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder\_within}\NormalTok{(team, }\SpecialCharTok{{-}}\NormalTok{value, variable, }\AttributeTok{fun =}\NormalTok{ median), }
+             \AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ team)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_reordered}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ variable, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{,}
+             \AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(facet\_names)) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Team"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Payroll and winning percentage by team"}\NormalTok{) }\SpecialCharTok{+} 
+\NormalTok{  boxplot\_theme}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+A time series of performance may reveal patterns of performance over the
+years to see if some teams are consistently better or worse. \tiny \\
+\texttt{r\ payroll\_plot\ \textless{}-\ baseball\ \%\textgreater{}\%\ ggplot(aes(x\ =\ year,\ y\ =\ payroll,\ group\ =\ team,\ col\ =\ team))\ +\ geom\_line()\ +\ geom\_point()\ +\ theme\_bw()\ +\ ggtitle("Payroll\ versus\ year")\ payroll\_plot} \\
+\includegraphics{DataPreparationEDASlides_files/figure-latex/unnamed-chunk-15-1.pdf} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Comparing performance as a function of time  }
+
+A time series of performance may reveal patterns of performance over the
+years to see if some teams are consistently better or worse. \tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{win\_pct\_plot }\OtherTok{\textless{}{-}}\NormalTok{ baseball }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ win\_pct, }\AttributeTok{group =}\NormalTok{ team, }\AttributeTok{col =}\NormalTok{ team)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Winning percent versus year"}\NormalTok{)}
+\NormalTok{win\_pct\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataPreparationEDASlides_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+Winning pct plot with only \texttt{NY\ Yankees} (blue),
+\texttt{Boston\ Red\ Sox} (red) and \texttt{Oakland\ Athletics} (green)
+while keeping all other teams as background in gray.
+\includegraphics{DataPreparationEDASlides_files/figure-latex/unnamed-chunk-18-1.pdf} \\
+\normalsize Now we see that \texttt{Red\ Sox} seems to perform better
+most of the time compared to the
+\texttt{Oakland\ A\textquotesingle{}s}. \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Performance, Payroll and Year}
+
+We are trying to reveal the relationship between \texttt{performance}
+and \texttt{payroll}. But it depends on which team at a given year.
+\tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baseball }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{payroll, }\AttributeTok{y=}\NormalTok{win\_pct, }\AttributeTok{group =}\NormalTok{ team, }\AttributeTok{color=}\NormalTok{team)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{formula=}\NormalTok{y}\SpecialCharTok{\textasciitilde{}}\NormalTok{x, }\AttributeTok{se=}\NormalTok{F,}\AttributeTok{color =} \StringTok{"red"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{team) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"\textasciigrave{}payroll\textasciigrave{} vs \textasciigrave{}win\_pct\textasciigrave{} by team"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+If we zoom in on a few teams we see a clear negative correlation between
+payroll and performance. What is missing here? \tiny \\
+\texttt{r\ baseball\ \%\textgreater{}\%\ filter(team\ \%in\%\ c("New\ York\ Yankees",\ "Boston\ Red\ Sox",\ "Oakland\ Athletics"))\ \%\textgreater{}\%\ ggplot(aes(x=payroll,\ y=win\_pct,\ group\ =\ team,\ color=team))\ +\ geom\_point()+\ geom\_smooth(method="lm",\ formula=\ y\textasciitilde{}x,\ \ se=F,color\ =\ "red")+\ facet\_wrap(\textasciitilde{}team)\ +\ theme\_bw()\ +\ theme(legend.position\ =\ "bottom")} \\
+\includegraphics{DataPreparationEDASlides_files/figure-latex/unnamed-chunk-21-1.pdf} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Performance, Payroll and Year}
+
+We have seen before, \texttt{payroll} increases over years. It will be
+better to examine \texttt{payroll} v.s. \texttt{win\_pct} by
+\texttt{year}: \tiny
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baseball }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{payroll, }\AttributeTok{y=}\NormalTok{win\_pct, }\AttributeTok{group =}\NormalTok{ year, }\AttributeTok{color=}\NormalTok{team)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{formula=}\NormalTok{y}\SpecialCharTok{\textasciitilde{}}\NormalTok{x, }\AttributeTok{se=}\NormalTok{F,}\AttributeTok{color =} \StringTok{"red"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{year) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{0.06}}@{}}
+\toprule
+\endhead
+ \\
+We can summarize the above three dimension plots via a movie that tracks
+dynamic changes! \\
+\alert{See the plotly movie in the html file!} \tiny \\
+```r selected\_team \textless- c(``Oakland Athletics'', ``New York
+Yankees'', ``Boston Red Sox'') \\
+p \textless- baseball \%\textgreater\% ggplot(aes(x=payroll, y=win\_pct,
+color=team, frame = year)) + theme(legend.position = 0) + geom\_point()
++ geom\_smooth(method=``lm'', formula=y\textasciitilde x, se=F, color =
+``red'') + geom\_text(data = subset(baseball, team \%in\%
+selected\_team), aes(label = team), show.legend = FALSE) +
+theme\_bw() \\
+ggplotly(p)
+``\texttt{\textbackslash{}normalsize\ Perhaps\ we\ do\ not\ see\ strong\ evidence\ that}Oakland
+A's\texttt{is\ comparable\ to}Red Sox` in performance. \\
+\# Conclusions and Discussion - We have shown the power of exploratory
+data analysis to reveal correlation between payroll and performance. -
+Is payroll an important factor affecting the team performance if taking
+more factors into account? - Here we assembled a dataset containing only
+performance and payroll at the team level over a span of 17 yrs. -
+Analysis via aggregated statistics can be misleading. - Substantial
+variation can also exist within each team. - For example, payroll
+distribution is drastically different. - See this article on MLB income
+inequality:
+\url{https://fivethirtyeight.com/features/good-mlb-teams-oppose-income-inequality/} \\
+\bottomrule
+\end{longtable}
+
+\frametitle{Conclusions and Discussion}
+
+Questions remain:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Based on our current data,
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii})}
+  \tightlist
+  \item
+    what model will you consider to capture effects of payroll, year and
+    team over the performace?
+  \item
+    would you use other measurements as dependent variable, e.g.~annual
+    payroll increase?
+  \end{enumerate}
+\item
+  If you are asked to run the study to find out what are the main
+  factors affecting performance, how would you do it?\\
+  To narrow down the scope of the first step of the study, what
+  information you may gather?
+\end{enumerate}
+
+\hypertarget{appendix-sample-statistics}{%
+\section{Appendix: Sample Statistics}\label{appendix-sample-statistics}}
+
+We remind readers of the definition of sample statistics here.
+
+\begin{itemize}
+\tightlist
+\item
+  Sample mean:
+\end{itemize}
+
+\[\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i\]
+
+\begin{itemize}
+\tightlist
+\item
+  Sample variance:
+\end{itemize}
+
+\[s^2 = \frac{\sum_{i=1}^{n}(y_i - \bar{y})^2}{n-1}\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\frametitle{Appendix: Sample Statistics}
+
+\begin{itemize}
+\tightlist
+\item
+  Sample Standard Deviation:
+\end{itemize}
+
+\[s = \sqrt\frac{\sum_{i=1}^{n}(y_i - \bar{y})^2} {n - 1}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Sample correlation
+\end{itemize}
+
+\[r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2 \sum_{i=1}^n (y_i - \bar{y})^2}} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{s_x s_y} \]
+
+\end{document}
