@@ -105,13 +105,64 @@ Select only the variables Age, Gender, Education Level, Household Income in 2013
 
 Change the variable names to be "age", "gender", "education", "income", "sirius", "wharton", "worktime".
 
+
+```{r Load Data}
+survey <- read.csv('data/Survey_results_final.csv', header=T, stringsAsFactors = FALSE)
+```
+
+```{r Select Variables}
+survey_col <- survey %>% select(Answer.Age, Answer.Gender, Answer.Education, Answer.HouseHoldIncome, 
+  Answer.Sirius.Radio, Answer.Wharton.Radio, WorkTimeInSeconds)
+```
+
+```{r Rename Columns}
+survey_rename <- survey_col %>% rename(age = Answer.Age, gender = Answer.Gender, education = Answer.Education, 
+  income=Answer.HouseHoldIncome, sirius=Answer.Sirius.Radio, wharton=Answer.Wharton.Radio, 
+  worktime = WorkTimeInSeconds)
+```
+
 ii. Handle missing/wrongly filled values of the selected variables
 
 As in real world data with user input, the data is incomplete, with missing values, and has incorrect responses. There is no general rule for dealing with these problems beyond “use common sense.” In whatever case, explain what the problems were and how you addressed them. Be sure to explain your rationale for your chosen methods of handling issues with the data. Do not use Excel for this, however tempting it might be.
 
+Since age is not automatically converted to an integer, there must be some unclean/incorrect values in this column.
+```{r Clean Ages}
+survey_rename$age[survey_rename$age=="Eighteen (18)"] <- 18
+survey_rename$age[survey_rename$age=="female"] <- NA
+survey_rename$age[survey_rename$age=="223"] <- NA
+survey_rename$age[survey_rename$age=="4"] <- NA
+survey_rename$age[survey_rename$age == "27'"] <- 27
+survey_rename$age[survey_rename$age==""] <- NA
+survey_rename$age <- as.integer(survey_rename$age)
+str(survey_rename)
+
+```
+
+
 iii. Brief summary 
 
 Write a brief report to summarize all the variables collected. Include both summary statistics (including sample size) and graphical displays such as histograms or bar charts where appropriate. Comment on what you have found from this sample. (For example - it's very interesting to think about why would one work for a job that pays only 10cents/each survey? Who are those survey workers? The answer may be interesting even if it may not directly relate to our goal.)
+
+The variables collected 
+
+```{r Plot Age Histogram}
+survey_rename %>%
+  ggplot(aes(x = age)) + 
+  geom_histogram(binwidth = 2)
+```
+
+```{r Plot Worktime Histogram}
+survey_rename %>%
+  ggplot(aes(x = worktime)) + 
+  geom_histogram(binwidth = 2)
+```
+
+```{r Plot Worktime Histogram}
+survey_rename %>%
+  ggplot(aes(x = worktime)) + 
+  geom_histogram(binwidth = 2)
+```
+
 
 ## Sample properties
 
@@ -132,7 +183,3 @@ To be specific, you should include:
 2. Method used: data gathering, estimation methods
 3. Findings
 4. Limitations of the study. 
-
-
-
-
