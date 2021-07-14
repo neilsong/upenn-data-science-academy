@@ -155,13 +155,15 @@ The variables collected and analyzed in the survey were Age, Gender, Education L
 ```{r age_histogram}
 survey_rename %>%
   ggplot(aes(x = age)) +
-  geom_histogram(binwidth = 2)
+  geom_histogram(binwidth = 2, color = "blue", fill = "white") +
+  labs(x = "Age", y="Frequency")
 ```
 
 ```{r worktime_histogram}
 survey_rename %>%
   ggplot(aes(x = worktime)) +
-  geom_histogram(binwidth = 2)
+  geom_histogram(binwidth = 2, color = "blue", fill = "white") + 
+  labs(x = "Worktime", y="Frequency")
 ```
 ```{r age_vs_worktime}
 cor.test(formula = ~ worktime + age,
@@ -196,6 +198,8 @@ survey_rename %>%
 survey_rename %>%
   ggplot(aes(x = wharton, , fill = sirius)) +
   geom_bar(position = "fill", na.rm=TRUE) + 
+  theme_few() +
+  scale_fill_few("Medium") + 
   labs(x = "Wharton Listener", y="Ratio", fill="Sirius Listener")
 ```
 ```{r income_bar_graph}
