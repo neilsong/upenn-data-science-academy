@@ -3,4 +3,4 @@
 latex/
 figure-latex
 *.Rproj
-.Rproj.user/
+*/.Rproj.user/
