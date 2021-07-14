@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = FALSE, results = "hide", fig.width=8, fig.height=4)
 options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
-pacman::p_load(ISLR, readxl, tidyverse, magrittr, dplyr, ggplot2)
+pacman::p_load(ISLR, readxl, tidyverse, magrittr, dplyr, ggplot2, ggthemes)
 ```
 
 
@@ -172,18 +172,24 @@ cor.test(formula = ~ worktime + age,
 survey_rename %>%
   ggplot(aes(, y=income, fill=gender)) +
   geom_bar(position = "fill") + 
+  theme_few() +
+  scale_fill_few("Medium") + 
   labs(y = "Income", x="Ratio", fill="Gender")
 ```
 ```{r education_bar_graph/gender}
 survey_rename %>%
   ggplot(aes(, y=education, fill=gender)) +
   geom_bar(position = "fill") + 
+  theme_few() +
+  scale_fill_few("Medium") + 
   labs(y = "Education Level", x="Ratio", fill="Gender")
 ```
 ```{r sirius_bar_graph}
 survey_rename %>%
   ggplot(aes(x= sirius, , fill=wharton)) +
   geom_bar(position = "fill") + 
+  theme_few() +
+  scale_fill_few("Medium") + 
   labs(x = "Sirius Listener", y="Ratio", fill="Wharton Listener")
 ```
 ```{r wharton_bar_graph}
