@@ -249,6 +249,31 @@ survey_rename %>%
 The population from which the sample is drawn determines where the results of our analysis can be applied or generalized. We include some basic demographic information for the purpose of identifying sample bias, if any exists. Combine our data and the general population distribution in age, gender and income to try to characterize our sample on hand.
 
 i. Does this sample appear to be a random sample from the general population of the USA?
+This is the graph comparing gender. The blue graph refers to the data set provided, while the black graph is the total female and male in US in 2013
+```{r}
+
+ survey_rename %>%
+ select(gender) %>%
+ group_by(gender) %>%
+ summarise(n())
+
+pp<-survey_rename %>%
+  ggplot(aes(x = gender)) +
+  geom_bar(stat = "count", color = "white", fill = "light blue") +
+  labs(x = "gender", y = "Frequency")
+pp
+
+df <- data.frame(Gender =c("Male", "Female"),
+                Frequency=c(314848 , 476342))
+head(df)
+
+library(ggplot2)
+p<-ggplot(data=df, aes(x=Gender, y=Frequency)) +
+  geom_bar(stat="identity")
+p
+grid.arrange(pp,p , ncol = 2)
+```
+
 
 
 Note: You can not provide evidence by simply looking at our data here. For example, you need to find distribution of education in our age group in US to see if the two groups match in distribution.  Please do not spend too much time gathering evidence. 
