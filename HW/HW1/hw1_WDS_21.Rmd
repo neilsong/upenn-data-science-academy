@@ -170,23 +170,27 @@ cor.test(formula = ~ worktime + age,
 
 ```{r income_bar_graph/gender}
 survey_rename %>%
-  ggplot(aes(x= , y=income, fill=gender)) +
-  geom_bar(position = "fill")
+  ggplot(aes(, y=income, fill=gender)) +
+  geom_bar(position = "fill") + 
+  labs(y = "Income", x="Ratio", fill="Gender")
 ```
 ```{r education_bar_graph/gender}
 survey_rename %>%
-  ggplot(aes(x= , y=education, fill=gender)) +
-  geom_bar(position = "fill")
+  ggplot(aes(, y=education, fill=gender)) +
+  geom_bar(position = "fill") + 
+  labs(y = "Education Level", x="Ratio", fill="Gender")
 ```
 ```{r sirius_bar_graph}
 survey_rename %>%
-  ggplot(aes(x= sirius, y=, fill=wharton)) +
-  geom_bar(position = "fill")
+  ggplot(aes(x= sirius, , fill=wharton)) +
+  geom_bar(position = "fill") + 
+  labs(x = "Sirius Listener", y="Ratio", fill="Wharton Listener")
 ```
 ```{r wharton_bar_graph}
 survey_rename %>%
-  ggplot(aes(x= wharton, y=, fill=sirius)) +
-  geom_bar(position = "fill")
+  ggplot(aes(x = wharton, , fill = sirius)) +
+  geom_bar(position = "fill", na.rm=TRUE) + 
+  labs(x = "Wharton Listener", y="Ratio", fill="Sirius Listener")
 ```
 ```{r income_bar_graph}
 survey_rename %>%
@@ -199,7 +203,7 @@ survey_rename %>%
   drop_na(education) %>%
   ggplot(aes(y = education)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
-  labs(x = "Level of education", y = "Frequency")
+  labs(x = "Education Level", y = "Frequency")
 ```
 
 ## Sample properties
