@@ -105,20 +105,20 @@ Select only the variables Age, Gender, Education Level, Household Income in 2013
 
 Change the variable names to be "age", "gender", "education", "income", "sirius", "wharton", "worktime".
 
-
-```{r Load Data}
-survey <- read.csv('data/Survey_results_final.csv', header=T, stringsAsFactors = FALSE)
+# load the data from the table
+```{r load_data}
+  survey <- read.csv("data/Survey_results_final.csv", header=T, stringsAsFactors = FALSE)
 ```
 
-```{r Select Variables}
-survey_col <- survey %>% select(Answer.Age, Answer.Gender, Answer.Education, Answer.HouseHoldIncome, 
-  Answer.Sirius.Radio, Answer.Wharton.Radio, WorkTimeInSeconds)
+# select the specific variables we want
+```{r select_variables}
+  survey_col <- survey %>% select(Answer.Age, Answer.Gender, Answer.Education, Answer.Gender, Answer.HouseHoldIncome, Answer.Sirius.Radio, Answer.Wharton.Radio, WorkTimeInSeconds)
+    
 ```
 
-```{r Rename Columns}
-survey_rename <- survey_col %>% rename(age = Answer.Age, gender = Answer.Gender, education = Answer.Education, 
-  income=Answer.HouseHoldIncome, sirius=Answer.Sirius.Radio, wharton=Answer.Wharton.Radio, 
-  worktime = WorkTimeInSeconds)
+# rename the specific variables accordingly
+```{r rename_columns}
+  survey_rename<-survey_col %>% rename(age = Answer.Age, gender = Answer.Gender, education = Answer.Education, income = Answer.HouseHoldIncome, sirius = Answer.Sirius.Radio, wharton = Answer.Wharton.Radio, worktime = WorkTimeInSeconds)
 ```
 
 ii. Handle missing/wrongly filled values of the selected variables
@@ -143,31 +143,55 @@ iii. Brief summary
 
 Write a brief report to summarize all the variables collected. Include both summary statistics (including sample size) and graphical displays such as histograms or bar charts where appropriate. Comment on what you have found from this sample. (For example - it's very interesting to think about why would one work for a job that pays only 10cents/each survey? Who are those survey workers? The answer may be interesting even if it may not directly relate to our goal.)
 
-The variables collected and analyzed in the survey were Age, Gender, Education Level, Household Income in 2013, whether the person listens to Wharton and Sirius Radios,and Time used to finish the survey. By plotting the data in histograms, a skew to the right can be observed in the age variable, showing that the people who took the survey were more likely to be younger (<40). This same phenomenon repeats throughout the Worktime variable, possibly demonstrating some similarities between younger age and an a shorter worktime. This could be intuitively accounted for by relatively low survey payout, though there is not enough concrete data to support this hypothesis. However, after running a correlation test, recieving a value of .238 renders this correlation weak. The responses regarding income generally have more male responses, whereas the responses regarding education level are more even between males and females (except for the "other" category). Additionally, it can be concluded that if you listen to Wharton, you are likely to listen to Sirius as well. However, if you listen to Sirius, it is unlikely that you listen to Wharton.
+# The variables collected and analyzed in the survey were Age, Gender, Education Level, Household Income in 2013, whether the person listens to Wharton and Sirius Radios,and Time used to finish the survey. By plotting the data in histograms, a skew to the right can be observed in the age variable, showing that the people who took the survey were more likely to be younger (<40). This same phenomenon repeats throughout the Worktime variable, possibly demonstrating some similarities between younger age and an a shorter worktime. This could be intuitively accounted for by relatively low survey payout, though there is not enough concrete data to support this hypothesis. However, after running a correlation test, recieving a value of .238 renders this correlation weak. The responses regarding income generally have more male responses, whereas the responses regarding education level are more even between males and females (except for the "other" category). Additionally, it can be concluded that if you listen to Wharton, you are likely to listen to Sirius as well. However, if you listen to Sirius, it is unlikely that you listen to Wharton.
 
-```{r Plot Age Histogram}
+```{r age_histogram}
 survey_rename %>%
-  ggplot(aes(x = age)) + 
+  ggplot(aes(x = age)) +
   geom_histogram(binwidth = 2)
 ```
 
-```{r Plot Worktime Histogram}
+```{r worktime_histogram}
 survey_rename %>%
-  ggplot(aes(x = worktime)) + 
+  ggplot(aes(x = worktime)) +
   geom_histogram(binwidth = 2)
 ```
-
-```{r Plot Income Bar Graph}
-survey_rename %>%
-  ggplot(aes(x = income)) +
-  geom_bar(stat = "count", color = "blue", fill = "white") +
-  labs(x = "Household Income", y = "Frequency")
+```{r age_vs_worktime}
+  cor.test(formula = ~ worktime + age,
+                  data = survey_rename)
 ```
-```{r Plot Education Bar Graph}
+
+```{r income_bar_graph/gender}
+  survey_rename %>%
+    ggplot(aes(x= , y=income, fill=gender)) +
+    geom_bar(position = "fill")
+```
+```{r education_bar_graph/gender}
+  survey_rename %>%
+    ggplot(aes(x= , y=education, fill=gender)) +
+    geom_bar(position = "fill")
+```
+```{r sirius_bar_graph}
+  survey_rename %>%
+    ggplot(aes(x= sirius, y=, fill=wharton)) +
+    geom_bar(position = "fill")
+```
+```{r wharton_bar_graph}
+  survey_rename %>%
+    ggplot(aes(x= wharton, y=, fill=sirius)) +
+    geom_bar(position = "fill")
+```
+```{r income_bar_graph}
 survey_rename %>%
-  ggplot(aes(x = education)) +
+  ggplot(aes(y = income)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
-  labs(x = "Level of education", y = "Frequency")
+  labs(x = "Frequency", y = "Household Income")
+```
+```{r education_bar_graph}
+survey_rename %>%
+  ggplot(aes(y = education)) +
+  geom_bar(stat = "count", color = "blue", fill = "white") +
+  labs(x = "Frequency", y = "Level of education")
 ```
 
 ## Sample properties
@@ -183,11 +207,24 @@ Note: You can not provide evidence by simply looking at our data here. For examp
 
 Give a final estimate of the Wharton audience size in January 2014. Assume that the sample is a random sample of the MTURK population, and that the proportion of Wharton listeners vs. Sirius listeners in the general population is the same as that in the MTURK population. Write a brief executive summary to summarize your findings and how you came to that conclusion.
 
+```{r count_listeners}
+survey_rename  %>%
+    select(wharton) %>%
+    group_by(wharton) %>%
+    summarise(n())
+```
+
+```{r predict_audience_in_millions}
+  audience <- 70/1770 * 51.6
+  print(audience)
+```
+
+# The goal of this study is to predict the size of the audience regarding the "Business Radio Powered by the Wharton School" in terms of the whole 51.6 million Sirius Radio listeners. In order to do so, we picked out specific variables- age, gender, education level, household income, whether one listens to sirius and/or wharton, and worktime. It was necessary to clean the data by assigning unusable values NA or their correct values. The data was gathered using MTurk, at an offered price for $0.10 for each answered survey for 6 days. Through caclulating the proportion of listeners for Wharton to those who don't listen to Wharton, and multiplying it to the assumed amount of Sirius XM listeners, we get a value of 2.04 million listeners. The limitations of this study are the fact that most of the results came from the first two days, biasing the study towards the people surveyed on those two days. At the same time, this survey is only representative of the people who were willing to partake in the survey, not those who declined, further skewing the data.
+
 To be specific, you should include:
 
 1. Goal of the study:
 2. Method used: data gathering, estimation methods:
 3. Findings:
-4. Limitations of the study.: 
-## Executive summary 
-apsdoifja
+4. Limitations of the study.
+
