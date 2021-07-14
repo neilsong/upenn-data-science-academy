@@ -8,10 +8,6 @@ author:
 - Tanvi
 date: 'Due: 10:00PM,  July 13, 2021'
 output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: '4'
   html_document:
     code_folding: show
     highlight: haddock
@@ -20,6 +16,10 @@ output:
     toc: yes
     toc_depth: 4
     toc_float: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '4'
   word_document:
     toc: yes
     toc_depth: '4'
@@ -139,8 +139,8 @@ str(survey_rename)
 ```
 ###Clean Gender Variable
 ```{r}
-survey_rename$gender
-#nothing to be cleaned here right?
+survey_rename$gender[survey_rename$gender == ""] <- NA
+
 ```
 
 ### Clean Education Variable
@@ -164,15 +164,16 @@ survey_rename$sirius[survey_rename$sirius == ""] <- NA
 
 ```{r Clean Wharton}
 
-survey_rename$wharton
+survey_rename$wharton[survey_rename$wharton == ""] <- NA
 ```
 
 ```{r Clean Worktime}
-
+survey_rename$worktime[survey_rename$worktime == ""] <- NA
 ```
 
 
-```{r}
+
+
 iii. Brief summary 
 
 Write a brief report to summarize all the variables collected. Include both summary statistics (including sample size) and graphical displays such as histograms or bar charts where appropriate. Comment on what you have found from this sample. (For example - it's very interesting to think about why would one work for a job that pays only 10cents/each survey? Who are those survey workers? The answer may be interesting even if it may not directly relate to our goal.)
