@@ -270,15 +270,7 @@ grid.arrange(pp,p , ncol = 2)
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(y = "Household Income", x = "Frequency")
 
-library(ggplot2)
-library(reshape2)
-df <- data.frame(education_income_rename)
-df <- melt(df, id.vars = "high_school_or_less", variable.name = 'education' )
 
-# Everything on the same plot
-ggplot(df, aes(Xax,value, col=variable)) + 
-  geom_point() + 
-  stat_smooth() 
 
 
   
