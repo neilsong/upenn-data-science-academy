@@ -164,29 +164,29 @@ survey_rename %>%
   geom_histogram(binwidth = 2)
 ```
 ```{r age_vs_worktime}
-  cor.test(formula = ~ worktime + age,
-                  data = survey_rename)
+cor.test(formula = ~ worktime + age,
+                data = survey_rename)
 ```
 
 ```{r income_bar_graph/gender}
-  survey_rename %>%
-    ggplot(aes(x= , y=income, fill=gender)) +
-    geom_bar(position = "fill")
+survey_rename %>%
+  ggplot(aes(x= , y=income, fill=gender)) +
+  geom_bar(position = "fill")
 ```
 ```{r education_bar_graph/gender}
-  survey_rename %>%
-    ggplot(aes(x= , y=education, fill=gender)) +
-    geom_bar(position = "fill")
+survey_rename %>%
+  ggplot(aes(x= , y=education, fill=gender)) +
+  geom_bar(position = "fill")
 ```
 ```{r sirius_bar_graph}
-  survey_rename %>%
-    ggplot(aes(x= sirius, y=, fill=wharton)) +
-    geom_bar(position = "fill")
+survey_rename %>%
+  ggplot(aes(x= sirius, y=, fill=wharton)) +
+  geom_bar(position = "fill")
 ```
 ```{r wharton_bar_graph}
-  survey_rename %>%
-    ggplot(aes(x= wharton, y=, fill=sirius)) +
-    geom_bar(position = "fill")
+survey_rename %>%
+  ggplot(aes(x= wharton, y=, fill=sirius)) +
+  geom_bar(position = "fill")
 ```
 ```{r income_bar_graph}
 survey_rename %>%
