@@ -125,7 +125,7 @@ ii. Handle missing/wrongly filled values of the selected variables
 
 As in real world data with user input, the data is incomplete, with missing values, and has incorrect responses. There is no general rule for dealing with these problems beyond “use common sense.” In whatever case, explain what the problems were and how you addressed them. Be sure to explain your rationale for your chosen methods of handling issues with the data. Do not use Excel for this, however tempting it might be.
 
-Since age is not automatically converted to an integer, there must be some unclean/incorrect values in this column.
+Since age is not automatically converted to an integer, there must be some unclean/incorrect values in this column.Regaring the other data sets, there are mishaps such as empty cells. In order to address this problem, we need to index each column for the error, then replace the error by assigning it a value through the <- function, whether it is NA or an actual data value.
 
 ### Clean Age Variable
 ```{r Clean Ages}
