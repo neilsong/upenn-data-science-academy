@@ -252,3 +252,5 @@ To be specific, you should include:
 
 ## Goal of Study
 The goal of this study is to predict the size of the audience regarding the "Business Radio Powered by the Wharton School" in terms of the whole 51.6 million Sirius Radio listeners. In order to do so, we picked out specific variables- age, gender, education level, household income, whether one listens to sirius and/or wharton, and worktime. It was necessary to clean the data by assigning unusable values NA or their correct values. The data was gathered using MTurk, at an offered price for $0.10 for each answered survey for 6 days. Through caclulating the proportion of listeners for Wharton to those who don't listen to Wharton, and multiplying it to the assumed amount of Sirius XM listeners, we get a value of 2.04 million listeners. The limitations of this study are the fact that most of the results came from the first two days, biasing the study towards the people surveyed on those two days. At the same time, this survey is only representative of the people who were willing to partake in the survey, not those who declined, further skewing the data.
+
+End 
