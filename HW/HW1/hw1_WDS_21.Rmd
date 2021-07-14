@@ -105,18 +105,17 @@ Select only the variables Age, Gender, Education Level, Household Income in 2013
 
 Change the variable names to be "age", "gender", "education", "income", "sirius", "wharton", "worktime".
 
-# load the data from the table
+### Load the data from the table
 ```{r load_data}
   survey <- read.csv("data/Survey_results_final.csv", header=T, stringsAsFactors = FALSE)
 ```
 
-# select the specific variables we want
+### Select the specific variables we want
 ```{r select_variables}
   survey_col <- survey %>% select(Answer.Age, Answer.Gender, Answer.Education, Answer.Gender, Answer.HouseHoldIncome, Answer.Sirius.Radio, Answer.Wharton.Radio, WorkTimeInSeconds)
-    
 ```
 
-# rename the specific variables accordingly
+### Rename the specific variables accordingly
 ```{r rename_columns}
   survey_rename<-survey_col %>% rename(age = Answer.Age, gender = Answer.Gender, education = Answer.Education, income = Answer.HouseHoldIncome, sirius = Answer.Sirius.Radio, wharton = Answer.Wharton.Radio, worktime = WorkTimeInSeconds)
 ```
@@ -126,6 +125,8 @@ ii. Handle missing/wrongly filled values of the selected variables
 As in real world data with user input, the data is incomplete, with missing values, and has incorrect responses. There is no general rule for dealing with these problems beyond “use common sense.” In whatever case, explain what the problems were and how you addressed them. Be sure to explain your rationale for your chosen methods of handling issues with the data. Do not use Excel for this, however tempting it might be.
 
 Since age is not automatically converted to an integer, there must be some unclean/incorrect values in this column.
+
+### Clean Age Variable
 ```{r Clean Ages}
 survey_rename$age[survey_rename$age=="Eighteen (18)"] <- 18
 survey_rename$age[survey_rename$age=="female"] <- NA
@@ -135,9 +136,9 @@ survey_rename$age[survey_rename$age == "27'"] <- 27
 survey_rename$age[survey_rename$age==""] <- NA
 survey_rename$age <- as.integer(survey_rename$age)
 str(survey_rename)
-
 ```
 
+### Clean Education Variable
 ```{r Cleaning Education}
 # survey_rename %>%
 #  select(education) %>%
