@@ -138,6 +138,13 @@ str(survey_rename)
 
 ```
 
+```{r Cleaning Education}
+# survey_rename %>%
+#  select(education) %>%
+#  group_by(education) %>%
+#  summarise(n())
+survey_rename$education[survey_rename$education == "select one"] <- NA
+```
 
 iii. Brief summary 
 
@@ -189,6 +196,7 @@ survey_rename %>%
 ```
 ```{r education_bar_graph}
 survey_rename %>%
+  drop_na(education) %>%
   ggplot(aes(y = education)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(x = "Level of education", y = "Frequency")
