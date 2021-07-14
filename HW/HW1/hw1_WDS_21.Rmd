@@ -113,13 +113,14 @@ Change the variable names to be "age", "gender", "education", "income", "sirius"
 ### Select the specific variables we want
 ```{r select_variables}
   survey_col <- survey %>% select(Answer.Age, Answer.Gender, Answer.Education, Answer.Gender, Answer.HouseHoldIncome, Answer.Sirius.Radio, Answer.Wharton.Radio, WorkTimeInSeconds)
+  
 ```
 
 ### Rename the specific variables accordingly
 ```{r rename_columns}
   survey_rename<-survey_col %>% rename(age = Answer.Age, gender = Answer.Gender, education = Answer.Education, income = Answer.HouseHoldIncome, sirius = Answer.Sirius.Radio, wharton = Answer.Wharton.Radio, worktime = WorkTimeInSeconds)
+ 
 ```
-
 ii. Handle missing/wrongly filled values of the selected variables
 
 As in real world data with user input, the data is incomplete, with missing values, and has incorrect responses. There is no general rule for dealing with these problems beyond “use common sense.” In whatever case, explain what the problems were and how you addressed them. Be sure to explain your rationale for your chosen methods of handling issues with the data. Do not use Excel for this, however tempting it might be.
@@ -229,8 +230,9 @@ survey_rename %>%
 The population from which the sample is drawn determines where the results of our analysis can be applied or generalized. We include some basic demographic information for the purpose of identifying sample bias, if any exists. Combine our data and the general population distribution in age, gender and income to try to characterize our sample on hand.
 
 i. Does this sample appear to be a random sample from the general population of the USA?
-This is the graph comparing gender. The blue graph refers to the data set provided, while the black graph is the total female and male in US in 2013
-```{r}
+
+### This is the graph comparing gender.The blue graph refers to the data set provided, while the black graph is the total female and male in US in 2013
+```{r gender_comparison}
 
  survey_rename %>%
  select(gender) %>%
@@ -254,6 +256,34 @@ p
 grid.arrange(pp,p , ncol = 2)
 ```
 
+```{r income_comparison}
+ education_income <- read.csv("data/education_income.csv")
+
+ education_income_col <- education_income %>%    select(Less.Than.9th.Grade,Some.College.No.Degree..or.associate.degree,Bachelor.s.Degree.or.Master.s.Degree, Professional.Degree.or.Doctorate.Degree)
+ 
+  education_income_rename <-  education_income_col %>% rename(high_school_or_less = Less.Than.9th.Grade, partial_ciollege_or_no_degree = Some.College.No.Degree..or.associate.degree, bachelor_or_master = Bachelor.s.Degree.or.Master.s.Degree, professional_or_doctorate = Professional.Degree.or.Doctorate.Degree)
+  
+  education_income_rename$professional_or_doctorate[education_income_rename$professional_or_doctorate=="(B)"] <- NA
+
+  survey_rename %>%
+  ggplot(aes(y = income)) +
+  geom_bar(stat = "count", color = "blue", fill = "white") +
+  labs(y = "Household Income", x = "Frequency")
+
+library(ggplot2)
+library(reshape2)
+df <- data.frame(education_income_rename)
+df <- melt(df, id.vars = "high_school_or_less", variable.name = 'education' )
+
+# Everything on the same plot
+ggplot(df, aes(Xax,value, col=variable)) + 
+  geom_point() + 
+  stat_smooth() 
+
+
+  
+  
+```
 
 
 Note: You can not provide evidence by simply looking at our data here. For example, you need to find distribution of education in our age group in US to see if the two groups match in distribution.  Please do not spend too much time gathering evidence. 
@@ -282,7 +312,7 @@ To be specific, you should include:
 3. Findings:
 4. Limitations of the study.
 
-## Goal of Study
+## Executive Summary
 The goal of this study is to predict the size of the audience regarding the "Business Radio Powered by the Wharton School" in terms of the whole 51.6 million Sirius Radio listeners. In order to do so, we picked out specific variables- age, gender, education level, household income, whether one listens to sirius and/or wharton, and worktime. It was necessary to clean the data by assigning unusable values NA or their correct values. The data was gathered using MTurk, at an offered price for $0.10 for each answered survey for 6 days. Through caclulating the proportion of listeners for Wharton to those who don't listen to Wharton, and multiplying it to the assumed amount of Sirius XM listeners, we get a value of 2.04 million listeners. The limitations of this study are the fact that most of the results came from the first two days, biasing the study towards the people surveyed on those two days. At the same time, this survey is only representative of the people who were willing to partake in the survey, not those who declined, further skewing the data.
 
 End 
