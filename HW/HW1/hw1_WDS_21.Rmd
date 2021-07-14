@@ -190,4 +190,3 @@ To be specific, you should include:
 3. Findings:
 4. Limitations of the study.: 
 ## Executive summary 
->>>>>>> 9cb9fe6c393d67e87f47a1162b23d8582a44b182
