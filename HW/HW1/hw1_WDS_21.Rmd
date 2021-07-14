@@ -178,7 +178,7 @@ Note: You can not provide evidence by simply looking at our data here. For examp
 
 Give a final estimate of the Wharton audience size in January 2014. Assume that the sample is a random sample of the MTURK population, and that the proportion of Wharton listeners vs. Sirius listeners in the general population is the same as that in the MTURK population. Write a brief executive summary to summarize your findings and how you came to that conclusion.
 
-To be specific, you should include:
+To be specific, you should include LOL
 
 1. Goal of the study
 2. Method used: data gathering, estimation methods
