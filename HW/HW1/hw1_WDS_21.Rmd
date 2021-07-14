@@ -163,7 +163,12 @@ survey_rename %>%
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(x = "Household Income", y = "Frequency")
 ```
-
+```{r Plot Education Bar Graph}
+survey_rename %>%
+  ggplot(aes(x = education)) +
+  geom_bar(stat = "count", color = "blue", fill = "white") +
+  labs(x = "Level of education", y = "Frequency")
+```
 
 ## Sample properties
 
@@ -180,7 +185,7 @@ Give a final estimate of the Wharton audience size in January 2014. Assume that 
 
 To be specific, you should include:
 
-1. Goal of the study
-2. Method used: data gathering, estimation methods
-3. Findings
-4. Limitations of the study. 
+1. Goal of the study:
+2. Method used: data gathering, estimation methods:
+3. Findings:
+4. Limitations of the study.: 
