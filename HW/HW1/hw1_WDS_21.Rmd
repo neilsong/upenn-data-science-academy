@@ -1,11 +1,11 @@
 ---
 title: " WDS, HW 1"
 author:
-- Group Member 1
-- Group Member 2
-- Group Member 3
-- Group Member 4
-- Group Member 5
+- Aaron ( team leader )
+- Neil
+- Ben
+- Luke
+- Tanvi
 date: 'Due: 10:00PM,  July 13, 2021'
 output:
   pdf_document:
@@ -185,13 +185,13 @@ survey_rename %>%
 survey_rename %>%
   ggplot(aes(y = income)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
-  labs(x = "Frequency", y = "Household Income")
+  labs(x = "Household Income", y = "Frequency")
 ```
 ```{r education_bar_graph}
 survey_rename %>%
   ggplot(aes(y = education)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
-  labs(x = "Frequency", y = "Level of education")
+  labs(x = "Level of education", y = "Frequency")
 ```
 
 ## Sample properties
