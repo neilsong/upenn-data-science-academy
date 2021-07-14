@@ -3,7 +3,7 @@
     "path": "C:/Users/Aaron/Desktop/upenn-data-science-academy/HW/HW1/hw1_WDS_21.Rmd",
     "project_path": "hw1_WDS_21.Rmd",
     "type": "r_markdown",
-    "hash": "2262368704",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1626280132549.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "379,0",
-        "scrollLine": "359"
+        "cursorPosition": "2,7",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1626280179,
+    "lastKnownWriteTime": 1626282020,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1626280179392,
+    "last_content_update": 1626282020632,
     "read_only": false,
     "read_only_alternatives": []
 }
