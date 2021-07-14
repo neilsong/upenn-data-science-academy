@@ -143,7 +143,7 @@ iii. Brief summary
 
 Write a brief report to summarize all the variables collected. Include both summary statistics (including sample size) and graphical displays such as histograms or bar charts where appropriate. Comment on what you have found from this sample. (For example - it's very interesting to think about why would one work for a job that pays only 10cents/each survey? Who are those survey workers? The answer may be interesting even if it may not directly relate to our goal.)
 
-The variables collected 
+The variables collected and analyzed in the survey were Age, Gender, Education Level, Household Income in 2013, whether the person listens to Wharton and Sirius Radios,and Time used to finish the survey. By plotting the data in histograms, a skew to the right can be observed in the age variable, showing that the people who took the survey were more likely to be younger (<40). This same phenomenon repeats throughout the Worktime variable, possibly demonstrating some similarities between younger age and an a shorter worktime. This could be intuitively accounted for by relatively low survey payout, though there is not enough concrete data to support this hypothesis. However, after running a correlation test, recieving a value of .238 renders this correlation weak. The responses regarding income generally have more male responses, whereas the responses regarding education level are more even between males and females (except for the "other" category). Additionally, it can be concluded that if you listen to Wharton, you are likely to listen to Sirius as well. However, if you listen to Sirius, it is unlikely that you listen to Wharton.
 
 ```{r Plot Age Histogram}
 survey_rename %>%
@@ -157,10 +157,11 @@ survey_rename %>%
   geom_histogram(binwidth = 2)
 ```
 
-```{r Plot Worktime Histogram}
+```{r Plot Income Bar Graph}
 survey_rename %>%
-  ggplot(aes(x = worktime)) + 
-  geom_histogram(binwidth = 2)
+  ggplot(aes(x = income)) +
+  geom_bar(stat = "count", color = "blue", fill = "white") +
+  labs(x = "Household Income", y = "Frequency")
 ```
 
 
