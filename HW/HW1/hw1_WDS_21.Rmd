@@ -275,7 +275,7 @@ library(ggplot2)
 p<-ggplot(data=df, aes(x=Gender, y=Frequency)) +
   geom_bar(stat="identity")
 p
-grid.arrange(pp,p , ncol = 2)
+#grid.arrange(pp,p , ncol = 2)
 ```
 
 ```{r income_comparison}
@@ -299,15 +299,24 @@ grid.arrange(pp,p , ncol = 2)
   
 ```
 
-```{r}
+The sample does not show the general population of the USA. The amount of people in each age group is pretty similar in the general population. The sample showed that there was a huge difference between the amount of people in each age group. 
+
+```{r Comparing Age}
 UsAge <- read.csv("data/2013age_table1.csv", header = T, stringsAsFactors = FALSE)
-#Us <- data.frame(Age =c(UsAge %>% select(Age)),
- #               Pop =c(UsAge %>% select(Number)))
-b <- UsAge %>%
-  ggplot(aes(y = Age)) +
-  geom_bar(stat = "count", color = "dark green") +
-  labs(y = "Age Ranges", x = "Amount of People")
-b
+Us <- data.frame(Age=c("0-5","5-9","10-14",
+                       "15-19","20-24","25-29",
+                       "30-34","35-39","40-44",
+                       "45-49","50-54","55-59",
+                       "60-64","65-69","70-74"),
+                 Number =c(19917.20356,20640,20970,22153,21138,20659,19221,20657,
+                           21060,22386,20880, 17611,14437,10624,7598))
+# add the data
+barplot(Us$Number, names.arg=Us$Age)
+#creating a graph
+survey_rename %>%
+  ggplot(aes(x = age)) +
+  geom_histogram(binwidth = 2, color = "blue", fill = "white") +
+  labs(x = "Age", y="Frequency")
 ```
 
 
