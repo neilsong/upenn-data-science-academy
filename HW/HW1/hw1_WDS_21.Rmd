@@ -235,6 +235,7 @@ survey_rename %>%
 ```
 ```{r income_bar_graph}
 survey_rename %>%
+  drop_na(income) %>%
   ggplot(aes(y = income)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(y = "Household Income", x = "Frequency")
