@@ -1,0 +1,798 @@
+---
+title: "Simple Linear Regression"
+author: "Modern Data Mining"
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: Boadilla
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+header-includes:
+- \AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+- \AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, fig.width=8, fig.height=4)
+options(scipen = 0, digits = 3)  # controls base R output
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(ggplot2, dplyr, tidyverse, gridExtra, ggrepel, plotly, skimr) 
+# install a package if it does not exist already and put the package in the path (library)
+# dplyr, ggplot2,tidyr
+```
+
+
+# Objectives
+
+---
+\frametitle{Objectives}
+
+- Data Science is a field of science. We try to extract useful information from data. In order to use the data efficiently and correctly we must understand the data first. According to the goal of the study, combining the domain knowledge, we then design the study. In this lecture we first go through some basic explore data analysis to understand the nature of the data, some plausible relationship among the variables. 
+
+- Data mining tools have been expanded dramatically in the past 20 years. Linear model as a building block for data science is simple and powerful. We introduce/review simple linear model. The focus is to understand what is it we are modeling; how to apply the data to get the information; to understand the intrinsic variability that statistics have. 
+
+
+---
+\frametitle{Table of Content}
+
+- Suggested readings:  
+    + The full lecture: `Regression_1_simple_regression.html`
+    + Data set: `MLPayData_Total.csv`
+    
+ - Case Study
+ 
+ - EDA
+ 
+ - Simple regression
+    + Model specification
+    + OLS estimates and properties
+    + R-squared and RSE
+    + Confidence intervals for coefficients
+    + Prediction intervals
+    + Model diagnoses
+ 
+
+# Case Study: Baseball
+
+---
+\frametitle{Case Study: Baseball}
+
+- Baseball is one of the most popular sports in US. The highest level of baseball is Major League Baseball which includes American League and National League with total of 30 teams. New York Yankees, Boston Red Sox, Philadelphia Phillies and recently rising star team Oakland Athletics are among the top teams. Oakland A's is a low budget team. But the team has been moving itself up mainly due to its General Manager (GM) Billy Beane who is well known to apply statistics in his coaching.
+
+- Questions of interests for us:
+  + **Q1:** Will a team perform better when they are paid more? 
+  + **Q2:** Is Billy Beane (Oakland A's GM) worth 12.5 million dollars for a period of 5 years, as offered by the Red Sox?
+
+- Read an article: [Billion dollar Billy Beane](https://fivethirtyeight.com/features/billion-dollar-billy-beane/).
+
+
+## Data
+
+---
+\frametitle{Data}
+
+`MLPayData_Total.csv`, consists of winning records and the payroll of all 30 ML teams from 1998 to 2014 (17 years). There are 162 games in each season. We will create the following two exaggerated variables: 
+
+* `payroll`: total pay from 1998 to 2014 in **billion dollars** 
+
+* `win`: average winning percentage for the span of 1998 to 2014
+
+To answer **Q1**: 
+
+1. How does `payroll` relate to the performance measured by `win`?
+
+2. Given payroll= .84, 
+  + on average what would be the **mean** winning percentage
+  + what do we expect **the win** to be for such A team? 
+
+(Oakland A's: payroll=.84, win=.54 and Red Sox: payroll=1.97, win=.55 )
+
+---
+
+---
+\frametitle{Data Preparation}
+
+We would normally do a thorough EDA. We skip that portion of the data analysis and get to the regression problem directly. Before that, let us take a quick look at the data and extract aggregated variables. 
+
+\tiny
+```{r , fig.height = 5}
+baseball <- read.csv("MLPayData_Total.csv")  
+# names(baseball)
+datapay <- baseball %>%
+  rename(team = "Team.name.2014", 
+         win = avgwin) %>%
+  select(team, payroll, win)
+```
+
+z
+<!-- Slides with plot -->
+## EDA
+
+--- 
+\frametitle{Scatter Plot: Explore the relationship between `payroll`, and `win` }
+
+\tiny
+```{r fig.height = 4.5, eval = F}
+plot(x = datapay$payroll, 
+     y = datapay$win, 
+     pch  = 16,     # "point character": shape/character of points 
+     cex  = 0.8,    # size
+     col  = "blue", # color 
+     xlab = "Payroll",  # x-axis
+     ylab = "Win",  # y-axis 
+     main = "MLB Teams's Overall Win vs. Payroll") # title
+# label all points
+text(datapay$payroll, datapay$win, 
+     labels=datapay$team, cex=0.7, 
+     pos=1) # position 1,2,3,4: below, left, above, right of (x,y)
+```
+
+--- 
+\frametitle{Scatter Plot: Explore the relationship between `payroll`, and `win` }
+
+We notice the positive association: when `payroll` increases, so does `win`. 
+
+```{r fig.height = 5, echo = F}
+plot(x = datapay$payroll, 
+     y = datapay$win, 
+     pch  = 16,     # "point character": shape/character of points 
+     cex  = 0.8,    # size
+     col  = "blue", # color 
+     xlab = "Payroll",  # x-axis
+     ylab = "Win",  # y-axis 
+     main = "MLB Teams's Overall Win vs. Payroll") # title
+text(datapay$payroll, datapay$win, labels=datapay$team, cex=0.7, pos=1) # label all points
+```
+
+--- 
+\frametitle{Plotting using ggplot}
+
+\tiny
+```{r  fig.height = 4}
+ggplot(datapay) + 
+  geom_point(aes(x = payroll, y = win), color = "blue") + 
+  geom_text_repel(aes(x = payroll, y = win, label=team), size=3) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", x = "Payroll", y = "Win")
+```
+
+---
+\frametitle{Notes:}
+
+# Simple linear regression
+
+## Model specification
+
+--- 
+\frametitle{Simple Linear Regression}
+
+Often we would like to explore the relationship between two variables. Will a team perform better when they are paid more? The simplest model is a linear model. Let the response $y_i$ be the `win` and the explanatory variable $x_i$ be `payroll` ($i = 1, \dots, n=30$).
+
+Assume there is linear relationship between `win` and `payroll`, i.e.
+
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
+
+--- 
+\frametitle{Model interpretation}
+
+* We assume that given `payroll`, on average the `win` is a linear function
+* For each team the `win` is the average plus an error term
+* Unknown parameters of interest
+    + intercept: $\beta_0$
+    + slope: $\beta_1$
+    + both are unknown
+
+
+## OLS estimates and properties
+
+--- 
+\frametitle{Estimation}
+
+
+How to estimate the parameters using the data we have?
+For example, how would you decide on the following three equations? 
+
+--- 
+\frametitle{Estimation}
+
+```{r echo=F}
+par(mfrow=c(1,3))
+# Mean of payroll
+b0 <- mean(datapay$win)
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = substitute(paste(hat(y), " = ", h), 
+                       list(h=b0)))
+abline(h=b0, lwd=5, col="blue")
+segments(datapay$payroll, 
+         datapay$win, 
+         datapay$payroll, 
+         mean(datapay$win), 
+         col="blue")
+
+# OLS
+fit0 <- lm(win~payroll, datapay)
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = substitute(paste(hat(y), " = ", b0, "+", b1, "x"), 
+                       list(b0 = fit0$coefficients[1],
+                            b1 = fit0$coefficients[2])))
+abline(fit0, col="red", lwd=4)
+segments(datapay$payroll, 
+         datapay$win, 
+         datapay$payroll, 
+         fitted(fit0), 
+         col="red")
+
+# Random pick
+b0 <- 0.4
+b1 <- 0.08
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = substitute(paste(hat(y), " = ", b0, "+", b1, "x"), 
+                       list(b0 = b0,
+                            b1 = b1)))
+abline(a = b0, b = b1, lwd=5, col="green")
+segments(datapay$payroll, 
+         datapay$win, 
+         datapay$payroll, 
+         b0 + b1*datapay$payroll, 
+         col="green")
+```
+
+--- 
+\frametitle{Ordinary least squares (OLS) estimates}
+
+Given an estimate $(b_0, b_1)$, we first define residuals as the differences between actual and predicted values of the response $y$, i.e.
+
+$$\hat{\epsilon}_i = \hat{y}_i -b_0 - b_1 x_i.$$
+In previous plots, the residuals are the vertical lines between observations and the fitted line. Now we are ready to define the OLS estimate.
+
+The OLS estimates $\hat\beta_0$ and $\hat\beta_1$ are obtained by minimizing sum of squared errors (RSS):
+
+$$(\hat\beta_0, \hat\beta_1) = 
+\arg\min_{b_0,\,b_1} \sum_{i=1}^{n} (y_i - b_0 - b_1  x_i)^{2}.$$
+
+Note: This is a quadratic equation of $b_0$ and $b_1$.
+
+--- 
+\frametitle{Ordinary least squares (OLS) estimates}
+
+We can derive the solution $\hat\beta_0$ and $\hat\beta_1$.
+
+$$\begin{split} 
+\hat\beta_1 &= r_{xy} \cdot \frac{s_y}{s_x}\\
+\hat\beta_0 &= \bar{y} - \hat\beta_1 \bar{x}
+\end{split}$$
+
+
+where 
+
+* $\bar{x}=$ sample mean of $x$'s (payroll)
+* $\bar{y}=$ sample mean of $y$'s (win)
+* $s_{x}=$ sample standard deviation of $x$'s (payroll)
+* $s_{y}=$ sample standard deviation of $y$'s (win)
+* $r_{xy}=$ sample correlation between $x$ and $y$.
+
+--- 
+\frametitle{`lm()`}
+
+The function `lm()` will be used extensively. This function solves the minimization problem that we defined above. Below we use `win` as the dependent $y$ variable and `payroll` as our $x$.
+
+As we can see from the below output, this function outputs a list of many statistics. We will define these statistics later
+\tiny
+```{r}
+myfit0 <- lm(win ~ payroll, data=datapay)
+names(myfit0)
+```  
+
+--- 
+\frametitle{`lm()`}
+
+We can also view a summary of the `lm()` output by using the `summary()` command.
+\tiny
+```{r results="hold"}
+summary(myfit0)   # it is another object that is often used
+results <- summary(myfit0)
+names(results) 
+```
+
+--- 
+\frametitle{`lm()`}
+
+To summarize the OLS estimate, $\hat{\beta}_0 =$ `r b0` and $\hat{\beta}_1 =$ `r b1`, we have the following estimator:
+
+$$\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i = 0.423 + 0.061 \cdot x_i$$
+
+Notice that the outputs of `myfit0` and `summary(myfit0)` are different
+
+\tiny
+```{r results="hold"}
+myfit0
+b0 <- myfit0$coefficients[1]
+b1 <- myfit0$coefficients[2]
+```
+
+--- 
+\frametitle{Interpretation of the slope}
+
+* When `payroll` increases by 1 unit (1 billion), we expect, on average the `win` will increase about `r  myfit0$coefficients[2]`. 
+
+* When `payroll` increases by .5 unit (500 million), we expect, on average the `win` will increase about `r  .5*myfit0$coefficients[2]`. 
+
+--- 
+\frametitle{Mean estimation}
+
+* For all the team similar to Oakland Athletics whose `payroll` is `r datapay$payroll[datapay$team == "Oakland Athletics"]`, we estimate on average the `win` to be
+
+$$ 0.423 + 0.061 \times 0.841 = .474$$
+
+
+* **Residuals**:  For Oakland Athletics, the real `win` is `r datapay$payroll[datapay$team == "Oakland Athletics"]`. So the residual for team Oakland Athletics is 
+
+
+$$\hat{\epsilon}_{\text{Oakland}}= .545 - .474 = .071$$
+
+
+--- 
+\frametitle{Fitted Values}
+Here are a few rows that show the fitted values from our model
+
+\tiny
+```{r}
+data.frame(datapay$team, datapay$payroll, datapay$win, myfit0$fitted,
+           myfit0$res)[15:25, ] # show a few rows
+```
+
+
+--- 
+\frametitle{Scatter plot with the LS line added}
+
+Base `R`
+
+```{r fig.height = 5, echo = F}
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = "MLB Teams's Overall Win Percentage vs. Payroll")
+abline(myfit0, col="red", lwd=4)         # many other ways. 
+abline(h=mean(datapay$win), lwd=5, col="blue") # add a horizontal line, y=mean(y)
+```
+
+--- 
+\frametitle{Scatter plot with the LS line added}
+
+`ggplot`
+
+```{r fig.height = 4.5, echo = F}
+# find the row index of Oakland Athletics and Boston Red Sox
+oakland_index <- which(datapay$team=="Oakland Athletics")
+redsox_index <- which(datapay$team=="Boston Red Sox")
+
+ggplot(datapay, aes(x = payroll, y = win)) + 
+  geom_point() + 
+  geom_smooth(method="lm",formula = 'y~x', se = F, color = "red") + 
+  geom_hline(aes(yintercept = mean(win)), color = "blue") + 
+  annotate(geom="text", 
+           x=datapay$payroll[oakland_index], 
+           y=datapay$win[oakland_index], 
+           label="Oakland A's",color="blue", vjust = -1) +
+  annotate(geom="text", 
+           x=datapay$payroll[redsox_index], 
+           y=datapay$win[redsox_index], 
+           label="Red Sox",color="red", vjust = -1) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", 
+       x = "Payroll", y = "Win")
+```
+
+--- 
+\frametitle{}
+
+HERE is how the article concludes that Beane is worth as much as the GM in Red Sox. By looking at the above plot, Oakland A's win pct is more or less same as that of Red Sox, so based on the LS equation, the team should have paid 2 billion.
+
+Do you agree on this statement?
+What is the right analysis?
+
+## R-squared and RSE
+
+--- 
+\frametitle{Goodness of Fit}
+
+How well does the linear model fit the data? A common, popular notion is through $R^2$. 
+
+**Residual Sum of Squares (RSS)**:
+
+The least squares approach chooses $\hat\beta_0$ and $\hat\beta_1$ to minimize the RSS. RSS is defined as:
+
+$$RSS =  \sum_{i=1}^{n} \hat{\epsilon}_i^{2} = \sum_{i=1}^{n} (y_i - \hat\beta_0 - \hat\beta_1  x_i)^{2}$$
+
+\tiny
+```{r results="hold"}
+myfit0 <- lm(win~payroll, data=datapay)
+RSS <- sum((myfit0$res)^2) # residual sum of squares
+RSS
+```
+
+
+--- 
+\frametitle{Goodness of Fit}
+
+**Mean Squared Error (MSE)**:
+
+Mean Squared Error (MSE) is the average of the squares of the errors, i.e. the average squared difference between the estimated values and the actual values. For simple linear regression, MSE is defined as:
+
+$$MSE = \frac{RSS}{n-2}.$$
+
+
+--- 
+\frametitle{Goodness of Fit}
+
+**Residual Standard Error (RSE)/Root-Mean-Square-Error (RMSE)**:
+
+Residual Standard Error (RSE) is the square root of MSE. For simple linear regression, RSE is defined as:
+
+$$RSE = \sqrt{MSE} = \sqrt{\frac{RSS}{n-2}}.$$
+
+\tiny
+```{r results="hold"}
+sqrt(RSS/myfit0$df)
+summary(myfit0)$sigma
+```
+
+Can we use RSS, MSE or RMSE to check how good the LS equation works?
+
+--- 
+\frametitle{Goodness of Fit}
+
+**Total Sum of Squares (TSS)**: 
+
+TSS measures the total variance in the response $Y$, and can be thought of as the amount of variability inherent in the response before the regression is performed. In contrast, RSS measures the amount of variability that is left unexplained after performing the regression.
+
+$$TSS = \sum_{i=1}^{n} (y_i - \bar{y_i})^{2}$$
+
+\tiny
+```{r results="hold"}
+TSS <- sum((datapay$win-mean(datapay$win))^2) # total sum of sqs
+TSS
+```
+
+--- 
+\frametitle{Goodness of Fit}
+
+**$R^2$**: 
+
+$R^{2}$ measures the proportion of variability in $Y$ that can be explained using $X$. An $R^{2}$ statistic that is close to 1 indicates that a large proportion of the variability in the response has been explained by the regression.
+
+$$R^{2} =  \frac{TSS - RSS}{TSS}$$
+
+\tiny
+```{r results="hold"}
+(TSS-RSS)/TSS    # Percentage reduction of the total errors
+(cor(datapay$win, myfit0$fit))^2 # Square of the cor between response and fitted values
+summary(myfit0)$r.squared
+```
+
+
+--- 
+\frametitle{Remarks}
+
+* How large $R^2$ needs to be so that you are comfortable to use the linear model?
+* Though $R^2$ is a very popular notion of goodness of fit, but it has its limitation. 
+
+
+## Confidence intervals for coefficients
+
+--- 
+\frametitle{Inference }
+
+* One of the most important aspect about statistics is to realize the estimators or statistics we propose, such as the least squared estimators for the slope and the intercept, they change as a function of data. 
+* Understanding the variability of the statistics, providing the accuracy of the estimators are one of the focus as statisticians. 
+* In order to assess the accuracy of the OLS estimator, we need assumptions!
+
+--- 
+\frametitle{Linear model assumptions}
+
+Recall
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i.$$
+We did not impose assumptions on $\epsilon_i$ when using OLS. 
+In order to provide some desired statistical properties and guarantees
+to our OLS estimate $(\hat\beta_0, \hat\beta_1)$, we need to impose assumptions.
+
+
+* Linearity: 
+$$\textbf{E}(y_i | x_i) = \beta_0 + \beta_1 x_i$$
+
+* Homoscedasticity:
+$$\textbf{Var}(y_i | x_i) = \sigma^2$$
+
+* Normality:
+$$\epsilon_i \overset{iid}{\sim} \mathcal{N}(0, \sigma^2)$$
+or
+$$y_i \overset{iid}{\sim} \mathcal{N}( \beta_0 + \beta_1 x_i, \sigma^2)$$
+
+
+--- 
+\frametitle{Inference for the coefficients: $\beta_0$ and $\beta_1$}
+
+Under the model assumptions:
+
+1. $y_i$ independently and identically normally distributed
+2. The mean of $y$ given $x$ is linear
+3. The variance of $y$ does not depend on $x$
+
+
+--- 
+\frametitle{Inference for the coefficients: $\beta_0$ and $\beta_1$}
+
+The OLS estimates $\hat \beta = (\hat\beta_0, \hat\beta_1)$ has the following properties:
+
+1. Unbiasedness
+
+$$\textbf{E}(\hat{\beta}) = \beta$$
+
+2. Normality
+
+$$\hat{\beta}_1 \sim \mathcal{N}(\beta_1, \textbf{Var}(\hat{\beta}_1))$$
+where 
+
+$$\textbf{Var}(\hat{\beta}_1) = \frac{\sigma^{2}}{x_x^2} = \frac{\sigma^{2}} {\sum_{i=1}^{n} (x_i - \bar{x})^{2}}.$$
+
+
+--- 
+\frametitle{Inference for the coefficients: $\beta_0$ and $\beta_1$}
+
+
+In general,
+$$\hat\beta \sim \mathcal{N} (\beta,\ \sigma^2 (X^TX)^{-1})$$
+Here $X$ is the design matrix where the first column is 1's and the second column is the values of x, in our case it is the column of `payrolls1`. 
+
+
+--- 
+\frametitle{Confidence intervals for the coefficients}
+
+$t$-interval and $t$-test can be constructed using the above results. 
+
+For example, the 95% confidence interval for $\beta$ approximately takes the form
+
+$$\hat\beta \pm 2 \cdot SE(\hat\beta).$$
+
+We can also perform hypothesis test on the coefficients. To be specific, we have the following test.
+
+$$H_0: \beta_{1}=0 \mbox{ v.s. } H_1: \beta_{1} \not= 0$$
+
+Remark: $t$-distribution $\approx$ Normal distribution
+
+--- 
+\frametitle{Tests to see if the slope is 0}
+
+To test the null hypothesis, we need to decide whether $\hat \beta_1$ is far away from 0, 
+which depends on $SE(\hat \beta_1)$. We now define the test statistics as follows.
+
+$$t = \frac{\hat\beta_1 - 0}{SE(\hat \beta_1)}$$
+
+Under the null hypothesis $\beta_{1}=0$, $t$ will have a $t$-distribution with $(n-2)$ degrees of freedom. 
+Now we can compute the probability of $T\sim t_{n-2}$ equal to or larger than $|t|$, which is termed $p-value$. Roughly speaking, a small $p$-value means the odd of $\beta_{1}=0$ is small, then we can reject the null hypothesis.
+
+--- 
+\frametitle{Tests to see if the slope is 0}
+
+$SE(\hat\beta)$, $t$-value and $p$-value are included in the summary output.
+
+\tiny
+```{r results="hold"}
+summary(myfit0) 
+```
+
+
+--- 
+\frametitle{Tests to see if the slope is 0}
+
+The `confint()` function returns the confident interval for us (95% confident interval by default).
+
+\tiny
+```{r results="hold"}
+confint(myfit0)
+confint(myfit0, level = 0.99)
+```
+
+
+--- 
+\frametitle{Confidence for the mean response }
+
+We use a confidence interval to quantify the uncertainty surrounding the mean of the response (`win`). For example, for teams like Oakland A's whose `payroll=.841`, a 95% Confidence Interval for the mean of response `win` is
+
+$$\hat{y}_{|x=.841} \pm t_{(\alpha/2, n-2)} \times \sqrt{MSE \times \left(\frac{1}{n} + \frac{(.841-\bar{x})^2}{\sum(x_i-\bar{x})^2}\right)}.$$
+
+
+--- 
+\frametitle{Confidence for the mean response }
+
+The `predict()` provides prediction with confidence interval using the argument `interval="confidence"`.
+
+\tiny
+```{r results="hold"}
+new <- data.frame(payroll=c(.841))  #new <- data.frame(payroll=c(1.24))
+CImean <- predict(myfit0, new, interval="confidence", se.fit=TRUE)  
+CImean
+```
+
+
+--- 
+\frametitle{Confidence for the mean response }
+
+We can show the confidence interval for the mean response using `ggplot()` with `geom_smooth()` using the argument `se=TRUE`.
+
+```{r fig.height = 4.5, echo = F}
+# find the row index of Oakland Athletics and Boston Red Sox
+oakland_index <- which(datapay$team=="Oakland Athletics")
+redsox_index <- which(datapay$team=="Boston Red Sox")
+
+ggplot(datapay, aes(x = payroll, y = win)) + 
+  geom_point() + 
+  geom_smooth(method="lm", formula = 'y~x', se = TRUE, level = 0.95, color = "red") + 
+  geom_hline(aes(yintercept = mean(win)), color = "blue") + 
+  annotate(geom="text", 
+           x=datapay$payroll[oakland_index], 
+           y=datapay$win[oakland_index], 
+           label="Oakland A's",color="green", vjust = -1) +
+  annotate(geom="text", 
+           x=datapay$payroll[redsox_index], 
+           y=datapay$win[redsox_index], 
+           label="Red Sox",color="red", vjust = -1) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", 
+       x = "Payroll", y = "Win")
+```
+
+
+## Prediction intervals
+
+--- 
+\frametitle{Prediction interval for a response}
+
+A prediction interval can be used to quantify the uncertainty surrounding `win` for a **particular** team.
+
+The prediction interval is approximately
+$$\hat{y}_{|x} \pm 2 \sqrt{MSE}$$
+
+We now produce 95% & 99% PI for a future $y$ given $x=.841$ using
+`predict()` again but with the argument `interval="prediction"`.
+
+\small
+
+Notes: the exact equation for prediction interval is
+
+$$\hat{y}_{|x} \pm t_{(\alpha/2, n-2)} \times \sqrt{MSE \times \left(   1+\frac{1}{n} + \frac{(x-\bar{x})^2}{\sum(x_i-\bar{x})^2}\right)}$$
+
+--- 
+\frametitle{Prediction interval for a response}
+
+\tiny
+```{r results="hold"}
+new <- data.frame(payroll=c(.841))
+CIpred <- predict(myfit0, new, interval="prediction", se.fit=TRUE)
+CIpred 
+```
+
+```{r results="hold"}
+CIpred_99 <- predict(myfit0, new, interval="prediction", se.fit=TRUE, level=.99)
+CIpred_99
+```
+
+
+--- 
+\frametitle{Prediction interval for a response}
+
+Now we plot the confidence interval (shaded) along with the 95% prediction interval in blue and 99% prediction interval in green.
+
+```{r fig.height = 4.5, echo = F, message = FALSE, warning = FALSE}
+# find the row index of Oakland Athletics and Boston Red Sox
+oakland_index <- which(datapay$team=="Oakland Athletics")
+redsox_index <- which(datapay$team=="Boston Red Sox")
+pred_int <- predict(myfit0, interval="prediction")
+colnames(pred_int) <- c("fit_95", "lwr_95", "upr_95")
+pred_int_99 <- predict(myfit0, interval="prediction", level = .99)
+colnames(pred_int_99) <- c("fit_99", "lwr_99", "upr_99")
+
+cbind(datapay, pred_int, pred_int_99) %>%
+ggplot(aes(x = payroll, y = win)) + 
+  geom_point() + 
+  geom_smooth(method="lm", se = TRUE, level = 0.95, color = "red") + 
+  geom_line(aes(y=lwr_95), color = "blue", linetype = "dashed") + 
+  geom_line(aes(y=upr_95), color = "blue", linetype = "dashed") + 
+  geom_line(aes(y=lwr_99), color = "green", linetype = "dashed") + 
+  geom_line(aes(y=upr_99), color = "green", linetype = "dashed") + 
+  annotate(geom="text", 
+           x=datapay$payroll[oakland_index], 
+           y=datapay$win[oakland_index], 
+           label="Oakland A's",color="blue", vjust = -1) +
+  annotate(geom="text", 
+           x=datapay$payroll[redsox_index], 
+           y=datapay$win[redsox_index], 
+           label="Red Sox",color="red", vjust = -1) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", 
+       x = "Payroll", y = "Win")
+```
+
+
+## Model diagnoses
+
+
+--- 
+\frametitle{Model diagnoses}
+
+How reliable our confidence intervals and the tests are? We will need to check the model assumptions in the following steps:
+
+1. Check **linearity** first; if linearity is satisfied, then
+
+2. Check **homoscedasticity**; if homoscedasticity is satisfied, then
+
+3. Check **normality**.
+
+
+--- 
+\frametitle{Residual plot}
+
+We plot the residuals against the fitted values to
+
+* check **linearity** by checking whether the residuals follow a symmetric pattern with respect to $h=0$.
+
+* check **homoscedasticity** by checking whether the residuals are evenly distributed within a band.
+
+
+--- 
+\frametitle{Residual plot}
+
+\tiny
+```{r results="hold"}
+plot(myfit0$fitted, myfit0$residuals, 
+     pch  = 16,
+     main = "residual plot")
+abline(h=0, lwd=4, col="red")
+```
+
+This can be also done with
+```{r, eval=F}
+plot(myfit0, 1)
+```
+
+
+--- 
+\frametitle{Check normality}
+
+We look at the qqplot of residuals to check normality.
+
+\tiny
+```{r results="hold"}
+  qqnorm(myfit0$residuals)
+  qqline(myfit0$residuals, lwd=4, col="blue")
+```
+  
+This can be also done with
+```{r, eval=F}
+plot(myfit0, 2)
+```
+  
+# Summary
+
+--- 
+\frametitle{Summary}
+
+
+* EDA: We understand the data by exploring the basic structure of the data (number of observations, variables and missing data), the descriptive statistics and the relationship between variables. Visualization is a crucial step for EDA. Both graphical tools in base `R` an `ggplot2` come in handy. 
+* OLS: Simple linear regression is introduced. We study the OLS estimate with its interpretation and properties. We evaluate the OLS estimate and provide inference. It is important to perform model diagnoses before coming to any conclusion. The `lm()` function is one of the most important tools for statisticians. 
+

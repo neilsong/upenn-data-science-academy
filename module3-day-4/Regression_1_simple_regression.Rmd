@@ -1,0 +1,1107 @@
+---
+title: "Simple Regression"
+author: "Modern Data Mining"
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '4'
+  word_document:
+    toc: yes
+    toc_depth: '4'
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+urlcolor: blue
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, results = "hide", fig.width=8, fig.height=4)
+options(scipen = 0, digits = 3)  # controls base R output
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(dplyr, ggplot2, gridExtra, ggrepel)
+```
+
+
+\pagebreak
+
+# Objectives {-}
+
+Data Science is a field of science. We try to extract useful information from data. In order to use the data efficiently and correctly we must understand the data first. According to the goal of the study, combining the domain knowledge, we then design the study. In this lecture we first go through some basic explore data analysis to understand the nature of the data, some plausible relationship among the variables. 
+
+Data mining tools have been expanded dramatically in the past 20 years. Linear model as a building block for data science is simple and powerful. We introduce/review simple linear model. The focus is to understand what is it we are modeling; how to apply the data to get the information; to understand the intrinsic variability that statistics have. 
+
+
+Contents:
+
+ 0. Suggested readings:  
+    + Chapter 2 and 3
+    + Statistical Sleuth, Chapter 7/8 
+    + Data set: `MLPayData_Total.csv`
+    
+ 1. Case Study
+ 
+ 2. EDA
+ 
+ 3. Simple regression (**a quick review**)
+    + Model specification
+    + OLS estimates and properties
+    + R-squared and RSE
+    + Confidence intervals for coefficients
+    + Prediction intervals
+    + Model diagnoses
+ 
+ 4. Appendices
+    
+
+**Technical Note:**
+
+We hide all the outputs of R chunks by setting `results = "hide"` globally using `knitr::opts_chunk$set()` in the first chunk. You can set`results = "markup"` as default or `results = "hold"` in the global setting to show outputs of every chunk; or in the chunk headers to show outputs for that chunk. Setting `results = "hold"` holds all the output pieces and push them to the end of a chunk.
+
+
+[DPLYR Cheat Sheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+[ggplot Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+
+\pagebreak
+
+# Case Study: Baseball
+
+Baseball is one of the most popular sports in US. The highest level of baseball is Major League Baseball which includes American League and National League with total of 30 teams. New York Yankees, Boston Red Sox, Philadelphia Phillies and recently rising star team Oakland Athletics are among the top teams. Oakland A's is a low budget team. But the team has been moving itself up mainly due to its General Manager (GM) Billy Beane who is well known to apply statistics in his coaching.
+
+**Questions of interests for us:** 
+
++ **Q1:** Will a team perform better when they are paid more? 
++ **Q2:** Is Billy Beane (Oakland A's GM) worth 12.5 million dollars for a period of 5 years, as offered by the Red Sox?
+
+Read an article: [Billion dollar Billy Beane](https://fivethirtyeight.com/features/billion-dollar-billy-beane/).
+
+
+**Data**: `MLPayData_Total.csv`, consists of winning records and the payroll of all 30 ML teams from 1998 to 2014 (17 years). There are 162 games in each season. We will create the following two exaggerated variables: 
+
+* `payroll`: total pay from 1998 to 2014 in **billion dollars** 
+
+* `win`: average winning percentage for the span of 1998 to 2014
+
+* keep team names `team`. 
+
+To answer **Q1**: 
+
+1. How does `payroll` relate to the performance measured by `win`?
+
+2. Given payroll= .84, 
+  + on average what would be the **mean** winning percentage
+  + what do we expect **the win** to be for such A team? 
+
+(Oakland A's: payroll=.84, win=.54 and Red Soc payroll=1.97, win=.55 )
+
+
+\pagebreak
+
+
+## Explore the relationship between `payroll`, and `win`.
+
+**Data preparation:**
+
+Take a quick look at the data and extract aggeragated variables. 
+
+```{r }
+baseball <- read.csv("MLPayData_Total.csv")  
+names(baseball)
+datapay <- baseball %>%
+  rename(team = "Team.name.2014", 
+         win = avgwin) %>%
+  select(team, payroll, win)
+```
+
+We would normally do a thorough EDA. We skip that portion of the data analysis and get to the regression problem directly. 
+
+**Scatter plots** show the relationship between $x$ variable `payroll` and $y$ variable `win`. 
+
+```{r fig.show="hide"}
+plot(x = datapay$payroll, 
+     y = datapay$win, 
+     pch  = 16,     # "point character": shape/character of points 
+     cex  = 0.8,    # size
+     col  = "blue", # color 
+     xlab = "Payroll",  # x-axis
+     ylab = "Win",  # y-axis 
+     main = "MLB Teams's Overall Win vs. Payroll") # title
+text(datapay$payroll, datapay$win, labels=datapay$team, cex=0.7, pos=1) # label all points
+```
+We notice the positive association: when `payroll` increases, so does `win`. 
+
+`ggplot`
+```{r}
+ggplot(datapay) + 
+  geom_point(aes(x = payroll, y = win), color = "blue") + 
+  geom_text_repel(aes(x = payroll, y = win, label=team), size=3) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", x = "Payroll", y = "Win")
+```
+
+
+\pagebreak
+
+# Simple Linear Regression
+
+Often we would like to explore the relationship between two variables. Will a team perform better when they are paid more? The simplest model is a linear model. Let the response $y_i$ be the `win` and the explanatory variable $x_i$ be `payroll` ($i = 1, \dots, n=30$).
+
+Assume there is linear relationship between `win` and `payroll`, i.e.
+
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
+
+**Model interpretation:**
+
+* We assume that given `payroll`, on average the `win` is a linear function
+* For each team the `win` is the average plus an error term
+* Parameters of interest
+    + intercept: $\beta_0$
+    + slope: $\beta_1$
+    + both are unknown
+
+**Estimation**
+
+Once we have produce an estimate $(\hat\beta_0, \hat\beta_1)$, we can then 
+
+* Interpret the slope
+* Estimate the mean `win` and 
+* Predict `win` for a team based on the `payroll`
+
+$$\hat y_i = \hat\beta_0 + \hat\beta_1 x_i.$$
+
+How to estimate the parameters using the data we have?
+For example, how would you decide on the following three estimates? 
+
+```{r echo=F}
+par(mfrow=c(1,3))
+# Mean of payroll
+b0 <- mean(datapay$win)
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = substitute(paste(hat(y), " = ", h), 
+                       list(h=b0)))
+abline(h=b0, lwd=5, col="blue")
+segments(datapay$payroll, 
+         datapay$win, 
+         datapay$payroll, 
+         mean(datapay$win), 
+         col="blue")
+
+# OLS
+fit0 <- lm(win~payroll, datapay)
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = substitute(paste(hat(y), " = ", b0, "+", b1, "x"), 
+                       list(b0 = fit0$coefficients[1],
+                            b1 = fit0$coefficients[2])))
+abline(fit0, col="red", lwd=4)
+segments(datapay$payroll, 
+         datapay$win, 
+         datapay$payroll, 
+         fitted(fit0), 
+         col="red")
+
+# Random pick
+b0 <- 0.4
+b1 <- 0.08
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = substitute(paste(hat(y), " = ", b0, "+", b1, "x"), 
+                       list(b0 = b0,
+                            b1 = b1)))
+abline(a = b0, b = b1, lwd=5, col="green")
+segments(datapay$payroll, 
+         datapay$win, 
+         datapay$payroll, 
+         b0 + b1*datapay$payroll, 
+         col="green")
+```
+
+
+## Ordinary least squares (OLS) estimates
+
+Given an estimate $(b_0, b_1)$, we first define residuals as the differences between actual and predicted values of the response $y$, i.e.
+
+$$\hat{\epsilon}_i = \hat{y}_i -b_0 - b_1 x_i.$$
+In previous plots, the residuals are the vertical lines between observations and the fitted line. Now we are ready to define the OLS estimate.
+
+The OLS estimates $\hat\beta_0$ and $\hat\beta_1$ are obtained by minimizing sum of squared errors (RSS):
+
+$$(\hat\beta_0, \hat\beta_1) = \arg\min_{b_0,\,b_1} \sum_{i=1}^{n}\hat{\epsilon}_i^2 = \arg\min_{b_0,\,b_1} \sum_{i=1}^{n} (y_i - b_0 - b_1  x_i)^{2}.$$
+
+We can derive the solution of $\hat\beta_0$ and $\hat\beta_1$.
+
+$$\begin{split} 
+\hat\beta_0 &= \bar{y} - \hat\beta_1 \bar{x}  \\
+\hat\beta_1 &= r_{xy} \cdot \frac{s_y}{s_x}
+\end{split}$$
+
+
+where 
+
+* $\bar{x}=$ sample mean of $x$'s (payroll)
+* $\bar{y}=$ sample mean of $y$'s (win)
+* $s_{x}=$ sample standard deviation of $x$'s (payroll)
+* $s_{y}=$ sample standard deviation of $y$'s (win)
+* $r_{xy}=$ sample correlation between $x$ and $y$.
+
+The following shiny application shows how the fitted line and RSS change as we change $(b_0, b_1)$.
+(The following chunk is not required but for the purpose of demonstration. **RUN THE CHUNK IN THE CONSOLE** to let R session to serve as a server (Copy the chunk and paste in the Console). If you are interested, [this](https://deanattali.com/blog/building-shiny-apps-tutorial/) is a step-by-step tutorial to get you started.)
+
+```{r echo=F, eval=F}
+pacman::p_load(shiny)
+
+if(interactive()) {
+  ui <- fluidPage(
+    withMathJax(),
+    titlePanel("Regression Model"),
+    br(),
+    p("This shiny application demonstrates how the regression line changes as b0 and b1 change. You can adjust b0 and b1 in the panel on the left. You can also choose two special regression line: OLS and the null model."),
+    p("The red line is the plot of the OLS and the blue one is the model with the current b0 and b1. The current model and RSS is shown below the plot. You can trace the recent 10 models (b0, b1 and RSS) in the table at the bottom."),
+    sidebarLayout(
+      sidebarPanel(
+        uiOutput("ui"),
+        br(),
+        p("You can change the regression line by adjusting b0 and b1"),
+        br(), 
+        actionButton("ols", label = helpText("\\(OLS\\)")),
+        actionButton("b1zero", label = helpText("\\(b_1 = 0\\)"))
+      ),
+      mainPanel(
+        plotOutput("lmplot"),
+        br(),
+        p("Current model:"),
+        uiOutput("formula"),
+        p("RSS:"),
+        verbatimTextOutput("RSS"),
+        tableOutput("history")
+      )
+    ))
+  
+  server <- function(input, output, session) {
+    fit0 <- lm(win ~ payroll, datapay)
+    
+    # ls plot
+    int_plot <- reactive({
+      b0 <- input$beta0
+      b1 <- input$beta1
+      plot(datapay$payroll, datapay$win, main="Win vs Payroll",
+           xlab="Win", ylab="Payroll", 
+           ylim=c(0.3, 0.7), pch=19)
+      abline(fit0, col="red")
+      abline(a = b0, b = b1, col="blue")
+      if(!is.null(b0)) segments(datapay$payroll, 
+                                datapay$win, 
+                                datapay$payroll, 
+                                b0+b1*datapay$payroll, 
+                                col="blue")
+      legend("bottomright", legend=c(paste0(round(fit0$coefficients[1], 3), 
+                                            "+", 
+                                            round(fit0$coefficients[2], 3), 
+                                            "x (OLS)"),
+                                     paste0(b0, "+", b1, "x")),
+             col=c("red", "blue"), lty=1, cex=1.5)
+    })
+    
+    # track history
+    hist_tab <- reactiveValues(hist = NULL)
+    
+    # outputs
+    output$ui <- renderUI({
+      tagList(
+        sliderInput("beta0", label = h4("$$b_0$$"),
+                    min = 0.3, max = 0.7, value = .36),
+        sliderInput("beta1", label = h4("$$b_1$$"),
+                    min = -0.2, max = 0.2, value = .1)
+      )
+    })
+    
+    output$formula <- renderUI({
+      withMathJax(paste0("$$\\hat{y} = ", input$beta0, "+", input$beta1, "\\cdot x$$"))
+    })
+    
+    output$lmplot <- renderPlot({
+      int_plot()
+    })
+    
+    output$history <- renderTable({
+      if(!is.null(hist_tab$hist)) {
+        ret <- data.frame(hist_tab$hist, 
+                          row.names = c("b0", "b1", "RSS")) 
+        colnames(ret) <- paste("M", 1:ncol(hist_tab$hist), sep = "")
+        ret[,max(1, ncol(hist_tab$hist) - 9):ncol(hist_tab$hist)]
+      }
+    }, include.rownames=T, digits = 4)  
+    
+    # ols button
+    observeEvent(input$ols, {
+      updateSliderInput(session, "beta0", value = as.numeric(fit0$coefficients[1]))
+      updateSliderInput(session, "beta1", value = as.numeric(fit0$coefficients[2]))
+      int_plot()
+    })
+    
+    # b1=0 button
+    observeEvent(input$b1zero, {
+      updateSliderInput(session, "beta0", value = mean(datapay$win))
+      updateSliderInput(session, "beta1", value = 0)
+      int_plot
+    })
+    
+    # trigger history
+    observeEvent(c(input$beta0, input$beta1), {
+      RSS <- sum((datapay$win - (input$beta0 + input$beta1*datapay$payroll))^2)
+      output$RSS <- renderPrint(RSS)
+      hist_tab$hist <- cbind(hist_tab$hist, c(input$beta0, input$beta1, RSS))
+    })
+  }
+  
+  shinyApp(ui = ui, server = server)
+}
+```
+
+
+### `lm()`
+
+The function `lm()` will be used extensively. This function solves the minimization problem that we defined above. Below we use `win` as the dependent $y$ variable and `payroll` as our $x$.
+
+As we can see from the below output, this function outputs a list of many statistics. We will define these statistics later
+```{r}
+myfit0 <- lm(win ~ payroll, data=datapay)
+names(myfit0)
+```  
+
+
+We can also view a summary of the `lm()` output by using the `summary()` command.
+```{r results="hold"}
+summary(myfit0)   # it is another object that is often used
+results <- summary(myfit0)
+names(results) 
+```
+
+
+Notice that the outputs of `myfit0` and `summary(myfit0)` are different
+```{r results="hold"}
+myfit0
+b0 <- myfit0$coefficients[1]
+b1 <- myfit0$coefficients[2]
+```
+
+To summarize the OLS estimate, $\hat{\beta}_0 =$ `r b0` and $\hat{\beta}_1 =$ `r b1`, we have the following estimator:
+
+$$\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i = 0.423 + 0.061 \cdot x_i$$
+
+Here are what we can say:
+
+**Interpretation of the slope**:
+
+* When `payroll` increases by 1 unit (1 billion), we expect, on average the `win` will increase about `r  myfit0$coefficients[2]`. 
+
+* When `payroll` increases by .5 unit (500 million), we expect, on average the `win` will increase about `r  .5*myfit0$coefficients[2]`. 
+
+**Prediction equation**: 
+
+* For all the team similar to Oakland Athletics whose `payroll` is `r datapay$payroll[datapay$team == "Oakland Athletics"]`, we estimate on average the `win` to be
+
+$$\hat{y}_{\text{Oakland Athletics}} = 0.423 + 0.061 \times 0.841 = .474$$
+Or we can inline the solution from the function output:
+
+
+$$\hat{y}_{\text{Oakland Athletics}} = `r myfit0$coefficients[1]` + `r myfit0$coefficients[2]` \times `r datapay$payroll[datapay$team == "Oakland Athletics"]`.$$
+
+
+
+* **Residuals**:  For Oakland Athletics, the real `win` is `r datapay$payroll[datapay$team == "Oakland Athletics"]`. So the residual for team Oakland Athletics is 
+
+
+$$\hat{\epsilon}_{\text{Oakland}}= .545 - .474 = .071$$ or 
+
+
+<!-- $$\hat{\epsilon}_i = y_i - \hat{y_i} = `r datapay$win[datapay$team == "Oakland Athletics"]` - `r myfit0$coefficients[1] + myfit0$coefficients[2] *  datapay$payroll[datapay$team == "Oakland Athletics"]` =  -->
+<!-- `r datapay$payroll[datapay$team == "Oakland Athletics"] - myfit0$coefficients[1] +  myfit0$coefficients[2] *  datapay$payroll[datapay$team == "Oakland Athletics"]`$$ -->
+
+
+Here are a few rows that show the fitted values from our model
+```{r}
+data.frame(datapay$team, datapay$payroll, datapay$win, myfit0$fitted,
+           myfit0$res)[15:25, ] # show a few rows
+```
+
+**Scatter plot with the LS line added**
+
+Base `R`
+```{r}
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = "MLB Teams's Overall Win Percentage vs. Payroll")
+abline(myfit0, col="red", lwd=4)         # many other ways. 
+abline(h=mean(datapay$win), lwd=5, col="blue") # add a horizontal line, y=mean(y)
+```
+
+`ggplot`
+```{r}
+# find the row index of Oakland Athletics and Boston Red Sox
+oakland_index <- which(datapay$team=="Oakland Athletics")
+redsox_index <- which(datapay$team=="Boston Red Sox")
+
+ggplot(datapay, aes(x = payroll, y = win)) + 
+  geom_point() + 
+  geom_smooth(method="lm", se = T, color = "red") + 
+  geom_hline(aes(yintercept = mean(win)), color = "blue") + 
+  annotate(geom="text", 
+           x=datapay$payroll[oakland_index], 
+           y=datapay$win[oakland_index], 
+           label="Oakland A's",color="blue", vjust = -1) +
+  annotate(geom="text", 
+           x=datapay$payroll[redsox_index], 
+           y=datapay$win[redsox_index], 
+           label="Red Sox",color="red", vjust = -1) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", 
+       x = "Payroll", y = "Win")
+```
+
+
+
+**HERE is how the article concludes that Beane is worth as much as the GM in Red Sox. By looking at the above plot, Oakland A's win pct is more or less same as that of Red Sox, so based on the LS equation, the team should have paid 2 billion. Do you agree on this statement?????**
+
+
+
+## Goodness of Fit: $R^2$
+
+How well does the linear model fit the data? A common, popular notion is through $R^2$. 
+
+
+**Residual Sum of Squares (RSS)**:
+
+The least squares approach chooses $\hat\beta_0$ and $\hat\beta_1$ to minimize the RSS. RSS is defined as:
+
+$$RSS =  \sum_{i=1}^{n} \hat{\epsilon}_i^{2} = \sum_{i=1}^{n} (y_i - \hat\beta_0 - \hat\beta_1  x_i)^{2}$$
+
+```{r results="hold"}
+myfit0 <- lm(win~payroll, data=datapay)
+RSS <- sum((myfit0$res)^2) # residual sum of squares
+RSS
+```
+
+**Mean Squared Error (MSE)**:
+
+Mean Squared Error (MSE) is the average of the squares of the errors, i.e. the average squared difference between the estimated values and the actual values. For simple linear regression, MSE is defined as:
+
+$$MSE = \frac{RSS}{n-2}.$$
+
+**Residual Standard Error (RSE)/Root-Mean-Square-Erro(RMSE)**:
+
+Residual Standard Error (RSE) is the square root of MSE. For simple linear regression, RSE is defined as:
+
+$$RSE = \sqrt{MSE} = \sqrt{\frac{RSS}{n-2}}.$$
+
+```{r results="hold"}
+sqrt(RSS/myfit0$df)
+summary(myfit0)$sigma
+```
+
+**Total Sum of Squares (TSS)**: 
+
+TSS measures the total variance in the response $Y$, and can be thought of as the amount of variability inherent in the response before the regression is performed. In contrast, RSS measures the amount of variability that is left unexplained after performing the regression.
+
+$$TSS = \sum_{i=1}^{n} (y_i - \bar{y_i})^{2}$$
+
+
+```{r results="hold"}
+TSS <- sum((datapay$win-mean(datapay$win))^2) # total sum of sqs
+TSS
+```
+
+**$R^2$**: 
+
+$R^{2}$ measures the proportion of variability in $Y$ that can be explained using $X$. An $R^{2}$ statistic that is close to 1 indicates that a large proportion of the variability in the response has been explained by the regression.
+
+$$R^{2} =  \frac{TSS - RSS}{TSS}$$
+
+```{r results="hold"}
+(TSS-RSS)/TSS    # Percentage reduction of the total errors
+(cor(datapay$win, myfit0$fit))^2 # Square of the cor between response and fitted values
+summary(myfit0)$r.squared
+```
+
+**Remarks**:
+
+*How large $R^2$ needs to be so that you are comfortable to use the linear model?
+*Though $R^2$ is a very popular notion of goodness of fit, but it has its limitation. Mainly all the sum of squared errors defined so far are termed as `Training Errors`. It really only measures how good a model fits the data that we use to build the model. It may not generate well to unseen data. 
+
+
+
+## Inference 
+
+One of the most important aspect about statistics is to realize the estimators or statistics we propose such as the least squared estimators for the slope and the intercept they change as a function of data. Understanding the variability of the statistics, providing the accuracy of the estimators are one of the focus as statisticians. 
+
+Recall that we assume a linear,
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i.$$
+We did not impose assumptions on $\epsilon_i$ when using OLS. 
+In order to provide some desired statistical properties and guarantees
+to our OLS estimate $(\hat\beta_0, \hat\beta_1)$, we need to impose assumptions.
+
+
+### Linear model assumptions
+
+* Linearity: 
+
+$$\textbf{E}(y_i | x_i) = \beta_0 + \beta_1 x_i$$
+
+* homoscedasticity:
+
+$$\textbf{Var}(y_i | x_i) = \sigma^2$$
+
+* Normality:
+
+$$\epsilon_i \overset{iid}{\sim} \mathcal{N}(0, \sigma^2)$$
+or
+
+$$y_i \overset{iid}{\sim} \mathcal{N}( \beta_0 + \beta_1 x_i, \sigma^2)$$
+
+
+### Inference for the coefficients: $\beta_0$ and $\beta_1$
+
+Under the model assumptions:
+
+1. $y_i$ independently and identically normally distributed
+2. The mean of $y$ given $x$ is linear
+3. The variance of $y$ does not depend on $x$
+
+The OLS estimates $\hat \beta = (\hat\beta_0, \hat\beta_1)$ has the following properties:
+
+1. Unbiasedness
+
+$$\textbf{E}(\hat{\beta}) = \beta$$
+
+2. Normality
+
+$$\hat{\beta}_1 \sim \mathcal{N}(\beta_1, \textbf{Var}(\hat{\beta}_1))$$
+where 
+
+$$\textbf{Var}(\hat{\beta}_1) = \frac{\sigma^{2}}{x_x^2} = \frac{\sigma^{2}} {\sum_{i=1}^{n} (x_i - \bar{x})^{2}}.$$
+
+In general,
+$$\hat\beta \sim \mathcal{N} (\beta,\ \sigma^2 (X^TX)^{-1})$$
+Here $X$ is the design matrix where the first column is 1's and the second column is the values of x, in our case it is the column of `payrolls1`. 
+
+**Confidence intervals for the coefficients**
+
+$t$-interval and $t$-test can be constructed using the above results. 
+
+For example, the 95% confidence interval for $\beta$ approximately takes the form
+
+$$\hat\beta \pm 2 \cdot SE(\hat\beta).$$
+
+**Tests to see if the slope is 0**:
+
+We can also perform hypothesis test on the coefficients. To be specific, we have the following test.
+
+$$H_0: \beta_{1}=0 \mbox{ v.s. } H_1: \beta_{1} \not= 0$$
+
+To test the null hypothesis, we need to decide whether $\hat \beta_1$ is far away from 0, 
+which depends on $SE(\hat \beta_1)$. We now define the test statistics as follows.
+
+$$t = \frac{\hat\beta_1 - 0}{SE(\hat \beta_1)}$$
+
+Under the null hypothesis $\beta_{1}=0$, $t$ will have a $t$-distribution with $(n-2)$ degrees of freedom. 
+Now we can compute the probability of $T\sim t_{n-2}$ equal to or larger than $|t|$, which is termed $p-value$. Roughly speaking, a small $p$-value means the odd of $\beta_{1}=0$ is small, then we can reject the null hypothesis.
+
+$SE(\beta)$, $t$-value and $p$-value are included in the summary output.
+```{r results="hold"}
+summary(myfit0) 
+```
+
+The `confint()` function returns the confident interval for us (95% confident interval by default).
+```{r results="hold"}
+confint(myfit0)
+confint(myfit0, level = 0.99)
+```
+
+
+### Confidence for the mean response 
+
+We use a confidence interval to quantify the uncertainty surrounding the mean of the response (`win`). For example, for teams like Oakland A's whose `payroll=.841`, a 95% Confidence Interval for the mean of response `win` is
+
+$$\hat{y}_{|x=.841} \pm t_{(\alpha/2, n-2)} \times \sqrt{MSE \times \left(\frac{1}{n} + \frac{(.841-\bar{x})^2}{\sum(x_i-\bar{x})^2}\right)}.$$
+
+The `predict()` provides prediction with confidence interval using the argument `interval="confidence"`.
+```{r results="hold"}
+new <- data.frame(payroll=c(.841))  #new <- data.frame(payroll=c(1.24))
+CImean <- predict(myfit0, new, interval="confidence", se.fit=TRUE)  
+CImean
+```
+Because 
+$$\textbf{Var}(\hat{y}_{|x}) = \sigma^{2} \Bigg(\frac{1}{n}+\frac{(x-\bar{x})^2}{\sum_{i=1}^{n} (x_i - \bar{x})^{2}}\Bigg).$$
+
+
+We can show the confidence interval for the mean response using `ggplot()` with `geom_smooth()` using the argument `se=TRUE`.
+```{r results="hold"}
+# find the row index of Oakland Athletics and Boston Red Sox
+oakland_index <- which(datapay$team=="Oakland Athletics")
+redsox_index <- which(datapay$team=="Boston Red Sox")
+
+ggplot(datapay, aes(x = payroll, y = win)) + 
+  geom_point() + 
+  geom_smooth(method="lm", se = TRUE, level = 0.95, color = "red") + 
+  geom_hline(aes(yintercept = mean(win)), color = "blue") + 
+  annotate(geom="text", 
+           x=datapay$payroll[oakland_index], 
+           y=datapay$win[oakland_index], 
+           label="Oakland A's",color="green", vjust = -1) +
+  annotate(geom="text", 
+           x=datapay$payroll[redsox_index], 
+           y=datapay$win[redsox_index], 
+           label="Red Sox",color="red", vjust = -1) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", 
+       x = "Payroll", y = "Win")
+```
+
+### Prediction interval for a response
+
+A prediction interval can be used to quantify the uncertainty surrounding `win` for a **particular** team.
+
+$$\hat{y}_{|x} \pm t_{(\alpha/2, n-2)} \times \sqrt{MSE \times \left(   1+\frac{1}{n} + \frac{(x-\bar{x})^2}{\sum(x_i-\bar{x})^2}\right)}$$
+
+We now produce 95% & 99% PI for a future $y$ given $x=.841$ using
+`predict()` again but with the argument `interval="prediction"`.
+
+```{r results="hold"}
+new <- data.frame(payroll=c(.841))
+CIpred <- predict(myfit0, new, interval="prediction", se.fit=TRUE)
+CIpred 
+         
+CIpred_99 <- predict(myfit0, new, interval="prediction", se.fit=TRUE, level=.99)
+CIpred_99
+```
+
+Now we plot the confidence interval (shaded) along with the 95% prediction interval in blue and 99% prediction interval in green.
+```{r}
+# find the row index of Oakland Athletics and Boston Red Sox
+oakland_index <- which(datapay$team=="Oakland Athletics")
+redsox_index <- which(datapay$team=="Boston Red Sox")
+pred_int <- predict(myfit0, interval="prediction")
+colnames(pred_int) <- c("fit_95", "lwr_95", "upr_95")
+pred_int_99 <- predict(myfit0, interval="prediction", level = .99)
+colnames(pred_int_99) <- c("fit_99", "lwr_99", "upr_99")
+
+cbind(datapay, pred_int, pred_int_99) %>%
+ggplot(aes(x = payroll, y = win)) + 
+  geom_point() + 
+  geom_smooth(method="lm", se = TRUE, level = 0.95, color = "red") + 
+  geom_line(aes(y=lwr_95), color = "blue", linetype = "dashed") + 
+  geom_line(aes(y=upr_95), color = "blue", linetype = "dashed") + 
+  geom_line(aes(y=lwr_99), color = "green", linetype = "dashed") + 
+  geom_line(aes(y=upr_99), color = "green", linetype = "dashed") + 
+  annotate(geom="text", 
+           x=datapay$payroll[oakland_index], 
+           y=datapay$win[oakland_index], 
+           label="Oakland A's",color="blue", vjust = -1) +
+  annotate(geom="text", 
+           x=datapay$payroll[redsox_index], 
+           y=datapay$win[redsox_index], 
+           label="Red Sox",color="red", vjust = -1) +
+  labs(title = "MLB Teams's Overall Win  vs. Payroll", 
+       x = "Payroll", y = "Win")
+```
+
+From our output above, the 95% prediction interval varies from $.41$ to $.53$ for a team like the Oakland A's. But its `win` is $.54$. So it is somewhat unusual but not that unusual! The 99% prediction interval contains the true Oakland winning percentage of `r datapay$win[datapay$team == "Oakland Athletics"]`.
+
+
+
+**Read page 82 of ILSR to fully understand the difference between confidence and prediction intervals.**
+ 
+## Model diagnoses
+
+How reliable our confidence intervals and the tests are? We will need to check the model assumptions in the following steps:
+
+1. Check **linearity** first; if linearity is satisfied, then
+
+2. Check **homoscedasticity**; if homoscedasticity is satisfied, then
+
+3. Check **normality**.
+
+
+### Residual plot
+
+We plot the residuals against the fitted values to
+
+* check **linearity** by checking whether the residuals follow a symmetric pattern with respect to $h=0$.
+
+* check **homoscedasticity** by checking whether the residuals are evenly distributed within a band.
+
+```{r results="hold"}
+plot(myfit0$fitted, myfit0$residuals, 
+     pch  = 16,
+     main = "residual plot")
+abline(h=0, lwd=4, col="red")
+```
+
+
+### Check normality
+
+We look at the qqplot of residuals to check normality.
+
+```{r results="hold"}
+  qqnorm(myfit0$residuals)
+  qqline(myfit0$residuals, lwd=4, col="blue")
+```
+  
+# Summary
+
+
+* EDA: We understand the data by exploring the basic structure of the data (number of observations, variables and missing data), the descriptive statistics and the relationship between variables. Visualization is a crucial step for EDA. Both graphical tools in base `R` an `ggplot2` come in handy. 
+* OLS: Simple linear regression is introduced. We study the OLS estimate with its interpretation and properties. We evaluate the OLS estimate and provide inference. It is important to perform model diagnoses before coming to any conclusion. The `lm()` function is one of the most important tools for statisticians. 
+
+
+
+\pagebreak
+
+# Appendices
+
+We have put a few topics here. Some of the sections might be covered in the class. 
+
+## Appendix 1: Reverse Regression
+
+Now we understand more about regression method. If one wants to predict `payroll` using `win` as predictor can we solve for `payroll` using the LS equation above to predict `payroll`?
+
+The answer is NO, and why not?
+
+We first plot our original model:
+
+$$y_{win} = 0.42260 + 0.06137 \cdot x_{payroll}$$
+
+```{r results="hold"}
+par(mgp=c(1.8,.5,0), mar=c(3,3,2,1)) 
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = "MLB Teams's Overall Win Percentage vs. Payroll")
+abline(lm(win ~ payroll, data=datapay), col="red", lwd=4) 
+```
+
+Now, we reverse the regression and look at the summary output
+```{r results="hold"}
+myfit1 <- lm(payroll~win, data=datapay)
+summary(myfit1)
+```
+
+We can now overlay our two regressions:
+
+$$y_{payroll} = -2.7784 + 8.0563 \cdot x_{win}$$
+
+$$y_{win} = 0.42260 + 0.06137 \cdot x_{payroll}$$
+Notice that this is not the same as solving $x_{payroll}$ given $y_{payroll}$ from the first equation which is 
+$$ x_{win} = 1/8.0563 y_{payroll} + 2.7784/8.0563 =0.344873 + .124 y_{payroll} $$
+
+```{r  results="hold"}
+beta0 <- myfit1$coefficients[1]
+beta1 <- myfit1$coefficients[2]
+win2 <- (datapay$payroll - beta0) / beta1   
+
+plot(datapay$payroll, datapay$win, 
+     pch  = 16, 
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = "MLB Teams's Overall Win Percentage vs. Payroll")
+text(datapay$payroll, datapay$win, labels=datapay$team, cex=0.7, pos=2) # label teams
+abline(lm(win ~ payroll, data=datapay), col="red", lwd=4)  
+lines(datapay$payroll, win2, col="green", lwd=4)
+legend("bottomright", legend=c("y=winpercent", "y=payroll"),
+       lty=c(1,1), lwd=c(2,2), col=c("red","green"))
+```
+**Conclusion: Two lines are not the same!!!!!**
+
+
+We may also want to get the LS equation w/o Oakland first. 
+```{r results="hold"}
+subdata <- datapay[-20, ]
+myfit2 <- lm(win ~ payroll, data=subdata)
+summary(myfit2)
+```
+
+The plot below shows the effect of Oakland on our linear model.
+```{r results="hold"}
+plot(subdata$payroll, subdata$win, 
+     pch  = 16,
+     xlab = "Payroll", ylab="Win Percentage",
+     main = "The effect of Oakland")
+lines(subdata$payroll, predict(myfit2), col="blue", lwd=3)
+abline(myfit0, col="red", lwd=3)
+legend("bottomright", legend=c("Reg. with Oakland", "Reg. w/o Oakland"),
+       lty=c(1,1), lwd=c(2,2), col=c("red","blue"))
+```
+
+
+We may also want to check the effect of Yankees  (2.70, .58)
+
+```{r }
+subdata1 <- datapay[-19, ]
+myfit3 <- lm(win ~ payroll, data=subdata1)
+summary(myfit3)
+```
+
+
+```{r }
+plot(subdata$payroll, subdata$win,  
+     pch  = 16,
+     xlab = "Payroll", 
+     ylab = "Win Percentage",
+     main = "The effect of Yankees")
+abline(myfit3, col="blue", lwd=3)	
+abline(myfit0, col="red", lwd=3)
+legend("bottomright", legend=c("Reg. All", "Reg. w/o Yankees"),
+       lty=c(1,1), lwd=c(2,2), col=c("red","blue"))
+
+```
+
+
+## Appendix 2:  t-distribution vs z-distribution
+
+Difference between $z$ and $t$ with $df=n$. The distribution of $z$ is similar to that $t$ when $df$ is large, say 30.
+```{r results="hold"}
+z <- rnorm(1000)   
+hist(z, freq=FALSE, col="red", breaks=30, xlim=c(-5,5))
+```
+
+Check Normality
+```{r results="hold"}
+qqnorm(z, pch=16, col="blue", cex=0.7)  
+qqline(z)   #shift-command-c  to add or to suppress comment
+```
+
+See what a $t$ variable looks like with a degrees of freedom at 5
+```{r results="hold"}
+df <-5 # you may change df: df is large then t is approx same as z
+t <- rt(1000, df)   # 
+hist(t, freq=FALSE, col="blue", breaks=50, xlim=c(-5,5),
+     main=paste("Hist of t with df=",df))
+qqnorm(t)
+qqline(t)
+```
+
+
+Make a small set of graphs to see the variability of sample from sample
+```{r }
+# Put graphs into 2 rows and 2 cols
+par(mfrow=c(2,2))
+
+for (i in 1:4){
+  z <- rnorm(1000)   
+  par(mgp=c(1.8,.5,0), mar=c(3,3,2,1)) 
+  hist(z, freq=FALSE, col="red", breaks=30, xlim=c(-5,5))
+
+  qqnorm(z, pch=16, col="blue", cex=0.7)    # check normality
+  qqline(z)
+}
+```
+
+
+
+
+  
+
+## Appendix 3: Investigate R-Squared
+
+### Case I: Non-linear response
+
+A perfect model between X and Y but it is not linear. $R^{2}=.837$  here $y=x^{3}$ with no noise!  
+
+```{r results="hold"}
+x <- seq(0, 3, by=.05) # or x=seq(0, 3, length.out=61)
+y <- x^3 # no variability
+
+myfit <- lm(y ~ x)
+myfit.out <- summary(myfit)
+rsquared <- myfit.out$r.squared
+
+plot(x, y, pch=16, ylab="",
+   xlab = "No noise in the data",
+   main = paste("R squared = ", round(rsquared, 3), sep=""))
+abline(myfit, col="red", lwd=4)
+```
+
+
+### Case II: Large variance vs small variance
+A perfect linear model between X and Y but with noise here $y= 2+3x + \epsilon$, $\epsilon \overset{iid}{\sim} N(0,9)$. Run this repeatedly
+
+```{r results="hold"}
+par(mfrow = c(2,2))
+
+for(i in 1:4){
+  x <- seq(0, 3, by=.02)
+  e <- 3*rnorm(length(x))   # Normal random errors with mean 0 and sigma=3
+  y <- 2 + 3*x + 3*rnorm(length(x)) 
+  
+  myfit <- lm(y ~ x)
+  myfit.out <- summary(myfit)
+  rsquared <- round(myfit.out$r.squared,3)
+  hat_beta_0 <- round(myfit$coe[1], 2)
+  hat_beta_1 <- round(myfit$coe[2], 2)
+  par(mgp=c(1.8,.5,0), mar=c(3,3,2,1)) 
+  plot(x, y, pch=16, ylab="",
+       xlab = "True lindear model with errors", 
+       main = paste("R squared= ", rsquared, 
+                   "LS est's=", hat_beta_0, "and", hat_beta_1))
+  
+  abline(myfit, col="red", lwd=4)
+}
+```
+
+
+Similar setup but with smaller variance $\epsilon \overset{iid}{\sim} N(0,1)$.
+
+```{r results="hold"}
+par(mfrow = c(2,2))
+
+for(i in 1:4){
+  x <- seq(0, 3, by=.02)
+  e <- 3*rnorm(length(x))   # Normal random errors with mean 0 and sigma=3
+  y <- 2 + 3*x + 1*rnorm(length(x)) 
+  
+  myfit <- lm(y ~ x)
+  myfit.out <- summary(myfit)
+  rsquared <- round(myfit.out$r.squared, 3)
+  b1 <- round(myfit.out$coe[2], 3)
+  par(mgp=c(1.8,.5,0), mar=c(3,3,2,1)) 
+  plot(x, y, pch=16, 
+       ylab = "",
+       xlab = paste("LS estimates, b1=", b1, ",  R^2=", rsquared),
+       main = "The true model is y=2+3x+n(0,1)")
+  abline(myfit, col="red", lwd=4)
+}
+```
+
+
+
+##  Appendix 4: More on Model Diagnoses
+What do we expect to see even all the model assumptions are met?
+
+  * a) Variability of the ls estimates $\beta$'s
+  * b) Variability of the $R^{2}$'s
+  * c) Variability of the $\hat \sigma^{2}$'s
+  * d) Model diagnoses: through residuals 
+
+We demonstrate this through a simulation.
+
+Here is a case that all the linear model assumptions are met. Once again everything can be checked by examining the residual plots
+
+1. Randomize X
+```{r }
+## Set up the simulations
+set.seed(1) # set seed so that x will be the same each time we run it
+x <- runif(100) # generate 100 random numbers from [0, 1], hist(x)
+hist(x)
+```
+
+2. Generate y only each time to see the variability of ls estimates. The true $y$ is
+
+$$y = 1 +2x + \mathcal{N}(0,2^2) \quad i.e. \quad \beta_0 = 1 ,\beta_1 = 2, \sigma^2 = 4.$$
+```{r }
+# mar: c(bottom, left, top, right) to specify the margin on four sides
+# mgp: specify the margin for axis title, axis labels and axis line
+
+# par(mfrow=c(2,2), mar=c(2,2,2,2), mgp=c(2,0.5,0))
+
+# for (i in 1:4) {
+  y <- 1 + 2*x + rnorm(100, 0, 2) # generate response y's. may change n
+  
+  fit <- lm(y ~ x)
+  fit.perfect <- summary(lm(y ~ x))
+  rsquared <- round(fit.perfect$r.squared, 2)
+  hat_beta_0 <- round(fit.perfect$coefficients[1], 2)
+  hat_beta_1 <- round(fit.perfect$coefficients[2], 2)
+hat_sigma  <- round(fit.perfect$sigma, 2)
+plot(x, y, pch=16, 
+     ylim=c(-8,8),
+     xlab="a perfect linear model: true mean: y=1+2x in blue, LS in red",
+     main=paste("R squared= ",rsquared, ",",
+                 "hat sig=", hat_sigma, ",",  "LS  b1=",hat_beta_1, ",",  "and b0=", hat_beta_0))
+abline(fit, lwd=4, col="red")
+lines(x, 1+2*x, lwd=4, col="blue")
+  # 
+  # 
+  # plot(x, y, pch=i, 
+  #      ylim = c(-8,8),
+  #      xlab = "true mean: y=1+2x in blue, LS in red",
+  #      main = paste("R^2=", rsquared, 
+  #                   ", b1_LSE=", hat_beta_1, " and b0=", hat_beta_0))
+  # abline(fit, lwd=4, col="red")
+  # lines(x, 1 + 2*x, lwd=4, col="blue")
+  # abline(h= mean(y), lwd=4, col="green")
+# }
+```
+  
+The theory says that 
+
+$$\hat\beta_1 \sim \mathcal{N} (\beta_1 = 2,\, \textbf{Var}(\hat\beta_1)).$$
+ 
+```{r }
+  sigma <- 2
+  n <- length(y)
+  sd_b1 <- sqrt(sigma^2 /((n-1)* (sd(x))^2))  # we will estimate sigma by rse in real life.
+  sd_b1
+  summary(fit)
+```
+
+ 
+Plots
+```{r }
+  plot(x, y, pch=i, 
+       ylim = c(-8,8),
+       xlab = "a perfect linear model: true mean: y=1+2x in blue, LS in red",
+       main = paste("R squared=", rsquared, 
+                    ", LS estimates b1=", hat_beta_1, " and b0=", hat_beta_0))
+  abline(fit, lwd=4, col="red")
+  lines(x, 1 + 2*x, lwd=4, col="blue")
+  abline(h= mean(y), lwd=4, col="green")
+
+  # Residuals
+  plot(fit$fitted, fit$residuals, 
+       pch  = 16,
+       ylim = c(-8, 8),
+       main = "residual plot")
+  abline(h=0, lwd=4, col="red")
+  
+  # Normality
+  qqnorm(fit$residuals, ylim=c(-8, 8))
+  qqline(fit$residuals, lwd=4, col="blue")
+```
+
+
+##  Appendix 5: Sample Statistics
+
+We remind the readers definition of sample statistics here. 
+
+
+* Sample mean:
+
+$$\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i$$
+
+* Sample variance:
+
+$$s^2 = \frac{\sum_{i=1}^{n}(y_i - \bar{y})^2}{n-1}$$
+
+* Sample Standard Deviation:
+
+$$s = \sqrt\frac{\sum_{i=1}^{n}(y_i - \bar{y})^2} {n - 1}$$
+
+* Sample correlation
+
+$$r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2 \sum_{i=1}^n (y_i - \bar{y})^2}} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{s_x s_y} $$
