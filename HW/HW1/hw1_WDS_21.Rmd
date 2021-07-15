@@ -129,6 +129,7 @@ Since age is not automatically converted to an integer, there must be some uncle
 
 ### Clean Age Variable
 ```{r Clean Ages}
+## Here, we're removing the errors that were made when inputting the data. For example, in the numbers for age, we used == to find "Eighteen (18)" and instead assigned it with an 18
 survey_rename$age[survey_rename$age=="Eighteen (18)"] <- 18
 survey_rename$age[survey_rename$age=="female"] <- NA
 survey_rename$age[survey_rename$age=="223"] <- NA
@@ -140,7 +141,8 @@ str(survey_rename)
 ```
 ###Clean Gender Variable
 ```{r}
-survey_rename$gender[survey_rename$gender == ""] <- NA
+## There were blank data points with nothing inputted for gender, and for the other variables 
+survey_rename$gender[survey_rename$gender ==""] <- NA
 
 ```
 
@@ -150,29 +152,29 @@ survey_rename$gender[survey_rename$gender == ""] <- NA
 #  select(education) %>%
 #  group_by(education) %>%
 #  summarise(n())
-survey_rename$education[survey_rename$education == "select one"] <- NA
+survey_rename$education[survey_rename$education =="select one"] <- NA
 ```
 
 ###Clean Income Variable
 ```{r}
-survey_rename$income[survey_rename$income == ""] <- NA
+survey_rename$income[survey_rename$income ==""] <- NA
 ```
 
 ```{r Clean Sirius}
 
-survey_rename$sirius[survey_rename$sirius == ""] <- NA
+survey_rename$sirius[survey_rename$sirius ==""] <- NA
 ```
 
 ```{r Clean Wharton}
 
-survey_rename$wharton[survey_rename$wharton == ""] <- NA
+survey_rename$wharton[survey_rename$wharton ==""] <- NA
 ```
 
 ```{r Clean Worktime}
-survey_rename$worktime[survey_rename$worktime == ""] <- NA
+survey_rename$worktime[survey_rename$worktime ==""] <- NA
 ```
 
-
+### the most common error was "" which we fixed with survey_rename$"the variable" =="" <- NA
 
 
 iii. Brief summary 
@@ -228,7 +230,7 @@ survey_rename %>%
   mutate(wharton = factor(wharton, levels=c("Yes", "No"))) %>%
   na.omit() %>%
   ggplot(aes(x= sirius, , fill=wharton)) +
-  geom_bar(position = "fill") + 
+  geom_bar(position = "fill",NA.rm=TRUE) + 
   theme_few() +
   scale_fill_few("Medium") + 
   labs(x = "Sirius Listener", y="Ratio", fill="Wharton Listener")
@@ -299,7 +301,7 @@ library(ggplot2)
 p<-ggplot(data=df, aes(x=Gender, y=Frequency)) +
   geom_bar(stat="identity")
 p
-grid.arrange(pp,p , ncol = 2)
+#grid.arrange(pp,p , ncol = 2)
 ```
 
 ```{r income_comparison}
@@ -323,15 +325,24 @@ grid.arrange(pp,p , ncol = 2)
   
 ```
 
-```{r}
+The sample does not show the general population of the USA. The amount of people in each age group is pretty similar in the general population. The sample showed that there was a huge difference between the amount of people in each age group. 
+
+```{r Comparing Age}
 UsAge <- read.csv("data/2013age_table1.csv", header = T, stringsAsFactors = FALSE)
-#Us <- data.frame(Age =c(UsAge %>% select(Age)),
- #               Pop =c(UsAge %>% select(Number)))
-b <- UsAge %>%
-  ggplot(aes(y = Age)) +
-  geom_bar(stat = "count", color = "dark green") +
-  labs(y = "Age Ranges", x = "Amount of People")
-b
+Us <- data.frame(Age=c("0-5","5-9","10-14",
+                       "15-19","20-24","25-29",
+                       "30-34","35-39","40-44",
+                       "45-49","50-54","55-59",
+                       "60-64","65-69","70-74"),
+                 Number =c(19917.20356,20640,20970,22153,21138,20659,19221,20657,
+                           21060,22386,20880, 17611,14437,10624,7598))
+# add the data
+barplot(Us$Number, names.arg=Us$Age)
+#creating a graph
+survey_rename %>%
+  ggplot(aes(x = age)) +
+  geom_histogram(binwidth = 2, color = "blue", fill = "white") +
+  labs(x = "Age", y="Frequency")
 ```
 
 
