@@ -27,8 +27,8 @@ urlcolor: blue
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, results = "hide", fig.width=8, fig.height=4)
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE, results="show", fig.width=8, fig.height=4)
 options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
@@ -113,13 +113,11 @@ Change the variable names to be "age", "gender", "education", "income", "sirius"
 ### Select the specific variables we want
 ```{r select_variables}
   survey_col <- survey %>% select(Answer.Age, Answer.Gender, Answer.Education, Answer.Gender, Answer.HouseHoldIncome, Answer.Sirius.Radio, Answer.Wharton.Radio, WorkTimeInSeconds)
-  
 ```
 
 ### Rename the specific variables accordingly
 ```{r rename_columns}
   survey_rename<-survey_col %>% rename(age = Answer.Age, gender = Answer.Gender, education = Answer.Education, income = Answer.HouseHoldIncome, sirius = Answer.Sirius.Radio, wharton = Answer.Wharton.Radio, worktime = WorkTimeInSeconds)
- 
 ```
 ii. Handle missing/wrongly filled values of the selected variables
 
@@ -128,6 +126,16 @@ As in real world data with user input, the data is incomplete, with missing valu
 Since age is not automatically converted to an integer, there must be some unclean/incorrect values in this column.Regaring the other data sets, there are mishaps such as empty cells. In order to address this problem, we need to index each column for the error, then replace the error by assigning it a value through the <- function, whether it is NA or an actual data value.
 
 ### Clean Age Variable
+```
+  "Eighteen (18)" <- 18
+  "female" <- NA
+  "223" <- NA
+  "4" <- NA
+  "27" <- NA
+  "" <- NA
+```
+Convert column to integer
+
 ```{r Clean Ages}
 ## Here, we're removing the errors that were made when inputting the data. For example, in the numbers for age, we used == to find "Eighteen (18)" and instead assigned it with an 18
 survey_rename$age[survey_rename$age=="Eighteen (18)"] <- 18
@@ -139,34 +147,29 @@ survey_rename$age[survey_rename$age==""] <- NA
 survey_rename$age <- as.integer(survey_rename$age)
 str(survey_rename)
 ```
-###Clean Gender Variable
+### Replace Gender Blank with `NA`
 ```{r}
 ## There were blank data points with nothing inputted for gender, and for the other variables 
 survey_rename$gender[survey_rename$gender ==""] <- NA
-
 ```
 
-### Clean Education Variable
+### Replace Education `"select one"` with  `NA`
 ```{r Cleaning Education}
-# survey_rename %>%
-#  select(education) %>%
-#  group_by(education) %>%
-#  summarise(n())
 survey_rename$education[survey_rename$education =="select one"] <- NA
 ```
 
-###Clean Income Variable
+### Replace Income Blank with `NA`
 ```{r}
 survey_rename$income[survey_rename$income ==""] <- NA
 ```
 
+### Replace Sirius Blank with `NA`
 ```{r Clean Sirius}
-
 survey_rename$sirius[survey_rename$sirius ==""] <- NA
 ```
 
+### Replace Wharton Blank with `NA`
 ```{r Clean Wharton}
-
 survey_rename$wharton[survey_rename$wharton ==""] <- NA
 ```
 
@@ -174,7 +177,7 @@ survey_rename$wharton[survey_rename$wharton ==""] <- NA
 survey_rename$worktime[survey_rename$worktime ==""] <- NA
 ```
 
-### the most common error was "" which we fixed with survey_rename$"the variable" =="" <- NA
+The most common error was `""` which we fixed with `survey_rename$var[survey_rename$var == ""] <- NA`
 
 
 iii. Brief summary 
@@ -183,6 +186,7 @@ Write a brief report to summarize all the variables collected. Include both summ
 
 The variables collected and analyzed in the survey were Age, Gender, Education Level, Household Income in 2013, whether the person listens to Wharton and Sirius Radios respectively, and Time elapsed to complete the survey. By plotting the data in histograms, a significant skew to the right can be observed in the `age` variable, showing that the people who took the survey were more likely to be younger (<40). This same phenomenon repeats throughout the `worktime` variable, possibly demonstrating some similarities between younger `age` and a shorter `worktime`. This could be intuitively accounted for by the relatively low survey payout, though there is not enough concrete data to support this hypothesis. However, after running a correlation test, recieving a value of `0.275` renders this correlation weak and with a very minute `p-value`, this null hypothesis is hereby rejected. The `income` samples generally exhibit more `male` responses, whereas the `education` samples are more evenly distributed between `male` and `female` (exempting `other`). Additionally, it can be concluded that a `wharton` listener is likely to listen to `sirius` as well. However, a `sirius` listener is unlikely to listen to `wharton`.
 
+### Age Histogram Skews Right
 ```{r age_histogram}
 survey_rename %>%
   ggplot(aes(x = age)) +
@@ -190,17 +194,20 @@ survey_rename %>%
   labs(x = "Age", y="Frequency")
 ```
 
+### Worktime Histogram Skews Right
 ```{r worktime_histogram}
 survey_rename %>%
   ggplot(aes(x = worktime)) +
   geom_histogram(binwidth = 2, color = "blue", fill = "white") + 
   labs(x = "Worktime", y="Frequency")
 ```
+### Worktime Age Correlation Test Rejects Null Hypothesis
 ```{r age_vs_worktime}
 cor.test(formula = ~ worktime + age,
                 data = survey_rename)
 ```
 
+### Income Bar Graph Exhibits More Male Responses
 ```{r income_bar_graph/gender}
 survey_rename %>%
   select(income, gender) %>%
@@ -211,6 +218,8 @@ survey_rename %>%
   scale_fill_few("Medium") + 
   labs(y = "Income", x="Ratio", fill="Gender")
 ```
+
+### Education Bar Graph Exhibits Roughly Equal Responses
 ```{r education_bar_graph/gender}
 survey_rename %>%
   select(education, gender) %>%
@@ -221,6 +230,8 @@ survey_rename %>%
   scale_fill_few("Medium") + 
   labs(y = "Education Level", x="Ratio", fill="Gender")
 ```
+
+### Sirius Bar Graph Shows Low Wharton Ratio
 ```{r sirius_bar_graph}
 survey_rename %>%
   select(sirius, wharton) %>%
@@ -235,6 +246,8 @@ survey_rename %>%
   scale_fill_few("Medium") + 
   labs(x = "Sirius Listener", y="Ratio", fill="Wharton Listener")
 ```
+
+### Wharton Bar Graph Shows High Sirius Ratio
 ```{r wharton_bar_graph}
 survey_rename %>%
   select(wharton, sirius) %>% 
@@ -249,6 +262,7 @@ survey_rename %>%
   scale_fill_few("Medium") + 
   labs(x = "Wharton Listener", y="Ratio", fill="Sirius Listener")
 ```
+### Frequecy of Household Income Categories
 ```{r income_bar_graph}
 survey_rename %>%
   select(income) %>%
@@ -260,6 +274,8 @@ survey_rename %>%
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(y = "Household Income", x = "Frequency")
 ```
+
+### Frequency of Education Level Categories
 ```{r education_bar_graph}
 survey_rename %>%
   select(education) %>%
@@ -279,30 +295,34 @@ The population from which the sample is drawn determines where the results of ou
 
 i. Does this sample appear to be a random sample from the general population of the USA?
 
-### This is the graph comparing gender.The blue graph refers to the data set provided, while the black graph is the total female and male in US in 2013
+Null Hypothesis: This sample is a random sample from the general population of the USA.
+
+### Sample Gender vs. US Gender
+The blue graph refers to the data set provided, while the black graph is the total female and male count in the US in 2013.
 ```{r gender_comparison}
 
- survey_rename %>%
- select(gender) %>%
- group_by(gender) %>%
- summarise(n())
-
-pp<-survey_rename %>%
+#  survey_rename %>%
+#  select(gender) %>%
+#  group_by(gender) %>%
+#  summarise(n())
+survey_rename %>%
+  na.omit() %>%
   ggplot(aes(x = gender)) +
   geom_bar(stat = "count", color = "white", fill = "light blue") +
-  labs(x = "gender", y = "Frequency")
-pp
+  labs(x = "Gender", y = "Frequency", title="Sample Gender")
 
 df <- data.frame(Gender =c("Male", "Female"),
                 Frequency=c(314848 , 476342))
-head(df)
+
 
 library(ggplot2)
-p<-ggplot(data=df, aes(x=Gender, y=Frequency)) +
-  geom_bar(stat="identity")
-p
+ggplot(data=df, aes(x=Gender, y=Frequency)) +
+  geom_bar(stat="identity") + 
+  labs(x = "Gender", y = "Frequency", title="US Gender")
 #grid.arrange(pp,p , ncol = 2)
 ```
+
+By visual observation, the null hypothesis for `gender` can be rejected.
 
 ```{r income_comparison}
  education_income <- read.csv("data/education_income.csv")
@@ -317,10 +337,6 @@ p
   ggplot(aes(y = income)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(y = "Household Income", x = "Frequency")
-
-
-
-
   
   
 ```
@@ -328,7 +344,13 @@ p
 The sample does not show the general population of the USA. The amount of people in each age group is pretty similar in the general population. The sample showed that there was a huge difference between the amount of people in each age group. 
 
 ```{r Comparing Age}
+survey_rename %>%
+  ggplot(aes(x = age)) +
+  geom_histogram(binwidth = 2, color = "blue", fill = "white") +
+  labs(x = "Age", y="Frequency", title="Sample Age")
+
 UsAge <- read.csv("data/2013age_table1.csv", header = T, stringsAsFactors = FALSE)
+
 Us <- data.frame(Age=c("0-5","5-9","10-14",
                        "15-19","20-24","25-29",
                        "30-34","35-39","40-44",
@@ -337,14 +359,12 @@ Us <- data.frame(Age=c("0-5","5-9","10-14",
                  Number =c(19917.20356,20640,20970,22153,21138,20659,19221,20657,
                            21060,22386,20880, 17611,14437,10624,7598))
 # add the data
-barplot(Us$Number, names.arg=Us$Age)
+barplot(Us$Number, names.arg=Us$Age, main="US Ages",
+        xlab="Ages",
+        ylab="Frequency",)
 #creating a graph
-survey_rename %>%
-  ggplot(aes(x = age)) +
-  geom_histogram(binwidth = 2, color = "blue", fill = "white") +
-  labs(x = "Age", y="Frequency")
-```
 
+```
 
 Note: You can not provide evidence by simply looking at our data here. For example, you need to find distribution of education in our age group in US to see if the two groups match in distribution.  Please do not spend too much time gathering evidence. 
 
@@ -364,6 +384,8 @@ survey_rename  %>%
   print(audience)
 ```
 
+Final Estimate: 2.04 million listeners in Jan 2014.
+
 
 To be specific, you should include:
 
@@ -375,4 +397,4 @@ To be specific, you should include:
 ## Executive Summary
 The goal of this study is to predict the size of the audience regarding the "Business Radio Powered by the Wharton School" in terms of the whole 51.6 million Sirius Radio listeners. In order to do so, we picked out specific variables- age, gender, education level, household income, whether one listens to sirius and/or wharton, and worktime. It was necessary to clean the data by assigning unusable values NA or their correct values. The data was gathered using MTurk, at an offered price for $0.10 for each answered survey for 6 days. Through caclulating the proportion of listeners for Wharton to those who don't listen to Wharton, and multiplying it to the assumed amount of Sirius XM listeners, we get a value of 2.04 million listeners. The limitations of this study are the fact that most of the results came from the first two days, biasing the study towards the people surveyed on those two days. At the same time, this survey is only representative of the people who were willing to partake in the survey, not those who declined, further skewing the data.
 
-End 
+## End 
