@@ -107,7 +107,7 @@ c. Summarize the interpretation of a 95\% confidence interval based on the simul
 To help out we provide the following R-chunk that provides 10 confidence intervals from 10 random samples. Modify it for your purpose accordingly.
 
 ```{r, eval = F, echo = T}
-n_sim <- 10 # number of simulations
+n_sim <- 100 # number of simulations
 mu_hat <- numeric(n_sim)   # estimate
 upper_ci <- numeric(n_sim)  # lower bound
 lower_ci <- numeric(n_sim)  # upper bound
@@ -116,11 +116,10 @@ lower_ci <- numeric(n_sim)  # upper bound
 for (i in 1:n_sim){
   y <- rnorm(50, mean= -.0526, sd = .1)
   mu_hat <- mean(y)
-  mu_sd < sd(y)
+  mu_sd <- sd(y)
   upper_ci[i] <- mu_hat + 1.96 * mu_sd/sqrt(50)
   lower_ci[i] <- mu_hat - 1.96 * mu_sd/sqrt(50)
 }
 
 results <- cbind(lower_ci, upper_ci)
 ```
-
