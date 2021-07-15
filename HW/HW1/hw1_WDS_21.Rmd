@@ -155,7 +155,7 @@ survey_rename$education[survey_rename$education == "select one"] <- NA
 
 ###Clean Income Variable
 ```{r}
-survey_rename$income
+survey_rename$income[survey_rename$income == ""] <- NA
 ```
 
 ```{r Clean Sirius}
