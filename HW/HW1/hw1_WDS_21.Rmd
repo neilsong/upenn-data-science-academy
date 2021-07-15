@@ -174,7 +174,7 @@ survey_rename$wharton[survey_rename$wharton ==""] <- NA
 survey_rename$worktime[survey_rename$worktime ==""] <- NA
 ```
 
-### the most commone error was "" which we fixed with survey_rename$"the variable" =="" <- NA
+### the most common error was "" which we fixed with survey_rename$"the variable" =="" <- NA
 
 
 iii. Brief summary 
