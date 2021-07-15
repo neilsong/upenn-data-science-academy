@@ -1,7 +1,7 @@
 ---
 title: " WDS, HW 1"
 author:
-- Aaron ( team leader )
+- Aaron
 - Neil
 - Ben
 - Luke
@@ -28,7 +28,7 @@ urlcolor: blue
 
 
 ```{r setup, include=FALSE, echo = FALSE}
-knitr::opts_chunk$set(echo = TRUE, results="show", fig.width=8, fig.height=4)
+knitr::opts_chunk$set(echo = TRUE, results="show", fig.width=8, fig.height=4, warning=FALSE)
 options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
@@ -187,7 +187,7 @@ Write a brief report to summarize all the variables collected. Include both summ
 The variables collected and analyzed in the survey were Age, Gender, Education Level, Household Income in 2013, whether the person listens to Wharton and Sirius Radios respectively, and Time elapsed to complete the survey. By plotting the data in histograms, a significant skew to the right can be observed in the `age` variable, showing that the people who took the survey were more likely to be younger (<40). This same phenomenon repeats throughout the `worktime` variable, possibly demonstrating some similarities between younger `age` and a shorter `worktime`. This could be intuitively accounted for by the relatively low survey payout, though there is not enough concrete data to support this hypothesis. However, after running a correlation test, recieving a value of `0.275` renders this correlation weak and with a very minute `p-value`, this null hypothesis is hereby rejected. The `income` samples generally exhibit more `male` responses, whereas the `education` samples are more evenly distributed between `male` and `female` (exempting `other`). Additionally, it can be concluded that a `wharton` listener is likely to listen to `sirius` as well. However, a `sirius` listener is unlikely to listen to `wharton`.
 
 ### Age Histogram Skews Right
-```{r age_histogram}
+```{r age_histogram, results="hide"}
 survey_rename %>%
   ggplot(aes(x = age)) +
   geom_histogram(binwidth = 2, color = "blue", fill = "white") +
@@ -201,6 +201,7 @@ survey_rename %>%
   geom_histogram(binwidth = 2, color = "blue", fill = "white") + 
   labs(x = "Worktime", y="Frequency")
 ```
+
 ### Worktime Age Correlation Test Rejects Null Hypothesis
 ```{r age_vs_worktime}
 cor.test(formula = ~ worktime + age,
@@ -220,7 +221,7 @@ survey_rename %>%
 ```
 
 ### Education Bar Graph Exhibits Roughly Equal Responses
-```{r education_bar_graph/gender}
+```{r education_bar_graph/gender, results="hide"}
 survey_rename %>%
   select(education, gender) %>%
   na.omit() %>%
@@ -232,7 +233,7 @@ survey_rename %>%
 ```
 
 ### Sirius Bar Graph Shows Low Wharton Ratio
-```{r sirius_bar_graph}
+```{r sirius_bar_graph, results="hide"}
 survey_rename %>%
   select(sirius, wharton) %>%
   arrange(wharton) %>%
@@ -241,7 +242,7 @@ survey_rename %>%
   mutate(wharton = factor(wharton, levels=c("Yes", "No"))) %>%
   na.omit() %>%
   ggplot(aes(x= sirius, , fill=wharton)) +
-  geom_bar(position = "fill",NA.rm=TRUE) + 
+  geom_bar(position = "fill") + 
   theme_few() +
   scale_fill_few("Medium") + 
   labs(x = "Sirius Listener", y="Ratio", fill="Wharton Listener")
@@ -262,6 +263,7 @@ survey_rename %>%
   scale_fill_few("Medium") + 
   labs(x = "Wharton Listener", y="Ratio", fill="Sirius Listener")
 ```
+
 ### Frequecy of Household Income Categories
 ```{r income_bar_graph}
 survey_rename %>%
@@ -276,7 +278,7 @@ survey_rename %>%
 ```
 
 ### Frequency of Education Level Categories
-```{r education_bar_graph}
+```{r education_bar_graph, reuslts="hide"}
 survey_rename %>%
   select(education) %>%
   arrange(education) %>%
