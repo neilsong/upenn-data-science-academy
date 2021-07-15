@@ -117,9 +117,17 @@ for (i in 1:n_sim){
   y <- rnorm(50, mean= -.0526, sd = .1)
   mu_hat <- mean(y)
   mu_sd <- sd(y)
-  upper_ci[i] <- mu_hat + 1.96 * mu_sd/sqrt(50)
-  lower_ci[i] <- mu_hat - 1.96 * mu_sd/sqrt(50)
+  upper_ci[i] <- mu_hat + 2 * mu_sd/sqrt(50)
+  lower_ci[i] <- mu_hat - 2 * mu_sd/sqrt(50)
 }
+
+answer <- (lower_ci < -.0526) & (upper_ci > -.0526)
+sum(answer)
+ggplot(ci_b,aes(x=id,y=(lower_ci+upper_ci)/2))+ geom_point() + geom_errorbar(aes(ymax=upper_ci, ymin=))
 
 results <- cbind(lower_ci, upper_ci)
 ```
+
+
+
+
