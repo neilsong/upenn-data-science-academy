@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = FALSE, results = "hide", fig.width=8, fig.height=4)
 options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
-pacman::p_load(ISLR, readxl, tidyverse, magrittr, dplyr, ggplot2, ggthemes)
+pacman::p_load(ISLR, readxl, magrittr, dplyr, ggplot2, ggthemes)
 ```
 
 
@@ -201,7 +201,9 @@ cor.test(formula = ~ worktime + age,
 
 ```{r income_bar_graph/gender}
 survey_rename %>%
-  ggplot(aes(, y=income, fill=gender)) +
+  select(income, gender) %>%
+  na.omit() %>%
+  ggplot(aes(, y=income, fill=gender, NA.rm=TRUE)) +
   geom_bar(position = "fill") + 
   theme_few() +
   scale_fill_few("Medium") + 
@@ -209,6 +211,8 @@ survey_rename %>%
 ```
 ```{r education_bar_graph/gender}
 survey_rename %>%
+  select(education, gender) %>%
+  na.omit() %>%
   ggplot(aes(, y=education, fill=gender)) +
   geom_bar(position = "fill") + 
   theme_few() +
@@ -217,6 +221,12 @@ survey_rename %>%
 ```
 ```{r sirius_bar_graph}
 survey_rename %>%
+  select(sirius, wharton) %>%
+  arrange(wharton) %>%
+  arrange(sirius) %>%
+  mutate(sirius = factor(sirius, levels=c("Yes", "No"))) %>%
+  mutate(wharton = factor(wharton, levels=c("Yes", "No"))) %>%
+  na.omit() %>%
   ggplot(aes(x= sirius, , fill=wharton)) +
   geom_bar(position = "fill") + 
   theme_few() +
@@ -225,6 +235,12 @@ survey_rename %>%
 ```
 ```{r wharton_bar_graph}
 survey_rename %>%
+  select(wharton, sirius) %>% 
+  arrange(wharton) %>%
+  arrange(sirius) %>%
+  mutate(sirius = factor(sirius, levels=c("Yes", "No"))) %>%
+  mutate(wharton = factor(wharton, levels=c("Yes", "No"))) %>%
+  na.omit() %>%
   ggplot(aes(x = wharton, , fill = sirius)) +
   geom_bar(position = "fill", na.rm=TRUE) + 
   theme_few() +
@@ -233,13 +249,23 @@ survey_rename %>%
 ```
 ```{r income_bar_graph}
 survey_rename %>%
+  select(income) %>%
+  arrange(income) %>%
+  mutate(income = factor(income, levels=c("Less than $15,000", "$15,000 - $30,000", "$30,000 - $50,000", 
+    "$50,000 - $75,000", "$75,000 - $150,000", "Above $150,000"))) %>%
+  na.omit() %>%
   ggplot(aes(y = income)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(y = "Household Income", x = "Frequency")
 ```
 ```{r education_bar_graph}
 survey_rename %>%
-  drop_na(education) %>%
+  select(education) %>%
+  arrange(education) %>%
+  mutate(education = factor(education, levels=c("Less than 12 years; no high school diploma", 
+    "High school graduate (or equivalent)", "Some college, no diploma; or Associate’s degree", 
+    'Bachelor’s degree or other 4-year degree', "Graduate or professional degree"))) %>%
+  na.omit() %>%
   ggplot(aes(y = education)) +
   geom_bar(stat = "count", color = "blue", fill = "white") +
   labs(y = "Education Level", x = "Frequency")
