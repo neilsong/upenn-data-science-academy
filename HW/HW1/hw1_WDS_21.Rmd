@@ -277,6 +277,17 @@ grid.arrange(pp,p , ncol = 2)
   
 ```
 
+```{r}
+UsAge <- read.csv("data/2013age_table1.csv", header = T, stringsAsFactors = FALSE)
+#Us <- data.frame(Age =c(UsAge %>% select(Age)),
+ #               Pop =c(UsAge %>% select(Number)))
+b <- UsAge %>%
+  ggplot(aes(y = Age)) +
+  geom_bar(stat = "count", color = "dark green") +
+  labs(y = "Age Ranges", x = "Amount of People")
+b
+```
+
 
 Note: You can not provide evidence by simply looking at our data here. For example, you need to find distribution of education in our age group in US to see if the two groups match in distribution.  Please do not spend too much time gathering evidence. 
 
