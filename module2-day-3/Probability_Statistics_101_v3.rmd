@@ -14,7 +14,7 @@ header-includes:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache = T, fig.align="center", out.width = "70%", fig.height = 3, fig.width = 5)
 
-pacman::p_load(ggplot2, dplyr, scales)
+pacman::p_load(ggplot2, dplyr, scales, latex2exp)
 ```
 
 # Objectives
@@ -169,6 +169,37 @@ Key elements:
 - On average how much do you expect that we will win?
 
 
+---
+\frametitle{Behavior of Long Term Frequency}
+
+\small
+```{r}
+n <- 1000
+win_prob <- 18/38
+# winning event
+set.seed(2021)
+win_vec <- rbinom(n,1,win_prob) # rbinom(1,1, win_prob)   #one game at a time
+# cumulative mean = cumulative sum / cumulative number of games
+cum_mean <- cumsum(win_vec)/(1:n)
+# data.frame
+cum_mean_df <- data.frame(num_of_games = 1:n,
+                        cum_mean = cum_mean)
+```
+
+```{r}
+ggplot(cum_mean_df, 
+       aes(x = num_of_games, y = cum_mean)) +
+  geom_line() + geom_point() +
+  geom_hline(yintercept = win_prob, col = "red") +
+  # xlab("Number of games") + 
+  ylab("Average winning percentage") +
+  ggtitle("Average winning percentage") +
+  scale_y_continuous(labels = percent) +
+  theme_bw()
+```
+
+
+
 ## Expectation
 
 ---
@@ -237,99 +268,6 @@ Are you surprised to see this?
 
 ## Law of Large Numbers
 
----
-\frametitle{Behavior of Long Term Frequency$}
-
-\small
-```{r, echo = TRUE}
-n <- 200
-win_prob <- 18/38
-# winning event
-set.seed(2021)
-win_vec <- rbinom(n,1,win_prob) # rbinom(1,1, win_prob)   #one game at a time
-# cumulative mean = cumulative sum / cumulative number of games
-cum_mean <- cumsum(win_vec)/(1:n)
-# data.frame
-cum_mean_df <- data.frame(num_of_games = 1:n,
-                        cum_mean = cum_mean)
-head(cum_mean_df)
-```
-
----
-\frametitle{Behavior of Long Term Frequency}
-
-\scriptsize
-```{r, echo = TRUE}
-ggplot(cum_mean_df, 
-     aes(x = num_of_games, y = cum_mean)) +
-geom_line() + geom_point() +
-geom_hline(yintercept = win_prob, col = "red") +
-# xlab("Number of games") + 
-ylab("Average winning percentage") +
-scale_y_continuous(labels = percent) +
-theme_bw()
-```
-
----
-\frametitle{Behavior of Sample Mean $\bar{Y}_{n}$}
-\scriptsize
-```{r, echo = TRUE}
-# expected gain
-expected_gain <- win_prob - (1-win_prob)
-
-# if win: +1; if lose: -1
-gain_vec <- win_vec*2-1
-
-# sample() function:
-# x: elements to choose; size: repeat how many times; 
-# replace: sample with replacement; prob: probability to choose each x
-gain_vec <- sample(x = c(1,-1), 
-                 size = n,
-                 replace = T, 
-                 prob = c(win_prob, 1- win_prob))
-
-gain_vec
-```
-
----
-\frametitle{Behavior of $\bar{Y}_{n}$ }
-
-```{r, echo = TRUE, eval = T}
-# average gain
-ave_gain <- cumsum(gain_vec)/1:n
-
-# data.frame
-cum_gain_df <- data.frame(num_of_games = 1:n,
-                        ave_gain = ave_gain)
-```
-
-
-```{r, echo = TRUE, eval = F}
-# plot
-ggplot(cum_gain_df, 
-     aes(x = num_of_games, y = ave_gain)) +
-geom_line() + geom_point() +
-geom_hline(yintercept = expected_gain, col = "darkgreen") +
-xlab("Number of games") + 
-ylab("Average winning") +
-theme_bw()
-```
-
-
----
-\frametitle{Behavior of $\bar{Y}_{n}$ }
-
-```{r, echo = F}
-# plot
-ggplot(cum_gain_df, 
-     aes(x = num_of_games, y = ave_gain)) +
-geom_line() + geom_point() +
-geom_hline(yintercept = expected_gain, col = "darkgreen") +
-xlab("Number of games") + 
-ylab("Average winning") +
-theme_bw()
-```
-
 
 ---
 \frametitle{Law of Large Numbers}
@@ -340,6 +278,51 @@ theme_bw()
 - Long term Average $\approx$ expected value
 
 \[\bar{Y}_{n} \rightarrow \mu \mbox{ or } E(Y) \mbox{ (Expected value)}\]
+
+
+
+---
+\frametitle{Behavior of Sample Mean $\bar{Y}_{n}$}
+\scriptsize
+```{r, generate a single y, echo = TRUE}
+# expected gain
+expected_gain <- win_prob - (1-win_prob) #E(Y)
+
+n <- 1000
+win_prob <- 18/38
+# winning event
+set.seed(2021)
+win_vec <- rbinom(n,1,win_prob) 
+# if win: +1; if lose: -1
+gain_vec <- win_vec*2-1
+# print first 100 gains
+head(gain_vec, 100)
+```
+
+---
+\frametitle{Behavior of $\bar{Y}_{n}$ }
+
+```{r}
+# average gain
+ave_gain <- cumsum(gain_vec)/1:n
+
+# data.frame
+cum_gain_df <- data.frame(num_of_games = 1:n,
+                        ave_gain = ave_gain)
+```
+
+
+```{r}
+# plot
+ggplot(cum_gain_df, 
+       aes(x = num_of_games, y = ave_gain)) +
+  geom_line() + geom_point() +
+  geom_hline(yintercept = expected_gain, col = "darkgreen") +
+  xlab("Number of games") + 
+  ylab("Average winning") +
+  ggtitle("Average winning") +
+theme_bw()
+```
 
 
 ---
@@ -406,43 +389,52 @@ They are different from sample means and sample variances.
 
 We all play Red-Black game, bet one dollar each time
 
-- $\bar{Y}_{10}$, each person play 10 times 48 of us
-- $\bar{Y}_{100}$, each person play 100 times 48 of us
-- $\bar{Y}_{10,000}$, each person play 10,000 times 48 of us
+- Distribution of $\bar{Y}_{10}$, each person play 10 times
+- Distribution of $\bar{Y}_{100}$, each person play 100 times
+- Distribution of $\bar{Y}_{10,000}$, each person play 10,000 times
 
-```{r}
-n_times <- 48
+```{r, sample means}
+# nubmer of ybar
+# we use 48 us to play before
+# but we will not be able to get the distribution with only 48 samples
+n_samples <- 10000
+# probability of winning 
 win_prob <- 18/38
 
-num_win <- rbinom(n_times, 10, win_prob)
+# Ybar of 10 times
+num_win <- rbinom(n_samples, 10, win_prob)
 gain <- num_win - (10-num_win)
+# histogram of ybar
+# hist(gain) 
+# distribution of ybar_10
+# prop.table(table(gain))
 ```
 
 ---
 \frametitle{Behavior of the average winning}
 \tiny
 ```{r, echo = T}
-n_times <- 48
+n_samples <- 10000
 win_prob <- 18/38
 
 # create a data frame
-## 10 times
+## 10 times, Ybar_10
 set.seed(1)
 avg_winning_df_10 <-
-  data.frame(id = 1:n_times,
+  data.frame(id = 1:n_samples,
              n = 10, 
-             num_win = rbinom(n_times, 10, win_prob))
-## 100 times
+             num_win = rbinom(n_samples, 10, win_prob))
+## 100 times, Ybar_100
 avg_winning_df_100 <- 
-  data.frame(id = 1:n_times,
+  data.frame(id = 1:n_samples,
              n = 100, 
-             num_win = rbinom(n_times, 100, win_prob))
+             num_win = rbinom(n_samples, 100, win_prob))
 
-# 10000 times
+# 10000 times, Ybar_10000
 avg_winning_df_10000 <- 
-  data.frame(id = 1:n_times, 
+  data.frame(id = 1:n_samples, 
              n = 10000, 
-             num_win = rbinom(n_times, 10000, win_prob))
+             num_win = rbinom(n_samples, 10000, win_prob))
 
 avg_winning_df <- rbind(avg_winning_df_10, avg_winning_df_100, avg_winning_df_10000)
 
@@ -452,44 +444,38 @@ avg_winning_df <-
 
 ## another way
 # times <- c(10, 100, 10000)
-# ns <- rep(times, each = n_times)
+# ns <- rep(times, each = n_samples)
 # avg_winning_df <- 
-#   data.frame(id = rep(1:n_times, 3),
+#   data.frame(id = rep(1:n_samples, 3),
 #              n = ns,
 #              num_win = unlist(lapply(times,
-#                                  function(x) rbinom(n_times, x, win_prob)))
+#                                  function(x) rbinom(n_samples, x, win_prob)))
 #              ) %>%
 #   mutate(avg = (num_win - (n-num_win))/n )
 ```
 
----
-\frametitle{Behavior of the average winning}
-\tiny
-```{r, echo = F, fig.height=3, fig.width=5, out.width="100%"}
-# plot
-ggplot(avg_winning_df, aes(x = id, y = avg, col = as.factor(n))) + 
-  geom_point()
-```
-
----
-\frametitle{Behavior of the average winning}
-
-```{r, echo = T}
-avg_winning_df %>%
-  group_by(n) %>%
-  summarize(mean = mean(avg),
-            sd = sd(avg),
-            total = sum(avg*n))
-```
 
 ---
 \frametitle{Behavior of the average winning}
 \tiny
 ```{r, echo = T, fig.height=3, fig.width=5, out.width="90%"}
 ggplot(avg_winning_df, aes(x = avg, fill = as.factor(n))) + 
-  geom_histogram() +
-  facet_wrap(~n, nrow = 1)
+  geom_histogram(bins = 100) +
+  facet_wrap(~n, nrow = 1, scales = "free_x") +
+  ggtitle(TeX("Histrogram of $\\bar{Y}_{10}$, $\\bar{Y}_{100}$, $\\bar{Y}_{10,000}$"))
 ```
+
+
+<!-- --- -->
+<!-- \frametitle{Behavior of the average winning} -->
+
+<!-- ```{r, echo = T} -->
+<!-- avg_winning_df %>% -->
+<!--   group_by(n) %>% -->
+<!--   summarize(mean = mean(avg), -->
+<!--             sd = sd(avg), -->
+<!--             total = sum(avg*n)) -->
+<!-- ``` -->
 
 
 ---
@@ -520,15 +506,15 @@ What about instead we have all played single number games?
 # winning probability
 win_prob = 1/38
 # number of game
-n_times <- 48
+n_samples <- 1000
 # number of trials each game
 times <- c(10, 100, 10000)
-ns <- rep(times, each = n_times)
+ns <- rep(times, each = n_samples)
 # number of win
 num_win <- c(sapply(times, 
-                  function(trial) rbinom(n_times, trial, win_prob)))
+                  function(trial) rbinom(n_samples, trial, win_prob)))
 
-avg_winning_df <- data.frame(id = rep(1:n_times, 3),
+avg_winning_df <- data.frame(id = rep(1:n_samples, 3),
                              n = ns,
                              num_win = num_win)
 
@@ -537,16 +523,16 @@ avg_winning_df <-
   mutate(avg = (num_win*35 - (n-num_win))/n )
 ```
 
----
-\frametitle{Single number game}
+<!-- --- -->
+<!-- \frametitle{Single number game} -->
 
-```{r, echo = T}
-avg_winning_df %>%
-  group_by(n) %>%
-  summarize(mean = mean(avg),
-            sd = sd(avg),
-            total = sum(avg*n))
-```
+<!-- ```{r, echo = T} -->
+<!-- avg_winning_df %>% -->
+<!--   group_by(n) %>% -->
+<!--   summarize(mean = mean(avg), -->
+<!--             sd = sd(avg), -->
+<!--             total = sum(avg*n)) -->
+<!-- ``` -->
 
 ---
 \frametitle{Single number game}
@@ -554,7 +540,8 @@ avg_winning_df %>%
 ```{r, echo = T, fig.height=3, fig.width=5, out.width="90%"}
 ggplot(avg_winning_df, aes(x = avg, fill = as.factor(n))) + 
   geom_histogram(bins = 100) +
-  facet_wrap(~n, nrow = 1)
+  facet_wrap(~n, nrow = 1, scales = "free_x") +
+  ggtitle(TeX("Histrogram of $\\bar{X}_{10}$, $\\bar{X}_{100}$, $\\bar{X}_{10,000}$"))
 ```
 
 
@@ -606,7 +593,8 @@ f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp{-\frac{(x-\mu)^2}{2\sigma^2}}
 
 ```{r}
 xseq <- seq(-5,5,.1)
-plot(xseq, dnorm(xseq), type = 'l')
+y <- dnorm(xseq)
+plot(xseq, y, type = 'l', xlab = "x", ylab = "density")
 ```
 
 ---
@@ -711,7 +699,8 @@ P\left(Z \geq \frac{0-(-.0526)}{.1} \right) \\
 
 ```{r, echo = T}
 pnorm(.526, lower.tail = F)
-# pnorm(0, mean = -.0526, sd = .1, lower.tail = F)
+# another way
+pnorm(0, mean = -.0526, sd = .1, lower.tail = F)
 ```
 
 ---
@@ -768,6 +757,16 @@ Case: Linda played roulette 100 times
 
 * She knew the roulette table is a biased one. HOW????
 
+---
+\frametitle{Hypothesis tests}
+
+
+
+---
+\frametitle{95\% Confidence intervals}
+
+
+
           
 \footnotesize
 ```{r echo = F}
@@ -775,7 +774,7 @@ Case: Linda played roulette 100 times
 # n <- 100
 # win_vec <- rbinom(n, 1, 18/38)
 # gain_vec <- win_vec*2-1
-# data.frame(mean = mean(gain_vec), 
+# data.frame(mean = mean(gain_vec),
 #            sd = sd(gain_vec),
 #            upper = mean(gain_vec) + 1.96*sd(gain_vec)/sqrt(n),
 #            lower = mean(gain_vec) - 1.96*sd(gain_vec)/sqrt(n)
@@ -804,97 +803,264 @@ Apply to our data, we have a 95\% confidence interval (z):
 Conclusion: The roulette is not fair. 95\% CI does not contain -.0526.
 
 ---
-\frametitle{$t$-Confidence interval}
+\frametitle{95\% $t$-Confidence interval}
 
 * $\sigma$ is not known either, we estimate $\sigma$ by $s=.965$
 * We will have a $t$-interval:
-\[\bar{X} \pm t_{df} \times \frac{s}{\sqrt{100}} = -.28 \pm 1.98 \times \frac{.965}{\sqrt{100}} = (-.471, -.089)\]
+\[\bar{X} \pm t_{.025, df} \times \frac{s}{\sqrt{100}} = -.28 \pm 1.98 \times \frac{.965}{\sqrt{100}} = (-.471, -.089)\]
  
 * We have the same conclusion that the wheel is not a fair one since the true mean -.0526 in not in the interval. 
 
 * $t$ intervals are wider than $z$ intervals
 
+\footnotesize
+* **Note: when df is large t and z are virtually the same.**
+```{r t and z, echo=F}
+# t distribution with df large is approx. same as z
+# we see via simulations here
+# use base R to pile the two histgrams togehter
+par(mfrow=c(1, 2))
+hist(rnorm(n=10000), breaks = 100, 
+     main = "z scores",
+     xlab = "")  # z scores
+hist(rt(n=10000, df=199 ), breaks = 100, 
+     main = "t scores",
+     xlab = "") #t with df= 
+```
+<!-- \footnotesize -->
+\tiny
+* **Note: when df is large t and z are virtually the same.**
+
+## Hypothesis tests
 
 ---
-## Hypothesis tests
 \frametitle{Hypotheses testing}
 
 * We may ask is it possible that$\mu=-.0526$?
 * $H_0:  \mu = -.0526  \quad \mbox{vs.} \quad H_1:  \mu \neq -.0526$
 * Testing statistics
 \[
-Z = \frac{\bar{X} - (-.0526)}{s/\sqrt{n}} = \frac{-.28 + .0526}{.998/{/sqrt{100}}} = -2.28
+Z = \frac{\bar{X} - (-.0526)}{s/\sqrt{n}} = \frac{-.28 + .0526}{.998/{\sqrt{100}}} = -2.28
 \]
  
 * $p\mbox{-value}=P(|Z|> 2.28) =.022$  if $\mu = -.0526$
 * Conclusion: Since $p$-value is so small, we reject $H_0$.
 
+---
+
+\begin{center}
+The lecture ENDS HERE. 
+\end{center}
+
 
 # Appendix
+## Distribution {-}
 
 ---
 \frametitle{Bernoulli Distribution}
 
-The success of each bet $X$ of the single number game or the Red-Black game follows a Bernoulli distribution. Denote success as 1.
-
-* Single number game
-\[X = \begin{cases} 1 & \text{with probability (w.p.) 1/38} \\
-                    0 & \text{w.p. 37/38} \end{cases}\]
+The success of each bet $W$ of the single number game or the Red-Black game follows a Bernoulli distribution. Denote success as 1.
 
 * Red-Black game
-\[X = \begin{cases} 1 & \text{w.p. 18/38,} \\
+\[W = \begin{cases} 1 & \text{w.p. 18/38,} \\
                     0 & \text{w.p. 20/38} \end{cases}\]
-    
-    
+
 ---
 \frametitle{Bernoulli Distribution}   
 
-Simulate 100 trials. Use `rbinom()` to generate random samples.
+Simulate 100 bets Use `rbinom()` to generate random samples.
 
 \small
-```{r}
-rbinom(n = 100, size = 1, 18/38)
+```{r echo=T}
+win_event <- rbinom(n = 100, size = 1, 18/38)
+win_event
 ```
 
 ---
-\frametitle{Binomial Distribution}
+\frametitle{Bernoulli Distribution}   
+\framesubtitle{`set.seed(1)`}   
 
-If we bet 100 times, or say we draw 100 samples from the Bernoulli distribution, the total number of success among these 100 times $Y$ follow binomial distribution. 
-\[Y \sim Binomial(n, p) \]
-where $n$ is the total number of trials and $p$ is the probability of success of each trial.
+We will obtain different results every time we generate 100 games because of the randomness. To ensure we all get the same 100 results, use `set.seed()`.
 
-* Single number game
-\[X = Binomial(100, 1/38)\]
+\small
+```{r echo=T}
+set.seed(1) # make sure the random events generated remain the same
+win_event <- rbinom(n = 100, size = 1, 18/38)
+win_event
+```
 
-* Red-Black game
-\[X = Binomial(100, 18/38)\]
+
+---
+\frametitle{Bernoulli Distribution}   
+\framesubtitle{`set.seed(1)`}   
+
+How to get the gain for each of the 100 trials, i.e., $Y_1, Y_2, \ldots, Y_{100}$? 
+
+\small
+```{r echo=T}
+set.seed(1)
+win_event <- rbinom(n = 100, size = 1, 18/38) # round(rnorm(100), 2)
+gain_vec <- 2*win_event-1
+gain_vec
+```
+
 
 ---
 \frametitle{Binomial Distribution}
 
+If we bet 100 times, or say we draw 100 samples from the Bernoulli distribution, the total number of success among these 100 times $W_1 + W_2 + \ldots +W_{100}$ follow binomial distribution
+\[W_1 + W_2 + \ldots +W_{100} \sim Binomial(100, 18/38)\]
+
+
+---
+\frametitle{Binomial Distribution (Optional)}
+
+In general, for a binomial variable 
+\[B \sim Binomial(n, p) \]
+where $n$ is the total number of trials and $p$ is the probability of success of each trial.
+
 The probability of success $k$ times among 100 trials is 
-\[Prob(Y=k) = 
+\[Prob(B=k) = 
 \left(\begin{array}{c}
 100\\
 k
 \end{array}\right) 
 p^k (1-p)^{n-k}\]
 
-```{r}
+```{r echo=T}
 pbinom(50, 100, 18/38)
 ```
 
 ---
 \frametitle{Binomial Distribution}
 
-Simulate total number of success among 100 trials. Use `rbinom()` to generate random samples.
+* Simulate total number of success among 100 trials. Use `rbinom()` to generate random samples.
 
 \small
-```{r}
-rbinom(1, 100, 18/38)
+```{r echo=T}
+set.seed(1)
+num_win <- rbinom(1, 100, 18/38)
+num_win
+```
+
+\normalsize
+
+* What about one average gain $\bar{Y}_{100}$? 
+\small
+```{r echo=T}
+num_lose <- 100 - num_win
+avg_gain <-  (num_win - num_lose)/100
+avg_gain
 ```
 
 
+---
+\frametitle{Binomial Distribution}
+
+Let's generate many $\bar{Y}_{100}$'s.
+
+\tiny
+```{r echo=T}
+set.seed(1)
+# generate 10,000 Ybar_100
+num_win <- rbinom(10000, 100, 18/38)
+num_lose <- 100 - num_win
+# 10,000 average gains Ybar_100
+avg_gain <-  (num_win - num_lose)/100
+# histogram of Ybar_100
+hist(avg_gain)
+```
+
+
+---
+\frametitle{Normal Distribution}
+
+$X$ follows a normal distribution with mean $\mu$ and standard deviation $\sigma$.  
+ \[X \sim N(\mu,\sigma^2)\]
+ 
+* Density: 
+\[
+f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+
+\tiny
+```{r echo=T}
+# plot standard normal
+xseq <- seq(-5,5,.1)
+y <- dnorm(xseq)
+plot(xseq, y, type = 'l', xlab = "x", ylab = "Density")
+```
+
+---
+\frametitle{Normal Distribution}
+
+* $X$ follows a normal distribution with mean $\mu$ and standard deviation $\sigma$.  
+ \[X \sim N(\mu,\sigma^2)\]
+
+* We often use $Z$ to denote a standard normal distribution
+ \[Z \sim N(\mu = 0,\sigma^2 = 1)\]
+
+---
+\frametitle{Normal Distribution}
+\framesubtitle{`pnorm()`}
+
+How to calculate the probability? Use `pnorm()`.
+
+* $P(Z < 0) = ?$
+```{r echo=T}
+pnorm(0)
+```
+
+* $P(-2 < Z < 2) = P(Z<2) - P(Z<-2)$
+```{r echo=T}
+pnorm(2) - pnorm(-2)
+```
+
+---
+\frametitle{Normal Distribution}
+\framesubtitle{`rnorm()`}
+
+How to generate random normal variable?
+
+\tiny
+```{r echo=T}
+# generate 1000 standard normal samples
+z_vec <- rnorm(n = 1000)
+# plot histogram:
+## freq = F: get the proportion instead of total number
+## breaks: number of bins
+hist(z_vec, main = "Histogram of Z", freq = F, breaks = 100)
+## add a standard normal curve
+lines(xseq, y, type = 'l', col = "red")
+```
+
+---
+\frametitle{Normal Distribution}
+
+What about a general normal random variable with mean $\mu=2$ and standard deviation $\sigma=1$?
+ \[X \sim N(2,1^2)\]
+ 
+We can convert it into $Z$! 
+
+\[Z = \frac{X - \mu}{\sigma} = \frac{X-2}{1}\]
+ 
+---
+\frametitle{Normal Distribution}
+\framesubtitle{`pnorm()`}
+
+* $P(X < 0) = ?$
+\[P(X < 0) = P\left(\frac{X-2}{1} < \frac{0-2}{1} \right) = P(Z < -2)\]
+```{r echo=T}
+pnorm(-2)
+```
+
+We can also directly use `mean` and `sd` arguments in `pnorm()` to specify the mean and standard deviation.
+```{r echo=T}
+pnorm(0, mean = 2, sd = 1)
+```
+
+
+## Covariance and Correlation {-}
 
 ---
 \frametitle{Covariances: $Cov(X_R, X_B)$}
@@ -916,7 +1082,7 @@ rbinom(1, 100, 18/38)
 
 \[\rho = \frac{COV(X_R, X_B)}{SD(X_R) SD(X_B)} = \frac{-.8975}{.998 \times 998} = -.9011\]
 
-* Correlation captures linear relationship between XR and XB 
+* Correlation captures linear relationship between $X_R$ and $X_B$ 
 * $-1 < \rho < 1$
 * The larger $|\rho|$ is, the stronger of the relationship
 * The sign of $\rho$ reflects the direction of associations
