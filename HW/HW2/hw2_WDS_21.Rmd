@@ -76,6 +76,21 @@ b.	A player will bet \$1 each time. Let $X$ be the payoff.
     (ii)	Repeat number (i) if the player bets on two numbers.
     
     (iii)	If one plays the game by betting on a single number 1000 times, how much do you expect the person to win?
+```{r}
+# expected gain
+expected_gain <- win_prob - (1-win_prob) #E(Y)
+
+n <- 1000
+win_prob <- 18/38
+# winning event
+set.seed(2021)
+win_vec <- rbinom(n,1,win_prob) 
+# if win: +1; if lose: -1
+gain_vec <- win_vec*2-1
+# print first 100 gains
+head(gain_vec, 100)
+```
+  
     
     (iv)	Explain now why the casinos always make money on the roulette game.
 
