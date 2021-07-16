@@ -137,7 +137,7 @@ Let $Y$ be the average winning amount among 100 games of betting \$1 each time i
 
 a. Generate 50 $Y's$ from $N(\mu = -.0526, \sigma =.1)$ with `set.seed(1)`. Construct a $95\%$ confidence interval for the unknown mean. State the confidence interval. Is the true value -.0526 inside the confidence interval?
 
-
+The true value -.0526 is inside the confidence interval.
 ```{r}
 n_sim <- 50 # number of simulations
 mu_hat <- numeric(n_sim)   # estimate
