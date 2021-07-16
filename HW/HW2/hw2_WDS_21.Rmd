@@ -138,22 +138,42 @@ Let $Y$ be the average winning amount among 100 games of betting \$1 each time i
 a. Generate 50 $Y's$ from $N(\mu = -.0526, \sigma =.1)$ with `set.seed(1)`. Construct a $95\%$ confidence interval for the unknown mean. State the confidence interval. Is the true value -.0526 inside the confidence interval?
 
 
+```{r}
+n_sim <- 50 # number of simulations
+mu_hat <- numeric(n_sim)   # estimate
+upper_ci <- numeric(n_sim)  # lower bound
+lower_ci <- numeric(n_sim)  # upper bound
+
+# Carry out the simulation
+for (i in 1:n_sim){
+  y <- rnorm(50, mean= -.0526, sd = .1)
+  mu_hat <- mean(y)
+  mu_sd <- sd(y)
+  lower_ci[i] <- mu_hat - (2*mu_sd)/sqrt(50)
+  upper_ci[i] <- mu_hat + (2*mu_sd)/sqrt(50)
+}
+
+answer <- (lower_ci < -.0526) & (upper_ci > -.0526)
+sum(answer)
+
+
+results <- cbind(lower_ci, upper_ci)
+
+ci_df <- data.frame(
+  id = 1:n_sim,
+  lower_ci = lower_ci, 
+  upper_ci = upper_ci)
+
+ggplot(ci_df,aes(x = id, y = (lower_ci + upper_ci)/2)) +
+  geom_point() + 
+  geom_errorbar(aes(ymax = upper_ci, ymin = lower_ci, color = answer)) +
+  labs(x = "Trial", y = "mean") 
+```
 
 
 
 b. Repeat question 2a. 100 times to generate 100 samples (each has sample size 50 and follows $N(\mu = -.0526, \sigma =.1)$) and produce 100 95\% confidence intervals. How many of the confidence intervals capture the true mean -.0526? Display your 100 confidence intervals in a meaningful way. 
 
-
-c. Summarize the interpretation of a 95\% confidence interval based on the simulation in question 2b.  
-95% of the data captures true mean while 5% of the data is not representative of true mean
-
-
-# Appendix: simulation code for confidence interval
-
-To help out we provide the following R-chunk that provides 10 confidence intervals from 10 random samples. Modify it for your purpose accordingly.
-
-
-Answer for question 2 
 ```{r}
 n_sim <- 100 # number of simulations
 mu_hat <- numeric(n_sim)   # estimate
@@ -185,3 +205,14 @@ ggplot(ci_df,aes(x = id, y = (lower_ci + upper_ci)/2)) +
   geom_errorbar(aes(ymax = upper_ci, ymin = lower_ci, color = answer)) +
   labs(x = "Trial", y = "mean") 
 ```
+
+
+c. Summarize the interpretation of a 95\% confidence interval based on the simulation in question 2b.  
+95% of the data captures true mean while 5% of the data is not representative of true mean
+
+
+# Appendix: simulation code for confidence interval
+
+To help out we provide the following R-chunk that provides 10 confidence intervals from 10 random samples. Modify it for your purpose accordingly.
+
+
