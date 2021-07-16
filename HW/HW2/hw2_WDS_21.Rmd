@@ -68,6 +68,7 @@ The following questions refer to the Red-Black Roulette game. After the ball is 
 
 a.	What is the probability that the ball will land in any one slot?
 
+The probability a ball will land on a sepcific spot is a 1 in 38 chance. 
 
 b.	A player will bet \$1 each time. Let $X$ be the payoff.
 
