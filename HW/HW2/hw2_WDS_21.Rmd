@@ -79,7 +79,7 @@ b.	A player will bet \$1 each time. Let $X$ be the payoff.
     (iii)	If one plays the game by betting on a single number 1000 times, how much do you expect the person to win?
 ```{r}
 # expected gain
-expected_gain <- win_prob - (1-win_prob) #E(Y)
+
 
 n <- 1000
 win_prob <- 18/38
@@ -91,7 +91,7 @@ gain_vec <- win_vec*2-1
 # print first 100 gains
 head(gain_vec, 100)
 # to find average gain
-sum(gain_vec)/1000
+sum(gain_vec)/100
 mean(gain_vec)
 ```
   
@@ -101,10 +101,32 @@ mean(gain_vec)
 c. Let's "play" the game using code. 
 
     (i) We bet 30 times each round. Put 30 payoffs into a vector and store into a variable.
+```{r}
+set.seed(1)
+num_win = rbinom(30, 30, 1/36)
+num_win
+```
 
-    (ii) Plot the histogram of the 30 payoffs. What is the total payoffs for this round?
+   (ii) Plot the histogram of the 30 payoffs. What is the total payoffs for this round?
+```{r}
+num_loose <- 30- num_win
+avg_gain <-  (num_win - num_loose)/30
+hist(avg_gain)
+
+```
+  
 
     (iii) Let's play another 100 rounds. Plot the histogram of total payoffs. What is the average payoff from these 100 rounds? Is this as expected? 
+```{r}
+set.seed(1)
+
+num_win <- rbinom(30, 100, 18/38)
+num_lose <- 100 - num_win
+
+avg_gain <-  (num_win - num_lose)/100
+
+hist(avg_gain)
+```
 
 
 # Question 2: Statistics 
