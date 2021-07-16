@@ -99,7 +99,9 @@ a. Generate 50 $Y's$ from $N(\mu = -.0526, \sigma =.1)$ with `set.seed(1)`. Cons
 
 b. Repeat question 2a. 100 times to generate 100 samples (each has sample size 50 and follows $N(\mu = -.0526, \sigma =.1)$) and produce 100 95\% confidence intervals. How many of the confidence intervals capture the true mean -.0526? Display your 100 confidence intervals in a meaningful way. 
 
+
 c. Summarize the interpretation of a 95\% confidence interval based on the simulation in question 2b.  
+95% of the data captures true mean while 5% of the data is not representative of true mean
 
 
 # Appendix: simulation code for confidence interval
