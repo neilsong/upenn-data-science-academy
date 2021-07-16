@@ -1,0 +1,540 @@
+---
+title: "Multiple Linear Regression"
+author: ""
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: Boadilla
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+header-includes:
+- \AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+- \AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, fig.width=8, fig.height=4, 
+                      out.width = "90%", fig.align = "center")
+options(scipen = 0, digits = 3)  # controls base R output
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(ggplot2, dplyr, tidyverse, gridExtra, ggrepel, plotly, skimr, stargazer, contrast, car)
+# install a package if it does not exist already and put the package in the path (library)
+# dplyr, ggplot2,tidyr
+```
+    
+
+---
+\frametitle{Table of Content}
+
+- Linear model
+    + Additive
+    + Interpretation
+- Model specification
+- Model assumptions
+- LS estimates
+    + Mean estimates
+    + CI's for each 
+    + Predictions for $y$
+- Goodness of fit
+- Model diagnosis
+- Categorical X's
+- Variable selection
+
+# Case Study: Fuel Efficiency in Automobiles
+
+
+---
+\frametitle{Case Study: Fuel Efficiency in Automobiles}
+
+
+Goal of the study: How to build a fuel efficient car?
+
+- Effects of features on a car
+- Given a set of features, we'd like to estimate the mean fuel efficiency as well as the efficiency of one car
+- Are Asian cars more efficient than cars built in other regions?
+
+Let us answer these questions with Multiple Regression
+
+
+---
+\frametitle{Data}
+
+
+Dataset: `car_04_regular.csv` , $n=226$ cars
+
+<center>
+|Feature|Description|
+|----------|----------------------------------------------|
+|Continent|Continent the Car Company is From|
+|Horsepower|Horsepower of the Vehicle|
+|Weight|Weight of the vehicle (thousand lb)| 
+|Length|Length of the Vehicle (inches) |
+|Width|Width of the Vehicle (inches) |
+|Seating|Number of Seats in the Vehicle|
+|Cylinders|Number of Engine Cylinders|
+|Displacement|Volume displaced by the cylinders, defined as $\pi/4 \times bore^{2} \times stroke \times \text{Number of Cylinders}$|
+|Transmission|Type of Transmission (manual, automatic, continuous)|
+</center>
+
+
+---
+\frametitle{Goal of Study: Rephrased}
+
+
+  1. Fuel efficiency is measured by Mileage per Gallon, $Y$ = `MPG_City` 
+  2. Predictors: Effects of each feature on $Y$
+  3. Estimate 
+    - the mean `MPG_City` for all such cars specified below and
+    - predict $Y$ for the particular car described below
+  4. Are cars built by Asian more efficient?
+  5. Investigate the `MPG_City` for this newly designed American car
+
+\tiny
+<center>
+|Feature|Value|
+|----------|----------------------------------------------|
+|Continent|America|
+|Horsepower|225|
+|Weight|4|
+|Length|180|
+|Width|80|
+|Seating|5|
+|Cylinders|4|
+|Displacement|3.5|
+|Transmission|automatic|
+</center>
+
+---
+\frametitle{A Quick Glimpse at the data}
+
+
+\tiny
+```{r results=TRUE}
+data1 <- read.csv("car_04_regular.csv", header=TRUE)
+
+names(data1)
+dim(data1)   # 226 cars and 13 variables
+```
+
+```{r results=TRUE, echo = F}
+newcar <-  data1[1, ]  # Create a new row with same structure as in data1
+newcar[1] <- "NA" # Assign features for the new car
+newcar[2] <- "Am"
+newcar["MPG_City"] <- "NA"
+newcar["MPG_Hwy"] <- "NA"
+newcar[5:11] <- c(225, 4, 180, 80, 5, 4, 3.5)
+newcar$Make <-  "NA"
+newcar[13] <- "automatic"
+```
+
+
+---
+\frametitle{A Quick Glimpse at the data}
+
+
+\tiny
+```{r}
+str(data1)
+```
+
+---
+\frametitle{A Quick Glimpse at the data}
+
+
+\tiny
+```{r}
+head(data1)
+```
+
+# Multiple regression
+
+---
+\frametitle{Introduction to Multiple regression}
+
+
+Guiding Question: How does `Length` affect `MPG_City`? 
+
+ - It depends on how we model the response. We will investigate **three models** with `Length`.
+
+ - For the ease of presentation, we define some predictors below that we will use in subsequent models:
+
+$$x_1 = Length, \quad x_2 = Horsepower, \quad x_3 = Width, \quad x_4 = Seating$$
+
+$$, \quad x_5 = Cylinders, \quad x_6 =  Displacement$$
+
+## Model Specification
+
+---
+\frametitle{Model Specification}
+
+
+**M1. Our first model will only contain one predictor, Length:**
+
+
+$$y_i = \beta_0 + \beta_1 \cdot x_{i1} + \epsilon$$ 
+
+
+**Interpretation of $\beta_1$** is that in general, the mean $y$ will change by $\beta_1$ if a car is 1" longer. So we can't really peel off the effect of the `Length` over $y$. 
+
+Additive model: $\beta_1$?
+
+---
+\frametitle{Model Specification}
+
+
+**M2. Next, we add the predictor `Horsepower` to our model**
+  
+$$y_i = \beta_0 + \beta_1 \cdot x_{i1} + \beta_2 \cdot x_{i2} + \epsilon$$
+
+**Interpretation of $\beta_1$** is that in general, the mean $y$ will change by $\beta_1$ if a car is 1" longer and the 'Horse Power's` are the same. 
+
+
+---
+\frametitle{Model Specification}
+
+
+**M3. Finally, we fit a model with multiple predictors**
+
+$$y_i = \beta_0 + \beta_1 x_{i1} + \beta_2x_{i2} + \beta_3x_{i3} + \beta_4x_{i4} + \beta_5x_{i5} + \beta_6x_{i6} + \epsilon$$
+
+**Interpretation of $\beta_1$** is that in general, the mean $y$ will change by $\beta_1$ if a car is 1" longer and the rest of the features are the same.  
+
+
+
+---
+\frametitle{Model Specification}
+
+
+**Question**: Are all the $\beta_1$s same in the 3 models above? 
+
+**No**. The effect of `Length` $\beta_1$ depends on the rest of the features in the model!!!! 
+
+## General linear models
+
+---
+\frametitle{General linear models}
+
+
+In general, We define a multiple regression as
+
+$$Y = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip} + \epsilon_i$$
+
+---
+\frametitle{General linear models: Assumptions}
+
+$Y$: response; $X_1, X_2, \ldots, X_p$: explanatory variables
+
+* Linearity Assumption for this model is 
+
+$$\textbf{E}(y_i | x_i) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip} $$
+
+* The homoscedasticity assumption is
+
+$$\textbf{Var}(y_i | x_{i1}, x_{i2}, \dots, x_{ip}) = \sigma^2$$
+
+* Normality assumption
+
+$$y_i|x_i  \overset{iid}{\sim} \mathcal{N}(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}, \sigma^2)$$
+
+
+## OLS and its Properties
+
+---
+\frametitle{OLS and its Properties}
+
+
+These $\beta$ parameters are estimated using the same approach as simple regression, specifically by minimizing the sum of squared residuals ($RSS$): 
+
+$$\min_{b_0,\,b_1,\,b_{2},\dots,b_{p}} \sum_{i=1}^{n} (y_i - b_0 - b_1 x_{i1} - b_2 x_{i2} - \dots - b_p x_{ip})^{2}$$
+
+---
+
+\frametitle{OLS Estimates}
+
+* Each $\hat{\beta}_i$ is normal with mean $\beta_i$
+* Produce $se(\hat{\beta}_i)$
+* $z$ or $t$ interval for $\beta_i$ based on $\hat{\beta}_i$.
+
+---
+\frametitle{OLS Estimates: Hypothesis Test}
+
+
+To test that 
+$$\beta_i = 0  \;\;\; \text{vs.}\;\;\; \beta_i = 0$$ 
+
+which means that given other variables in the model, there is no $x_i$ effect. We carry out a t-test:
+
+$$ t\text{-stat} = \frac{\hat \beta_i - 0}{\text{se} (\hat \beta_i)}$$
+The p-value is: 
+$$\text{p-value} = 2 \times P(\text{T variable} > \text{tstat})$$.
+
+We reject the null hypothesis at an $\alpha$ level if the p-value is < $\alpha$. 
+
+
+---
+\frametitle{OLS Prediction}
+
+
+A $95\%$ Confidence interval for the mean given a set of predictors:
+
+$$\hat y \pm 2\times se(\hat y) $$
+
+
+**A $95\%$ prediction interval for a future $y$ given a set of predictors:**
+$$\hat y \pm 2\times \hat \sigma.$$
+
+
+---
+\frametitle{RSS, MSE, RSE}
+
+ 
+For multiple regression, $RSS$ is estimated as:
+
+$$RSS =  \sum_{i=1}^{n} \hat{\epsilon}_i^{2} = \sum_{i=1}^{n} (y_i-\hat y_i)^2= \sum_{i=1}^{n} (y_i - (\hat\beta_0 + \hat\beta_1 x_{i1} + \hat\beta_2 x_{i2} + \dots + \hat\beta_p x_{ip}))^{2}$$
+$$MSE = \frac{RSS}{n-p-1} $$
+
+$$\hat \sigma= RSE = \sqrt{MSE} $$
+
+
+---
+\frametitle{Goodness of Fit: $R^2$}
+
+TSS measures the total variance in the response $Y$.
+$$TSS = \sum_{i=1}^{n} (y_i - \bar{y})^{2}$$
+
+How much variability is captured in the linear model using this set of predictors? $R^{2}$ measures the proportion of variability in $Y$ that can be explained using this set of predictors in the model. 
+
+$$R^{2} =  \frac{TSS - RSS}{TSS}$$
+
+---
+\frametitle{R function `lm()`}
+
+
+ - Linear models are so popular due to their nice interpretations as well as clean solutions
+ - R-function `lm()` takes a model specification together with other options, outputs all the estimators, summary statistics such as varies sum of squares, standard errors of estimators, testing statistics and  p-values.  
+ - The model also outputs the predicted values with margin of errors; confidence intervals and prediction intervals can also be called.  
+
+
+## Compare three models
+
+---
+\frametitle{Model 1: MPG\_City $\sim$ Length}
+
+\tiny
+```{r}
+fit1 <- lm(MPG_City ~ Length, data = data1)    # model specification response ~ x1,.. 
+ggplot(data1, aes(x = Length , y = MPG_City)) + 
+  geom_point() +
+  geom_smooth(method="lm",formula = 'y~x', se=F) + 
+geom_hline(aes(yintercept = mean(MPG_City)), color = "red") 
+```
+
+---
+\frametitle{Model 1: MPG\_City $\sim$ Length}
+
+
+- We now create a model with `lm()`
+- Note from the summary below, the $\hat\beta$ for Length is estimated as `r fit1$coefficients[2]`.
+- We say on average MPG drops $.13983$ if a car is $1$'' longer.
+
+\tiny
+```{r results=TRUE}
+fit1 <- lm(MPG_City ~ Length, data = data1)  # model one 
+summary(fit1) 
+```
+
+
+---
+\frametitle{Model 2: MPG\_City $\sim$ Length + Horsepower}
+
+\tiny
+```{r results=TRUE}
+fit2 <- lm(MPG_City ~ Length + Horsepower, data = data1) 
+summary(fit2)  #sum((fit2$res)^2)
+```
+
+
+---
+\frametitle{Model 3:  Several continuous variables}
+
+\tiny
+```{r results=TRUE}
+fit3 <- lm(MPG_City ~ Length + Horsepower + Width + Seating +
+           Cylinders + Displacement, data = data1)
+summary(fit3)  
+```
+
+
+```{r echo = F}
+## clean summary table and arrange it by tstat
+# fit3.summary <- summary(fit3)   #names(summary(fit3))
+#     data.frame(fit3.summary %>% coefficients) %>%
+#     rename(estimate = Estimate,
+#           se = "Std..Error",
+#           tstat = "t.value",
+#           pvalue = "Pr...t..") %>%
+#     mutate(abs.tstat = abs(tstat)) %>%
+#   arrange(desc(abs.tstat)) %>%
+# knitr::kable()
+```
+
+
+---
+\frametitle{Compare 3 Models}
+
+
+\tiny
+```{r results='asis', echo = F}
+# process the lm output into a table
+stargazer(fit1, fit2, fit3, 
+                     # ci=TRUE, ci.level = .95,
+                     keep.stat = c("n", "rsq", "sigma2", "ser"), header=FALSE, type='latex')
+```
+
+---
+\frametitle{Compare 3 Models}
+
+
+* They are different as expected
+* Each one has its own meaning!
+
+Question: what does $\hat\beta_1$ mean in 3 models
+
+---
+
+
+## Inference
+
+---
+\frametitle{Questions of interests}
+
+
+1. Write down the final OLS equation of `MPG_City` given the rest of the predictors.
+
+\vspace{.1in}
+
+2. What does each t-interval and t-test do?
+
+3. Is `Width` **THE** most important variable, `HP` the second, etc since they each has the smallest p-value,...
+
+4. Is `Width` most useful variable due to its largest coefficient in magnitude? 
+
+5. What is the standard error from the output? Precisely what does it measure?
+
+6. Interpret the $R^2$ reported for this model. Do you feel comfortable using the output for the following questions based on this $R^2$ value?
+
+7. Should we take `Seating` or `Cylinders` out? 
+
+
+
+## Confidence Interval
+
+---
+\frametitle{Confidence Interval for the Mean}
+
+
+Base on Model 3, the mean of `MPG_City` among all cars with the same features as the new design: length=180, HP=225, width=80, seating=5, cylinders=4, displacement=3.5, transmission="automatic", continent="Am" is
+
+$$\hat{y} = 45.63 + 0.05 \times 180 - 0.02 \times 225 - 0.35 $$
+$$\times 80 - 0.24 \times 5 - 0.27 \times 4 - 0.94 \times 3.5 = 16.17, $$
+
+
+---
+\frametitle{Confidence Interval for the Mean}
+
+```{r results=TRUE}
+predict(fit3, newcar, interval = "confidence", se.fit = TRUE) 
+```
+
+**Q: What assumptions are needed to make this a valid confidence interval?**
+
+
+## Prediction Interval
+
+---
+\frametitle{Prediction Interval }
+
+
+Base on Model 3, `MPG_City` for this particular new design is
+
+$$\hat{y} = 45.63 + 0.05 \times 180 - 0.02 \times 225 - 0.35 $$
+$$\times 80 - 0.24 \times 5 - 0.27 \times 4 - 0.94 \times 3.5 = 16.17$$
+with a 95% prediction interval approximately to be 
+
+$$\hat{y} \pm 2\times RSE = 16.17 \pm 2 \times 2.036.$$
+
+
+---
+\frametitle{Prediction Interval }
+
+```{r results=TRUE}
+# future prediction intervals
+predict(fit3, newcar,  interval = "predict", se.fit = TRUE) 
+```
+
+**Q: What assumptions are needed to make this a valid prediction interval?**
+
+
+## Model Diagnoses
+
+---
+\frametitle{Model Diagnoses}
+
+To check the model assumptions are met, we examine the residual plot and the qqplot of the residuals.
+
+We use the first and second plots of `plot(fit)`.
+
+\tiny
+```{r eval=T}
+par(mfrow=c(1,2), mar=c(5,2,4,2), mgp=c(3,0.5,0)) # plot(fit3) produces several plots
+plot(fit3, 1, pch=16) # residual plot
+abline(h=0, col="blue", lwd=2)
+plot(fit3, 2) # qqplot
+```
+
+
+---
+\frametitle{Model Diagnoses}
+
+Are the linear model assumptions met for the model fit here (fit3)? What might be violated? 
+
+- linearity?
+- Equal variances?
+- Normality?
+
+
+
+# Appendix
+
+
+---
+\frametitle{Goodness of Fit: $R^2$}
+
+
+**Remark 1:**
+
+  - $TSS \geq RSS$. Why so???
+  - $R^2 \leq 1$. 
+  - $TSS=RSS + \sum (\hat y_i -  \bar y) ^2$.
+  - $(corr (y, \hat y))^2$
+
+An $R^{2}$ statistic that is close to 1 indicates that a large proportion of the variability in the response has been explained by the regression.
+
+---
+\frametitle{Goodness of Fit: $R^2$}
+
+
+**Remark2**:
+
+* How large $R^2$ needs to be so that you are comfortable to use the linear model?
+* Though $R^2$ is a very popular notion of goodness of fit, but it has its limitation. Mainly all the sum of squared errors defined so far are termed as `Training Errors`. It really only measures how good a model fits the data that we use to build the model. It may not generate well to unseen data. 
+
