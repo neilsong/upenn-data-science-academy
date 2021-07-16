@@ -90,6 +90,9 @@ win_vec <- rbinom(n,1,win_prob)
 gain_vec <- win_vec*2-1
 # print first 100 gains
 head(gain_vec, 100)
+# to find average gain
+sum(gain_vec)/1000
+mean(gain_vec)
 ```
   
     
