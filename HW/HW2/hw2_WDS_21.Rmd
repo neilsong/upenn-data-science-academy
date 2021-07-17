@@ -97,7 +97,7 @@ If a player bets on a single number, the distribution of $x$ is a binomial distr
 n <- 1000
 win_prob <- 1/38
 # winning event
-set.seed(2021)
+set.seed(1)
 win_vec <- rbinom(n,1,win_prob) 
 # if win: +35; if lose: -1
 gain_vec <- win_vec*36
