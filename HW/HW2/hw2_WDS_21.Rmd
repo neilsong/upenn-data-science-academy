@@ -1,10 +1,11 @@
+---
 title: "WDS, HW 2"
 author:
-- Aaron Tom
-- Neil Song
-- Ben Zhao
-- Luke Melcher
-- Tanvi Kigga
+- Group Member 1
+- Group Member 2
+- Group Member 3
+- Group Member 4
+- Group Member 5
 date: 'Due: 10:00PM, Friday, July 14, 2021'
 output:
   html_document:
@@ -72,21 +73,18 @@ The probability a ball will land on a specific spot is a 1 in 38 chance.
 b.	A player will bet \$1 each time. Let $X$ be the payoff.
 
     (i)	If the player bets on a single number, write down the distribution of $X$, i.e. the possible values of $X$ and the corresponding probabilities. Calculate the expected value of winning and the standard deviation.
-    
-If a player bets on a single number, the distribution of $x$ is a binomial distribution, would be 1/38 with a possible value of +1 for the player and 37/38 for the casino with a possible value of -1.
-```{r single_bet}
-  expected_1 <- 1/38*35 + 37/38*-1
-  variance_1 <- (35-(-0.0526))^2 * 1/38 + (-1 -(-0.0526))^2 * 37/38
-  standard_1 <- sqrt(variance_1)
+```{r}
+n <- 1000
+win_prob <- 1/38
+# winning event
+set.seed(1)
+win_vec <- rbinom(n,1,win_prob) 
+print(sum(win_vec))
+### expect to win 1000/38 which is 26.3, so our answer is pretty close based on simulation.
 ```
-      
+
     
     (ii)	Repeat number (i) if the player bets on two numbers.
-```{r double_bet}
-  expected_2 <- 2/38*35 + 36/38*-1
-  variance_2 <- (35-(-0.0526))^2 * 2/38 + (-1 -(-0.0526))^2 * 36/38
-  standard_2 <- sqrt(variance_2)
-```
     
     (iii)	If one plays the game by betting on a single number 1000 times, how much do you expect the person to win?
 ```{r}
@@ -96,23 +94,16 @@ If a player bets on a single number, the distribution of $x$ is a binomial distr
 n <- 1000
 win_prob <- 1/38
 # winning event
-set.seed(2021)
+set.seed(1)
 win_vec <- rbinom(n,1,win_prob) 
-# if win: +35; if lose: -1
-gain_vec <- win_vec*36
-gain_vec <- gain_vec-1
-# print first 100 gains
-# head(gain_vec, 100)
-# to find average gain
-sum(gain_vec)
+print(sum(win_vec))
+### expect to win 1000/38 which is 26.3, so our answer is pretty close based on simulation.
 ```
-  According to our seed simulation, we would expect the person to win $8.
+  
     
     (iv)	Explain now why the casinos always make money on the roulette game.
-    
-Casinos always make money on the roulette game because no matter what way you position yourself- all black, all red, or a specific number, the casino is favored to win. The highest probability you could give yourself is 18/38, and that in itself is not above 50%, making the results biased towards the casino. Taking into account the concept of expected value, as the amount of games increases, the more likely you are to approach that value- thus the casinos are extremely likely make money on the roulette game as the number of trials approach larger and larger numbers.
 
-c. Let's "play" the game using code.  
+c. Let's "play" the game using code. 
 
     (i) We bet 30 times each round. Put 30 payoffs into a vector and store into a variable.
 ```{r}
@@ -124,7 +115,109 @@ num_win
    (ii) Plot the histogram of the 30 payoffs. What is the total payoffs for this round?
 ```{r}
 num_lose <- 30- num_win
-avg_gain <-  (num_win - num_lose)/30
+avg_gain <-  (num_win - num_loose)/30
 hist(avg_gain)
 
 ```
+  
+
+    (iii) Let's play another 100 rounds. Plot the histogram of total payoffs. What is the average payoff from these 100 rounds? Is this as expected? 
+```{r}
+set.seed(1)
+
+num_win <- rbinom(30, 100, 18/38)
+num_lose <- 100 - num_win
+
+avg_gain <-  (num_win - num_lose)/100
+
+hist(avg_gain)
+```
+
+
+# Question 2: Statistics 
+    
+This exercise is designed to help you understand the notion of confidence interval and understand confidence interval through simulations.
+
+Let $Y$ be the average winning amount among 100 games of betting \$1 each time in the  Red-Black Roulette game. We know that $Y$ follows approximately a normal distribution with mean $\mu = -.0526$ and standard deviation $\sigma = .1$. We will start to record the game payoff each time but pretend that we do not know the true mean is -.0526. 
+
+a. Generate 50 $Y's$ from $N(\mu = -.0526, \sigma =.1)$ with `set.seed(1)`. Construct a $95\%$ confidence interval for the unknown mean. State the confidence interval. Is the true value -.0526 inside the confidence interval?
+
+The true value -.0526 is inside the confidence interval.
+```{r}
+n_sim <- 50 # number of simulations
+mu_hat <- numeric(n_sim)   # estimate
+upper_ci <- numeric(n_sim)  # lower bound
+lower_ci <- numeric(n_sim)  # upper bound
+
+# Carry out the simulation
+for (i in 1:n_sim){
+  y <- rnorm(50, mean= -.0526, sd = .1)
+  mu_hat <- mean(y)
+  mu_sd <- sd(y)
+  lower_ci[i] <- mu_hat - (2*mu_sd)/sqrt(50)
+  upper_ci[i] <- mu_hat + (2*mu_sd)/sqrt(50)
+}
+
+answer <- (lower_ci < -.0526) & (upper_ci > -.0526)
+sum(answer)
+
+
+results <- cbind(lower_ci, upper_ci)
+
+ci_df <- data.frame(
+  id = 1:n_sim,
+  lower_ci = lower_ci, 
+  upper_ci = upper_ci)
+
+ggplot(ci_df,aes(x = id, y = (lower_ci + upper_ci)/2)) +
+  geom_point() + 
+  geom_errorbar(aes(ymax = upper_ci, ymin = lower_ci, color = answer)) +
+  labs(x = "Trial", y = "mean") 
+```
+
+
+
+b. Repeat question 2a. 100 times to generate 100 samples (each has sample size 50 and follows $N(\mu = -.0526, \sigma =.1)$) and produce 100 95\% confidence intervals. How many of the confidence intervals capture the true mean -.0526? Display your 100 confidence intervals in a meaningful way. 
+
+```{r}
+n_sim <- 100 # number of simulations
+mu_hat <- numeric(n_sim)   # estimate
+upper_ci <- numeric(n_sim)  # lower bound
+lower_ci <- numeric(n_sim)  # upper bound
+
+# Carry out the simulation
+for (i in 1:n_sim){
+  y <- rnorm(50, mean= -.0526, sd = .1)
+  mu_hat <- mean(y)
+  mu_sd <- sd(y)
+  lower_ci[i] <- mu_hat - (2*mu_sd)/sqrt(50)
+  upper_ci[i] <- mu_hat + (2*mu_sd)/sqrt(50)
+}
+
+answer <- (lower_ci < -.0526) & (upper_ci > -.0526)
+sum(answer)
+
+
+results <- cbind(lower_ci, upper_ci)
+
+ci_df <- data.frame(
+  id = 1:n_sim,
+  lower_ci = lower_ci, 
+  upper_ci = upper_ci)
+
+ggplot(ci_df,aes(x = id, y = (lower_ci + upper_ci)/2)) +
+  geom_point() + 
+  geom_errorbar(aes(ymax = upper_ci, ymin = lower_ci, color = answer)) +
+  labs(x = "Trial", y = "mean") 
+```
+
+
+c. Summarize the interpretation of a 95\% confidence interval based on the simulation in question 2b.  
+95% of the data captures true mean while 5% of the data is not representative of true mean
+
+
+# Appendix: simulation code for confidence interval
+
+To help out we provide the following R-chunk that provides 10 confidence intervals from 10 random samples. Modify it for your purpose accordingly.
+
+
