@@ -73,6 +73,16 @@ The probability a ball will land on a specific spot is a 1 in 38 chance.
 b.	A player will bet \$1 each time. Let $X$ be the payoff.
 
     (i)	If the player bets on a single number, write down the distribution of $X$, i.e. the possible values of $X$ and the corresponding probabilities. Calculate the expected value of winning and the standard deviation.
+```{r}
+n <- 1000
+win_prob <- 1/38
+# winning event
+set.seed(1)
+win_vec <- rbinom(n,1,win_prob) 
+print(sum(win_vec))
+### expect to win 1000/38 which is 26.3, so our answer is pretty close based on simulation.
+```
+
     
     (ii)	Repeat number (i) if the player bets on two numbers.
     
@@ -81,18 +91,13 @@ b.	A player will bet \$1 each time. Let $X$ be the payoff.
 # expected gain
 
 
-n <- 100
-win_prob <- 18/38
+n <- 1000
+win_prob <- 1/38
 # winning event
-set.seed(2021)
+set.seed(1)
 win_vec <- rbinom(n,1,win_prob) 
-# if win: +1; if lose: -1
-gain_vec <- win_vec*2-1
-# print first 100 gains
-head(gain_vec, 100)
-# to find average gain
-sum(gain_vec)/100
-mean(gain_vec)
+print(sum(win_vec))
+### expect to win 1000/38 which is 26.3, so our answer is pretty close based on simulation.
 ```
   
     
