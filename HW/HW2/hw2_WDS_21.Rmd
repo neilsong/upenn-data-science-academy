@@ -1,11 +1,11 @@
 ---
 title: "WDS, HW 2"
 author:
-- Aaron Tom
-- Neil Song
-- Ben Zhao
-- Luke Melcher
-- Tanvi Kigga
+- Group Member 1
+- Group Member 2
+- Group Member 3
+- Group Member 4
+- Group Member 5
 date: 'Due: 10:00PM, Friday, July 14, 2021'
 output:
   html_document:
@@ -73,34 +73,18 @@ The probability a ball will land on a specific spot is a 1 in 38 chance.
 b.	A player will bet \$1 each time. Let $X$ be the payoff.
 
     (i)	If the player bets on a single number, write down the distribution of $X$, i.e. the possible values of $X$ and the corresponding probabilities. Calculate the expected value of winning and the standard deviation.
-Probability of winning is 1/38, probablility of losing is 37/38
 ```{r}
-one_num_expected_win <- print(35*1/38-37/38)
-
-### wins standard deviation
 n <- 1000
 win_prob <- 1/38
 # winning event
 set.seed(1)
 win_vec <- rbinom(n,1,win_prob) 
-sd(win_vec)
+print(sum(win_vec))
+### expect to win 1000/38 which is 26.3, so our answer is pretty close based on simulation.
 ```
 
     
     (ii)	Repeat number (i) if the player bets on two numbers.
-```{r}
-twonum_expected_win <- print(35*2/38-36/38)
-print(expected_win)
-
-### wins standard deviation
-n <- 1000
-win_prob2 <- 2/38
-# winning event
-set.seed(1)
-win_vec <- rbinom(n,2,win_prob2) 
-sd(win_vec)
-```
-
     
     (iii)	If one plays the game by betting on a single number 1000 times, how much do you expect the person to win?
 ```{r}
