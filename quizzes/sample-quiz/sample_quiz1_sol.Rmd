@@ -1,0 +1,150 @@
+---
+title: " Sample Quiz 1 solu"
+author: "Linda"
+date: 'Due: 5:00pm,  Jul 19, 2021'
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '4'
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  word_document:
+    toc: yes
+    toc_depth: '4'
+urlcolor: blue
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=8, fig.height=4)
+options(scipen = 0, digits = 3)  # controls base R output
+# check if you have ISLR package, if not, install it
+if(!require('pacman')) {install.packages('pacman')}
+pacman::p_load(tidyverse,  dplyr, ggplot2) #do you have more packages needed?
+```
+
+
+\pagebreak
+
+# Overview
+
+This is a 30 minute, **individual** quiz. It is an open book exercise. Feel free to copy any R-chunks from the lectures, homework. Ask your TF for help if you get stuck somewhere. 
+
+Submit the following two files to the canvas
+
+* quiz1.rmd
+* quiz1.html or .pdf (Only 1 compiled one)
+* We will keep the submission open until 6:00pm 
+
+**Objectives:**
+
+We focus on the following aspects
+
+* Read data into R
+* Make sense out of the data through EDA
+* Be able to use R-Markdown
+* Be able to submit your work to the canvas
+* No need to beautify your R-markdown .html or .pdf. 
+
+# Case study: are Asian cars more efficient? 
+
+Asian cars, especially Japanese and Korean cars have been loved by families due to their reputation of being fuel efficiency and relative cheaper in prices. We will use the `car_04_regular.csv` data set (available in the folder) to perform some preliminary analysis. 
+
+## Question 1: Read data
+
+Read the data first. To make sure you get the data into R we have included the following R-chuck. Notice this chunk works only if you have stored the data `car_04_regular.csv` in a sub-folder called `data`. 
+```{r read data}
+data1 <- read.csv("data/car_04_regular.csv", header=TRUE)
+str(data1)
+names(data1)
+summary(data1)
+```
+
+i. How many variables are there in this data? And how many cars are there? 
+
+**Answers:** There are 13 variables with 226 cars.
+
+ii. The variable `Continent` is a categorical variable which labels which region a car is made. How many continent are there? 
+
+**Answers:** There are three Continents: `Am`, `As` and `E`. 
+
+
+
+## Question 2: EDA
+
+Fuel efficiency can be measures by `MPG_City`, mileage per gallon in city or `MPG_highway`. Let us look into the `MPG_City`
+
+i. What are the sample mean and sample standard deviation of of `MPG_City` among all cars? 
+
+```{r}
+mean(data1$MPG_City)
+sd(data1$MPG_City)
+```
+
+**Answers:** The sample mean of `MPG_City` is 19.3 and the sd is 3.7
+
+
+ii. Show the histogram of `MPG_City` among all cars. Does `MPG_City appear to you a normal variable? Why or why not? 
+
+```{r}
+# You only need to show hist of MPG_City either use base R or ggplot!!!
+# base R hist()
+hist(data1$MPG_City, breaks = 25, col = blues9)
+
+# ggplot hist
+  ggplot(data1) + 
+  geom_histogram(aes(x = MPG_City), bins = 20, fill = "blue") +
+  labs(title = "Histogram of MPG_City", 
+       x= "MPG_City",
+       y="Frequency")
+```
+
+**Answers:** The histogram of MPG_City appears fairly symmetric. I would say the distribution seems to be approximately normal. But if you insist on that the distribution is skewed to right I would agree as well. 
+
+
+
+
+## Question 3: Comparison
+
+Here is the R-chunk to get summary statistics by `Continent`. 
+```{r }
+# Break data1 by Continent
+data1 %>%
+group_by(Continent) %>%
+  summarise(
+    mean = mean(MPG_City),
+    sd  = sd(MPG_City),
+    n = n()
+  )
+```
+
+i. What is the sample mean of `MPG_City` among all Asian cars?
+
+**Answers:** For Asian cars, the sample mean of `MPG_City` is 20.2 
+
+ii. What is the sample mean of `MPG_City` among all European cars? 
+
+**Answers:** For European cars, the sample mean of `MPG_City` is 18.3 
+
+iii. By comparing the two sample means above, do we have some evidence that Asian cars are more efficient than that of European cars? (The larger `MPG_City` is the more efficient a car gets.) Comment on the limitations of this simple analysis. 
+
+**Answers:** Yes, based on the sample means which are good estimates of the population means it appears that Asian cars are more efficient. 
+
+**Limiations:** Sample means have variabilities from the true means. The better way would be either to provide a confidence interval for the population means difference or to test that the two means are different.  That will be done later in the multiple regression lecture. 
+
+Other concerns you would like to add?
+
+
+**End of the sample quiz**
+
+
+
+
+
