@@ -1,30 +1,31 @@
+<<<<<<< HEAD
 ?lm---
 title: " WDS HW 3"
+=======
+---
+title: "WDS, HW 3"
+>>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 author:
-- Group Member 1
-- Group Member 2
-- Group Member 3
-- Group Member 4
-- Group Member 5
+- Aaron
+- Neil
+- Ben
+- Luke
+- Tanvi
 date: 'Due: 10:00PM,  July 21, 2021'
 output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: '4'
   html_document:
     code_folding: show
     highlight: haddock
-    number_sections: yes
     theme: lumen
     toc: yes
     toc_depth: 4
     toc_float: yes
-  word_document:
+  pdf_document:
     toc: yes
     toc_depth: '4'
 urlcolor: blue
 ---
+
 
 
 ```{r setup, include=FALSE}
@@ -59,12 +60,32 @@ summary(data1)
 Explore the data first. 
 
 i. What is the range of `year`? Why is this important to know?
+```{r}
+year_range <- range(data1$year)
+year_range
+```
+```{r}
+data1 %>%
+  select(year) %>%
+  #range(data1$year, na.rm = TRUE)
+  max(data1$year, na.rm=TRUE) - min(data1$year, na.rm=TRUE)
+```
+
 ii. Should `origin` be a continuous variable? Why or why not. In any case make `origin` a categorical variable.
+<<<<<<< HEAD
 
 ```{r}
 data1$origin <- as.factor(data1$origin)
 ```
 
+=======
+```{r}
+unique(data1$origin)
+
+# factor origin
+data1$origin <- factor(data1$origin, levels=3:1)
+```
+>>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 iii. Do you see any peculiarity in the data? 
 
 
@@ -72,6 +93,7 @@ iii. Do you see any peculiarity in the data?
 
 i. Show a scatter plot of `mpg` vs. `year` with the LS line imposed. Does the plot show a positive trend? 
 ```{r}
+<<<<<<< HEAD
 fit1 <- lm(mpg~year, data = data1)
 ggplot(data1, aes(x = year, y = mpg)) +geom_point()+geom_smooth(method = "lm", formula = 'y~x', se=F)
 ```
@@ -89,6 +111,30 @@ iii. Add `horsepower` on top of the variable `year` to your linear model. Is `ye
 ```{r}
 fit2 <- lm(mpg ~ year + horsepower, data = data1) 
 summary(fit2)
+=======
+ggplot(data1, aes(x = year, y = mpg)) +
+  geom_point(aes(color = origin)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_abline(intercept = 0, slope = 1) +
+  theme_bw() +
+  theme(legend.position = "none") +
+  scale_x_continuous(breaks = seq(70, 90, 5)) +
+  scale_y_continuous(breaks = seq(0, 200, 20)) +
+  labs(x = "Years After 1900", y = "MPG")
+```
+
+ii. Now run a simple regression of `mpg` vs. `year` and report R's `summary` output. Is `year` a significant variable at the .05 level? State what effect `year` has on `mpg`, if any, according to this model. 
+```{r}
+lm1 <- lm(mpg ~ year, data=data1)
+summary(lm1)
+```
+
+iii. Add `horsepower` on top of the variable `year` to your linear model. Is `year` still a significant variable at the .05 level? Give a precise interpretation of the `year`'s effect found here. 
+```{r}
+# add horsepower to the model
+lm2 <- lm(mpg ~ year + horsepower, data = data1)
+summary(lm2)
+>>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 ```
 
 iv. The two 95% CI's for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?
@@ -100,6 +146,10 @@ iv. The two 95% CI's for the coefficient of year differ among ii. and iii. How w
 
 
 v. Create a model with interaction by fitting `lm(mpg ~ year * horsepower)`. Is the interaction effect significant at .05 level? Explain the year effect (if any). 
+```{r}
+lm3 <- lm(mpg ~ year* horsepower, data = data1)
+summary(lm3)
+```
 
 ```{r}
 
@@ -121,16 +171,38 @@ v. Create a model with interaction by fitting `lm(mpg ~ year * horsepower)`. Is 
 
 i. Do mpg's differ on average among different origin? Fit a linear model with mpg vs. origin. Report the output. 
 ```{r}
+<<<<<<< HEAD
 fit3 <- lm(mpg ~ data1$origin, data = data1) 
 summary(fit3)
 ```
 
+=======
+data1$origin <- factor(data1$origin, levels = c(3,2,1))
+lm3 <- lm(mpg ~ origin, data = data1)
+summary(lm3)
+```
+>>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 
 a) Are mpg's on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved? 
+```{r}
+data1$origin <- factor(data1$origin, levels = c(3,2,1))
+lm3 <- lm(mpg ~ origin, data = data1)
+summary(lm3)
+
+data1$origin <- factor(data1$origin, levels = c(1,2,3))
+lm3 <- lm(mpg ~ origin, data = data1)
+summary(lm3)
+
+data1$origin <- factor(data1$origin, levels = c(2,1,3))
+lm3 <- lm(mpg ~ origin, data = data1)
+summary(lm3)
+```
 
 b) Describe on average which origin has the highest mpg and what it is. Which origin has the smallest mpg on average and what is it?
+On an average origin 3 has the highest mpg and it is 30.451. The lowest is origin 1 and it is 20.033
 
 c) Are Asian cars more efficient than American cars? Produce a 95% CI's for the difference. 
+
 
 ii. Try to build a final model which includes `year` and `origin`. 
 
