@@ -55,7 +55,17 @@ summary(data1)
 Explore the data first. 
 
 i. What is the range of `year`? Why is this important to know?
+```{r}
+year_range <- range(data1$year)
+year_range
+```
 ii. Should `origin` be a continuous variable? Why or why not. In any case make `origin` a categorical variable.
+```{r}
+unique(data1$origin)
+
+# factor origin
+data1$origin <- factor(data1$origin, levels=c(3, 2, 1))
+```
 iii. Do you see any peculiarity in the data? 
 
 
