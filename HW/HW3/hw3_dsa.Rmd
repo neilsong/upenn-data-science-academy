@@ -69,9 +69,9 @@ ggplot(data1, aes(x = year, y = mpg)) +
   geom_abline(intercept = 0, slope = 1) +
   theme_bw() +
   theme(legend.position = "none") +
-  scale_x_continuous(breaks = seq(1970, 2015, 5)) +
+  scale_x_continuous(breaks = seq(70, 90, 5)) +
   scale_y_continuous(breaks = seq(0, 200, 20)) +
-  labs(x = "Year", y = "MPG")
+  labs(x = "Years After 1900", y = "MPG")
 ```
 
 ii. Now run a simple regression of `mpg` vs. `year` and report R's `summary` output. Is `year` a significant variable at the .05 level? State what effect `year` has on `mpg`, if any, according to this model. 
