@@ -59,6 +59,13 @@ i. What is the range of `year`? Why is this important to know?
 year_range <- range(data1$year)
 year_range
 ```
+```{r}
+data1 %>%
+  select(year) %>%
+  #range(data1$year, na.rm = TRUE)
+  max(data1$year, na.rm=TRUE) - min(data1$year, na.rm=TRUE)
+```
+
 ii. Should `origin` be a continuous variable? Why or why not. In any case make `origin` a categorical variable.
 ```{r}
 unique(data1$origin)
