@@ -64,7 +64,7 @@ ii. Should `origin` be a continuous variable? Why or why not. In any case make `
 unique(data1$origin)
 
 # factor origin
-data1$origin <- factor(data1$origin, levels=c(3, 2, 1))
+data1$origin <- factor(data1$origin, levels=3:1)
 ```
 iii. Do you see any peculiarity in the data? 
 
@@ -115,6 +115,10 @@ v. Create a model with interaction by fitting `lm(mpg ~ year * horsepower)`. Is 
 ## Bring origin into the model
 
 i. Do mpg's differ on average among different origin? Fit a linear model with mpg vs. origin. Report the output. 
+```{r}
+lm3 <- lm(mpg ~ origin, data = data1)
+summary(lm3)
+```
 
 a) Are mpg's on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved? 
 
