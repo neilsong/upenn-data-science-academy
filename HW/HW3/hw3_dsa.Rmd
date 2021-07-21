@@ -139,6 +139,8 @@ i. Do mpg's differ on average among different origin? Fit a linear model with mp
 ```{r}
 fit3 <- lm(mpg ~ data1$origin, data = data1) 
 summary(fit3)
+
+Anova(fit3)
 ```
 
 
