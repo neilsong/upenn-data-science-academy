@@ -65,7 +65,6 @@ data1 %>%
   #range(data1$year, na.rm = TRUE)
   max(data1$year, na.rm=TRUE) - min(data1$year, na.rm=TRUE)
 ```
-
     + The range of `year` is 12. This is important because it shows the time span of the dataset.
 
 i. Should `origin` be a continuous variable? Why or why not. In any case make `origin` a categorical variable.
@@ -75,11 +74,9 @@ unique(data1$origin)
 # factor origin
 data1$origin <- factor(data1$origin, levels=3:1)
 ```
-
     + By first looking at origin we may think it is a continous variable as it is made up of the numbers 1,2 and 3. However it is a catagorical varibale and origin 1,2 and 3 mean different. 
 
 i. Do you see any peculiarity in the data? 
-
     + Most of the dataset looks fine except that the origin is names 1,2 and 3 while we would think they would have distingushed names. This makes it rather different. 
 
 ## What effect does `time` have on `MPG`?
@@ -105,11 +102,9 @@ i. Now run a simple regression of `mpg` vs. `year` and report R's `summary` outp
 lm1 <- lm(mpg ~ year, data=data1)
 summary(lm1)
 ```
-
     + As year has three stars we can conclude that it as a variable has 0.01 significance. According to this model when year is increased by one mpg increases by 1.2300. 
 
 i. Add `horsepower` on top of the variable `year` to your linear model. Is `year` still a significant variable at the .05 level? Give a precise interpretation of the `year`'s effect found here.
-
     * In this model when horsepower is kept constant when year changes by 1 or increases by 1 the mpg increase by 0.65727. Year still has significance of 0.001.
    
 ```{r}
@@ -119,13 +114,13 @@ summary(lm2)
 ```
 
 i. The two 95% CI's for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?
+    + TODO
 
 i. Create a model with interaction by fitting `lm(mpg ~ year * horsepower)`. Is the interaction effect significant at .05 level? Explain the year effect (if any). 
 ```{r}
 lm3 <- lm(mpg ~ year* horsepower, data = data1)
 summary(lm3)
 ```
-
     + Yes, the interaction effect is significant at .05 level. The year effect is best expressed as follows. $$ \Delta mpg = (\beta_1 + \beta_3hp) \cdot \Delta year $$
 
 <!-- ## Categorical predictors -->
@@ -150,8 +145,7 @@ summary(fit3)
 
 
 i. Are mpg's on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved? 
-    
-    + Explanation
+    + TODO
 
 ```{r results='show'}
 Anova(fit3)
