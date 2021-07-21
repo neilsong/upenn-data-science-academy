@@ -65,6 +65,7 @@ data1 %>%
   #range(data1$year, na.rm = TRUE)
   max(data1$year, na.rm=TRUE) - min(data1$year, na.rm=TRUE)
 ```
+The range of `year` is 12. This is important because it shows the time span of the dataset.
 
 
 ii. Should `origin` be a continuous variable? Why or why not. In any case make `origin` a categorical variable.
@@ -93,6 +94,7 @@ ggplot(data1, aes(x = year, y = mpg)) +
   scale_y_continuous(breaks = seq(0, 200, 20)) +
   labs(x = "Years After 1900", y = "MPG")
 ```
+Yes, there is a positive trend.
 
 ii. Now run a simple regression of `mpg` vs. `year` and report R's `summary` output. Is `year` a significant variable at the .05 level? State what effect `year` has on `mpg`, if any, according to this model. 
 ```{r}
