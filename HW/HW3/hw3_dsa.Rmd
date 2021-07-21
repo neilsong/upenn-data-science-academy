@@ -108,10 +108,7 @@ summary(lm2)
 In this model when horsepower is kept constant when year changes by 1 or increases by 1 the mpg increase by 0.65727. Year still has significance of 0.001. 
 iv. The two 95% CI's for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?
 
-```{r}
 
-
-```
 
 
 v. Create a model with interaction by fitting `lm(mpg ~ year * horsepower)`. Is the interaction effect significant at .05 level? Explain the year effect (if any). 
