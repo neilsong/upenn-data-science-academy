@@ -114,7 +114,8 @@ summary(lm2)
 ```
 
 i. The two 95% CI's for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?
-    + TODO
+
+    The two confidence intervals for the coefficient of year differ among ii. and iii. because in iii. the linear regression model has to account for both year and horsepower (keeping horsepower constant but still as a factor), whereas in ii. the linear regression model only has to account for the year. In turn, the confidence interval for ii. will accept more values into the interval based upon its coefficient, whereas the confidence interval for iii. will accept less values into the interval at a lower coefficient. 
 
 i. Create a model with interaction by fitting `lm(mpg ~ year * horsepower)`. Is the interaction effect significant at .05 level? Explain the year effect (if any). 
 ```{r}
