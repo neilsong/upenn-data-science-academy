@@ -136,7 +136,7 @@ summary(lm3)
 
 ## Bring origin into the model
 
-Do mpg's differ on average among different origin? Fit a linear model with mpg vs. origin. Report the output. 
+Do `mpg`'s differ on average among different `origin`? Fit a linear model with `mpg` vs. `origin`. Report the output. 
 ```{r}
 fit3 <- lm(mpg ~ data1$origin, data = data1) 
 summary(fit3)
