@@ -730,7 +730,7 @@ Hadley's [R style guide](http://adv-r.had.co.nz/Style.html) is excellent and val
 
 Summarize what you have learned in a short paragraph (no more than 100 words).
 
-I learned how to set up the base R environment and its corresponding IDE and package manager. I also learned basic R-markdown/R syntax, was introduced to a variety of R concepts including vectorization and dataframes, and overall learned a basic set of principles and functions that I could easily understand by translating prior knowledge in other languages.
+From this, I reviewed the basics of r data analysis like strings and class, and manipulating data using simple functions like rev() and cat() From the document DataPreparationEDA_WDS, I learned that we will be going over many statistics things from this class. I learned new packages like tidytext, ggplot, and dplr. I also was able to recognize many of the old things which I had learnt before in r such as read.csv, file paths, and standard deviation. I feel like I am in a good position to do well in this camp, as well as learn from my new friends.
 
 
 # Appendix
