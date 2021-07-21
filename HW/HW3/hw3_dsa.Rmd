@@ -134,7 +134,7 @@ summary(lm3)
 <!-- c) What are the fundamental differences between treating `cylinders` as a continuous and categorical variable in your models?  -->
 
 
-## Bring origin into the model
+## Bring `origin` into the model
 
 Do `mpg`'s differ on average among different `origin`? Fit a linear model with `mpg` vs. `origin`. Report the output. 
 ```{r}
