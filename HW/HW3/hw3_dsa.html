@@ -271,11 +271,11 @@ div.tocify {
 </ul></li>
 <li><p>Should <code>origin</code> be a continuous variable? Why or why not. In any case make <code>origin</code> a categorical variable.</p>
 <ul>
-<li>By first looking at origin we may think it is a continous variable as it is made up of the numbers 1,2 and 3. However it is a catagorical varibale and origin 1,2 and 3 mean different.</li>
+<li>By first looking at <code>origin</code>, we may think it is a continous variable as it is made up of the numbers 1, 2, and 3. However it is a catagorical varibale and <code>origin 1, 2, 3</code> suggest different origins.</li>
 </ul></li>
 <li><p>Do you see any peculiarity in the data?</p>
 <ul>
-<li>Most of the dataset looks fine except that the origin is names 1,2 and 3 while we would think they would have distingushed names. This makes it rather different.</li>
+<li>Most of the dataset looks fine, except that the <code>origin</code> is named <code>1, 2, 3</code>, while we would think they would have distingushed names. This makes it rather peculiar.</li>
 </ul></li>
 </ol>
 <div id="what-effect-does-time-have-on-mpg" class="section level2">
@@ -287,11 +287,11 @@ div.tocify {
 </ul></li>
 <li><p>Now run a simple regression of <code>mpg</code> vs. <code>year</code> and report R’s <code>summary</code> output. Is <code>year</code> a significant variable at the .05 level? State what effect <code>year</code> has on <code>mpg</code>, if any, according to this model.</p>
 <ul>
-<li>As year has three stars we can conclude that it as a variable has 0.01 significance. According to this model when year is increased by one mpg increases by 1.2300.</li>
+<li>As <code>year</code> has three stars, we can conclude that it as a variable has <code>0.01</code> significance. According to this model, when <code>year</code> is increased by one, <code>mpg</code> increases by 1.2300.</li>
 </ul></li>
 <li><p>Add <code>horsepower</code> on top of the variable <code>year</code> to your linear model. Is <code>year</code> still a significant variable at the .05 level? Give a precise interpretation of the <code>year</code>’s effect found here.</p>
 <ul>
-<li>In this model when horsepower is kept constant when year changes by 1 or increases by 1 the mpg increase by 0.65727. Year still has significance of 0.001.</li>
+<li>In this model, when <code>horsepower</code> is kept constant, when <code>year</code> changes by 1 or increases by 1, the <code>mpg</code> increase by 0.65727. <code>year</code> still has significance of 0.001.</li>
 </ul></li>
 <li><p>The two 95% CI’s for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?</p>
 <ul>
@@ -299,7 +299,7 @@ div.tocify {
 </ul></li>
 <li><p>Create a model with interaction by fitting <code>lm(mpg ~ year * horsepower)</code>. Is the interaction effect significant at .05 level? Explain the year effect (if any).</p>
 <ul>
-<li>Yes, the interaction effect is significant at .05 level. The year effect is best expressed as follows. <span class="math display">\[ \Delta mpg = (\beta_1 + \beta_3hp) \cdot \Delta year \]</span></li>
+<li>Yes, the interaction effect is significant at .05 level (3 stars). The <code>year</code> effect is best expressed as follows. <span class="math display">\[ \Delta mpg = (\beta_1 + \beta_3hp) \cdot \Delta year \]</span></li>
 </ul></li>
 </ol>
 <!-- ## Categorical predictors -->
@@ -312,7 +312,7 @@ div.tocify {
 <h2>Bring origin into the model</h2>
 <p>Do mpg’s differ on average among different origin? Fit a linear model with mpg vs. origin. Report the output.</p>
 <ol style="list-style-type: lower-roman">
-<li>Are mpg’s on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved?
+<li>Are <code>mpg</code>’s on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved?
 <ul>
 <li>TODO</li>
 </ul></li>
@@ -326,9 +326,9 @@ div.tocify {
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <ol style="list-style-type: lower-roman">
-<li>Describe on average which origin has the highest mpg and what it is. Which origin has the smallest mpg on average and what is it?
+<li>Describe on average which <code>origin</code> has the highest <code>mpg</code> and what it is. Which <code>origin</code> has the smallest <code>mpg</code> on average and what is it?
 <ul>
-<li>On an average origin 3 have the highest mpg of 30.451, and origin 1 has the lowest avegare mpg of 20.033.</li>
+<li>On average, <code>origin 3</code> has the highest <code>mpg</code> of 30.451, and <code>origin 1</code> has the lowest average <code>mpg</code> of 20.033.</li>
 </ul></li>
 </ol>
 </div>
