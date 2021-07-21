@@ -76,7 +76,7 @@ b.	A player will bet \$1 each time. Let $X$ be the payoff.
     
 If a player bets on a single number, the distribution of $x$ is a binomial distribution, would be 1/38 with a possible value of +1 for the player and 37/38 for the casino with a possible value of -1.
 ```{r single_bet}
-  expected_1 <- 1/38*35 + 37/38*-1
+  expected_1 <- 1/38*34 + 37/38*-1
   variance_1 <- (35-(-0.0526))^2 * 1/38 + (-1 -(-0.0526))^2 * 37/38
   standard_1 <- sqrt(variance_1)
 ```
@@ -84,7 +84,7 @@ If a player bets on a single number, the distribution of $x$ is a binomial distr
     
     (ii)	Repeat number (i) if the player bets on two numbers.
 ```{r double_bet}
-  expected_2 <- 2/38*35 + 36/38*-1
+  expected_2 <- 2/38*34 + 36/38*-1
   variance_2 <- (35-(-0.0526))^2 * 2/38 + (-1 -(-0.0526))^2 * 36/38
   standard_2 <- sqrt(variance_2)
 ```
