@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-?lm---
-title: " WDS HW 3"
-=======
 ---
 title: "WDS, HW 3"
->>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 author:
 - Aaron
 - Neil
@@ -72,20 +67,12 @@ data1 %>%
 ```
 
 ii. Should `origin` be a continuous variable? Why or why not. In any case make `origin` a categorical variable.
-<<<<<<< HEAD
-
-```{r}
-data1$origin <- as.factor(data1$origin)
-```
-
-=======
 ```{r}
 unique(data1$origin)
 
 # factor origin
 data1$origin <- factor(data1$origin, levels=3:1)
 ```
->>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 iii. Do you see any peculiarity in the data? 
 
 
@@ -93,25 +80,6 @@ iii. Do you see any peculiarity in the data?
 
 i. Show a scatter plot of `mpg` vs. `year` with the LS line imposed. Does the plot show a positive trend? 
 ```{r}
-<<<<<<< HEAD
-fit1 <- lm(mpg~year, data = data1)
-ggplot(data1, aes(x = year, y = mpg)) +geom_point()+geom_smooth(method = "lm", formula = 'y~x', se=F)
-```
-
-
-
-ii. Now run a simple regression of `mpg` vs. `year` and report R's `summary` output. Is `year` a significant variable at the .05 level? State what effect `year` has on `mpg`, if any, according to this model. 
-```{r}
-fit1 <- lm(mpg ~ year, data = data1) 
-summary(fit1)
-```
-
-
-iii. Add `horsepower` on top of the variable `year` to your linear model. Is `year` still a significant variable at the .05 level? Give a precise interpretation of the `year`'s effect found here. 
-```{r}
-fit2 <- lm(mpg ~ year + horsepower, data = data1) 
-summary(fit2)
-=======
 ggplot(data1, aes(x = year, y = mpg)) +
   geom_point(aes(color = origin)) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -134,7 +102,6 @@ iii. Add `horsepower` on top of the variable `year` to your linear model. Is `ye
 # add horsepower to the model
 lm2 <- lm(mpg ~ year + horsepower, data = data1)
 summary(lm2)
->>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 ```
 
 iv. The two 95% CI's for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?
@@ -171,17 +138,10 @@ summary(lm3)
 
 i. Do mpg's differ on average among different origin? Fit a linear model with mpg vs. origin. Report the output. 
 ```{r}
-<<<<<<< HEAD
 fit3 <- lm(mpg ~ data1$origin, data = data1) 
 summary(fit3)
 ```
 
-=======
-data1$origin <- factor(data1$origin, levels = c(3,2,1))
-lm3 <- lm(mpg ~ origin, data = data1)
-summary(lm3)
-```
->>>>>>> 821cb74b2fa5f91ee27eb23a2bec12d41008f393
 
 a) Are mpg's on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved? 
 ```{r}
@@ -199,26 +159,3 @@ summary(lm3)
 ```
 
 b) Describe on average which origin has the highest mpg and what it is. Which origin has the smallest mpg on average and what is it?
-On an average origin 3 has the highest mpg and it is 30.451. The lowest is origin 1 and it is 20.033
-
-c) Are Asian cars more efficient than American cars? Produce a 95% CI's for the difference. 
-
-
-ii. Try to build a final model which includes `year` and `origin`. 
-
-a) Describe the final model. Include diagnostic plots with particular focus on the model residuals and diagnoses.
-
-b) Describe the year effect and origin effect in this final model.
-Are cars being built more efficiently over time? Are Asian cars more efficient than cars built in America or Europe?
-
-## Prediction
-
-Use the final model to predict the `mpg` of the following car: A red car built in the US in 1983 that is 180 inches long, has eight cylinders, displaces 350 cu. inches, weighs 4000 pounds, and has a horsepower of 260. Also give a 95% CI for your prediction.
-
-
-
-
-
-
-
-
