@@ -206,13 +206,11 @@ for (i in 1:n_sim){
   upper_ci[i] <- mu_hat + (2*mu_sd)/sqrt(50)
 }
 
-
 answer <- (lower_ci < -.0526) & (upper_ci > -.0526)
 sum(answer)
 
 
 results <- cbind(lower_ci, upper_ci)
-
 
 ci_df <- data.frame(
   id = 1:n_sim,
@@ -223,7 +221,6 @@ ggplot(ci_df,aes(x = id, y = (lower_ci + upper_ci)/2)) +
   geom_point() + 
   geom_errorbar(aes(ymax = upper_ci, ymin = lower_ci, color = answer)) +
   labs(x = "Trial", y = "mean") 
-results
 ```
 
 
