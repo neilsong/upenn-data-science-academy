@@ -1,0 +1,1004 @@
+---
+title: "Large Data, Sparsity and LASSO"
+author: ""
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: Boadilla
+  ioslides_presentation: default
+  slidy_presentation: default
+header-includes:
+- \AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+- \AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, fig.width=8, fig.height=4)
+options(scipen = 0, digits = 3)  # controls base R output
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(ggplot2, dplyr, glmnet, car, tidyverse, mapproj,
+               gridExtra, ggrepel, plotly, skimr, usmap) 
+# install a package if it does not exist already and put the package in the path (library)
+# dplyr, ggplot2,tidyr
+```
+
+# Objectives
+
++ Linear model with least squared estimates can be easily produced and interpreted. It often works well for the purpose of prediction. 
++ However, when there are many predictors, it is hard to find a set of "important predictors". 
++ In addition, when the number of predictors $p$ is larger than the number of observations $n$, we cannot estate all the coefficients. 
++ In this lecture we introduce LASSO (Least Absolute Shrinkage and Selection Operator) to produce a sparse model. One may view LASSO as a model selection scheme.  
++ `K-Fold` Cross Validation Errors will be introduced and used. 
+
+
+---
+\frametitle{Objectives}
+
+
+0. Suggested reading
+
+- Section 5.1.1 to 5.1.4 (easy reading to have an idea about k-fold cross validation)
+- Data set: `CrimeData_FL.csv`,`CrimeData_clean.csv` and `CrimeData.csv`
+
+
+1. Case Study: How to reduce Crime Rates in the United States?
+- Large data: High dimensional data
+- US Heatmap
+
+2. LASSO (Least Absolute Shrinkage and Selection Operator)
+
+3. K-Fold Cross Validation (Appendix V)
+- Introduce cross validation
+- Estimate prediction errors
+
+---
+\frametitle{Objectives}
+
+
+4. Package `elasticnet`
+- `glmnet()`
+- `cv.glmnet()`
+
+5. Final Model
+- Backward Selection `lm`    
+
+6. Heatmap
+   + `usmap`
+   + `plotly`
+
+7. Summary
+
+
+
+
+# 1 Case study: violent crime rates
+
+---
+\frametitle{Case study: violent crime rates}
+
+- Case: Violent crimes and other type of crimes can raise broad concerns among residents in a city or a community. It has great impacts on our daily life. It will be helpful for both residents and policy makers to identify factors that are related to crime rates.
+- Goal:
+	- identify factors that are highly related to crimerates
+	- provide possible actions to policy makers to reduce crime rates
+	- provide suggestions for people on where to live safely
+- Data:
+	- Crimes and other information about the population, the police enforcement for almost all the states
+	- 147 variables
+		- 18 are various crimes in 1995 for communities in US
+		- socio-economic information
+		- law enforcementdata from 1990
+	- response variable: violentcrimes.perpop: violent crimes per 100K people in 1995
+
+---
+\frametitle{Goal and data}
+
+
+**Goal of the study:** 
+
++ Find important factors related to `violentcrimes.perpop` in Florida. 
++ Build the best possible linear prediction equation to predict `violentcrimes.perpop`. 
+
+**Crime Data and EDA**
+
+For the sake of coherence, we move the detailed EDA into Appendix. We highlight the data and the nature of the study here. 
+
++ `violentcrimes.perpop` is the response variable
++ We clearly should not use other crime rates as predictors
++ Due to too many missing values, we exclude information for police divisions
++ We finally have `n=90` communities with `p=97` variables.
+
+
+---
+\frametitle{Data}
+
+
+
+**Data sets available to us:**
+
++ **`CrimeData_FL.csv`**: a subset of `CrimeData_clean.csv` only for Florida 
++ `CrimeData.csv`: original data (2215 by 147)
++ `CrimeData_clean.csv`: eliminated some variables and no missing values (1994 by 99)
+
+
+**Read `CrimeData_FL.csv`**
+
+Notice that there are only 90 observations or `communities` but 97 predictors. 
+
+\tiny
+```{r results=TRUE}
+data.fl <- read.csv("data/CrimeData_FL.csv", header=T, na.string=c("", "?")) 
+dim(data.fl)
+```
+
+---
+\frametitle{Data}
+
+
+\tiny
+```{r results=TRUE}
+names(data.fl) # sum(is.na(data.fl)); summary(data.fl) 
+```
+
+
+## 1.1 EDA's to display statistics geographically
+
+---
+\frametitle{Heatmap}
+
++ A heatmap is useful when the data has geographical information. 
++ In this section, we create a heat map to display summary statistics at the state level. 
++ Let us take a look at a few statistics: the mean of income: med.income. We will display some statistics by states in a heat map. 
+
+---
+\frametitle{Heatmap: first `summarise()`}
+
+
+We first extract the mean of med.income, mean crime rate by state among other statistics. n=number of the obs'n in each state.
+
+**Remark:** Regarding mean crime rate by state, merely taking mean in the following chunk is not correct due to different county level population sizes. Can you create **proper average crime rate per 100k** for each state first.
+
+\tiny
+```{r results='hide'}
+crime.data <- read.csv("data/CrimeData.csv", header=T, na.string=c("", "?"))
+data.s <- crime.data %>%
+  group_by(state) %>%
+  summarise(
+    mean.income=mean(med.income), 
+    income.min=min(med.income),
+    income.max=max(med.income),
+    crime.rate=mean(violentcrimes.perpop, na.rm=TRUE), #ignore the missing values
+    n=n())
+```
+
+---
+
+\frametitle{Heatmap: then `usmap::plot\_usmap()`}
+
+
+**Use `usmap` library**: 
+
+\tiny
+```{r warning=FALSE}
+library(usmap)
+#names(data.s)
+#levels(data.s$state)
+
+stat.crime.plot <- plot_usmap(regions = "state",                   
+                              #regions = "counties", for county level summary
+    data = data.s, 
+    values = "crime.rate", exclude = c("Hawaii", "Alaska"), color = "black") + 
+    scale_fill_gradient(
+      low = "white", high = "red", 
+      name = "Number of Crimes per 100,000 People", 
+      label = scales::comma) + 
+    labs(title = "State Crime Rate", subtitle = "Continental US States") +
+    theme(legend.position = "right")
+```
+
+---
+\frametitle{Heatmap: `plot\_usmap()`}
+
+\tiny
+```{r warning=FALSE}
+stat.crime.plot
+```
+
+
+---
+\frametitle{Heatmap: `plot\_usmap()`}
+**Notice better corlor variation**
+\tiny
+```{r }
+# set color range limits 
+max_crime_col <- quantile(data.s$crime.rate, .98, na.rm = T)
+min_crime_col <- quantile(data.s$crime.rate, 0, na.rm = T)
+
+stat.crime.plot <- plot_usmap(regions = "state",
+    data = data.s, 
+    values = "crime.rate", exclude = c("Hawaii", "Alaska"), color = "black") + 
+    scale_fill_distiller(palette = "GnBu", 
+                         direction = 1,
+                         # limits sets range of color
+                         name = "State crime rate",
+                         limits = c(min_crime_col, max_crime_col)) +
+    labs(title = "State Crime Rate", subtitle = "Continental US States") +
+    theme(legend.position = c(1,.6)) 
+
+```
+
+
+---
+\frametitle{Heatmap}
+
+\tiny
+```{r warning=FALSE}
+stat.crime.plot
+# ggplotly(stat.crime.plot +
+#            theme(legend.position = "none"))
+```
+
+
+---
+\frametitle{Heatmap}
+
+**Remarks:**
+
+- Color control: `scale_fill_distiller()` controls the range of the coloring. It is important that we pay attention to the contrast of coloring. In our case, maximum `crime rate` dominates the rest of numbers. Without controlling the color range, the heat map will be more or less the same color. 
+
+- `ggplotly`: Applying `ggplotly` in the hope that we can hover on the state to show the statistics. 
+
+
+---
+\frametitle{Heatmap}
+
+
+Above is the result of our new map showing the Mean Income. This gives a quick view of the income disparities by state.
+
++ The two states with no values are marked as grey, without a state name. 
++ As expected the east/west have higher incomes. 
++ While this gives us a good visualization about income by state, does this agree with reality? Do you trust this EDA (Nothing is wrong with the map. Rather you may look into the sample used here.)
++  Very cool plots. You can make heat maps with other summary statistics.
+
+
+
+
+# 2 Linear Model
+
+---
+\frametitle{Linear model with all variables}
+
+We will use linear model to identify important factors related to `violentcrimes.perpop`. For a quick result let us run a linear model with all the variables.
+
+\tiny
+```{r}
+fit.fl.lm <- lm(violentcrimes.perpop~., data.fl) # dump everything in the model
+summary(fit.fl.lm)  #Anova(fit.fl.lm)
+```
+
+
+---
+\frametitle{Linear model with all variables: problems}
+
+
+We immediately notice
+
+- **We can not estimate all the coefficients**.
+- **We can not make inferences for any coefficients where the estimates exist**. 
+
+
+---
+\frametitle{Linear model with all variables: why and solution}
+
+
++ The reason that the least squared solutions does not exist for all the coefficients is that the number of unknown parameters is larger than the sample size. 
+
++ Even we have lots of communities in the data, we expect that many coefficients are not significant. So it will be hard to identify a set of important factors related to the violent crime rates. 
+
++ One way out is to impose sparsity. Suppose there are only a small collection of factors affecting the response, we can then apply restrictions on the coefficients to look for a constraint least squared solution via regularization. 
+
+
+
+# 3 Regularization
+
+---
+\frametitle{Linear model with all variables}
+
+Consider linear multiple regression models with $p$ predictors
+
+$$Y = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip} $$
+
+The OLS may
+
+- Overfit the data
+- When $p$ is large there are no unique solution for OLS
+- A smaller model is preferable for interpretation
+
+One way to avoid the above problems is to add constraints on the coefficients. 
+
+---
+\frametitle{LASSO regularization}
+
+
+LASSO (Least Absolute Shrinkage and Selection Operator) produces a restricted least squared solution by adding the following constraints over unknown parameters.  
+
+$$\min_{\substack{\beta_0,\,\beta_1,\,\beta_{2},\dots,\beta_{p} \\
+|\beta_1|+|\beta_2| + \dots +|\beta_p| \leq t  } }  \Big\{\frac{1}{2n} \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_{i1} - \beta_2 x_{i2} - \dots - \beta_p x_{ip})^{2} \Big\}$$
+
+**Remark on LASSO solutions:**
+
+- $|\beta_1|+|\beta_2| + \dots +|\beta_p|$ is called $L$-1 penalty
+- $t$ is called the tuning parameter which control the sparsity
+- The solution $\hat \beta_i^t$ depends on $t$
+- $\hat \beta_i^t$ are OLS when $t \rightarrow \infty$ and
+- $\hat \beta_i^t = 0$ for some $i$ when $t$ is small
+
+**Which tuning parameter $t$ to use?**
+
+---
+\frametitle{L1 Penalty}
+
+
+The above restricted least squared problem motivates the sparse solution to choose a small set of variables. It is not easy to find the solution. Equivalently we can solve the following problem:
+
+\tiny
+$$\min_{\beta_0,\,\beta_1,\,\beta_{2},\dots,\beta_{p}} \Big\{\frac{1}{2n} \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_{i1} - \beta_2 x_{i2} - \dots - \beta_p x_{ip})^{2} + \lambda (|\beta_1|+|\beta_2| + \dots +|\beta_p|)\Big\}$$
+
+\normalsize
+**Remark on LASSO:**
+
+- The two minimization problems are equivalent.
+- $\lambda$ is called the tuning parameter
+- The solution $\hat \beta_i^\lambda$ depends on $\lambda$
++ $\hat \beta_i^\lambda$ are OLS when $\lambda=0$ and
++ $\hat \beta_i^\lambda = 0$ when $\lambda \rightarrow \infty$
+
+
+# 4 Cross validation
+
+---
+\frametitle{K-fold cross validation}
+
+
+Given a $\lambda$ we will have a set of solutions for all the $\beta_i's$. We then have a prediction equation. If we have another testing data, we can then estimate the prediction error. The simplest way to estimate prediction errors with a training set is called K-Fold Cross Validation.
+
+---
+\frametitle{K-fold cross validation: algorithm}
+
+
+To compute K-fold cross validation error, we use the following algorithm. 
+
+1. We split our data into $K$ sections, called folds. So if our training set has 1000 observations, we can set $K$ = 10 & randomly split our data set into 10 different folds each containing 100 observations. 
+
+2. We then train a LASSO model on all the folds except 1, i.e. we train the model on 9 out of the 10 folds. 
+
+3. Next, we produce fitted values for all points in the fold that was **NOT** used to train the model on, and then we store the $MSE$ on that fold. 
+
+4. We repeat this procedure for each fold. So each fold is left out of the training set once and used to test the model on. This means that we will have $K$ $MSE$ values, one for each fold. 
+
+5. We then average these $MSE$ values, and this gives us an estimate of the testing error. 
+
+
+---
+\frametitle{`glmnet()` and `cv.glmnet()`}
+
+
+**`glmnet`** 
+
+`glmnet` is a well-developed package to produce `LASSO` estimates for each $\lambda$ value together with `K-fold` prediction errors. It has two main functions, `glmnet()` and `cv.glmnet()`. Using the `glmnet` we will go through in details the LASSO solution to identify important factors related to `ViolentCrime` in Florida
+
+---
+\frametitle{`glmnet()`: Data Preparation}
+
+Prepare the input $X$ matrix and the response $Y$. `glmnet()` requires inputting the design matrix $X=(x_1,...x_p)$ and the response variable $Y$. 
+
+\tiny
+```{r, echo=TRUE}
+library(glmnet)
+Y <- data.fl[, 98] # extract Y
+X.fl <- model.matrix(violentcrimes.perpop~., data=data.fl)[, -1]
+# get X variables as a matrix. it will also code the categorical 
+# variables correctly!. The first col of model.matrix is vector 1
+# dim(X.fl)
+```
+
+---
+\frametitle{`glmnet()`: Data Preparation}
+
+
+\tiny
+```{r}
+colnames(X.fl)   # X.fl[1:2, 1:5]
+```
+
+
+---
+\frametitle{`glmnet()` with fixed $\lambda$}
+
+
+We first run `glmnet()` with $\lambda = 100$. From the output, we can see that the features selected by LASSO. Read and run the following code line by line to understand the output. We provide detailed comments inside the following R-chunk to get familiar with function `glmnet`
+
+\tiny
+```{r results=TRUE}
+fit.fl.lambda <- glmnet(X.fl, Y, alpha=1, lambda = 100) # alpha =1 corresponding to LASSO solutions
+names(fit.fl.lambda) # to see the possible output  
+fit.fl.lambda$lambda # lambda used
+```
+
+---
+\frametitle{`glmnet()`: coefficients}
+
+
+\tiny
+```{r results=TRUE}
+tmp_coeffs <- fit.fl.lambda$beta
+# The coefficients are functions of lambda. It only outputs the coefs of features.
+# Notice many of the coef's are 0 
+fit.fl.lambda$df    # number of non-zero coeff's
+fit.fl.lambda$a0    # est. of beta_0 
+```
+
+---
+\frametitle{`glmnet()`: coefficients}
+
+
+\tiny
+```{r}
+# An intuitive way to extract LASSO solutions
+coef(fit.fl.lambda) # beta hat of predictors in the original scales, same as fit.fl.lambda$beta
+```
+
+---
+\frametitle{`glmnet()`: Non-zero coefficients}
+
+
+\tiny
+```{r}
+# more advanced way to extract non-zero output using sparse matrix `dgCMatrix` 
+tmp_coeffs <- coef(fit.fl.lambda)  # output the LASSO estimates 
+tmp_coeffs.min <- tmp_coeffs[which(tmp_coeffs!=0),]   # get the non=zero coefficients
+tmp_coeffs.min # the set of predictors chosen
+rownames(as.matrix(tmp_coeffs.min)) # shows only names, not estimates
+```
+
+---
+\frametitle{`glmnet()` with fixed $\lambda$}
+
+
+When $\lambda=100$, we return 9 variables with non-zero coefficient. 
+
+* What is the testing error or `K-fold` cross validation error for the linear model using the above variables selected? 
+* How to find the `lambda` with smallest cross validation error or how to control the sparsity among the models with similar cross validation errors? 
+
+
+---
+\frametitle{`glmnet()` with a set of $\lambda$'s}
+
+
+**LASSO path: estimators for a set of $\lambda$'s**
+
+Now glmnet will output results for 100 different $\lambda$ values suggested by the algorithm. The output will consist of LASSO fits, one for each $\lambda$.
+
+\tiny
+```{r}
+fit.fl.lambda <- glmnet(X.fl, Y, alpha=1)
+str(fit.fl.lambda)
+fit.fl.lambda$lambda # see the default proposal of lambda's #fit.fl.lambda$beta
+```
+
+
+---
+\frametitle{`cv.glmnet()`: choose $\lambda$ via CV}
+
+
+**`cv.glmnet()`: Cross Validation to select a $\lambda$**
+
+
+To compare the Cross validation errors for the set of `lambda`, we use `cv.glmnet()`. For each $\lambda$, it will report the K fold CV errors together with some summary statistics among the K errors:
+
+Cross-validation over $\lambda$ gives us a set of errors: 
+
+- `cvm`: mse among the K cv errors
+- `cvsd`: estimate of standard error of `cvm`, 
+- `cvlo`: `cvm` - `cvsd`
+- `cvup`: `cvm` + `cvsd`
+
+---
+\frametitle{`cv.glmnet()`}
+
+Read through the following R-chunk to get familiar with `cv.glmnet()`.
+\tiny
+```{r results=TRUE}
+Y <- data.fl[, 98] # extract Y
+X.fl <- model.matrix(violentcrimes.perpop~., data=data.fl)[, -1] # get design matrix without the first col of 1's. For a categorical variable with L levels, there will be L-1 indicator variables. 
+set.seed(10)  # to control the randomness in K folds 
+fit.fl.cv <- cv.glmnet(X.fl, Y, alpha=1, nfolds=10)
+
+# names(fit.fl.cv); summary(fit.fl.cv)
+# fit.fl.cv$cvm               # the mean cv error for each lambda
+# fit.fl.cv$lambda.min # lambda.min returns the min point amoth all the cvm. 
+# fit.fl.cv$lambda.1se
+# fit.fl.cv$nzero     # string of number of non-zero coeff's returned for each lambda
+```
+
+
+---
+\frametitle{`cv.glmnet()`}
+
+
+
+We can now use the default plot to explore possible values of lambda: 
+```{r}
+plot(fit.fl.cv)   # fit.fl.cv$lambda.min; fit.fl.cv$lambda.1se
+```
+
+The default graph combines all the plots we just looked at in detail. 
+
+---
+\frametitle{`cv.glmnet()`}
+
+
+Plot Description:
+
+- Top margin: number of nonzero $\beta$'s for each $\lambda$
+- Red points: cvm, the mean cross validation error for each $\lambda$
+- Vertical bar around each $\lambda$: cvm (red point) +/- 1 cvsd
+- First vertical line: lambda.min, $\lambda$ which gives the smallest cvm
+- Second vertical line: lambda.1se, the largest $\lambda$ whose cvm is within the cvsd bar for the lambda.min value. 
+
+
+---
+\frametitle{`cv.glmnet()`}
+
+
+**Important Remarks:**
+
+- Cross validation errors vary a lot. 
+- The above plot changes as we run the function again with different K-folds
+
+**Which model to use?**
+
+Because of the large variability in CV errors, minimizing the `cvm` will not guarantee the model the smallest prediction error. 
+
+- One may choose any lambda between lambda.min and lambda.1se
+- One may also choose lambda controlled by `nzero`, the number of non-zero elements
+
+
+---
+\frametitle{`cv.glmnet()`: lambda.min}
+
+
+**Output variables for the $\lambda$ chosen**
+
+Once a specific $\lambda$ is chosen, we will output the corresponding predictors.
+
+
+1. Output $\beta$'s from lambda.min, as an example
+
+\tiny
+```{r}
+coef.min <- coef(fit.fl.cv, s="lambda.min")  #s=c("lambda.1se","lambda.min") or lambda value
+coef.min <- coef.min[which(coef.min !=0),]   # get the non=zero coefficients
+coef.min  # the set of predictors chosen
+rownames(as.matrix(coef.min)) # shows only names, not estimates  
+```
+
+
+---
+\frametitle{`cv.glmnet()`: lambda.1se}
+
+2. Output $\beta$'s from lambda.1se (this way you are using smaller set of variables.)
+
+\tiny
+```{r}
+coef.1se <- coef(fit.fl.cv, s="lambda.1se")  
+coef.1se <- coef.1se[which(coef.1se !=0),] 
+coef.1se
+rownames(as.matrix(coef.1se))
+```
+
+---
+\frametitle{`cv.glmnet()`: number of non-zero}
+
+3. Choose the number of non-zero coefficients
+
+Suppose you want to use $\lambda$ such that it will return 9 n-zero predictors. 
+\tiny
+```{r eval=FALSE}
+coef.nzero <- coef(fit.fl.cv, nzero = 9)  #fit.fl.cv$nzero
+coef.nzero <- coef.nzero[which(coef.nzero !=0), ]
+rownames(as.matrix(coef.nzero)) #notice nzero may not take any integer.
+```
+
+---
+\frametitle{`cv.glmnet()`: `s` value}
+
+4. We may specify the s value ourselves. We may want to use a number between lambda.min and lambda.1se, say we take $s=e^{4.6}$. 
+
+\tiny
+```{r}
+coef.s <- coef(fit.fl.cv, s=exp(4.6)) 
+#coef.s <- coef(fit.fl.cv, s=fit.fl.cv$lambda[3])
+coef.s <- coef.s[which(coef.s !=0),] 
+coef.s
+var.4.6 <- rownames(as.matrix(coef.s))
+var.4.6
+```
+
+
+
+# 5 Final model 
+
++ LASSO produces a sparse solution. But it does not provide inference for variables selected by itself. + In our Crime Data study we combine LASSO results and feed the variables to linear model to have a final model. This is called `Relaxed LASSO`. Let us recap the LASSO process, continuing to build a final model.
+
+
+---
+\frametitle{LASSO equation}
+
+
+First get the LASSO output. As an example we decide to use the `lambda.min`. We will have the following variables chosen together with the LASSO equation
+
+\tiny
+```{r, results = "TRUE"}
+#Step 1: Prepare design matrix
+Y <- data.fl[, 98] # extract Y
+X.fl <- model.matrix(violentcrimes.perpop~., data=data.fl)[, -1] # take the first column's of 1 out
+#Step 2: Find x's output from LASSO with min cross-validation error
+set.seed(10)  # to control the ramdomness in K folds 
+fit.fl.cv <- cv.glmnet(X.fl, Y, alpha=1, nfolds=10, intercept = T) 
+coef.min <- coef(fit.fl.cv, s="lambda.min")  #s=c("lambda.1se","lambda.min") or lambda value
+coef.min <- coef.min[which(coef.min !=0),]   # get the non=zero coefficients
+var.min <- rownames(as.matrix(coef.min))[-1] # output the names  dim(as.matrix(coef.min))
+```
+
+---
+\frametitle{LASSO equation}
+
+
+Alternatively, we can get the LASSO non-zero variables through sparse matrix:
+
+\tiny
+```{r, results = "TRUE"}
+# Another faster way to get the LASSO output
+coef.min <- coef(fit.fl.cv, s="lambda.min") #s=c("lambda.1se","lambda.min") or lambda value
+var.min <- coef.min@Dimnames[[1]][coef.min@i + 1][-1] # we listed those variables with non-zero estimates. [-1] to remove intercept
+```
+
+---
+\frametitle{Force in}
+
+
++ Sometimes we may want to lock some variables of interests in the linear model. 
++ One way to achieve this goal is to not impose any penalty on the corresponding coefficients. We can force in these variables using the `penalty.factor` argument in `cv.glmnet`. `penalty.factor` takes a vector of length as the number of variables in the model matrix. 
++ For example, if we think population has to be included in the final model, then set the corresponding element of `penalty.factor` as 0 while keeping others as 1. 
++ Here population is the 1st variable, so we feed a vector `c(0, rep(1, ncol(X.fl)-1))` to `penalty.factor`. 
+
+
+---
+\frametitle{Force in}
+
+
+\tiny
+```{r}
+fit.fl.force.cv <- cv.glmnet(X.fl, Y, alpha=1, nfolds=10, intercept = T,
+                       penalty.factor = c(0, rep(1, ncol(X.fl)-1))) 
+coef.force.min <- coef(fit.fl.force.cv, s="lambda.min")
+var.force.min <- coef.force.min@Dimnames[[1]][coef.force.min@i + 1][-1] 
+var.force.min
+```
+
+\normalsize
+**Remark** if we want to force in a categorical variable, we need to first look for their corresponding indices in the model matrix, then set the corresponding element in `penalty.factor` as 0. 
+
+
+## 5.2 Relaxed LASSO
+
+
+To make inferences using the LASSO chosen variables, we will run the linear model analyses. Assuming all the linear model assumptions are being true. 
+
+---
+\frametitle{Relaxed LASSO}
+
+\tiny
+```{r}
+data.fl.sub <-  data.fl[,c("violentcrimes.perpop", var.min)] # get a subset with response and LASSO output
+#names(data.fl.sub)
+fit.min.lm <- lm(violentcrimes.perpop~., data=data.fl.sub)  # debiased or relaxed LASSO
+summary(fit.min.lm) 
+```
+
+
+---
+\frametitle{Relaxed LASSO}
+
+
+An alternative way to do the final lm fit. We first prepare a formula for lm function:
+
+\tiny
+```{r, results=TRUE}
+coef.min <- coef(fit.fl.cv, s="lambda.min")  #s=c("lambda.1se","lambda.min") or lambda value
+coef.min <- coef.min[which(coef.min !=0),]   # get the non=zero coefficients
+var.min <- rownames(as.matrix(coef.min))[-1] # output the names without intercept
+lm.input <- as.formula(paste("violentcrimes.perpop", "~", paste(var.min, collapse = "+"))) 
+# prepare for lm fomulae
+lm.input
+```
+
+---
+\frametitle{Relaxed LASSO}
+
+
+We then fit the linear model with LASSO output variables.
+
+\tiny
+```{r, results = TRUE}
+fit.min.lm <- lm(lm.input, data=data.fl)  # debiased or relaxed LASSO
+summary(fit.min.lm) 
+```
+
+---
+\frametitle{Relaxed LASSO}
+
+
+**Remark:**
+Not all the predictors in the above lm() are significant at .05 level. We will go one more step further to eliminate some insignificant predictors. We could refine the above model to eliminate some variables which are not significant using backward selection as well.
+
+
+## 5.3 Fine-tuning
+
+
+We noticed that some variables are not significant (p-value > 0.05) in our current model. One may use backward selection to fine tune the final model. Let us take the predictors from the above LASSO output and use backward selection to lower the dimension. We fit the current model first. Kick out the variable with highest p-value or smallest t-value and repeat until reaching the model size determined.
+
+---
+\frametitle{5.3 Fine-tuning-Backward Selection}
+
+Kick out pct.kids2parents
+\tiny
+```{r}
+library(leaps)
+library(car)
+fit.min.lm.back1 <- update(fit.min.lm, .~. - pct.kids2parents)
+Anova(fit.min.lm.back1)
+```
+
+---
+\frametitle{5.3 Fine-tuning-Backward Selection}
+
+Kick out pct.house.no.plumb
+\tiny
+```{r}
+library(leaps)
+library(car)
+fit.min.lm.back2 <- update(fit.min.lm.back1, .~. - pct.house.no.plumb)
+Anova(fit.min.lm.back2)
+```
+
+---
+\frametitle{5.3 Fine-tuning-Backward Selection}
+
+Kick out pct.people.dense.hh
+\tiny
+```{r}
+library(leaps)
+library(car)
+fit.min.lm.back3 <- update(fit.min.lm.back2, .~. - pct.people.dense.hh)
+Anova(fit.min.lm.back3)
+```
+
+---
+\frametitle{5.3 Fine-tuning-Backward Selection}
+
+Kick out pct.youngkids2parents
+\tiny
+```{r}
+library(leaps)
+library(car)
+fit.min.lm.back4 <- update(fit.min.lm.back3, .~. - pct.youngkids2parents)
+Anova(fit.min.lm.back4)
+```
+
+---
+\frametitle{5.3 Fine-tuning-Backward Selection}
+
+Kick out pct.house.nophone
+\tiny
+```{r}
+library(leaps)
+library(car)
+fit.min.lm.back5 <- update(fit.min.lm.back4, .~. - pct.house.nophone)
+Anova(fit.min.lm.back5)
+```
+
+---
+\frametitle{5.3 Fine-tuning-Backward Selection}
+
+Kick out med.yr.house.built, and now we get our final model with all variables being significant.
+\tiny
+```{r}
+library(leaps)
+library(car)
+fit.min.lm.back6 <- update(fit.min.lm.back5, .~. - med.yr.house.built)
+Anova(fit.min.lm.back6)
+
+fit.final <- fit.min.lm.back6
+```
+
+
+## 5.4 Model Diagnosis
+
+
+---
+\frametitle{Model Diagnosis}
+
+We may take the above model as our final model. Let's do a quick model diagnosis
+\tiny
+```{r}
+plot(fit.final, 1)
+```
+
+---
+\frametitle{Model Diagnosis}
+
+
+\tiny
+```{r}
+plot(fit.final, 2)
+```
+
+\normalsize
+Though not perfect, we will say the linear model assumptions are reasonable.
+
+
+## 5.5 Summary
+
+
+To summarize our findings:
+
+The crime rates increases when the following features increases:
+
++ indian.percap        
++ pct.pop.underpov     
++ male.pct.divorce     
++ num.kids.nvrmarried  
++ pct.kids.nvrmarried 
+
+To control the crime rates, we have to make long term efforts to reduce populations under poverty, to educate people by promoting family values... 
+
+
+---
+\frametitle{LASSO prediction}
+
+
++ Although we use relaxed LASSO for inference and prediction, we can still use the LASSO estimator for prediction using the `predict()` function. 
++ Note that for the `predict()` function of `glmnet` or `cv.glmnet` object, the new x has to be a matrix. 
++ Similarly, the `s` argument is to select the model with specific penalty parameter.
+
+
+---
+\frametitle{Case Findings}
+
+
+Out of a large number of factors, we see that 
+
+- Family structure is very important
+- As expected income is another important variable
+
+---
+\frametitle{LASSO Summary}
+
+Given a set of variables and responsex, we can use LASSO to choose a set of variables.
+
+- We solve a penalized least squared solutions
+- Among many possible sparse models, we use K-fold Cross Validation Errors to choose a candidate model
+- Package `glmnet` and `cv.glmnet` give us the LASSO solutions
+- The selected variables can be fitted again using multiple regression method to get inference
+
+
+# 6 Pipeline functions
+
+---
+\frametitle{Pipeline Functions}
+
+\tiny
+```{r}
+X.fl <- model.matrix(violentcrimes.perpop~., data=data.fl)[, -1] # take the first column's of 1 out
+#Step 2: Find x's output from LASSO with min cross-validation error
+set.seed(10)  # to control the ramdomness in K folds 
+fit.fl.cv <- cv.glmnet(X.fl, Y, alpha=1, nfolds=10, intercept = T) 
+coef.min <- coef(fit.fl.cv, s="lambda.min")  #s=c("lambda.1se","lambda.min") or lambda value
+coef.min <- coef.min[which(coef.min !=0),]   # get the non=zero coefficients
+var.min <- rownames(as.matrix(coef.min))[-1] # output the names  dim(as.matrix(coef.min))
+```
+
+# Appendix
+
+---
+\frametitle{Heatmap using `ggplot()`}
+
+**ggplot way:**
+
+An original method creating a heat map. Here we show the mean income. First create a new data frame with mean income and corresponding state name
+
+\tiny
+```{r }
+income <- data.s[, c("state", "mean.income")]
+```
+
+\normalsize
+We now need to use standard state names instead of abbreviations, so we have to change the names in the raw data. For example: PA --> Pennsylvania, CA --> California
+\tiny
+```{r}
+income$region <- tolower(state.name[match(income$state, state.abb)])
+```
+
+\normalsize
+Next, add the center coordinate for each state. `state.center` contains the coordinate corresponding to `state.abb` in order.
+\tiny
+```{r}
+income$center_lat  <- state.center$x[match(income$state, state.abb)]
+income$center_long <- state.center$y[match(income$state, state.abb)]
+```
+
+\normalsize
+Next, load US map info - for each state it includes a vector of coordinates describing the shape of the state.
+\tiny
+```{r}
+states <- map_data("state") 
+```
+
+
+---
+\frametitle{Heatmap using `ggplot()`}
+
+
+Notice the column "order" describes the order these points should be linked. Therefore this column should always be ordered properly
+
+Combine the US map data with the income data
+\tiny
+```{r}
+map <- merge(states, income, sort=FALSE, by="region", all.x=TRUE)
+```
+
+\normalsize
+Re-establish the point order - very important, try without it!
+\tiny
+```{r}
+map <- map[order(map$order),]
+```
+
+
+---
+\frametitle{Heatmap using `ggplot()`}
+
+
+Now, plot it using ggplot function. The first two lines create the map with color filled in
+
++ geom_path - create boundary lines
++ geom_text - overlay text at the provided coordinates
++ scale_fill_continuous - used to tweak the heatmap color
+
+---
+\frametitle{Heatmap using `ggplot()`}
+
+\tiny
+```{r}
+ggplot(map, aes(x=long, y=lat, group=group))+
+  geom_polygon(aes(fill=mean.income))+
+  geom_path()+ 
+  geom_label(data=income, 
+             aes(x=center_lat, y=center_long, group=NA, label=state), 
+             size=3, label.size = 0) +
+  scale_fill_distiller(palette = "YlGnBu", direction = 1)
+# scale_fill_continuous(limits=c(min(map$mean.income), max(map$mean.income)),name="Mean Income",
+#                       low="gold1", high="red4")
+## You can display all color palettes using the following
+# library(RColorBrewer)
+# display.brewer.all()
+
+```
+
+
