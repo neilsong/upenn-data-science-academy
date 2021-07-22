@@ -139,6 +139,17 @@ We now try to build a good parsimonious model to find possible factors related t
 
 ii) Create the response variable `total_death_per100k` as the total of number of COVID deaths per 100k by *Feb 1, 2021*. We suggest to take log transformation as `log_total_death_per100k = log(total_death_per100k + 1)`. Merge `total_death_per100k` to `county_data` for the following analysis. (Hint: check the R function `dplyr::join()` or `data.table::merge()`)
 
+```{r}
+covid_county_0201 <- covid_rate %>%
+  filter(date == "2021-02-01") %>%
+  mutate(log_death_rate = log(cum_deaths/TotalPopEst2019 *1e5 +1)) %>%
+  select(FIPS,log_death_rate)
+
+covid_county_0201 <- left_join(covid_county_0201,county_data, by= "FIPS")
+
+dim(covid_county_0201)
+```
+
 iii) Select possible variables in `county_data` as covariates. We provide `county_data_sub`, a subset variables from `county_data`, for you to get started. Please add any potential variables as you wish. 
 
 Report missing values in your final subset of variables. In the following analysis, you may ignore the missing values.
@@ -148,11 +159,20 @@ Report missing values in your final subset of variables. In the following analys
 ```{r}
 county_data_sub <- county_data %>%
   select(County, State, FIPS, Deep_Pov_All, PovertyAllAgesPct, PerCapitaInc, UnempRate2019, PctEmpFIRE, PctEmpConstruction, PctEmpTrans, PctEmpMining, PctEmpTrade, PctEmpInformation, PctEmpAgriculture, PctEmpManufacturing, PctEmpServices, PopDensity2010, OwnHomePct, Age65AndOlderPct2010, TotalPop25Plus, Under18Pct2010, Ed2HSDiplomaOnlyPct, Ed3SomeCollegePct, Ed4AssocDegreePct, Ed5CollegePlusPct, ForeignBornPct, Net_International_Migration_Rate_2010_2019, NetMigrationRate1019, NaturalChangeRate1019, TotalPopEst2019, WhiteNonHispanicPct2010, NativeAmericanNonHispanicPct2010, BlackNonHispanicPct2010, AsianNonHispanicPct2010, HispanicPct2010, Type_2015_Update, RuralUrbanContinuumCode2013, UrbanInfluenceCode2013, Perpov_1980_0711, HiCreativeClass2000, HiAmenity, Retirement_Destination_2015_Update)
+
+dim(covid_county_0201)
 ```
 
 iv) Use LASSO to choose a parsimonious model with all available sensible county-level information. Use `set.seed(15)`. **Force in State** in the process. Why we need to force in State?
 
 **answer: **
+```{r}
+X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
+y <- covid_county_0201$log_death_rate
+cv.glmnet(X,y,nfolds=10,alpha=1, penalty.factor)
+
+```
+
 
 v) If necessary, reduce the model from iii) to a final model with all variables being significant at 0.05 level. Again **force in State** in the process. Are the linear model assumptions all reasonably met?
 
