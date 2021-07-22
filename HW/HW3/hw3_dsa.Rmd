@@ -151,7 +151,7 @@ i. Are `mpg`'s on average different among three regions? Perform a test at .01 l
 ```{r results='show'}
 Anova(fit3)
 ```
-The f statistic produced by Anova function is 96.6 which is significantly larger than 1. Since an f statistic of 1 shows the null hypothesis, the very large f statistic shows that we can reject the null hypothesis and say that average of the three regions are different in a statistically significant way.
+The f statistic produced by Anova function is 96.6 which is significantly larger than 1. Since an f statistic of 1 shows the null hypothesis, the very large f statistic shows that we can reject the null hypothesis and accept the alternate hypothesis that average of the three regions are different in a statistically significant way.
 
 i. Describe on average which `origin` has the highest `mpg` and what it is. Which `origin` has the smallest `mpg` on average and what is it?
     + On average, `origin 3` has the highest `mpg` of 30.451, and `origin 1` has the lowest average `mpg` of 20.033. 
