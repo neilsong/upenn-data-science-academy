@@ -138,20 +138,23 @@ summary(lm3)
 ## Bring `origin` into the model
 
 Do `mpg`'s differ on average among different `origin`? Fit a linear model with `mpg` vs. `origin`. Report the output. 
-```{r}
-fit3 <- lm(mpg ~ data1$origin, data = data1) 
+```{r results='show'}
+fit3 <- lm(mpg ~ data1$origin, data = data1)
 summary(fit3)
-
 ```
 
 
 i. Are `mpg`'s on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved? 
-    + TODO
+    + The f statistic produced by `Anova` function is 96.6 which is significantly larger than 1. Since an f statistic of 1 shows the null hypothesis, the very large f statistic shows that we can reject the null hypothesis and accept the alternate hypothesis that average of the three `origins` are different in a statistically significant way.
 
 ```{r results='show'}
 Anova(fit3)
 ```
+<<<<<<< HEAD
 The f statistic produced by Anova function is 96.6 which is significantly larger than 1. Since an f statistic of 1 shows the null hypothesis, the very large f statistic shows that we can reject the null hypothesis and accept the alternate hypothesis that the average of the three regions are different in a statistically significant way.
+=======
+
+>>>>>>> b6d0bf367c5c43580bf9056c55250dfd53b1cdaa
 
 i. Describe on average which `origin` has the highest `mpg` and what it is. Which `origin` has the smallest `mpg` on average and what is it?
     + On average, `origin 3` has the highest `mpg` of 30.451, and `origin 1` has the lowest average `mpg` of 20.033. 
