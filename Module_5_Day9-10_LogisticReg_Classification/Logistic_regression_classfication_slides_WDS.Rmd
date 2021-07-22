@@ -1,0 +1,1135 @@
+---
+title: "Logistic Regression/Classification"
+author: ""
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: Boadilla
+    number_sections: yes
+  ioslides_presentation: default
+  slidy_presentation: default
+header-includes:
+- \AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+- \AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, fig.width=6, fig.height=3)
+options(scipen = 0, digits = 3)  # controls base R output
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(bestglm, glmnet, leaps, car, tidyverse, pROC, caret)
+# install a package if it does not exist already and put the package in the path (library)
+# dplyr, ggplot2,tidyr
+```
+
+# Objectives
+
++ What are possible risk factors related to heart diseases? What determines an employee being a desirable one for the firm? How to tell wehther a review in Amazon is real or not? How to model a categorical variable conveniently and efficiently? 
++ Logistic regression models are the most commonly used methods to model the probability of an event. 
++ We then automatically get a linear classification rules. 
++ Various criteria are introduced. 
++ Analogous to least squared solutions for the usual regression models, we use maximum likelihood estimations.
+
+
+---
+\frametitle{Objectives}
+
+
+0. Introduction
+
+1. A quick EDA
+
+2. Logistic Regressions (Illustrated with one predictor)
+- Link Function
+- Maximum Likelihood Estimator (MLE)
+  - Min cross entropy
+- Inference for the Coefficients
+  - Wald Intervals / Tests (through the MLE's)
+
+---
+\frametitle{Objectives}
+
+3. Classification
+- Classification rules: thresholding $p(y=1 \vert x)$
+- Criteria
+  - Misclassification errors
+
+4. Multiple Logistic Regressions
+- Natural Extension 
+- Model selection through backward selection
+- Final model
+- Classification
+
+---
+\frametitle{Objectives}
+
+
+5. Training/Testing/Validation data
+
+6. R functions
+- `glm()`/`Anova()`
+
+Read
+
+- Chapter 4.1-4.3.4
+- Chapter 20.1-20.5
+
+
+
+# Case Study: Framingham Heart Study
+
+---
+\frametitle{Case Background}
+
+  - Heart disease is the leading cause of the death in United States. One out of four deaths is due to heart disease. 
+  - It is important to identify Coronary Heart Disease risk factors. 
+  - Many studies have indicate that, high blood pressure, high cholesterol, age, gender, race are among some major risk factors.
+  - Starting from the late 40th, National Heart, Lung and Blood Institute (NHLBI) launched it's famous Framingham Heart Study. By now subjects of three generations together with other people have been monitored and followed in the study. 
+  - Over thousands research papers have been published using these longitudinal data sets. [More details](https://www.framinghamheartstudy.org/fhs-about/).
+  - Using a piece of the data gathered at the beginning of the study, we illustrate how to identify risk factors of heart disease and how to classify one with a heart disease.
+  - More details: https://www.framinghamheartstudy.org/fhs-about/
+
+---
+\frametitle{Data Overview}
+
+
+ 1,406 participants. Conditions gathered at the beginning of the study (early 50s). 
+
+<!-- \centering -->
+
+| Variable | Description |
+|----------|-------------------------------------------------|
+|`Heart Disease`| Indicator of having heart disease or not |
+|`AGE` | Age |
+|`SEX` | Gender |
+|`SBP` | Systolic blood pressure |
+|`DBP` | Diastolic blood pressure |
+|`CHOL` | Cholesterol level |
+|`FRW` | age and gender adjusted weight |
+|`CIG` | Self-reported number of cigarettes smoked each week |
+
+
+---
+\frametitle{Goal of the Study}
+
+
++ Identify risk factors
++ Predict the probability of one with `Heart Disease`
++ Predict if one has `Heart Desease` given the information in hand
+
++ In particular, 
+
+Predict $Prob(HD = 1)$ for Alice, who is:
+
+|AGE|SEX   |SBP|DBP|CHOL|FRW|CIG|
+|---|---   |---|---|----|---|---|
+|45 |FEMALE|100|80 |180 |110|5  |
+
+where 
+$$HD =\left\{\begin{array}{ll}
+	1 & \mbox{ if heart disease} \\
+	0 & \mbox{ if normal}
+\end{array}\right.$$
+
+---
+\frametitle{EDA}
+
+
+Read `Framingham.dat` as `fram_data`
+\tiny
+```{r}
+fram_data <- read.csv("data/Framingham.dat", sep=",", header=T, as.is=T)
+str(fram_data) 
+names(fram_data)
+
+# dplyr way
+fram_data %<>%
+   rename(HD = Heart.Disease.) %>%
+   mutate(HD = as.factor(HD), 
+          SEX = as.factor(SEX))
+
+fram_data.new <- fram_data[1407,]
+fram_data <- fram_data[-1407,]
+```
+
+
+---
+\frametitle{HD vs SBP}
+
+\small
+The plot does not show the proportion of "1"'s vs. "0"'s as a function of SBP.
+
+\tiny
+```{r, fig.width=6, fig.height=3}
+fram_data %>% mutate(HD = as.numeric(HD)-1) %>%
+  ggplot(aes(x=SBP, y=HD)) + 
+  geom_jitter(height = .05, aes(color = factor(HD)))
+```
+
+
+---
+\frametitle{HD vs SBP}
+
+
+**Can we use a linear model?**
+
++ For a binary response with a $0/1$ coding as `HD`, it can be shown that $X \hat\beta$ is in fact an 
+estimate of $P(HD=1 | X)$ and we can predict the heart disease, say, if $\hat P(HD=1 | X) > 0.5$ and normal otherwise.
+
++ However, some of our estimates maybe outside of $[0,1]$, which makes no sense to interpret as probabilities.
+
+---
+\frametitle{HD vs SBP}
+
+\tiny
+```{r}
+fram_data %>% mutate(HD = as.numeric(HD)-1) %>%
+  ggplot(aes(x=SBP, y=HD)) + 
+  geom_jitter(height = .05, aes(color = factor(HD))) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  ylab("Prob(HD=1)")
+```
+
+
+# Logistic Regression: `HD~SBP`
+
+We clearly would like to model the probability of one with `HD` given `SBP`. One of the most popular models is the **logistic regression model**.
+
+
+---
+\frametitle{Logistic model}
+
+In a logistic regression model, we will model the probability of one being sick as follows: 
+$$P(HD=1\vert SBP) = \frac{e^{\beta_0 + \beta_1 SBP}}{1+e^{\beta_0+\beta_1 SBP}}$$
+
+where $\beta_0$ and $\beta_1$ are unknown parameters. We see the following properties immediately:
+
+i. $$0 < P(HD=1\vert SBP) = \frac{e^{\beta_0 + \beta_1 SBP}}{1+e^{\beta_0+\beta_1 SBP}} < 1$$
+
+ii. We get the $P(HD=0\vert SBP)$:
+
+$$P(HD=0\vert SBP) = 1-P(HD=1\vert SBP) = \frac{1}{1+e^{\beta_0+\beta_1 SBP}}$$
+
+---
+\frametitle{Logistic model}
+
+iii. What does the linear function describe? It is `log odds` of being `HD`. 
+
+$$logit(P(HD=1|SBP)) =\log\left(\frac{P(HD=1\vert SBP)}{P(HD=0\vert SBP)}\right)=\beta_0+\beta_1 \times SBP$$
+
+iv. The interpretation of $\beta_1$ is the change in log odds for a unit change in `SBP`.
+
+v. $P(HD=1|SBP)$ is a monotone function of `SBP`, depending on the sign of $\beta_1$. $P(HD=1|SBP)$ is an increasing function of `SBP` if $\beta_1 >0$. 
+
+
+# Maximum Likelihood Estimators (MLE)
+
+
++ For our setting, the response is a categorical variable. The notion of least squared errors does not apply here. 
++ We will need to find some sensible function to minimize or maximize to estimate the unknown parameters $\beta$'s.  
++ We introduce Likelihood Function of $\beta_0$ and $\beta_1$ given the data, namely the **Probability of seeing the actual outcome in the data.**
+
+---
+\frametitle{A Glimpse of the Data}
+
+
+Take a look at a piece of the data, randomly chosen from our data set.  We can then see part of the likelihood function.
+
+\tiny
+```{r results=TRUE, comment=""}
+set.seed(2)
+fram_data[sample(1:1406, 10), c("HD", "SBP")]
+```
+
+
+---
+\frametitle{Maximum Likelihood Estimators (MLE)}
+
+
+We use this to illustrate the notion of likelihood function.
+\tiny
+$$\begin{split}
+\mathcal{L}(\beta_0, \beta_1 \vert {\text Data}) &= {Prob\text {(the outcome of the data)}}\\
+&=Prob((HD=0|SBP=135), (HD=0|SBP=124), \ldots, (HD=1|SBP=130), \ldots ) \\
+&=Prob(HD=0|SBP=135) \times Prob(HD=0|SBP=124) \times \ldots \times Prob(HD=1|SBP=130) \times \ldots ) \\
+&= \frac{1}{1+e^{\beta_0 + 130 \beta_1}}\cdot\frac{1}{1+e^{\beta_0 + 140\beta_1}}\cdots\frac{e^{\beta_0 + 130 \beta_1}}{1 + e^{\beta_0 + 130 \beta_1}} \dots
+	\end{split}$$
+	
+\normalsize
+**MLE**: The estimate $(\hat \beta_1, \hat \beta_0)$ that maximizes the likelihood function is termed as  `Maximum Likelihood Estimators`:
+
+\small
+$$(\hat \beta_1, \hat \beta_0) = \arg\max_{\beta_0, \beta_1} \mathcal{L}(\beta_0, \beta_1 \vert Data)$$
+
+---
+\frametitle{Maximum Likelihood Estimators (MLE)}
+
+\normalsize
+Remark:
+
+- MLE: $\hat \beta_0$ and $\hat \beta_1$ are obtained through 
+$\max\log(\mathcal{L}(\beta_0, \beta_1 \vert D))$ 
+
+- Cross entropy: MLE can be obtained equivalently by  
+\begin{align*}
+& \min - \frac{1}{n} \{\log(\mathcal{L}(\beta_0, \beta_1 \vert D))\} \\
+ = & \min - \frac{1}{n}  \sum _{i=1}^{n} (y_i \log(p_i) + (1-y_i)\log (1-p_i))
+\end{align*}
+
+-  MLE can only be obtained through numerical calculations. 
+
+---
+\frametitle{glm() function}
+
+
+**`glm()`** will be used to do logistic regression.
+It is very similar to `lm()` but some output might be different.
+
+
+The default is logit link in `glm`
+\tiny
+```{r results=TRUE}
+fit1 <- glm(HD~SBP, fram_data, family=binomial(logit))  
+#summary(glm(as.numeric(HD)~SBP, fram_data, family="gaussian"))
+summary(fit1)
+```
+
+
+---
+\frametitle{Prediction}
+
+
+To see the prob function estimated by glm: 
+
+- logit = -3.66 + 0.0159 SBP
+
+- $$\begin{split}
+\hat P(HD = 1 \vert SBP) &= \frac{e^{-3.66+0.0159 \times  SBP}}{1+e^{-3.66+0.0159 \times SBP}} \\
+\hat P(HD = 0 \vert SBP) &= \frac{1}{1+e^{-3.66+0.0159 \times SBP}}
+\end{split}$$
+
+---
+\frametitle{Prediction}
+
+
+Now to estimate $P(HD=1)$ for Alice, we can plug in her `SBP=100` into the logit function: 
+
+\tiny
+```{r}
+fram_data.new
+```
+\normalsize
+Based on fit1 we plug in `SBP` value into the prob equation.
+\small
+$$\hat P(HD = 1 \vert SBP=100) = \frac{e^{-3.66+0.0159 \times  SBP}}{1+e^{-3.66+0.0159 \times SBP}} =  \frac{e^{-3.66+0.0159 \times  100}}{1+e^{-3.66+0.0159 \times 100}} \approx 0.112$$
+
+\normalsize
+We can also use the `predict()` function.
+\tiny
+```{r results=TRUE}
+fit1.predict <- predict(fit1, fram_data.new, type="response") 
+fit1.predict
+```
+
+---
+\frametitle{Interpretations}
+
+
+Let us see what we can say about the risk of `HD` when `SBP` increases. 
+
+- logit = -3.66 + 0.0159 SBP. That means log odds increases .0159 when SBP increases by 1.
+
+- Notice the $Prob(HD = 1)$ is an increasing function of `SBP` since $\hat \beta_1 = .0159 > 0$. That means when `SBP` increases, the chance of being `HD` increases. 
+
+- Unfortunately we do not have a nice linear interpretation of $\beta_1$ over $Prob(HD = 1)$ anymore.
+
+
+---
+\frametitle{Interpretations through Plots}
+
+
+\tiny
+```{r, fig.width=6, fig.height=2}
+fram_data %>% mutate(HD = as.numeric(HD)-1) %>%
+  ggplot(aes(x=SBP, y=HD)) + 
+  geom_jitter(height = .05, aes(color = factor(HD))) + 
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  # geom_smooth(method = "lm",    # may impose a liner model. we see the two curves are not the same.
+  #             color = "red",
+  #             se = FALSE) +
+  ylab("Prob(HD=1)")
+```
+
+
+---
+\frametitle{Interpretations through Plots}
+
+
+Alternatively, we can plot the prob through $\frac{e^{-3.66+0.0159 \times SBP}}{1+e^{-3.66+0.0159 \times SBP}}$
+\tiny
+```{r, fig.width=6, fig.height=3}
+x <- seq(100, 300, by=1)
+y <- exp(-3.66+0.0159*x)/(1+exp(-3.66+0.0159*x))
+plot(x, y, pch=16, type = "l",
+     xlab = "SBP",
+     ylab = "Prob of P(Y=1|SBP)" )
+```
+\normalsize
+- Once again the plots show the increase risk of `HD` when `SBP` increases. 
+
+
+---
+\frametitle{Inference for the Coefficients}
+
+
+How can we tell if the true $\beta_1$ is not 0? We need to provide confidence intervals of hypotheses tests for the unknown parameters.
+
+Usual z-intervals for the coefficient's (output from the summary)
+\tiny
+```{r, results=TRUE, comment=""}
+confint.default(fit1)   # confint(fit1) Different test, namely Likelihood ratio tests
+```
+
+
+
+# Classification
+
++ Given the prediction for the probability of Alice having heart disease, i.e. $\hat P(HD=1 | SBP=100)=.11$,
+how do we decide whether Alice will have heart disease or not? 
++ In general, how do we classify $\hat Y = 1$ given $\hat P(Y=1 | X)$? 
++ A sensible way to predict $Y|x$ is to set a threshold over Prob(Y|x). 
+
+
+## Classification rules
+
+
+Once we have an estimation equation for Prob(HD=1|SBP), we can immediately obtain prediction rules by setting threshold.
+
+**Rule 1: Thresholding probability by 1/2** 
+
+By definition, the larger $\hat P(HD=1 | SBP)$ is, the more likely Alice will have heart disease. 
+We start with a classifier that classifies $\widehat{HD} = 1$ if $\hat P(HD=1 \vert SBP) > 1/2$. 
+To be more specific,
+
+$$\widehat{HD}=1 ~~~~ \text{if} ~~~~ \hat P(HD=1 \vert SBP) = \frac{e^{-3.66+.0159\cdot SBP}}{1+e^{-3.66+.0159\cdot SBP}} > \frac{1}{2}.$$
+
+```{r results=TRUE}
+ifelse(fit1.predict > 1/2, "1", "0")
+```
+
+Thus we classify Alice as not having heart disease.
+
+
+---
+\frametitle{Linear Boundary}
+
+
+**Linear boundary**: 
+
+The classification rule above is equivalent to 
+
+$$ 
+\begin{split}
+\widehat{HD}=1 ~~~~ \text{if} ~~~~ 
+-3.66+.0159 \cdot SBP &= 
+\log (\text{odds ratio}) \\
+& = \log \Bigg(\frac{P(HD=1 \vert SBP)}{P(HD=0 \vert SBP)} \Bigg) \\
+&> \log \Bigg(\frac{1/2}{1/2}\Bigg) = \log 1 = 0
+\end{split}
+$$
+
+Simple algebra yields
+$$\hat Y=1 ~~~~ \text{if} ~~~~ SBP > \frac{3.66}{.0159}=230.18.$$
+This is called the linear classification boundary with simple interpretation.
+Since Alice has $SBP = 100 < 230.18$, we classify Alice as not having heart disease.
+
+---
+\frametitle{Classifier: HD = 1 if prob > 1/2}
+
+
+\tiny
+```{r, fig.width=6, fig.height=2}
+fram_data %>% mutate(HD = as.numeric(HD)-1) %>%
+  ggplot(aes(x=SBP, y=HD)) + 
+  geom_jitter(height = .05, aes(color = factor(HD))) + 
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  geom_vline(xintercept = 230.18, col="red") +
+  ggtitle("Classifier: HD = 1 if prob > 1/2") + 
+  ylab("Prob(HD=1)")
+```
+
+\normalsize
+Based on the above linear boundary, we classify everyone as $\hat Y=1$ if their SBP is on the right side of the vertical line!
+
+
+---
+\frametitle{Classification rules}
+
+
+**Rule 2: Thresholding probability by 1/3**
+
+Let's redo the exercise by thresholding $\hat P(HD=1 | SBP) > 1/3$. 
+
+$$\widehat{HD}=1 ~~~~ \text{if} ~~~~ \hat P(HD=1 \vert SBP) = \frac{e^{-3.66+.0159\cdot SBP}}{1+e^{-3.66+.0159\cdot SBP}} > \frac{1}{3}.$$
+
+```{r results=TRUE}
+ifelse(fit1.predict > 1/3, "1", "0")
+```
+We will still classify Alice as not having heart disease.
+
+---
+\frametitle{Classification rules}
+
+
+Alternatively, the linear classification rule is 
+
+$$ 
+\begin{split}
+\widehat{HD}=1 ~~~~ \text{if} ~~~~ 
+-3.66+.0159 \cdot SBP &= 
+\log (\text{odds ratio}) \\
+& = \log \Bigg(\frac{P(HD=1 \vert SBP)}{P(HD=0 \vert SBP)} \Bigg) \\
+&> \log \Bigg(\frac{1/3}{2/3}\Bigg) = \log (1/2) = -0.693
+\end{split}
+$$
+
+Simple algebra yields
+$$\hat Y=1 ~~~~ \text{if} ~~~~ SBP > \frac{3.66 + \log(1/2)}{.0159} = 187$$
+
+
+---
+\frametitle{Comparison of Two Classifiers}
+
+
+We now compare the two classifiers
+\tiny
+```{r, fig.width=6, fig.height=2}
+fram_data %>% mutate(HD = as.numeric(HD)-1) %>%
+  ggplot(aes(x=SBP, y=HD)) + 
+  geom_jitter(height = .05, aes(color = factor(HD))) + 
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  geom_line(aes(x = 230.18), col="red") +
+  geom_line(aes(x = 187), col="green") +
+  ggtitle("Green: HD = 1 if prob > 1/3; Red: HD = 1 if prob > 1/2") + 
+  ylab("Prob(HD=1)")
+```
+
+
+## Criterion for classifier
+
+
+Given two classifiers, how can we tell which one is better? 
+
+**Criterion: Misclassification errors**
+
+
+---
+\frametitle{Misclassification error}
+
+
+Mean values of missclassifications
+
+$$MCE= \frac{1}{n} \sum_{i=1}^n \{\hat y_i \neq y_i\}$$
+
+\small
+```{r results=TRUE}
+fit1.pred.5 <- ifelse(fit1$fitted > 1/2, "1", "0")
+error.training <- mean(fit1.pred.5 != fram_data$HD)
+error.training
+accuracy <- 1 - error.training
+accuracy
+```
+
+
+
+# Multiple Logistic Regression and Classification
+
+We have introduce elements of logistic regression models and classifications using only `SBP`. We can immediately extend all the concepts to include more possible risk factors. 
+
+For simplicity, we delete all cases with missing values. In general, this is not recommended!
+\tiny
+```{r}
+summary(fram_data)
+fram_data.f <- na.omit(fram_data) 
+```
+
+
+## Multiple logistic regression
+
+
+Denote $x = (x_1, x_2, \ldots, x_p)$. The logit link for the full model is
+
+$$logit(P(HD = 1 | x)) = \log \Bigg(\frac{P(HD=1 | x)}{P(HD=0 | x)} \Bigg) =  \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p$$
+where
+$$P(HD = 1 | x) = \frac{e^{\beta_0 + \beta_1 x_1 + \dots + \beta_p x_p}}{1 + e^{\beta_0 + \beta_1 x_1 + \dots \beta_p x_p}}$$
+
+Similarly, 
+
+- MLE's will be obtained through maximize the log likelihood function 
+
+- Wald tests/intervals hold for each coefficient
+
+
+---
+\frametitle{Logistic Regression Model with All Possible Features}
+
+We show next the logistic regression model with all possible features. 
+\tiny
+```{r}
+fit2 <- glm(HD~., fram_data.f, family=binomial)  
+summary(fit2)
+```
+
+---
+\frametitle{Confidence Intervals}
+
+\tiny
+```{r}
+confint.default(fit2)
+```
+
+---
+\frametitle{P(HD = 1|X)}
+
+The probability of $HD=1$ given all the factors is estimated as 
+$$\hat P(HD = 1|X) = \frac{e^{-9.33480 + 0.06249 \times AGE + 0.90610 I_{Male} + \dots + 0.01231 \times CIG}}{1 + {e^{-9.33480 + 0.06249 \times AGE + 0.90610 I_{Male} + \dots + 0.01231 \times CIG}}}$$
+
+
+---
+\frametitle{Wald intervals}
+
+We conclude from the Wald test that DBP or FRW by itself is not significant.
+
+\tiny
+```{r}
+Anova(fit2)
+```
+
+\tiny
+```{r}
+confint.default(fit2) #   predict(fit2,fram_data.new, type = "response" ) 
+```
+
+
+
+##  Final model
+
+
+\tiny
+```{r results=TRUE}
+summary(glm(HD~AGE+SEX+SBP+CHOL+FRW+CIG, family=binomial, data=fram_data.f))
+```
+
+---
+\frametitle{Final model - Backward Selection}
+
+As seen above, `FRW` is not significant so we can eliminate it.
+\tiny
+```{r}
+fit.final.0 <- glm(HD~AGE+SEX+SBP+CHOL+FRW+CIG, family=binomial, data=fram_data.f)
+summary(fit.final.0)
+summary(update(fit.final.0, .~. -FRW))
+#summary(glm(as.numeric(HD)~AGE+SEX+SBP+CHOL+FRW+CIG, family=gaussian(), data=fram_data.f))
+```
+
+---
+\frametitle{Final model}
+
+\small
+Note that `FRW` is not significant in `fit.fial.0`. Once we drop `FRW` (Backward Selection), all the remaining factors seem to be fine. (`CIG` shows weak evidence to be useful in this final model.) Nevertheless we decided to retain all the variables in the final model.
+\tiny
+```{r, results=TRUE, comment=" "}
+fit.final <- glm(HD~AGE+SEX+SBP+CHOL+CIG, family=binomial, data=fram_data.f)
+summary(fit.final)
+```
+
+---
+\frametitle{Findings from the Final model}
+
+So based on the study above, we may say collectively `AGE`, `SBP`, `CHOL`, `CIG` are all positively related to the chance of a `HD` while `Male`'s have higher chance of `HD` comparing with `Females` controlling for all other factors in the model.
+
+
+
+# Classification Revisit
+
+The recipe for choosing a classifier with multiple logistic regression is similar to that using SBP alone. 
+
+- Fit the logistic regression
+- Get a set of rules by thresholding the estimated probability as a function of the predictors
+- Evaluate the performance of the set of rules using one criterion of your choice
+
+
+## Two features
+
+
+Before using the final model, let's use only `SBP` and `AGE` to take a look at the linear boundary.
+
+Get the logit function and examine some specific rules
+\tiny
+```{r}
+fit2 <- glm(HD~SBP+AGE, family= binomial, fram_data.f)
+summary(fit2)
+```
+
+---
+\frametitle{Two features}
+
+
+$$logit=-6.554+0.0144SBP+.0589AGE$$
+
+**Rule 1:** threshold the probability at 2/3
+
+$$\begin{split}
+\widehat{HD}=1 \mbox{ if } 
+SBP &>\frac{-0.0589}{0.0144} Age + \frac{\log(2)+6.554}{0.0144} \\
+&=-4.09 Age + 503 
+\end{split}$$
+
+**Rule 2:** threshold the probability at 1/2
+
+$$\begin{split}
+\widehat{HD}=1 \mbox{ if } 
+SBP &>\frac{-0.0589}{0.0144} Age + \frac{\log(1)+6.554}{0.0144} \\
+&=-4.09 Age + 455 
+\end{split}$$
+
+---
+\frametitle{Two features}
+
+Let's put two linear boundaries together.
+\tiny
+```{r}
+fram_data.f  %>%
+  ggplot(aes(x=AGE, y=SBP)) + 
+  geom_jitter(width = 0.2, aes(color = factor(HD))) + 
+  geom_abline(intercept = 503, slope = -4.09, col = "blue") +
+  geom_abline(intercept = 455, slope = -4.09, col = "red") +
+  ggtitle("Blue: HD = 1 if prob > 2/3; Red: HD = 1 if prob > 1/2")
+```
+
+
+
+## Final model
+
+
+Now we compare three models `fit1`, `fit2`, `fit.final` using misclassification errors as the criterion.
+\tiny
+```{r}
+fit1.pred.5 <- ifelse(fit1$fitted > 1/2, "1", "0")
+error.training.fit1 <- mean(fit1.pred.5 != fram_data$HD)
+accuracy.fit1 <- 1 - error.training.fit1
+
+fit2.pred.5 <- ifelse(fit2$fitted > 1/2, "1", "0")
+error.training.fit2 <- mean(fit2.pred.5 != fram_data.f$HD)
+accuracy.fit2 <- 1 - error.training.fit2
+
+fit.final.pred.5 <- ifelse(fit.final$fitted > 1/2, "1", "0")
+error.training.fit.final <- mean(fit.final.pred.5 != fram_data.f$HD)
+accuracy.fit.final <- 1 - error.training.fit.final
+
+error.training.fit1
+error.training.fit2
+error.training.fit.final
+```
+
+
+---
+\frametitle{Assessing Final model}
+
+\normalsize
++ From misclassification errors, we can say that our final model is indeed better in terms of overall performance.
++ After deciding on the model, we need to decide the classification rule depending on the goal. 
+
+---
+\frametitle{Reflection}
+
+**Remark**
+
+- Given a model, what threshold should we use so that the MCE will be minimized? The answer would be using $0.5$ as the threshold number, assuming we treat each mistake the same. 
+- On the other hand, if the two types of the mistakes cost differently, we ought to weigh the type of the mistake. 
+- For example, if lower false negative is more important, then we can weigh more on false negative. 
+- A more concrete example is the disease diagnosis. Falsely diagnoses as disease-free is worse than
+falsely diagnosed as positive.
+
+
+# Training/Testing Data
+
+Depending on the goal, we need to choose a criterion. Then we may use a testing data to find a good model. For a final model chosen we need a validation data to evaluate/report the performance. 
+
+We may split the data into three sub-samples.
+
+* Training Data: fit a model
+* Testing Data: compare models to find a best one
+* Validation Data: to evaluate the final model
+
+Choose the model by some criterion. For example, the one with the lowest misclassification error.
+
+---
+\frametitle{Split Data into Training, Testing, and Validation Data}
+
+We first split the data into `data.train`, `data.test` and `data.val`. 
+\tiny
+```{r}
+# Split the data:
+N <- length(fram_data.f$HD)
+n1 <- floor(.6*N)
+n2 <- floor(.2*N)
+
+set.seed(10)
+# Split data to three portions of .6, .2 and .2 of data size N
+
+idx_train <- sample(N, n1)
+idx_no_train <- (which(! seq(1:N) %in% idx_train))
+idx_test <- sample( idx_no_train, n2)
+idx_val <- which(! idx_no_train %in% idx_test)
+data.train <- fram_data.f[idx_train,]
+data.test <- fram_data.f[idx_test,]
+data.val <- fram_data.f[idx_val,]
+
+``` 
+
+
+---
+\frametitle{Training Models}
+
+Fit two models using `data.train`
+\tiny
+```{r}
+fit1.train <- glm(HD~SBP, data=data.train, family=binomial)
+summary(fit1.train)
+
+fit5.train <- glm(HD~SBP+SEX+AGE+CHOL+CIG, data=data.train, family=binomial)
+summary(fit5.train)
+```
+
+
+---
+\frametitle{Training Models}
+
+Fit two models using `data.train`
+\tiny
+```{r}
+fit5.train <- glm(HD~SBP+SEX+AGE+CHOL+CIG, data=data.train, family=binomial)
+summary(fit5.train)
+```
+
+---
+\frametitle{Fitted Probabilities Using Testing Data}
+
+Get the fitted probabilities using the testing data
+\tiny
+```{r results=TRUE}
+fit1.fitted.test <- predict(fit1.train, data.test, type="response") # get the prob's
+fit5.fitted.test <- predict(fit5.train, data.test, type="response")
+
+data.frame(fit1.fitted.test, fit5.fitted.test)[1:10, ]
+```
+\normalsize
+Look at the first 10 rows. Notice that row names are the subject numbers chosen in the testing data. The estimated probability for each row is different using `fit1` and `fit5`.
+
+---
+\frametitle{MCE for the Two Models}
+
+Suprisingly, the two models have the same misclassification errors using the testing data.
+\tiny
+```{r results=TRUE}
+fit1.test.pred.5 <- ifelse(fit1.fitted.test > 1/2, "1", "0")
+error.testing.fit1.final <- mean(fit1.test.pred.5 != data.test$HD)
+
+fit5.test.pred.5 <- ifelse(fit5.fitted.test > 1/2, "1", "0")
+error.testing.fit5.final <- mean(fit5.test.pred.5 != data.test$HD)
+
+sum(fit1.test.pred.5!=fit5.test.pred.5)
+
+error.testing.fit1.final
+error.testing.fit5.final
+
+```
+
+---
+\frametitle{Remark}
+
+Remark: On a separate issue, there are variabilities on results as splitting process. If you comment out set.seed and repeat running the above training/testing/validation session our final output will be different. 
+
+---
+\frametitle{Pipeline functions}
+
+\tiny
+```{r}
+# Get the design matrix without 1's and HD
+Xy_design <- model.matrix(HD ~.+0, fram_data.f) 
+# Attach y as the last column.
+Xy <- data.frame(Xy_design, fram_data.f$HD)   
+
+fit.all <- bestglm(Xy, family = binomial, method = "exhaustive", IC="AIC", nvmax = 10) # method = "exhaustive", "forward" or "backward"
+```
+
+\tiny
+```{r}
+# Split the data:
+N <- length(fram_data.f$HD)
+n1 <- floor(.6*N)
+n2 <- floor(.2*N)
+
+set.seed(10)
+# Split data to three portions of .6, .2 and .2 of data size N
+
+idx_train <- sample(N, n1)
+idx_no_train <- (which(! seq(1:N) %in% idx_train))
+idx_test <- sample( idx_no_train, n2)
+idx_val <- which(! idx_no_train %in% idx_test)
+data.train <- fram_data.f[idx_train,]
+data.test <- fram_data.f[idx_test,]
+data.val <- fram_data.f[idx_val,]
+```
+
+# Appendix {-}
+
+---
+\frametitle{}
+
+\Large
+\begin{center}
+Appendix
+\end{center}
+
+
+## Classification criteria {-}
+
+---
+\frametitle{Confusion matrix}
+
+
+Given the actual status and the predicted status by a classifier, we can summarize how well this rule works by a two-way table which we called `confusion matrix`.
+
+Let's use our first classifier, 
+$$\widehat{HD} = 1 \mbox{ if } \hat P(HD=1 \vert SBP) > 1/2.$$
+
+```{r}
+fit1.pred.5 <- ifelse(fit1$fitted > 1/2, "1", "0")
+```
+
+---
+\frametitle{Confusion matrix}
+
+Take a few participants in the data, we compare the facts and the predictions:
+\tiny
+```{r results=TRUE}
+set.seed(10)
+output1 <- data.frame(fram_data$HD, fit1.pred.5, fit1$fitted)[sample(1406, 10),] 
+names(output1) <- c( "HD", "Predicted HD", "Prob")
+output1
+```
+\normalsize
+We see there are 4 participants mislabeled.
+
+
+---
+\frametitle{Confusion matrix}
+
+A 2 by 2 table which summarize the number of mis/agreed labels
+```{r results=TRUE}
+cm.5 <- table(fit1.pred.5, fram_data$HD)
+cm.5
+```
+Note that the rows are $\hat y$ and the columns are $y$. These four numbers reflects different criteria.
+
+|     | $Y=0$ | $Y=1$ |
+|-------|-------|-------|
+| $\hat{Y}=0$ | Specificity | False negative |
+| $\hat{Y}=1$ | False positive | Sensitivity (true positive) |
+
+---
+\frametitle{Sensitivity and Specificity}
+
+
+**Sensitivity**: 
+
+The sensitivity is defined as
+$$P(\hat Y = 1 \vert Y = 1)$$
+
+This is also called `True Positive Rate`: the proportion of correct positive classification.
+
+```{r results=TRUE}
+sensitivity <- cm.5[2,2]/sum(cm.5[,2])
+sensitivity
+```
+
+
+---
+\frametitle{Sensitivity and Specificity}
+
+
+**Specificity**:
+
+The specificity is defined as
+$$P(\hat Y = 0| Y = 0)$$
+
+`Specificity` measures the proportion of correct negative classification.
+
+```{r results=TRUE}
+specificity <- cm.5[1,1]/sum(cm.5[,1])
+specificity
+```
+
+---
+\frametitle{Sensitivity and Specificity}
+
+
+**False Positive**:
+
+A related measure is `false positive rate`.
+
+$$1 - \text{Specificity} = P(\hat Y=1 \vert Y=0)$$
+
+`False Positive` measures the proportion of incorrect positive classification (given the actual status being negative).
+
+```{r results=TRUE}
+false.positive <- cm.5[2,1]/sum(cm.5[,1])
+false.positive
+```
+
+
+---
+\frametitle{ROC curve and AUC}
+
+
+\framesubtitle{ROC curve}
+
++ Given a logistic model, we can obtain different classifiers by changing the classification rule, i.e. by changing the threshold. Each classifier has its sensitivity and specificity. We can set sensitivity as x-axis and specificity as y-axis and plot all the pairs of sensitivity and specificity. This curve is termed as `ROC curve`.
+
++ `ROC curve` is helpful when choosing classifiers. We want to have both high specificity and high sensitivity at the same time, which means we want to classify both $Y=0$ and $Y=1$ correctly. However, in general, we will NOT have a perfect classifier and need to strive a balance between the two.
+
++ We use the `roc()` function from package `pROC` to obtain detailed information for each classifier.  Notice the ROC curve here is Sensitivity vs. Specificity. Some prefer using false positive as x-axis so as to have an ascending x-axis.
+
+---
+\frametitle{ROC curve}
+
+\tiny
+```{r, fig.height = 2}
+fit1.roc<- roc(fram_data$HD, fit1$fitted, plot=T, col="blue")
+```
+
+\normalsize
+Note that the higher the specificity, the lower the sensitivity. A perfect classifier will have both $\text{Specificity}=1$ and $\text{Sensitivity}=1$. 
+
+
+---
+\frametitle{ROC curve}
+
+
+Compare the following ROC curve using false positive as x-axis.
+\tiny
+```{r}
+plot(1-fit1.roc$specificities, fit1.roc$sensitivities, col="red", pch=16,
+     xlab="False Positive", 
+     ylab="Sensitivity")
+```
+
+
+---
+\frametitle{ROC curve}
+
+
+We can also plot a curve that shows the probability thresholds used and the corresponding False Positive rate. 
+\tiny
+```{r}
+plot(fit1.roc$thresholds, 1-fit1.roc$specificities,  col="green", pch=16,  
+     xlab="Threshold on prob",
+     ylab="False Positive",
+     main = "Thresholds vs. False Postive")
+```
+
+---
+\frametitle{AUC (Area under the curve) }
+
+
+
+AUC measures the area under the ROC curve. It is used to measure the performance of the logistic model as a whole: the larger the better. Why?
+
+Given a specificity, the model with a higher sensitivity is more desirable. If a model has higher sensitivity for each specificity, this is a better model. An extreme case is when a model has sensitivity being constantly 1 and thus $AUC=1$.
+
+\tiny
+```{r results="hold"}
+fit1.roc$auc 
+pROC::auc(fit1.roc)
+### if you get "Error in rank(prob) : argument "prob" is missing, with no default"
+### then it is possible that you are using the auc() in glmnet
+### use pROC::auc(fit1.roc) to specify we want to use auc() in pROC
+```
+
+
+
+---
+\frametitle{Misclassification error}
+
+
+Mean values of missclassifications
+
+$$MCE= \frac{1}{n} \sum_{i=1}^n \{\hat y_i \neq y_i\}$$
+
+\small
+```{r results=TRUE}
+error.training <- mean(fit1.pred.5 != fram_data$HD)
+error.training
+accuracy <- 1 - error.training
+accuracy
+```
+
+
+---
+\frametitle{False Discovery Rate (FDR)}
+
+
+False discovery rate measures the expected proportion of false discovery (incorrectly reject the null hypotheses). 
+
+FDR = $P(Y=0 | \hat Y = 1)$
+
+```{r}
+fdr <- cm.5[2,1] / sum(cm.5[2,])
+```
+
+
+<!-- ```{r results=TRUE} -->
+<!-- fdr <- cm.5[2,1] / sum(cm.5[2,]) -->
+<!-- fdr -->
+<!-- ``` -->
+
+---
+\frametitle{False Discovery Rate (FDR)}
+
+
+\normalsize
+Two related concepts are true positive and true negative. 
+
+**Positive Prediction (true positive)**:
+
+Positive Prediction is a measure of the accuracy given the predictions.
+
+Positive Prediction = $P(Y = 1 | \hat Y = 1)$
+\tiny
+```{r results=TRUE}
+positive.pred <- cm.5[2,2] / sum(cm.5[2,])
+positive.pred
+```
+\normalsize
+**Negative Prediction**: 
+
+Negative Prediction = $P(Y = 0 | \hat Y = 0)$
+\tiny
+```{r results=TRUE}
+negative.pred <- cm.5[1,1] / sum(cm.5[1,])
+negative.pred
+```
+

@@ -294,7 +294,9 @@ div.tocify {
 <li>In this model, when <code>horsepower</code> is kept constant, when <code>year</code> changes by 1 or increases by 1, the <code>mpg</code> increase by 0.65727. <code>year</code> still has significance of 0.001.</li>
 </ul></li>
 <li><p>The two 95% CI’s for the coefficient of year differ among ii. and iii. How would you explain the difference to a non-statistician?</p>
-<p>The two confidence intervals for the coefficient of year differ among ii. and iii. because in iii. the linear regression model has to account for both year and horsepower (keeping horsepower constant but still as a factor), whereas in ii. the linear regression model only has to account for the year. In turn, the confidence interval for ii. will accept more values into the interval based upon its coefficient, whereas the confidence interval for iii. will accept less values into the interval at a lower coefficient.</p></li>
+<ul>
+<li>TODO</li>
+</ul></li>
 <li><p>Create a model with interaction by fitting <code>lm(mpg ~ year * horsepower)</code>. Is the interaction effect significant at .05 level? Explain the year effect (if any).</p>
 <ul>
 <li>Yes, the interaction effect is significant at .05 level (3 stars). The <code>year</code> effect is best expressed as follows. <span class="math display">\[ \Delta mpg = (\beta_1 + \beta_3hp) \cdot \Delta year \]</span></li>
@@ -309,25 +311,6 @@ div.tocify {
 <div id="bring-origin-into-the-model" class="section level2">
 <h2>Bring <code>origin</code> into the model</h2>
 <p>Do <code>mpg</code>’s differ on average among different <code>origin</code>? Fit a linear model with <code>mpg</code> vs. <code>origin</code>. Report the output.</p>
-<pre><code>## 
-## Call:
-## lm(formula = mpg ~ data1$origin, data = data1)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -12.45  -5.03  -1.03   3.65  18.97 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     30.451      0.720   42.31   &lt;2e-16 ***
-## data1$origin2   -2.848      1.058   -2.69   0.0074 ** 
-## data1$origin1  -10.417      0.828  -12.59   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 6.4 on 389 degrees of freedom
-## Multiple R-squared:  0.332,  Adjusted R-squared:  0.328 
-## F-statistic: 96.6 on 2 and 389 DF,  p-value: &lt;2e-16</code></pre>
 <ol style="list-style-type: lower-roman">
 <li>Are <code>mpg</code>’s on average different among three regions? Perform a test at .01 level. When you reject the null hypothesis, what have you proved?
 <ul>
