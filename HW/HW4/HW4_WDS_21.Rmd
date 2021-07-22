@@ -135,9 +135,30 @@ covid_monthly <- covid_monthly %>% rename(state = State)
 
 ## COVID factor
 
-We now try to build a good parsimonious model to find possible factors related to death rate on county level. Let us not take time series into account for the moment and use the total number as of *Feb 1, 2021*. (Hint: use `dplyr::filter()`.)
+We now try to build a good parsimonious model to find possible factors related to death rate on county level. Let us not take time series into account for the moment and use the total number as of *Feb 1, 2021*. (Hint: use `dplyr::filter()`.)'
+
+```{r}
+covid_county_0201 <- covid_rate %>%
+  filter(date == "2021-02-01") %>%
+  mutate(log_death_rate = log(cum_deaths/TotalPopEst2019 * 1e5 + 1)) %>%
+  mutate(death_rate = (cum_deaths/TotalPopEst2019) * 1e5 ) %>%
+  select(FIPS, log_death_rate, death_rate)
+
+covid_county_0201 <- left_join(covid_county_0201, 
+                              county_data,
+                              by = "FIPS")
+dim(covid_county_0201)
+
+hist(covid_county_0201$log_death_rate)
+hist(covid_county_0201$death_rate)
+```
+
 
 ii) Create the response variable `total_death_per100k` as the total of number of COVID deaths per 100k by *Feb 1, 2021*. We suggest to take log transformation as `log_total_death_per100k = log(total_death_per100k + 1)`. Merge `total_death_per100k` to `county_data` for the following analysis. (Hint: check the R function `dplyr::join()` or `data.table::merge()`)
+```{r}
+
+```
+
 
 iii) Select possible variables in `county_data` as covariates. We provide `county_data_sub`, a subset variables from `county_data`, for you to get started. Please add any potential variables as you wish. 
 
@@ -151,6 +172,31 @@ county_data_sub <- county_data %>%
 ```
 
 iv) Use LASSO to choose a parsimonious model with all available sensible county-level information. Use `set.seed(15)`. **Force in State** in the process. Why we need to force in State?
+
+```{r}
+covid_county_0201 <- covid_county_0201 %>%
+  select( State, Deep_Pov_All, PovertyAllAgesPct, PerCapitaInc, UnempRate2019, PctEmpFIRE, PctEmpConstruction, PctEmpTrans, PctEmpMining, PctEmpTrade, PctEmpInformation, PctEmpAgriculture, PctEmpManufacturing, PctEmpServices, PopDensity2010, OwnHomePct, Age65AndOlderPct2010, TotalPop25Plus, Under18Pct2010, Ed2HSDiplomaOnlyPct, Ed3SomeCollegePct, Ed4AssocDegreePct, Ed5CollegePlusPct, ForeignBornPct, Net_International_Migration_Rate_2010_2019, NetMigrationRate1019, NaturalChangeRate1019, TotalPopEst2019, WhiteNonHispanicPct2010, NativeAmericanNonHispanicPct2010, BlackNonHispanicPct2010, AsianNonHispanicPct2010, HispanicPct2010, Type_2015_Update, RuralUrbanContinuumCode2013, UrbanInfluenceCode2013, Perpov_1980_0711, HiCreativeClass2000, HiAmenity, Retirement_Destination_2015_Update, log_death_rate)
+```
+
+```{r}
+covid_county_0201 <- drop_na(covid_county_0201)
+
+
+X <- model.matrix(log_death_rate ~ ., covid_county_0201)[,-1]
+Y <- covid_county_0201$log_death_rate
+
+penalty <- c( rep(0, 48), rep(1, ncol(X)-48) )
+
+
+fit <- cv.glmnet(X, Y, nfolds = 10, alpha = 1, penalty.factor = penalty)
+coef(fit, s = "lambda.min") 
+colnames(X)
+
+length(unique(covid_county_0201$State))
+
+grepl("State", colnames(X))
+```
+
 
 **answer: **
 
