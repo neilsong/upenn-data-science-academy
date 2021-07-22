@@ -169,7 +169,7 @@ iv) Use LASSO to choose a parsimonious model with all available sensible county-
 ```{r}
 X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
 y <- covid_county_0201$log_death_rate
-cv.glmnet(X,y,nfolds=10,alpha=1, penalty.factor)
+cv.glmnet(X,y,nfolds=10,alpha=1, intercept=T, penalty.factor=c(0,rep(1,ncol(X.fl)-1))
 
 ```
 
