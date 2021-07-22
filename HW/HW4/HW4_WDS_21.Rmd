@@ -143,11 +143,13 @@ ii) Create the response variable `total_death_per100k` as the total of number of
 covid_county_0201 <- covid_rate %>%
   filter(date == "2021-02-01") %>%
   mutate(log_death_rate = log(cum_deaths/TotalPopEst2019 *1e5 +1)) %>%
-  select(FIPS,log_death_rate)
+  mutate(death_rate = cum_deaths/TotalPopEst2019 *1e5) %>%
+  select(FIPS,log_death_rate, death_rate)
 
 covid_county_0201 <- left_join(covid_county_0201,county_data, by= "FIPS")
 
 dim(covid_county_0201)
+# hist(covid_county_0201$death_rate, breaks = 30)
 ```
 
 iii) Select possible variables in `county_data` as covariates. We provide `county_data_sub`, a subset variables from `county_data`, for you to get started. Please add any potential variables as you wish. 
@@ -157,8 +159,8 @@ Report missing values in your final subset of variables. In the following analys
 **answer: **
 
 ```{r}
-county_data_sub <- county_data %>%
-  select(County, State, FIPS, Deep_Pov_All, PovertyAllAgesPct, PerCapitaInc, UnempRate2019, PctEmpFIRE, PctEmpConstruction, PctEmpTrans, PctEmpMining, PctEmpTrade, PctEmpInformation, PctEmpAgriculture, PctEmpManufacturing, PctEmpServices, PopDensity2010, OwnHomePct, Age65AndOlderPct2010, TotalPop25Plus, Under18Pct2010, Ed2HSDiplomaOnlyPct, Ed3SomeCollegePct, Ed4AssocDegreePct, Ed5CollegePlusPct, ForeignBornPct, Net_International_Migration_Rate_2010_2019, NetMigrationRate1019, NaturalChangeRate1019, TotalPopEst2019, WhiteNonHispanicPct2010, NativeAmericanNonHispanicPct2010, BlackNonHispanicPct2010, AsianNonHispanicPct2010, HispanicPct2010, Type_2015_Update, RuralUrbanContinuumCode2013, UrbanInfluenceCode2013, Perpov_1980_0711, HiCreativeClass2000, HiAmenity, Retirement_Destination_2015_Update)
+covid_county_0201 <- covid_county_0201 %>%
+  select(State, FIPS, Deep_Pov_All, PovertyAllAgesPct, PerCapitaInc, UnempRate2019, PctEmpFIRE, PctEmpConstruction, PctEmpTrans, PctEmpMining, PctEmpTrade, PctEmpInformation, PctEmpAgriculture, PctEmpManufacturing, PctEmpServices, PopDensity2010, OwnHomePct, Age65AndOlderPct2010, TotalPop25Plus, Under18Pct2010, Ed2HSDiplomaOnlyPct, Ed3SomeCollegePct, Ed4AssocDegreePct, Ed5CollegePlusPct, ForeignBornPct, Net_International_Migration_Rate_2010_2019, NetMigrationRate1019, NaturalChangeRate1019, TotalPopEst2019, WhiteNonHispanicPct2010, NativeAmericanNonHispanicPct2010, BlackNonHispanicPct2010, AsianNonHispanicPct2010, HispanicPct2010, Type_2015_Update, RuralUrbanContinuumCode2013, UrbanInfluenceCode2013, Perpov_1980_0711, HiCreativeClass2000, HiAmenity, Retirement_Destination_2015_Update, log_death_rate)
 
 dim(covid_county_0201)
 ```
@@ -168,8 +170,11 @@ iv) Use LASSO to choose a parsimonious model with all available sensible county-
 **answer: **
 ```{r}
 X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
+# drop na
+covid_county_0201 <- drop_na(covid_county_0201)
+
 y <- covid_county_0201$log_death_rate
-cv.glmnet(X,y,nfolds=10,alpha=1, penalty.factor)
+cv.glmnet(X,y,nfolds=10,alpha=1,)
 
 ```
 
