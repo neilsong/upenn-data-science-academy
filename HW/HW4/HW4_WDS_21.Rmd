@@ -176,6 +176,7 @@ covid_county_0201 <- drop_na(covid_county_0201)
 y <- covid_county_0201$log_death_rate
 cv.glmnet(X,y,nfolds=10,alpha=1,)
 
+
 ```
 
 
