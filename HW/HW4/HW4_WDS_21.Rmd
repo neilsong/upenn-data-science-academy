@@ -175,7 +175,7 @@ covid_county_0201 <- drop_na(covid_county_0201)
 X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
 y <- covid_county_0201$log_death_rate
 penalty <- c(rep(0,48),rep(1,ncol(X)-48))
-cv.glmnet(X,y,nfolds=10,alpha=1,penalty.factor=)
+cv.glmnet(X,y,nfolds=10,alpha=1,penalty.factor=penalty)
 
 
 ```
