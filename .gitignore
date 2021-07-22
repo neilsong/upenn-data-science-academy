@@ -5,3 +5,4 @@ figure-latex
 *.Rproj
 .Rproj.user/
 quizzes/
+*.Rhistory
