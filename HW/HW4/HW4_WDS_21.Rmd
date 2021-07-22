@@ -1,11 +1,11 @@
 ---
 title: "Homework 4 - COVID-19 Study and Framingham Study"
 author:
-- Aaron Tom
-- Neil Song
-- Ben Zhao
-- Luke Melcher
-- Tanvi Kigga
+- Group Member 1
+- Group Member 2
+- Group Member 3
+- Group Member 4
+- Group Member 5
 date: 'Due: July 26 10pm'
 output:
   html_document:
@@ -169,13 +169,12 @@ iv) Use LASSO to choose a parsimonious model with all available sensible county-
 
 **answer: **
 ```{r}
+X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
 # drop na
 covid_county_0201 <- drop_na(covid_county_0201)
 
-X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
 y <- covid_county_0201$log_death_rate
-penalty <- c(rep(0,48),rep(1,ncol(X)-48))
-cv.glmnet(X,y,nfolds=10,alpha=1,penalty.factor=)
+cv.glmnet(X,y,nfolds=10,alpha=1,)
 
 
 ```
