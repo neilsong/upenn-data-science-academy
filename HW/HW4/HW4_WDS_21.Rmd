@@ -175,13 +175,25 @@ covid_county_0201 <- drop_na(covid_county_0201)
 X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
 y <- covid_county_0201$log_death_rate
 penalty <- c(rep(0,48),rep(1,ncol(X)-48))
-cv.glmnet(X,y,nfolds=10,alpha=1,penalty.factor=penalty)
+fit <- cv.glmnet(X,y,nfolds=10,alpha=1,penalty.factor=penalty)
+plot(fit)
+#step 4: decide to choose a lambda, here we have choosen to lambda min
+coef.min <- coef(fit, s="lambda.min")  #s=c("lambda.1se","lambda.min") or lambda value or the exp, all of these options are fgiven above. 
+coef.min <- coef.min[which(coef.min !=0),]   # get the non=zero coefficients
+var.min <- rownames(as.matrix(coef.min))[-1] 
 
 
 ```
 
 
 v) If necessary, reduce the model from iii) to a final model with all variables being significant at 0.05 level. Again **force in State** in the process. Are the linear model assumptions all reasonably met?
+```{r}
+var.min # coming with lasso from lambda min
+covid_county_0201.sub <-  covid_county_0201[,c("log_death_rate", var.min)] # get a subset with response and LASSO output
+#names(data.fl.sub)
+fit.min.lm <- lm(log_death_rate~., covid_county_0201)  # debiased or relaxed LASSO
+summary(fit.min.lm) 
+```
 
 **answer: **
 
