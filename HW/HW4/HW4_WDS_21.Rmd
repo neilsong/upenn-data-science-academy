@@ -195,7 +195,50 @@ fit.min.lm <- lm(log_death_rate~., covid_county_0201)  # debiased or relaxed LAS
 summary(fit.min.lm) 
 ```
 Now we will be removing the variables with very high P value.
-**answer: **
+```{r}
+Anova(fit.min.lm)
+```
+```{r}
+fit.backward.1 <- update(fit.min.lm, .~. - Retirement_Destination_2015_Update)
+Anova(fit.backward.1)
+```
+```{r}
+fit.backward.2 <- update(fit.backward.1, .~. - UrbanInfluenceCode2013 )
+Anova(fit.backward.2)
+```
+```{r}
+fit.backward.3 <- update(fit.backward.2, .~. - Ed4AssocDegreePct )
+Anova(fit.backward.3)
+```
+```{r}
+fit.backward.4 <- update(fit.backward.3, .~. - Deep_Pov_All  )
+Anova(fit.backward.4)
+```
+```{r}
+fit.backward.5 <- update(fit.backward.4, .~. - Net_International_Migration_Rate_2010_2019  )
+Anova(fit.backward.5)
+```
+```{r}
+fit.backward.6 <- update(fit.backward.5, .~. - TotalPop25Plus  )
+Anova(fit.backward.6)
+```
+```{r}
+fit.backward.7 <- update(fit.backward.6, .~. - TotalPopEst2019  )
+Anova(fit.backward.7)
+```
+```{r}
+#Now we do our final fit, find the summary
+fit.final <- fit.backward.7
+
+#Now we plot this model 
+plot(fit.final,1)
+plot(fit.final,2)
+```
+The various assumption of the linear model: 
+We can say the model is homoscedastic and linear as there are equal amounts of points above and below the line. However, with an exception of some abnormalities of the large line at the bottom. This could be due to over fitting. 
+However in the second plot ( normal qq): most of the points are not falling on the curve. 
+Therefore, we can conclude that not all assumptions of a linear model are reasonbly met. 
+**answer: ** 
 
 vi) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
 
