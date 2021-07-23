@@ -6,3 +6,4 @@ figure-latex
 .Rproj.user/
 quizzes/
 *.Rhistory
+*.RData
