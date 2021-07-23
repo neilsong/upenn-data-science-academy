@@ -194,7 +194,7 @@ covid_county_0201.sub <-  covid_county_0201[,c("log_death_rate", var.min)] # get
 fit.min.lm <- lm(log_death_rate~., covid_county_0201)  # debiased or relaxed LASSO
 summary(fit.min.lm) 
 ```
-
+Now we will be removing the variables with very high P value.
 **answer: **
 
 vi) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
