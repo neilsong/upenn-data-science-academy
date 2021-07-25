@@ -91,6 +91,27 @@ covid_rate <- fread("data/covid_rates.csv")
 ## COVID death trend (Homework: question **i-vi**)
 
 i) For each month in 2020, plot the monthly deaths per 100k heatmap by state on US map. Use the same color range across months. (Hints: Set `limits` argument in `scale_fill_gradient()` to fix the color scale. Use `facet_wrap()` to plot by month.)
+```{r}
+library(usmap)
+#names(data.s)
+#levels(data.s$state)
+
+covid_monthly.plot <- plot_usmap(regions = "state",                   
+                              #regions = "counties", for county level summary
+    data = covid_monthly, 
+    values = "new_death_per100k", exclude = c("Hawaii", "Alaska"), color = "black") + 
+    scale_fill_gradient(
+      low = "white", high = "red", 
+      name = "Number of deaths per 100,000 People", 
+      label = scales::comma) + 
+    labs(title = "state death rate per month", subtitle = "Continental US States") +
+    theme(legend.position = "right")
+
+```
+
+```{r}
+covid_monthly.plot
+```
 
 **Important Remark**: 
 
@@ -130,6 +151,7 @@ covid_monthly <- covid_monthly %>%
 
 ## change State to state so that usmap recognizes
 covid_monthly <- covid_monthly %>% rename(state = State)
+covid_monthly
 ```
 
 
