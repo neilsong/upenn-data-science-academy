@@ -1,0 +1,799 @@
+---
+title: "Text Mining"
+author: ""
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: Boadilla
+  slidy_presentation: default
+  pdf_document: default
+  ioslides_presentation: default
+header-includes:
+- \AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+- \AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, fig.width=8, fig.height=4)
+options(scipen = 0, digits = 3)  # controls base R output
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, ggplot2, tm, SnowballC, RColorBrewer, wordcloud, glmnet,
+               randomForest, ranger, data.table)
+```
+
+
+---
+\frametitle{Objectives}
+
+
+- Text may contain important, useful information about our response of interest. 
+    + Can we predict how much one likes a movie, a restaurant or a product based on his/her reviews? 
+- One simple but effective way of learning from a text is through bag of words to convert raw text data into a numeric matrix. 
+- Then we apply existing methods that use numerical matrices to either extract useful information or carry out predictions. 
+- We will extend the regularization technique (LASSO) to classification problems. 
+
+---
+\frametitle{Objectives}
+
+
+- In this lecture through the `Yelp` case study, we will use the `tm` package to transform text into a word frequency matrix. 
+- We will build a classifier and conduct sentiment analysis. 
+- Finally we build a word cloud to exhibit words for good reviews and bad reviews respectively. 
+
+
+---
+\frametitle{Table of Contents}
+
+
+1. Introduction to Case Study: Yelp Reviews
+2. EDA 
+3. Data Cleaning and Transformation 
+    1. Corpus - Collection of documents
+    2. Document cleansing 
+    3. Create words frequency table
+        + Library: all the words among all documents
+        + Rows: documents
+        + Columns: word frequency
+        + Output the matrix 
+4. Analyses
+    1. Build a classifier using your favorite methods: 
+        + glmnet
+        + glm
+    2. Word clouds using glm results
+    3. Predictions
+5. Appendices 
+    1. Lasso for Classification 
+
+# Case Study: Yelp Reviews 
+
+---
+\frametitle{Case Study: Yelp Reviews }
+
+
+- Founded in 2004, [Yelp](https://www.yelp.com) is a platform that holds reviews for services including restaurants, salons, movers, cleaners and so on. 
+- In this study, we use a subset of 100,000 restuarant reviews try to answer the following questions:
+    + **How are reviews related to ratings?** 
+    + **How well can we predict star rankings based on the text of reviews?**   
+
+- Note: can do analysis in situations where only reviews are available but no quantitative evaluations are given. 
+
+
+---
+
+\frametitle{Packages used}
+
+1. Text Mining Packages 
+   + [`tm`](https://cran.r-project.org/web/packages/tm/tm.pdf): a popular text mining package
+   + Note: Ingo Feinerer created text mining package `tm` in 2008 while he was a phd student at TU Vienna. Users can deploy `Hadoop` to handle large textual data.
+   - `SnowballC`: For Stemming 
+2. Word Cloud Packages
+   - `RColorBrewer`: a package for color palette
+   - `wordcloud`: a package for creating wordcloud
+3. LASSO and Random Forest packages 
+   - `glmnet` 
+   - `randomForest` 
+   - `ranger`
+   - [`stringr`](http://edrub.in/CheatSheets/cheatSheetStringr.pdf): useful string package
+   
+---
+
+\frametitle{For the remaining lecture}
+
+- Do EDA as usual.
+- Digitize the reviews into a large dimension of word frequency vectors.
+- Use`glm` and `LASSO` methods to build models of rating based on the reviews
+- Report testing errors comparing different models. 
+
+
+# Exploratory Data Analysis (EDA)
+
+## Read data
+
+---
+
+\frametitle{Read data}
+
+\tiny
+Using package `data.table` to read and to manipulate data is much faster than using `read.csv()` especially when the dataset is large.Let's first take a small piece of it to work through. We use `fread` with `nrows` = 1000 to avoid loading the entire dataset.
+
+
+```{r results= 'hold'}
+# Note: We might need to shuffle the data in order to get a random sample.
+data.all <- fread("data/yelp_subset.csv", stringsAsFactors = FALSE)
+data <- fread("data/yelp_subset.csv", nrows = 1000, stringsAsFactors = FALSE)
+names(data)
+str(data) 
+n <- nrow(data)
+```
+  
+## Response variable: rating
+
+---
+
+\frametitle{Response}
+
+- The `rating` available to us has five levels. 
+- Could treat as a continuous, ordinal, or categorical variable.
+- Logistic regression or LASSO models could handle a 5-level categorical variable. 
+- For simplicity, we regroup them into a binary settings. 
+- We create a new response `rating` such that a review will be `good` or `1` if the original rating is at least 4 or 5. Otherwise we will code it as a `bad` or `0`. 
+
+
+\tiny
+```{r results= 'hold'}
+levels(as.factor(data$stars))
+```
+
+```{r}
+data$rating <- c(0)
+data$rating[data$stars >= 4] <- 1
+data$rating <- as.factor(data$rating)
+#summary(data) #str(data)
+```
+
+---
+
+\frametitle{Response}
+**Proportion of good ratings**:
+
+```{r results='hold'}
+prop.table(table(data$rating))
+```
+Notice that $60\%$ of the reviews are good ones.
+
+## How to handle date
+
+---
+
+\frametitle{How to handle date}
+
+**Does rating relate to month or day of the weeks?**
+
+- Should we treat `date` as continuous variables or categorical ones? 
+  + Highly depends on the context and the goal of the study. 
+
+- In our situation, we are interested in knowing if people tend to leave reviews over the weekend and if those reviews are better? 
+
+- Let us use functions in `tidyverse` to  format the dates and extract weekdays
+
+\tiny
+```{r}
+weekdays <- weekdays(as.Date(data$date)) # get weekdays for each review  
+months <- months(as.Date(data$date))   # get months 
+```
+
+
+---
+
+\frametitle{How to handle date}
+
+
+Do people tend to leave a review over weekends? (months?)
+
+\tiny
+```{r results='hold'}
+par(mfrow=c(1,2))
+pie(table(weekdays), main="Prop of reviews") # Pretty much evenly distributed
+pie(table(months))  
+```
+
+---
+
+\frametitle{How to handle date}
+
+Proportion of Good reviews: Don't really see any patterns.
+\tiny
+```{r results='hold'}
+prop.table(table(data$rating, weekdays), 2)  # prop of the columns
+prop.table(table(data$rating, weekdays), 1)  # prop of the rows
+```
+
+# Bag of words and term frequency
+
+---
+
+
+- How should we use a review as predictors? 
+  + Sentences, words, and sentiments are all informative. 
+
+- We will turn a text into a vector of features, each of which represents the words that are used. 
+  + We collect all possible words (referred to as a library or bag of all words). 
+  + We will then record frequency of each word used in the review/text. 
+
+## Word term frequency table using `tm`
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+ - First form a `bag of words`: all the words appeared in the documents say `N` (in general, very large)
+ - For each document (row), record the frequency (count) of each word in the bag which gives us `N` values (notice: most of the entries are 0, as most words will *not* occur in every document)
+ - Output the document term matrix (`dtm`) as an input to a later model
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+**Corpus: a collection of text**
+
+- `VCorpus()`: create Volatile Corpus
+- `inspect()`: display detailed info of a corpus
+
+\tiny
+```{r results='hold'}
+data1.text <- data$text
+mycorpus1 <- VCorpus(VectorSource(data1.text))
+mycorpus1
+typeof(mycorpus1)   ## It is a list
+# inspect the first corpus
+inspect(mycorpus1[[1]])
+# or use `as.character` to extract the text
+#as.character(mycorpus1[[1]])
+```
+
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+**Data cleaning using `tm_map()`**
+
+- Before transforming the text into a word frequency matrix, we should transform the text into a more standard format and clean the text by removing punctuation, numbers and some common words that do not have predictive power (a.k.a. [stopwords](https://kavita-ganesan.com/what-are-stop-words/#:~:text=Stop%20words%20are%20a%20set,on%20the%20important%20words%20instead))
+  + e.g. pronouns, prepositions, conjunctions). 
+- We use the `tm_map()` function with different available transformations  
+  + `removeNumbers()` 
+  + `removePunctuation()` 
+  + `removeWords()` 
+  + `stemDocument()` 
+  + `stripWhitespace()`. 
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+\tiny
+**Data cleaning using `tm_map()`**
+```{r results=TRUE}
+# Converts all words to lowercase
+mycorpus_clean <- tm_map(mycorpus1, content_transformer(tolower))
+# Removes common English stopwords (e.g. "with", "i")
+mycorpus_clean <- tm_map(mycorpus_clean, removeWords, stopwords("english"))
+# Removes any punctuation
+# NOTE: This step may not be appropriate if you want to account for differences
+#       on semantics depending on which sentence a word belongs to if you end up
+#       using n-grams or k-skip-n-grams.
+#       Instead, periods (or semicolons, etc.) can be replaced with a unique
+#       token (e.g. "[PERIOD]") that retains this semantic meaning.
+mycorpus_clean <- tm_map(mycorpus_clean, removePunctuation)
+# Removes numbers
+mycorpus_clean <- tm_map(mycorpus_clean, removeNumbers)
+# Stem words
+mycorpus_clean <- tm_map(mycorpus_clean, stemDocument, lazy = TRUE)   
+lapply(mycorpus_clean[4:5], as.character)
+```
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+**Word frequency matrix**
+
+Now we transform each review into a word frequency matrix using the function `DocumentTermMatrix()`. 
+\tiny
+```{r results=TRUE}
+dtm1 <- DocumentTermMatrix( mycorpus_clean )   ## library = collection of words for all documents
+class(dtm1)
+```
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+
+\tiny
+**Word frequency matrix**
+
+```{r results=TRUE}
+inspect(dtm1) # typeof(dtm1)  #length(dimnames(dtm1)$Terms)
+```
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+
+\tiny
+**Word frequency matrix**
+
+Take a look at the dtm.
+```{r}
+colnames(dtm1)[7150:7161] # the last a few words in the bag
+# another way to get list of words
+# dimnames(dtm1)$Terms[7000:7161]
+dim(as.matrix(dtm1))  # we use 7161 words as predictors
+```
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+\tiny
+**Word frequency matrix**
+
+Document 1, which is row1 in the dtm.
+```{r}
+inspect(dtm1[1,])  #Non-/sparse entries: number of non-zero entries vs. number of zero entries
+``` 
+It has 25 distinctive words; in other words, there 25 non-zero cells out of 7161 bag of words.
+```{r}
+as.matrix(dtm1[1, 1:25])  # most of the cells are 0
+``` 
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+\tiny
+**Word frequency matrix**
+
+This is because review 1 only consists of 28 words after all the cleansing.
+```{r}
+sum(as.matrix(dtm1[1,]))
+``` 
+We may
+```{r}
+colnames(as.matrix(dtm1[1, ]))[which(as.matrix(dtm1[1, ]) != 0)]
+```
+```{r}
+as.character(mycorpus1[[1]]) #original text
+```
+
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+\tiny
+**Reduce the size of the bag**
+
+Many words do not appear nearly as often as others. If your cleaning was done appropriately, it will hopefully not lose much of the information if we drop such rare words. So, we first cut the bag to only include the words appearing at least 1% (or the frequency of your choice) of the time. This reduces the dimension of the features extracted to be analyzed. 
+```{r}
+threshold <- .01*length(mycorpus_clean)   # 1% of the total documents 
+words.10 <- findFreqTerms(dtm1, lowfreq=threshold)  # words appearing at least among 1% of the documents
+length(words.10)
+words.10[580:600]
+```
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+\tiny
+**Reduce the size of the bag**
+
+```{r}
+dtm.10<- DocumentTermMatrix(mycorpus_clean, control = list(dictionary = words.10))  
+dim(as.matrix(dtm.10))
+colnames(dtm.10)[40:50]
+```
+
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+\tiny
+**Reduce the size of the bag**
+**`removeSparseTerms()`**:
+
+Another way to reduce the size of the bag is to use `removeSparseTerms`
+```{r}
+dtm.10.2 <- removeSparseTerms(dtm1, 1-.01)  # control sparsity < .99 
+inspect(dtm.10.2)
+# colnames(dtm.10.2)[1:50]
+# words that are in dtm.10 but not in dtm.10.2
+```
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+**Reduce the size of the bag**
+We end up with two different bags because
+
+- `findFreqTerms()`: counts a word multiple times if it appears multiple times in one document.  
+- `removeSparseTerms()`: keep words that appear at least once in X% of documents.  
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+**One step to get `DTM`**
+
+We consolidate all possible processing steps to the following clean `R-chunk`, turning texts (input) into `Document Term Frequency` which is a sparse matrix (output) to be used in the down-stream analyses. 
+
+All the `tm_map()` can be called inside `DocumentTermMatrix` under parameter called `control`. Here is how.
+
+---
+
+\frametitle{Word term frequency table using `tm`}
+
+
+**One step to get `DTM`**
+
+\tiny
+```{r DTM, results= TRUE}
+# Turn texts to corpus
+mycorpus1  <- VCorpus(VectorSource(data1.text))
+# Control list for creating our DTM within DocumentTermMatrix
+# Can tweak settings based off if you want punctuation, numbers, etc.
+control_list <- list( tolower = TRUE, 
+                      removePunctuation = TRUE,
+                      removeNumbers = TRUE, 
+                      stopwords = stopwords("english"), 
+                      stemming = TRUE)
+# dtm with all terms:
+dtm.10.long  <- DocumentTermMatrix(mycorpus1, control = control_list)
+#inspect(dtm.10.long)
+# kick out rare words 
+dtm.10<- removeSparseTerms(dtm.10.long, 1-.01)  
+#inspect(dtm.10)
+# look at the document 1 before and after cleaning
+# inspect(mycorpus1[[1]])
+# after cleaning
+# colnames(as.matrix(dtm1[1, ]))[which(as.matrix(dtm1[1, ]) != 0)]
+```
+
+
+# N-grams and other extensions
+
+---
+
+
+For this lecture, we are focusing on just word frequency. There are ways of dealing with things like word order using methods like n-grams. We will skip those today but if you are interested please look at the full lecture on Canvas. 
+
+# Analyses
+
+---
+
+Once we have turned a text into a vector, we can then apply any methods suitable for the settings. In our case we will use logistic regression models and LASSO to explore the relationship between `ratings` and `text`. 
+
+\tiny 
+Note: For data preparation see full lecture on CANVAS. We have processed the entire data set into a word frequency matrix and written out all 100,000 documents into "YELP_tm_freq.csv". We will use that for subsequent analyses. 
+
+---
+
+\frametitle{Splitting data}
+
+\tiny
+Let's first read in the processed data with text being a vector. 
+```{r}
+data2 <- fread("data/YELP_tm_freq.csv")  #dim(data2)
+names(data2)[1:20] # notice that user_id, stars and date are in the data2
+dim(data2)
+data2$rating <- as.factor(data2$rating)
+table(data2$rating)
+#str(data2)  object.size(data2)  435Mb!!!
+```
+
+---
+
+\frametitle{Splitting data}
+
+
+As one standard machine learning process, we first split data into two sets one training data and the other testing data. We use training data to build models, choose models etc and make final recommendations. We then report the performance using the testing data.
+
+Reserve 10000 randomly chosen rows as our test data (`data2.test`) and the remaining 90000 as the training data (`data2.train`)
+
+\tiny
+```{r}
+set.seed(1)  # for the purpose of reporducibility
+n <- nrow(data2)
+test.index <- sample(n, 10000)
+# length(test.index)
+data2.test <- data2[test.index, -c(1:3)] # only keep rating and the texts
+data2.train <- data2[-test.index, -c(1:3)]
+dim(data2.train)
+```
+
+---
+
+\frametitle{Analysis 1: LASSO}
+
+
+We first explore a logistic regression model using LASSO. The regularization techniques used in linear regression are readily applied to logistic regression (see the appendix for details). The following R-chunk runs a LASSO model with $\alpha=.99$. The reason we take an elastic net is to enjoy the nice properties from both `LASSO` (impose sparsity) and `Ridge` (computationally stable). 
+
+LASSO takes sparse design matrix as an input. So make sure to extract the sparse matrix first as the input in cv.glm(). It takes about 1 minute to run cv.glm() with sparse matrix or 11 minutes using the regular design matrix. 
+
+\tiny
+```{r, eval=FALSE}
+---
+
+y <- data2.train$rating
+X1 <- sparse.model.matrix(rating~., data=data2.train)[, -1]
+set.seed(2)
+result.lasso <- cv.glmnet(X1, y, alpha=.99, family="binomial")
+# 1.25 minutes in my MAC
+plot(result.lasso)
+# this this may take you long time to run, we save result.lasso
+saveRDS(result.lasso, file="data/TextMining_lasso.RDS")
+# result.lasso can be assigned back by 
+# result.lasso <- readRDS("data/TextMining_lasso.RDS")
+# number of non-zero words picked up by LASSO when using lambda.1se
+coef.1se <- coef(result.lasso, s="lambda.1se")  
+lasso.words <- coef.1se@Dimnames[[1]] [coef.1se@i][-1] # non-zero variables without intercept. 
+summary(lasso.words)
+```
+
+---
+
+\frametitle{Analysis 1: LASSO}
+
+Try to kick out some not useful words (Warning: this may crash your laptop!!!) Because of the computational burden, I have saved the LASSO results and other results into `TextMining_lasso.RDS` and  `TextMining_glm.RDS`.
+
+\tiny
+```{r, eval=FALSE}
+# or our old way
+coef.1se <- coef(result.lasso, s="lambda.1se")  
+coef.1se <- coef.1se[which(coef.1se !=0),] 
+lasso.words <- rownames(as.matrix(coef.1se))[-1]
+summary(lasso.words)
+---
+
+# X <- as.matrix(data2.train[, -1]) # we can use as.matrix directly her
+---
+
+#set.seed(2)
+#result.lasso <- cv.glmnet(X, y, alpha=.99, family="binomial")  
+# 10 minutes in my MAC
+#plot(result.lasso)
+```
+
+
+---
+
+\frametitle{Analysis 1: LASSO}
+
+
+
+We resume our analyses by loading the `LASSO` results here. We extract useful variables using `lambda.1se`
+
+\tiny
+
+```{r results=TRUE}
+result.lasso <- readRDS("data/TextMining_lasso.RDS")
+plot(result.lasso)
+```
+
+---
+
+\frametitle{Analysis 1: LASSO}
+
+\tiny 
+
+```{r results=TRUE}
+coef.1se <- coef(result.lasso, s="lambda.1se")  
+coef.1se <- coef.1se[which(coef.1se !=0),] 
+lasso.words <- rownames(as.matrix(coef.1se))[-1]
+summary(lasso.words)
+```
+
+
+
+---
+
+\frametitle{Analysis 2: Relaxed LASSO}
+
+
+As an alternative model we will run our relaxed `LASSO`. Input variables are chosen by `LASSO` and we get a regular logistic regression model. Once again it is stored as `result.glm` in `TextMining.RData`. The code is available the full lecture on CANVAS.  
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+Logistic regression model connects the chance of `being good` given a text/review. What are the `nice` (or positive) words and how much it influence the chance being good? In addition to explore the set of good words we also build word clouds to visualize the correlation between positive words and negative words.
+
+1. Order the glm positive coefficients (positive words). Show them in a word cloud. The size of the words indicates the strength of positive correlation between that word and the chance being a good rating.
+
+2. Order the glm negative coefficients (negative words)
+
+TIME TO PLOT A WORD CLOUD!! Plot the world clouds, the size of the words are prop to the logistic reg coef's
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+
+**Positive word cloud**:
+
+\tiny
+```{r, warning=FALSE}
+result.glm <- readRDS("data/TextMining_glm_small.RDS")
+result.glm.coef <- coef(result.glm)
+result.glm.coef[200:250]
+```
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+\tiny
+```{r, warning=FALSE}
+hist(result.glm.coef)
+```
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+\tiny
+```{r, warning=FALSE}
+# pick up the positive coef's which are positively related to the prob of being a good review
+good.glm <- result.glm.coef[which(result.glm.coef > 0)]
+good.glm <- good.glm[-1]  # took intercept out
+names(good.glm)[1:20]  # which words are positively associated with good ratings
+good.fre <- sort(good.glm, decreasing = TRUE) # sort the coef's
+round(good.fre, 4)[1:20] # leading 20 positive words, amazing!
+length(good.fre)  # 390 good words
+# hist(as.matrix(good.fre), breaks=30, col="red") 
+good.word <- names(good.fre)  # good words with a decreasing order in the coeff's
+```
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+The above chunk shows in detail about the weight for positive words. We only show the positive word-cloud here. One can tell the large positive words are making sense in the way we do expect the collection of large words should have a positive tone towards the restaurant being reviewed. 
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+\tiny
+```{r results=TRUE, warning=FALSE, message=FALSE}
+cor.special <- brewer.pal(8,"Dark2")  # set up a pretty color scheme
+wordcloud(good.word[1:300], good.fre[1:300],  # make a word cloud
+          colors=cor.special, ordered.colors=F)
+```
+
+**Concern:** Many words got trimmed due to stemming? We may redo dtm without stemming? 
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+
+**Negative word cloud**:
+
+Similarly to the negative coef's which is positively correlated to the prob. of being a bad review
+
+\tiny
+```{r, message=FALSE, warning=FALSE, results= TRUE}
+bad.glm <- result.glm.coef[which(result.glm.coef < 0)]
+# names(bad.glm)[1:50]
+cor.special <- brewer.pal(6,"Dark2")
+bad.fre <- sort(-bad.glm, decreasing = TRUE)
+round(bad.fre, 4)[1:40]
+```
+
+---
+
+\frametitle{Analysis 3: Word cloud! (Sentiment analysis)}
+
+\tiny
+```{r, message=FALSE, warning=FALSE, results= TRUE}
+# hist(as.matrix(bad.fre), breaks=30, col="green")
+bad.word <- names(bad.fre)
+wordcloud(bad.word[1:300], bad.fre[1:300], 
+          color=cor.special, ordered.colors=F)
+```
+
+
+---
+
+\frametitle{Analysis 4: Predictions}
+
+We have obtained two sets of models one from `LASSO` the other from `relaxed LASSO`. To compare the performance as classifiers we will evaluate their `mis-classification error` using `testing data`.
+
+---
+
+\frametitle{Analysis 4: Predictions}
+
+
+1) **How does glm do in terms of classification?**
+
+\tiny
+
+```{r results= 'hold'}
+predict.glm <- predict(result.glm, data2.test, type = "response")
+class.glm <- ifelse(predict.glm > .5, "1", "0")
+# length(class.glm)
+testerror.glm <- mean(data2.test$rating != class.glm)
+testerror.glm   # mis classification error is 0.19
+```
+
+
+---
+
+\frametitle{Analysis 4: Predictions}
+
+
+2) **LASSO model using `lambda.1se`**
+
+Once again we evaluate the testing performance of `LASSO` solution. 
+
+\tiny
+```{r results= 'hold', message=FALSE, warning=FALSE}
+predict.lasso.p <- predict(result.lasso, as.matrix(data2.test[, -1]), type = "response", s="lambda.1se")
+  # output lasso estimates of prob's
+predict.lasso <- predict(result.lasso, as.matrix(data2.test[, -1]), type = "class", s="lambda.1se")
+  # output majority vote labels
+# LASSO testing errors
+mean(data2.test$rating != predict.lasso)   # .19
+```
+
+
+---
+
+\frametitle{Analysis 4: Predictions}
+
+Comparing the two predictions through testing errors we do not see much of the difference. We could use either final models for the purpose of the prediction. 
+
+
+
+# Conclusion
+
+---
+\frametitle{Conclusion}
+
+
+In this lecture, we apply LASSO to classify good/bad review based on the text. The core technique for text mining is a simple bag of words, i.e. a word frequency matrix. The problem becomes a high-dimensional problem. Using LASSO, we reduce dimension and train a model with high predictive power. Based on the model, we find out the positive/negative words and build a word cloud.
+
+# Apendices 
+
+---
+\frametitle{LASSO for classification}
+
+
+The regularization techniques used in regression are readily applied to classification problems. Here we will penalize the coefficients while maximizing the likelihood function or minimizing the -loglikelihood function. 
+
+---
+\frametitle{LASSO for classification}
+
+
+For a given lambda we minimize -loglikelihood. Here is the LASSO solutions:
+ 
+$$\min_{\beta_0, \beta_1, \ldots, \beta_p} -\frac{1}{n}\log(\mathcal{Lik}) + \lambda \{ |\beta_1| + |\beta_2|, \ldots+ |\beta_p| \} $$
+   
+Similarly we obtain the solution for elastic net using the general penalty functions:
+
+$$\Big(\frac{1-\alpha}{2}\Big)\|\beta\|_2^2 + \alpha \|\beta\|_1$$
+
+---
+\frametitle{LASSO for classification}
+
+\framesubtitle{For the remaining lecture:}
+
+- Do EDA as usual.
+- Digitize the reviews into a large dimension of word frequency vectors.
+- Use`glm` and `LASSO` methods to build models of rating based on the reviews
+- Report testing errors comparing different models. 
+
