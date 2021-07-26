@@ -379,6 +379,20 @@ fit1.1 <- glm(HD~SBP + AGE, hd_data.f, family=binomial)
 summary(fit1.1)
 ## you will need to finish by adding each other variable 
 ## fit1.2...
+fit1.2 <- glm(HD~SBP + AGE + SEX, hd_data.f, family=binomial)
+summary(fit1.2)
+
+fit1.3 <- glm(HD~SBP + AGE + SEX + DBP, hd_data.f, family=binomial)
+summary(fit1.3)
+
+fit1.4 <- glm(HD~SBP + AGE + SEX + DBP + CHOL, hd_data.f, family=binomial)
+summary(fit1.4)
+
+fit1.5 <- glm(HD~SBP + AGE + SEX + DBP + CHOL + FRW, hd_data.f, family=binomial)
+summary(fit1.5)
+
+fit1.6 <- glm(HD~SBP + AGE + SEX + DBP + CHOL + FRW + CIG, hd_data.f, family=binomial)
+summary(fit1.6)
 ```
 
 xi. Which single variable would be the most important to add?  Add it to your model, and call the new fit `fit2`.  
