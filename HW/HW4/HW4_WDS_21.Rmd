@@ -316,12 +316,20 @@ summary(hd_data.f)
 Conceptual questions to understand the building blocks of logistic regression. All the codes in this part should be hidden. We will use a small subset to run a logistic regression of `HD` vs. `SBP`. 
 
 vii. Take a random subsample of size 5 from `hd_data_f` which only includes `HD` and `SBP`. Set `set.seed(50)`. List the five observations neatly below. No code should be shown here.
+```{r}
+set.seed(50)
+hd_data.f[sample(1:1407, 5), c("HD", "SBP")] # selectio 10 people from 1406 people.
+```
 
 viii. Write down the likelihood function using the five observations above.
 
 **answer: **
 
 ix. Find the MLE based on this subset using `glm()`. Report the estimated logit function of `SBP` and the probability of `HD`=1. Briefly explain how the MLE are obtained based on viii. above.
+```{r}
+fit1 <- glm(HD~SBP, hd_data.f, family=binomial(logit))  
+summary(fit1)
+```
 
 **answer: **
 
