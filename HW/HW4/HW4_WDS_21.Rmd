@@ -335,7 +335,7 @@ ix. Find the MLE based on this subset using `glm()`. Report the estimated logit 
 
 x. Evaluate the probability of Liz having heart disease. 
 ```{r}
-hd_data.new
+hd_data.new <- data.frame(AGE=50, GENDER="FEMALE", SBP=110, DBP=80, CHOL=180, FRW=105, CIG=0)
 ```
 
 ```{r}
