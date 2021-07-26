@@ -236,36 +236,45 @@ Now we will be removing the variables with very high P value.
 Anova(fit.min.lm)
 ```
 ```{r}
-fit.backward.1 <- update(fit.min.lm, .~. - Retirement_Destination_2015_Update)
+fit.backward.1 <- update(fit.min.lm, .~. - PctEmpMining)
 Anova(fit.backward.1)
 ```
 ```{r}
-fit.backward.2 <- update(fit.backward.1, .~. - UrbanInfluenceCode2013 )
+fit.backward.2 <- update(fit.backward.1, .~. - OwnHomePct )
 Anova(fit.backward.2)
 ```
 ```{r}
-fit.backward.3 <- update(fit.backward.2, .~. - Ed4AssocDegreePct )
+fit.backward.3 <- update(fit.backward.2, .~. - PctEmpInformation )
 Anova(fit.backward.3)
 ```
 ```{r}
-fit.backward.4 <- update(fit.backward.3, .~. - Deep_Pov_All  )
+fit.backward.4 <- update(fit.backward.3, .~. - ForeignBornPct  )
 Anova(fit.backward.4)
 ```
 ```{r}
-fit.backward.5 <- update(fit.backward.4, .~. - Net_International_Migration_Rate_2010_2019  )
+fit.backward.5 <- update(fit.backward.4, .~. - Type_2015_Update  )
 Anova(fit.backward.5)
 ```
 ```{r}
-fit.backward.6 <- update(fit.backward.5, .~. - TotalPop25Plus  )
+fit.backward.6 <- update(fit.backward.5, .~. - HiCreativeClass2000   )
 Anova(fit.backward.6)
 ```
 ```{r}
-fit.backward.7 <- update(fit.backward.6, .~. - TotalPopEst2019  )
+fit.backward.7 <- update(fit.backward.6, .~. - AsianNonHispanicPct2010   )
 Anova(fit.backward.7)
 ```
 ```{r}
+fit.backward.8 <- update(fit.backward.6, .~. - NativeAmericanNonHispanicPct2010   )
+Anova(fit.backward.8)
+```
+```{r}
+fit.backward.9 <- update(fit.backward.6, .~. - AsianNonHispanicPct2010    )
+Anova(fit.backward.9)
+```
+
+```{r}
 #Now we do our final fit, find the summary
-fit.final <- fit.backward.7
+fit.final <- fit.backward.9
 
 #Now we plot this model 
 plot(fit.final,1)
@@ -342,20 +351,13 @@ viii. Write down the likelihood function using the five observations above.
 
 ix. Find the MLE based on this subset using `glm()`. Report the estimated logit function of `SBP` and the probability of `HD`=1. Briefly explain how the MLE are obtained based on viii. above.
 ```{r}
-fit1 <- glm(HD~SBP, hd_data.f, family=binomial(logit))  
-summary(fit1)
 ```
-Now we can see that when we use the glm function we obtain the values of B0 and B1 that we have numerically done in the earlier parts. 
-This is the estimated logit function:
 
-- logit = -3.65 + 0.0158* SBP
-
-The (HD = 1) is an increasing function of `SBP` since B1 = .0158 > 0$. That means when `SBP` increases, the chance of being `HD` increases.
 **answer: **
 
 x. Evaluate the probability of Liz having heart disease. 
 ```{r}
-hd_data.new
+hd_data.new <- data.frame(AGE=50, GENDER="FEMALE", SBP=110, DBP=80, CHOL=180, FRW=105, CIG=0)
 ```
 
 ```{r}
