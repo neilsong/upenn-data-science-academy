@@ -327,15 +327,8 @@ viii. Write down the likelihood function using the five observations above.
 
 ix. Find the MLE based on this subset using `glm()`. Report the estimated logit function of `SBP` and the probability of `HD`=1. Briefly explain how the MLE are obtained based on viii. above.
 ```{r}
-fit1 <- glm(HD~SBP, hd_data.f, family=binomial(logit))  
-summary(fit1)
 ```
-Now we can see that when we use the glm function we obtain the values of B0 and B1 that we have numerically done in the earlier parts. 
-This is the estimated logit function:
 
-- logit = -3.65 + 0.0158* SBP
-
-The (HD = 1) is an increasing function of `SBP` since B1 = .0158 > 0$. That means when `SBP` increases, the chance of being `HD` increases.
 **answer: **
 
 x. Evaluate the probability of Liz having heart disease. 
