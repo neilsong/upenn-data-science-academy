@@ -330,10 +330,30 @@ ix. Find the MLE based on this subset using `glm()`. Report the estimated logit 
 fit1 <- glm(HD~SBP, hd_data.f, family=binomial(logit))  
 summary(fit1)
 ```
+Now we can see that when we use the glm function we obtain the values of B0 and B1 that we have numerically done in the earlier parts. 
+This is the estimated logit function:
 
+- logit = -3.65 + 0.0158* SBP
+
+The (HD = 1) is an increasing function of `SBP` since B1 = .0158 > 0$. That means when `SBP` increases, the chance of being `HD` increases.
 **answer: **
 
 x. Evaluate the probability of Liz having heart disease. 
+```{r}
+hd_data.new
+```
+
+```{r}
+fit1.predict <- predict(fit1, hd_data.new, type="response") 
+fit1.predict
+
+
+ifelse(fit1.predict > 1/2, "1", "0")
+```
+Thus through the half classification tes( being safe) we can classify that Alice does not have the disease. The pridicted value of Liz having the disease is 0.112, by the half test we can rule that she does not have the disease. 
+
+
+
 
 **answer: **
 
