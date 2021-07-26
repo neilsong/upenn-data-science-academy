@@ -287,7 +287,7 @@ However in the second plot ( normal qq): most of the points are not falling on t
 Therefore, we can conclude that not all assumptions of a linear model are reasonbly met. 
 **answer: ** 
 
-vi) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
+vii) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
 
 **answer: **
 
