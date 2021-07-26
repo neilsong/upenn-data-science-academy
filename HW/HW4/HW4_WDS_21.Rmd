@@ -223,36 +223,45 @@ Now we will be removing the variables with very high P value.
 Anova(fit.min.lm)
 ```
 ```{r}
-fit.backward.1 <- update(fit.min.lm, .~. - Retirement_Destination_2015_Update)
+fit.backward.1 <- update(fit.min.lm, .~. - PctEmpMining)
 Anova(fit.backward.1)
 ```
 ```{r}
-fit.backward.2 <- update(fit.backward.1, .~. - UrbanInfluenceCode2013 )
+fit.backward.2 <- update(fit.backward.1, .~. - OwnHomePct )
 Anova(fit.backward.2)
 ```
 ```{r}
-fit.backward.3 <- update(fit.backward.2, .~. - Ed4AssocDegreePct )
+fit.backward.3 <- update(fit.backward.2, .~. - PctEmpInformation )
 Anova(fit.backward.3)
 ```
 ```{r}
-fit.backward.4 <- update(fit.backward.3, .~. - Deep_Pov_All  )
+fit.backward.4 <- update(fit.backward.3, .~. - ForeignBornPct  )
 Anova(fit.backward.4)
 ```
 ```{r}
-fit.backward.5 <- update(fit.backward.4, .~. - Net_International_Migration_Rate_2010_2019  )
+fit.backward.5 <- update(fit.backward.4, .~. - Type_2015_Update  )
 Anova(fit.backward.5)
 ```
 ```{r}
-fit.backward.6 <- update(fit.backward.5, .~. - TotalPop25Plus  )
+fit.backward.6 <- update(fit.backward.5, .~. - HiCreativeClass2000   )
 Anova(fit.backward.6)
 ```
 ```{r}
-fit.backward.7 <- update(fit.backward.6, .~. - TotalPopEst2019  )
+fit.backward.7 <- update(fit.backward.6, .~. - AsianNonHispanicPct2010   )
 Anova(fit.backward.7)
 ```
 ```{r}
+fit.backward.8 <- update(fit.backward.6, .~. - NativeAmericanNonHispanicPct2010   )
+Anova(fit.backward.8)
+```
+```{r}
+fit.backward.9 <- update(fit.backward.6, .~. - AsianNonHispanicPct2010    )
+Anova(fit.backward.9)
+```
+
+```{r}
 #Now we do our final fit, find the summary
-fit.final <- fit.backward.7
+fit.final <- fit.backward.9
 
 #Now we plot this model 
 plot(fit.final,1)
