@@ -351,6 +351,17 @@ fit1.predict
 ifelse(fit1.predict > 1/2, "1", "0")
 ```
 Thus through the half classification tes( being safe) we can classify that Alice does not have the disease. The pridicted value of Liz having the disease is 0.112, by the half test we can rule that she does not have the disease. 
+```{r}
+hd_data.f %>% mutate(HD = as.numeric(HD)-1) %>%
+  ggplot(aes(x=SBP, y=HD)) + 
+  geom_jitter(height = .05, aes(color = factor(HD))) + 
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  geom_vline(xintercept = 230.18, col="red") +
+  ggtitle("Classifier: HD = 1 if prob > 1/2") + 
+  ylab("Prob(HD=1)")
+```
 
 
 
