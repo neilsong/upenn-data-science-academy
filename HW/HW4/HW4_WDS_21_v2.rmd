@@ -283,14 +283,13 @@ vi) Based on your final model, summarize your findings. In particular, summarize
 
 
 
-
 # Case Study 2: Framingham heart disease study
 
 ## Background
 
 We will continue to use the Framingham Data (`Framingham.dat`) so that you are already familiar with the data and the variables. All the results are obtained through training data. 
 
-Liz is a patient with the following readings: `AGE=50, GENDER=FEMALE, SBP=110, DBP=80, CHOL=180, FRW=105, CIG=0`. We would be interested to predict Liz's outcome in heart disease. 
+Liz is a patient with the following readings: `AGE=50, SEX=FEMALE, SBP=110, DBP=80, CHOL=180, FRW=105, CIG=0`. We would be interested to predict Liz's outcome in heart disease. 
 
 To keep our answers consistent, use a subset of the data, and exclude anyone with a missing entry. For your convenience, we've loaded it here together with a brief summary about the data.
 
@@ -305,9 +304,6 @@ names(hd_data)[1] <- "HD"
 hd_data$HD <- as.factor(hd_data$HD)
 hd_data$SEX <- as.factor(hd_data$SEX)
 str(hd_data)
-#tail(hd_data, 1)    ## The last row is for prediction
-hd_data.new <- hd_data[1407,] ## The female whose HD will be predicted.
-hd_data <- hd_data[-1407,]  ## take out the last row 
 hd_data.f <- na.omit(hd_data)
 ```
 
@@ -324,66 +320,6 @@ After a quick cleaning up here is a summary about the data:
 summary(hd_data.f)
 ```
 
-## Identify risk factors (Homework: question **vii-xii**)
-
-### Understand the likelihood function
-
-Conceptual questions to understand the building blocks of logistic regression. All the codes in this part should be hidden. We will use a small subset to run a logistic regression of `HD` vs. `SBP`. 
-
-vii. Take a random subsample of size 5 from `hd_data_f` which only includes `HD` and `SBP`. Set `set.seed(50)`. List the five observations neatly below. No code should be shown here.
-```{r}
-set.seed(50)
-hd_data.f[sample(1:1407, 5), c("HD", "SBP")] # selectio 10 people from 1406 people.
-```
-
-viii. Write down the likelihood function using the five observations above.
-
-**answer: **
-
-ix. Find the MLE based on this subset using `glm()`. Report the estimated logit function of `SBP` and the probability of `HD`=1. Briefly explain how the MLE are obtained based on viii. above.
-```{r}
-fit1 <- glm(HD~SBP, hd_data.f, family=binomial(logit))  
-summary(fit1)
-```
-Now we can see that when we use the glm function we obtain the values of B0 and B1 that we have numerically done in the earlier parts. 
-This is the estimated logit function:
-
-- logit = -3.65 + 0.0158* SBP
-
-The (HD = 1) is an increasing function of `SBP` since B1 = .0158 > 0$. That means when `SBP` increases, the chance of being `HD` increases.
-**answer: **
-
-x. Evaluate the probability of Liz having heart disease. 
-```{r}
-hd_data.new
-```
-
-```{r}
-fit1.predict <- predict(fit1, hd_data.new, type="response") 
-fit1.predict
-
-
-ifelse(fit1.predict > 1/2, "1", "0")
-```
-Thus through the half classification tes( being safe) we can classify that Alice does not have the disease. The pridicted value of Liz having the disease is 0.112, by the half test we can rule that she does not have the disease. 
-```{r}
-hd_data.f %>% mutate(HD = as.numeric(HD)-1) %>%
-  ggplot(aes(x=SBP, y=HD)) + 
-  geom_jitter(height = .05, aes(color = factor(HD))) + 
-  geom_smooth(method = "glm", 
-              method.args = list(family = "binomial"),
-              se = FALSE) +
-  geom_vline(xintercept = 230.18, col="red") +
-  ggtitle("Classifier: HD = 1 if prob > 1/2") + 
-  ylab("Prob(HD=1)")
-```
-
-
-
-
-**answer: **
-
-
 ## Identify risk factors for `Heart.Disease` (Homework: question **viii-x**)
 
 viii. Start with a full model using all the covariates. Use backward selection to get a model with all variables significant at 0.1 level. Summarize your final model.
@@ -398,57 +334,6 @@ ix. Based on the model in viii, calculate the mis-classification error (MCE) wit
 
 x. Let predict whether Liz has heart disease or not using the model in viii. Use 1/3 as the threshold to be conservative. Why we would rather be conservative in this case? Could you come up with a better metric to measure the cost of mis-classification? 
 
-
-**answer: **
-
-
-
-
-### Identify important risk factors for `Heart.Disease.`
-
-We focus on understanding the elements of basic inference method in this part. Let us start a fit with just one factor, `SBP`, and call it `fit1`. We then add one variable to this at a time from among the rest of the variables. For example
-```{r, results='hide'}
-fit1 <- glm(HD~SBP, hd_data.f, family=binomial)
-summary(fit1)
-fit1.1 <- glm(HD~SBP + AGE, hd_data.f, family=binomial)
-summary(fit1.1)
-## you will need to finish by adding each other variable 
-## fit1.2...
-fit1.2 <- glm(HD~SBP + AGE + SEX, hd_data.f, family=binomial)
-summary(fit1.2)
-
-fit1.3 <- glm(HD~SBP + AGE + SEX + DBP, hd_data.f, family=binomial)
-summary(fit1.3)
-
-fit1.4 <- glm(HD~SBP + AGE + SEX + DBP + CHOL, hd_data.f, family=binomial)
-summary(fit1.4)
-
-fit1.5 <- glm(HD~SBP + AGE + SEX + DBP + CHOL + FRW, hd_data.f, family=binomial)
-summary(fit1.5)
-
-fit1.6 <- glm(HD~SBP + AGE + SEX + DBP + CHOL + FRW + CIG, hd_data.f, family=binomial)
-summary(fit1.6)
-```
-
-xi. Which single variable would be the most important to add?  Add it to your model, and call the new fit `fit2`.  
-If we control all the factors in the model and compare all the Z values and P values. SEX MALE is the most important. 
-```{r}
-fit2 <- glm(HD~SBP +SEX, hd_data.f, family=binomial)
-summary(fit2)
-```
-
-We will pick up the variable either with highest $|z|$ value, or smallest $p$ value. Report the summary of your `fit2` Note: One way to keep your output neat, we will suggest you using `xtable`. And here is the summary report looks like.
-```{r the most important addition, results='asis', comment="   "}
-### How to control the summary(fit2) output to cut some junk?
-### We could use packages: xtable or broom. 
-### Assume the fit2 is obtained by SBP + AGE
-library(xtable)
-options(xtable.comment = FALSE)
-fit2 <- glm(HD~SBP + SEX, hd_data.f, family=binomial)
-xtable(fit2)
-```
-  
-xii. Perform a test to see if the added variable is significant at the .01 level.
 
 **answer: **
 
