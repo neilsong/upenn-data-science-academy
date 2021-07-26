@@ -396,6 +396,11 @@ summary(fit1.6)
 ```
 
 xi. Which single variable would be the most important to add?  Add it to your model, and call the new fit `fit2`.  
+If we control all the factors in the model and compare all the Z values and P values. SEX MALE is the most important. 
+```{r}
+fit2 <- glm(HD~SBP +SEX, hd_data.f, family=binomial)
+summary(fit2)
+```
 
 We will pick up the variable either with highest $|z|$ value, or smallest $p$ value. Report the summary of your `fit2` Note: One way to keep your output neat, we will suggest you using `xtable`. And here is the summary report looks like.
 ```{r the most important addition, results='asis', comment="   "}
@@ -404,7 +409,7 @@ We will pick up the variable either with highest $|z|$ value, or smallest $p$ va
 ### Assume the fit2 is obtained by SBP + AGE
 library(xtable)
 options(xtable.comment = FALSE)
-fit2 <- glm(HD~SBP + AGE, hd_data.f, family=binomial)
+fit2 <- glm(HD~SBP + SEX, hd_data.f, family=binomial)
 xtable(fit2)
 ```
   
