@@ -31,7 +31,7 @@ options(scipen = 0, digits = 3)  ## controls base R output
 if(!require("pacman")) install.packages("pacman")
 
 pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
-               plotROC, usmap, glmnet)
+               plotROC, usmap, glmnet, car)
 ```
 
 
@@ -195,6 +195,7 @@ iv) Use LASSO to choose a parsimonious model with all available sensible county-
 covid_county_0201 <- drop_na(covid_county_0201)
 
 X <- model.matrix(log_death_rate ~ .,covid_county_0201)[,-1]
+colnames(X)
 y <- covid_county_0201$log_death_rate
 penalty <- c(rep(0,48),rep(1,ncol(X)-48))
 fit <- cv.glmnet(X,y,nfolds=10,alpha=1,penalty.factor=penalty)
@@ -210,10 +211,11 @@ var.min <- rownames(as.matrix(coef.min))[-1]
 
 v) If necessary, reduce the model from iii) to a final model with all variables being significant at 0.05 level. Again **force in State** in the process. Are the linear model assumptions all reasonably met?
 ```{r}
-var.min # coming with lasso from lambda min
-covid_county_0201.sub <-  covid_county_0201[,c("log_death_rate", var.min)] # get a subset with response and LASSO output
+var.final <- c(var.min[49:79], "State") # coming with lasso from lambda min
+covid_county_0201.sub <-  covid_county_0201 %>% select(c("log_death_rate", var.final))
+# get a subset with response and LASSO output
 #names(data.fl.sub)
-fit.min.lm <- lm(log_death_rate~., covid_county_0201)  # debiased or relaxed LASSO
+fit.min.lm <- lm(log_death_rate~., covid_county_0201.sub)  # debiased or relaxed LASSO
 summary(fit.min.lm) 
 ```
 Now we will be removing the variables with very high P value.
