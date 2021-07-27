@@ -179,6 +179,8 @@ iii) Select possible variables in `county_data` as covariates. We provide `count
 Report missing values in your final subset of variables. In the following analysis, you may ignore the missing values.
 
 
+In the final subset of variables, we remove the "county" variable, as we already have a FIPS code for each county. Some counties may be named the same, thus affecting the linear model when we try to create it. The rest of the values may all have a factor that we would like to consider. We also added the "log_death_rate" variable in order to gain a more accurate data variable that isn't skewed to the left.
+
 ```{r}
 covid_county_0201 <- covid_county_0201 %>%
   select(State, FIPS, Deep_Pov_All, PovertyAllAgesPct, PerCapitaInc, UnempRate2019, PctEmpFIRE, PctEmpConstruction, PctEmpTrans, PctEmpMining, PctEmpTrade, PctEmpInformation, PctEmpAgriculture, PctEmpManufacturing, PctEmpServices, PopDensity2010, OwnHomePct, Age65AndOlderPct2010, TotalPop25Plus, Under18Pct2010, Ed2HSDiplomaOnlyPct, Ed3SomeCollegePct, Ed4AssocDegreePct, Ed5CollegePlusPct, ForeignBornPct, Net_International_Migration_Rate_2010_2019, NetMigrationRate1019, NaturalChangeRate1019, TotalPopEst2019, WhiteNonHispanicPct2010, NativeAmericanNonHispanicPct2010, BlackNonHispanicPct2010, AsianNonHispanicPct2010, HispanicPct2010, Type_2015_Update, RuralUrbanContinuumCode2013, UrbanInfluenceCode2013, Perpov_1980_0711, HiCreativeClass2000, HiAmenity, Retirement_Destination_2015_Update, log_death_rate)
@@ -186,7 +188,10 @@ covid_county_0201 <- covid_county_0201 %>%
 dim(covid_county_0201)
 ```
 
-iv) Use LASSO to choose a parsimonious model with all available sensible county-level information. Let's first prepare the data using the following chunk. Why we need to drop County and FIPS? Why we only have 48 state indicators in the `X` model matrix? (Note that we only include states in the mainland plus DC, so there are 49 states in the data.)
+iv) Use LASSO to choose a parsimonious model with all available sensible county-level information. Use `set.seed(15)`. **Force in State** in the process. Why we need to force in State?
+
+
+We need to force in State because without adding the penalty factor, all the variables from the data set would be included, but we are only interested in the state and each state's county data. Thus, we have to add a penalty (that being the number 1) to each state and the penalty 0 to each non-state variable. In turn, when we run cv.glmnet we can return a model that only contains the State variables.
 
 ```{r}
 # drop na
@@ -285,7 +290,7 @@ However in the second plot ( normal qq): most of the points are not falling on t
 Therefore, we can conclude that not all assumptions of a linear model are reasonbly met. 
  
 
-vii) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
+vi) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
 
 
 # Case Study 2: Framingham heart disease study
@@ -305,7 +310,7 @@ hd_data <- read.csv("data/Framingham.dat")
 View(hd_data)
 str(hd_data) 
 
-### Renames, setting the variables with correct natures...
+#### Renames, setting the variables with correct natures...
 names(hd_data)[1] <- "HD"
 hd_data$HD <- as.factor(hd_data$HD)
 hd_data$SEX <- as.factor(hd_data$SEX)
@@ -363,7 +368,7 @@ heartdisease
 Liz is predicted to not have heart disease, as the predicted probability `0.0491` is lower than `0.333`. We would rather be conservative because false negative is much more expensive than false positive. A better metric to measure the cost of mis-classification is optimization over false positive and false negative cost.
 
 **END**
-
+å
 
 
 
@@ -568,5 +573,3 @@ A detailed summary of the variables in each data set follows:
 * Low_Employment_2015_update: Low employment counties, 2015 edition
 * Population_loss_2015_update: Population loss counties, 2015 edition
 * Retirement_Destination_2015_Update: Retirement destination counties, 2015 edition
-
-
