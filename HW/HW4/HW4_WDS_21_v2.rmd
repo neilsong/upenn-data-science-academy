@@ -348,6 +348,17 @@ summary(fit.final.1)
 
 ix. Based on the model in viii, calculate the mis-classification error (MCE) with 1/2 and 1/3 as the threshold respectively. Which threshold achieves a smaller MCE? 
 
+```{r}
+fit.final.pred.5 <- ifelse(fit.final.1$fitted > 1/2, "1", "0")
+error.training.fit.final <- mean(fit.final.pred.5 != fram_data.f$HD)
+
+fit.final.pred.6 <- ifelse(fit.final.1$fitted > 1/3, "1", "0")
+error.training.fit.final1 <- mean(fit.final.pred.6 != fram_data.f$HD)
+
+error.training.fit.final
+error.training.fit.final1
+```
+A threshold with 1/2 has a smaller MCE.
 
 
 **answer: **
