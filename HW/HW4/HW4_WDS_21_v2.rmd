@@ -177,8 +177,10 @@ dim(covid_county_0201)
 iii) Select possible variables in `county_data` as covariates. We provide `county_data_sub`, a subset variables from `county_data`, for you to get started. Please add any potential variables as you wish. 
 
 Report missing values in your final subset of variables. In the following analysis, you may ignore the missing values.
-    
+
+
 **answer: **
+In the final subset of variables, we remove the "county" variable, as we already have a FIPS code for each county. Some counties may be named the same, thus affecting the linear model when we try to create it. The rest of the values may all have a factor that we would like to consider. We also added the "log_death_rate" variable in order to gain a more accurate data variable that isn't skewed to the left.
 
 ```{r}
 covid_county_0201 <- covid_county_0201 %>%
@@ -187,9 +189,12 @@ covid_county_0201 <- covid_county_0201 %>%
 dim(covid_county_0201)
 ```
 
-iv) Use LASSO to choose a parsimonious model with all available sensible county-level information. Let's first prepare the data using the following chunk. Why we need to drop County and FIPS? Why we only have 48 state indicators in the `X` model matrix? (Note that we only include states in the mainland plus DC, so there are 49 states in the data.)
+iv) Use LASSO to choose a parsimonious model with all available sensible county-level information. Use `set.seed(15)`. **Force in State** in the process. Why we need to force in State?
+
 
 **answer: **
+We need to force in State because without adding the penalty factor, all the variables from the data set would be included, but we are only interested in the state and each state's county data. Thus, we have to add a penalty (that being the number 1) to each state and the penalty 0 to each non-state variable. In turn, when we run cv.glmnet we can return a model that only contains the State variables.
+
 ```{r}
 # drop na
 covid_county_0201 <- drop_na(covid_county_0201)
@@ -287,7 +292,7 @@ However in the second plot ( normal qq): most of the points are not falling on t
 Therefore, we can conclude that not all assumptions of a linear model are reasonbly met. 
 **answer: ** 
 
-vii) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
+vi) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
 
 **answer: **
 
@@ -309,7 +314,7 @@ To keep our answers consistent, use a subset of the data, and exclude anyone wit
 hd_data <- read.csv("data/Framingham.dat")
 str(hd_data) 
 
-### Renames, setting the variables with correct natures...
+#### Renames, setting the variables with correct natures...
 names(hd_data)[1] <- "HD"
 hd_data$HD <- as.factor(hd_data$HD)
 hd_data$SEX <- as.factor(hd_data$SEX)
@@ -334,31 +339,9 @@ summary(hd_data.f)
 
 viii. Start with a full model using all the covariates. Use backward selection to get a model with all variables significant at 0.1 level. Summarize your final model.
 
-```{r}
-fit.final.0 <- glm(HD~AGE+SEX+SBP+CHOL++FRW+CIG, family=binomial, data=fram_data.f)
-summary(fit.final.0)
-```
-```{r}
-fit.final.1 <- update(fit.final.0, .~. -FRW)
-summary(fit.final.1)
-```
-
-
 **answer: **
 
 ix. Based on the model in viii, calculate the mis-classification error (MCE) with 1/2 and 1/3 as the threshold respectively. Which threshold achieves a smaller MCE? 
-
-```{r}
-fit.final.pred.5 <- ifelse(fit.final.1$fitted > 1/2, "1", "0")
-error.training.fit.final <- mean(fit.final.pred.5 != fram_data.f$HD)
-
-fit.final.pred.6 <- ifelse(fit.final.1$fitted > 1/3, "1", "0")
-error.training.fit.final1 <- mean(fit.final.pred.6 != fram_data.f$HD)
-
-error.training.fit.final
-error.training.fit.final1
-```
-A threshold with 1/2 has a smaller MCE.
 
 
 **answer: **
