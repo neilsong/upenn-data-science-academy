@@ -23,7 +23,7 @@ urlcolor: blue
 ---
 
 ```{r Setup, include=FALSE, results='hide', warning=FALSE}
-knitr::opts_chunk$set(echo = F, cache = T, fig.width=8, fig.height=4,
+knitr::opts_chunk$set(echo = F, cache = T, fig.width=9, fig.height=4,
                       warning = F, results = "hide", message=F)
 options(scipen = 0, digits = 3)  ## controls base R output
 
@@ -161,7 +161,7 @@ We now try to build a good parsimonious model to find possible factors related t
 
 ii) Create the response variable `total_death_per100k` as the total of number of COVID deaths per 100k by *Feb 1, 2021*. We suggest to take log transformation as `log_total_death_per100k = log(total_death_per100k + 1)`. Merge `total_death_per100k` to `county_data` for the following analysis. (Hint: check the R function `dplyr::join()` or `data.table::merge()`)
 
-```{r results="show"}
+```{r}
 covid_county_0201 <- covid_rate %>%
   filter(date == "2021-02-01") %>%
   mutate(log_death_rate = log(cum_deaths/TotalPopEst2019 *1e5 +1)) %>%
@@ -231,7 +231,7 @@ covid_county_0201.sub <-  covid_county_0201 %>% select(c("log_death_rate", var.f
 # get a subset with response and LASSO output
 #names(data.fl.sub)
 fit.min.lm <- lm(log_death_rate~., covid_county_0201.sub)  # debiased or relaxed LASSO
-summary(fit.min.lm) 
+summary(fit.min.lm)
 ```
 Now we will be removing the variables with very high P value.
 ```{r}
@@ -274,7 +274,7 @@ fit.backward.9 <- update(fit.backward.6, .~. - AsianNonHispanicPct2010    )
 Anova(fit.backward.9)
 ```
 
-```{r results="show"}
+```{r results="show", comment="     "}
 #Now we do our final fit, find the summary
 fit.final <- fit.backward.9
 summary(fit.final)
@@ -308,7 +308,6 @@ To keep our answers consistent, use a subset of the data, and exclude anyone wit
 ## Notice that we hide the code and the results here
 ## Using `include=F` in the chunk declaration.
 hd_data <- read.csv("data/Framingham.dat")
-View(hd_data)
 str(hd_data) 
 
 #### Renames, setting the variables with correct natures...
