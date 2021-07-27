@@ -1,0 +1,1295 @@
+---
+title: "Decision Trees"
+author: ""
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: Boadilla
+  ioslides_presentation: default
+header-includes:
+- \AtBeginSection[]{\begin{frame}\tableofcontents[currentsection]\end{frame}}
+- \AtBeginSubsection[]{\begin{frame}\tableofcontents[currentsubsection]\end{frame}{}}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, fig.width=8, fig.height=4)
+options(scipen = 0, digits = 3)  # controls base R output
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(tree, rpart, randomForest, ranger, rattle, pROC, partykit, ggplot2, glmnet, lda, data.table, ISLR)
+# install a package if it does not exist already and put the package in the path (library)
+# dplyr, ggplot2,tidyr
+```
+
+# Introduction
+
+---
+\frametitle{Objectives}
+
+
+- Linear regression (logistic regression) combining with regularization works for many studies, especially in the case where we try to identify important attributes. However, the strong model assumptions may not be met.
+- For the purpose of prediction, a model free approach may gain more in accuracy. We start with decision trees.
+- While wild search of optimal boxes is impossible, we use binary, top-down, greedy, recursive algorithm to build a tree.
+- To reduce the prediction error from a single equation, one idea is to take the average of many very different prediction equations. Bagging and Random Forest are proposed to aggregate many Bootstrap trees.
+
+
+---
+\frametitle{Objectives}
+
+
+- In general, we want to bag **MANY** different equations. They can be completely different methods, such as linear model, lasso equations with different lambda, random forests with different mtry, split predictors...
+- Decision trees, bagging and random forests are all readily/easily extended to classification problems. To build a tree we use sample proportions to estimate the probability of the outcome, instead of sample means. 
+- The criteria of choosing the best split is the sum of squared errors
+- Trees are easily extended to classification problems
+
+    
+---
+\frametitle{Table of Contents}
+
+
+Regression trees
+
+1. Single tree  
+2. Bagging/Bootstrap
+3. Random Forests
+ 
+ 
+# Regression trees    
+
+## Single Tree
+
+---
+\frametitle{Single Tree}
+
+
++ Model free, flexible
++ Easy to interpret, reveal important features among attributes
++ Packages
+    - `tree()`
+    - `rpart()` from CART (Recursive Partitioning and Regression Trees)
+
+
+---
+\frametitle{A toy example}
+
+
+The following data is obtained from a simulation: 
+
+* 50 pairs of $(x,y)$ are observed.
+* The goal is to build a predictive equation to predict $y$ given $x$. 
+* The scatter plot below shows that a linear model will not do a good job. 
+
+---
+\frametitle{A toy example}
+
+
+\tiny
+```{r}
+set.seed(571)
+x <- runif(50, min = 0, max = pi)
+y <- sin(2*x) + rnorm(50, 0, .1)
+toy <- data.frame(x, y)
+plot(toy$x, toy$y, pch=16, col="blue", 
+     xlab = "x", ylab = "y", 
+     main = "Linear fit will not work well")
+abline(lm(y~x, toy))
+```
+
+---
+\frametitle{A toy example}
+
+
+On the other hand if we could group the x's into a few groups, use the sample mean in each group as predicted value for all x in the group. The step function may capture the curvature shown in the data. 
+
+\tiny
+```{r}
+# fit the tree
+fit <- tree(y~x, toy, control=tree.control(length(y), minsize = 20))   
+# minsize = 15
+partition.tree(fit, col="red", lwd=2)
+points(toy$x, toy$y, pch=16, xlab = x, ylab = y)
+```
+
+---
+\frametitle{A toy example}
+
+
+The above step function can be presented by a tree with five leaves or terminal nodes. 
+\tiny
+```{r}
+# split the drawing canvas for 2 plots
+par(mfrow=c(1, 2))
+plot(fit)
+text(fit)   # add the split variables
+
+partition.tree(fit, col="red", lwd=2)
+points(toy$x, toy$y, pch=16,
+       xlab = x, 
+       ylab = y)
+par(mfrow=c(1,1))
+```
+
+---
+\frametitle{How to build trees?}
+
+
+How to split the predictors? How many regions should we have? 
+
+---
+\frametitle{How to build trees?}
+
+The idea is to partition the space into $J$ boxes $R_1, R_2, \ldots, R_J$. 
+
+The target is to minimize the RSS $$\sum_{j=1}^J \sum_{i \in R_j} (y_i - \hat{y}_{R_j})^2$$
+where $\hat{y}_{R_j}$ is the sample mean of the training samples in the region $R_j$.
+
+
+
+---
+\frametitle{How to build trees?}
+\framesubtitle{Find the optimal split point}
+
+
+Start with one continuous predictor case $x$. Here is an efficient algorithm to split $x$ into two regions.
+
+* For each possible split point $s$
+    - Use the sample averages to predict the $y$'s on the left side of $s$ and the right side respectively
+    - Calculate the $RSS_s$ for this split. 
+* We then find the minimum point $s_1$ by minimizing $RSS_s$ across all the possible split points. 
+* Repeat this process to the left region of $s_1$ then to the right region until a criterion is met. 
+
+---
+\frametitle{How to build trees?}
+\framesubtitle{Notes:}
+
+
+---
+\frametitle{Binary, top-down, recursive and greedy trees}
+
+**Binary**: Always a binary split
+
+**Greedy**: At each step by using the sample means as predicted value on either side
+
+**Topdown/Recursive**:Continue to split further down to smaller regions
+
+**X is categorical:**  then the levels of x are divided into two non-empty groups.
+
+---
+\frametitle{Binary, top-down, recursive and greedy trees}
+
+
+**Pros**:
+
++ not a linear model, more flexible 
++ take interactions among variables
++ simple interpretation of the prediction
+
+**Cons**:
+
++ greedy or forward splitting (not optimal)
++ not stable 
++ over-fitting or not a good prediction
+    
+    
+## Case study: Predicting baseball players' salaries
+
+---
+\frametitle{Case study: Predicting baseball players' salaries}
+
+\framesubtitle{EDA:}
+
+
+For the purpose of demonstration we use the Baseball data from the book.
+Our Goal: predict log salary given the past performance!
+
+\tiny
+```{r include = F}
+rm(list=ls()) # Remove all the existing variables
+help(Hitters)
+```
+
+We read in the data and after quick exploration of the data, we remove any "NA" values.  We also take the log of salary and replace that as the dependent variable.
+
+\tiny
+```{r}
+data.comp <- na.omit(Hitters)  # For simplicity
+dim(data.comp)            # We are keeping 263 players
+data.comp$LogSalary <- log(data.comp$Salary)  # add LogSalary
+names(data.comp)
+data1 <- data.comp[,-19]        # Take Salary out
+```
+    
+## Tree using a single predictor
+
+---
+\frametitle{Tree using a single predictor (CAtBat)}
+
+\framesubtitle{tree():}
+
+ We need to find the best split point that leads to the greatest reduction in RSS.  We use the  `tree` package. 
+\tiny 
+```{r}
+# take a look at the scatter plot
+plot(data1$CAtBat, data1$LogSalary, pch=16, cex=1, col = "blue",
+     xlab = "CAtBat", 
+     ylab = "LogSal")
+```
+
+
+---
+\frametitle{`tree()`}
+
+\tiny
+```{r}
+# build a single tree
+fit0.single <- tree(LogSalary~CAtBat,data1) 
+# split the canvas
+par(mfrow=c(1,2))
+# plot the tree
+plot(fit0.single)
+text(fit0.single)   # add the split variables
+# plot it on the scatter plot
+partition.tree(fit0.single, col="red", lwd=2)
+points(data1$CAtBat, data1$LogSalary, pch=16, cex=.5)
+
+```
+
+---
+\frametitle{`tree()`}
+
+Let's take a look at the return from `fit0.single`. `fit0.single$frame` stores the details splitting process and the results in each best split.
+
+\scriptsize
+```{r results=TRUE}
+fit0.single <- tree(LogSalary~CAtBat,data1)  
+names(fit0.single)
+```
+
+---
+\frametitle{`tree()`}
+
+\scriptsize
+```{r}
+data.table(fit0.single$frame)  
+# fit0.single$frame should print the result
+```
+
+
+---
+\frametitle{`tree()`}
+
++ **var**: the variable (internal node) we are looking into: `CAtBat` as our predictor, `<leaf>` means the end nodes
++ **n**: number of observations in the node of interest
++ **dev**: RSS of the node of interest
+    + Check: `sum((data1$LogSalary - mean(data1$LogSalary))^2)`
++ **yval**: prediction/mean of the responses of the node of interest
+    + Check: `mean(data1$LogSalary)`
++ **splits.cutleft**: the split to the left branch
++ **splits.cutright**: the split to the right branch
+
+i. For example at the very top, without any split we have
+`n=263`, yval= mean(data1\$LogSalary) =`r mean(data1$LogSalary)`, dev= `r sum((data1$LogSalary - mean(data1$LogSalary))^2)`
+
+ii. The best firsts split point is at 1452:
+
++ If CAtBat < 1452, then the estimated LogSalary is 5.093
++ If CAtBat > 1452, then the estimated LogSalary is 6.464
+
+
+---
+\frametitle{`tree()`}
+
+The summary statistics
+\scriptsize
+
+
+```{r}
+fit0.single.s <- summary(fit0.single)    #fit0.single.s$dev
+names(fit0.single.s)
+fit0.single.s$size
+fit0.single.s$dev
+
+```
+
+\normalsize
++  `size`: the number of terminal nodes is `r fit0.single.s$size`
++ `df`: degree of freedom `r fit0.single.s$df` = number of observations `r nrow(data1)` - the number of terminal nodes 
++ `dev`: deviance `r fit0.single.s$dev` = sum of deviance of each terminal nodes (RSS)
+
+
+---
+\frametitle{Depth of the tree}
+
+**How deep a tree should we build**? Too many splits/too deep a tree yields smaller bias but the variance will be large. We can control the size of a tree with various criteria. Or stop until the reduction in deviance is not small enough:
+
+**minsize:** minimal number of observations in the end node
+
+**mindev:** deviance in each new split node must be at least `mindev` times deviance of the **root node**
+
+**mincut:** minimal number of observations in each partition in each split. (Not really a tuning parameter. Default is set at 5.)
+
+We can use `tree.control` to control how deep the tree grows.
+
+---
+\frametitle{Depth of the tree}
+
+\tiny
+```{r results=TRUE}
+fit0.single <- tree(LogSalary~CAtBat, data1,
+                    control=tree.control(nobs=nrow(data1), minsize=5, mindev=.008))    
+# try different set up to see the fit set as .008(6), .01(default, 5), .1(one split)
+plot(fit0.single)
+text(fit0.single)  
+```
+
+\normalsize
++ nobs: number of observations
++ **default: mincut = 5, minsize = 10, mindev = 0.01**
++ mincut is the minimum number of observations in each split side
+
+---
+\frametitle{Depth of the tree}
+\framesubtitle{An over-fitting tree}
+
+By setting minsize=2 and mindev=0, we get a perfectly fit tree, namely an over-fitting tree (a very deep tree).
+
+\tiny
+```{r}
+fit0.single.deep <- tree(LogSalary~CAtBat, data1,
+                         control=tree.control(nobs=nrow(data1), minsize=2, mindev=0))
+
+partition.tree(fit0.single.deep, col="red", lwd=1) # plot it on the scatter plot
+points(data1$CAtBat, data1$LogSalary, pch=16, cex=.5)
+smoothingSpline <- smooth.spline(data1$CAtBat, data1$LogSalary, spar=1) # to get a smooth line
+lines(smoothingSpline, pch=16, cex=.5, col="blue", lwd=2)
+# summary(fit0.single.deep)
+```
+
+
+## Tree using two predictors
+
+---
+\frametitle{Tree using two predictors (CHits and CAtBat)}
+
+\framesubtitle{Algorithm:}
+
+Similar to the tree we built using only one variable, the recursive binary splitting algorithm for building tree using two variables is as follows:
+
+1. Find the best split by `CHits` and `CAtBat` respectively. Denote the $RSS$'s of the two splits as $RSS_{CHits}$, $RSS_{CAtBat}$
+
+2. Pick the variable with $\min(RSS_{CHits}, RSS_{CAtBat})$ to be split first
+
+3. Repeat 1. - 2. on either side, until reaching the stopping rule.
+
+In other words, at each split, we consider all the variables and all possible split points and then pick the predictor and the split point that minimize the RSS (that is the reason why it is greedy). 
+
+---
+\frametitle{Tree using two predictors (CHits and CAtBat)}
+
+\tiny
+```{r results= 'hold'}
+# get scatter plot of CHits and CAtBat
+plot(data1$CAtBat, data1$CHits, pch=16, cex=.5,
+     col = "blue",
+     xlab="CAtBat",
+     ylab="CHits")
+```
+
+---
+\frametitle{Best split for CHits}
+
+\tiny
+```{r results = 'hold'}
+### Get the single tree for fit0.CHits
+fit0.CHits <- tree(LogSalary~CHits, data1)  
+
+## use prune.tree() to get a 1-split tree
+## best: number of leafs
+## see appendix for prune.tree()
+fit0.CHits.1split <- prune.tree(fit0.CHits, best=2)
+
+## plot the tree
+# plot(fit0.CHits.1split)
+# text(fit0.CHits)   
+# partition.tree(fit0.CHits, col="red", lwd=2)
+# points(data1$CHits, data1$LogSalary, pch=16, cex=.5)
+
+# best split 358: RSS_{358}=90.31
+data.table(fit0.CHits.1split$frame) 
+summary(fit0.CHits.1split)$dev
+```
+
+\normalsize
+The deviance for the best CHits split is `r summary(fit0.CHits.1split)$dev`.
+
+---
+\frametitle{Best split CatBat}
+
+\tiny
+```{r results = 'hold'}
+fit0.CAtBat <- tree(LogSalary~CAtBat, data1)  
+fit0.CAtBat.1split <- prune.tree(fit0.CAtBat, best=2)
+
+data.table(fit0.CAtBat.1split$frame)  # best split 452: RSS_{1452}=89
+# So we split CAtBat first at 1452 then split to either side, continue
+```
+
+\normalsize
+* The deviance for the best CHits split is `r summary(fit0.CHits.1split)$dev`.
+* The deviance for the best CAtBat split is `r summary(fit0.CAtBat.1split)$dev`.
+* CAtBat wins! So we first split CAtBat at `r fit0.CAtBat.1split$frame$splits[1, 1]`.
+
+
+---
+\frametitle{Best 1st split: CatBat wins}
+
+\tiny
+```{r results = 'hold'}
+fit1.single <- tree(LogSalary~CAtBat+CHits, data1) # The order plays no role
+fit1.single.1split <- prune.tree(fit1.single, best = 2)
+# fit1.single.1split
+data.table(fit1.single.1split$frame)
+```
+
+```{r include = F}
+fitTwoVar <- fit1.single
+```
+
+Similarly, we repeat this splitting process until stop.
+
+---
+\frametitle{Tree using two predictors (CHits and CAtBat)}
+
+\tiny
+```{r}
+par(mfrow=c(1,2))
+# plot tree
+plot(fit1.single)
+title(main="Two variable tree. 6 predicted values")
+text(fit1.single)
+# scatter plot
+partition.tree(fit1.single, col="red", lwd=1)
+points(data1$CAtBat, data1$CHits, pch=16, cex=.5, col = "blue")
+par(mfrow=c(1,1))
+```
+
+---
+\frametitle{Tree using two predictors (CHits and CAtBat)}
+
+\tiny
+```{r results=T}
+data.table(fit1.single$frame)
+```
+
+---
+\frametitle{Tree using two predictors (CHits and CAtBat)}
+
+\framesubtitle{Summary:}
+Using CAtBat and CHits
+
+- The single tree has 6 terminal nodes, i.e., we partition CAtBat and Chits into six boxes.
+- The predicted values are the sample means in each box.
+
+
+```{r}
+fit1.single.s <- summary(fit1.single)
+fit1.single.s$size
+fit1.single.s$dev
+
+```
+The deviance of the tree using CAtBat and CHits is `r fit1.single.s$dev`, comparing to the one using only CAtBat `r fit0.single.s$dev`.
+
+---
+\frametitle{Tree using two predictors (CHits and CAtBat)}
+
+\framesubtitle{Summary:}
+\tiny
+Let's look at the plot of predicted y values:
+```{r}
+yhat <- predict(fit1.single, data1)
+plot(data1$LogSalary, yhat, pch=16, col="blue",
+     xlab="LogSal",
+     ylab="Yhat",
+     main = "A tree with six predicted values")
+```
+
+---
+\frametitle{Tree using two predictors}
+
+\framesubtitle{Compare a single tree with lm:}
+As we already knew there are only 6 predicted values being used.
+
+How does the above tree perform comparing with our old friend lm in terms of the in sample errors?
+```{r}
+fit.lm <- summary(lm(LogSalary~CAtBat+CHits, data1))
+RSS.lm <- (263-2)*(fit.lm$sigma)^2
+RSS.lm   # fit1.single.s$dev 
+```
+Oops much worse than even a single tree. RSS.lm = `r RSS.lm` vs. RSS.tree=`r fit1.single.s$dev`.
+
++ Remember these are training errors!
+
+```{r include = F}
+fit1.single.s
+```
+
+## rpart
+
+---
+\frametitle{rpart: An alternative tree package CART (like its output)}
+
+\tiny
+```{r}
+fit.single.rp <- rpart(LogSalary~CAtBat+CHits, data1, minsplit=20, cp=.009)
+fit.single.rp  
+```
+
+---
+\frametitle{rpart: An alternative tree package CART (like its output)}
+
+\tiny
+Plot method 1.
+```{r}
+plot(fit.single.rp, main = "Trees by rpart")
+text(fit.single.rp, pretty = TRUE)   # plot method 1
+```
+
+---
+\frametitle{rpart: An alternative tree package CART (like its output)}
+
+\tiny
+```{r}
+summary(fit.single.rp)
+```
+
+---
+\frametitle{rpart: An alternative tree package CART (like its output)}
+
+Another cool plot of a single tree:
+\tiny
+```{r}
+plot(as.party(fit.single.rp), main="A Tree with Rpart") # method 3
+```
+
+\normalsize
+The plots are only useful for a small tree!
+
+## Tree using all available predictors
+
+---
+\frametitle{Tree using all available predictors}
+
+
+We conclude the section by building a final tree with all the variables. To get a testing error, let's split the data first.
+\tiny
+```{r results='hide'}
+n <- nrow(data1)
+set.seed(1)
+train.index <- sample(n, n*3/4) # we use about 3/4 of the subjects as the training data.
+train.index
+data.train <- data1[train.index,]
+data.test <- data1[-train.index, ]
+```
+
+
+---
+\frametitle{Tree using all available predictors}
+
+\framesubtitle{Build final tree:}
+
+We will build a final tree with `data.train`.
+
+At each splitting, 
+
+1. for each variables $X_i$, we get the best split point $s$ that minimizes $RSS_{X_i}$
+2. compare all the $RSS_{X_i}$, pick the variable $X_j$ and the corresponding split point $s$ that minimize $RSS$
+
+Repeat until reaching the stopping rule.
+
+```{r}
+fit1.single.full <- tree(LogSalary~., data.train)  
+```
+
+---
+\frametitle{Tree using all available predictors}
+
+\framesubtitle{Build final tree:}
+The above tree looks like this: 
+\tiny
+```{r}
+plot(fit1.single.full)
+title(main =  "final single tree")
+text(fit1.single.full, pretty=0)
+```
+
+---
+\frametitle{Tree using all available predictors}
+
+\framesubtitle{Build final tree:}
+\tiny
+```{r results=TRUE}
+fit1.single.full
+```
+
+---
+\frametitle{Tree using all available predictors}
+
+\framesubtitle{Build final tree:}
+\tiny
+Summary Statistics of the above tree:
+
+1) Names
+```{r}
+fit1.single.full.s <- summary(fit1.single.full)
+names(fit1.single.full.s)
+names(fit1.single.full)    #fit1.single.full.s$size
+```
+
+2) RSS
+```{r}
+fit1.single.full.s$dev  # training RSS=29.28
+sum((fit1.single.full.s$residuals)^2) # to check the dev is the RSS
+```
+
+3) Variables used
+```{r}
+fit1.single.full.s$used # Var's included
+nvar <- length(fit1.single.full.s$used )
+```
+
+`r length(fit1.single.full.s$used )` variables are used and there are a total of `r fit1.single.full.s$size` terminal nodes.
+
+---
+\frametitle{Tree using all available predictors}
+
+\framesubtitle{Compare a full tree with lm:}
+4) Finally comparing the RSS from the lm function.
+\tiny
+```{r}
+n.train <- nrow(data.train)
+fit.lm <- lm(LogSalary~CAtBat+CHits + Walks + CRBI +  Errors+ AtBat , data.train)
+RSS.lm <- (n.train - 6+1)*(summary(fit.lm)$sigma)^2  # (n-p+1)
+RSS.lm
+```
+
+\normalsize
+
+Do you see that RSS=`r RSS.lm` from lm() > RSS=`r fit1.single.full.s$dev` from the tree. Is this always true and why or why not?
+
+**Question: do you expect that the testing RSS(lm) > RSS(single tree)?**
+
+---
+\frametitle{Tree using all available predictors}
+
+\framesubtitle{Report the testing error:}
+
+We apply the testing data, `data.test` to output the testing error of the final tree
+\tiny
+```{r}
+test.error.tree <- sum((predict(fit1.single.full, data.test) - data.test$LogSalary)^2)
+test.error.twoVar <- sum((predict(fitTwoVar, data.test) - data.test$LogSalary)^2)
+test.error.lm <- sum((predict(fit.lm, data.test)-data.test$LogSalary)^2)
+
+data.frame(test.error.lm = test.error.lm, 
+           test.error.tree = test.error.tree, 
+           test.error.twoVar = test.error.twoVar)
+```
+
+\normalsize
+Notice:
+
+* The testing error from the tree being `r test.error.tree` is quite smaller than that from the linear model `r test.error.lm`
+
+* Also notice the testing errors are quite different from the training errors!!!!! Which once again shows the necessity of using the notion of testing or validation data. 
+
+---
+\frametitle{Recap}
+
++ Model free, flexible
++ Easy to interpret, reveal important features among attributes
++ Packages
+    - tree()
+    - rpart() from CART (Recursive Partitioning and Regression Trees)
+
+## Ensemble Methods
+
+---
+\frametitle{Ensemble Methods}
+
+A single predictive model (e.g. a single tree):
+
+* Pros: flexible, small training error
+* Cons: large variability
+
+Solution to large variability: 
+
+* Ensemble method: Get many different (uncorrelated) trees/models and take average.
+* Similar bias but reduce the variance. 
+* The testing error maybe reduced significantly. 
+
+Bootstrap method offers one solution to produce many trees and **random trees** will produce uncorrelated trees. This leads to Random Forest. 
+
+---
+\frametitle{Ensemble Methods: Bagging}
+
+\framesubtitle{Bootstrap:}
+
+Developed by Bradley Efron in 1977, the **bootstrap** is a simple re-sampling scheme. 
+
+* Given a data of iid sample of size n, we will sample n observations with replacement to create another sample of size n. This new sample is called a bootstrap sample.
+* We can produce many bootstrap samples and get a new sample from the population for free. 
+* It is a powerful tool to estimate the variance of estimators, so we can often construct confidence intervals. 
+* The International Prize in Statistics has been awarded to BRADLEY EFRON, professor of statistics and biomedical data science, in recognition of the "bootstrap", he developed that has had extraordinary impact across many scientific fields. 
+
+---
+\frametitle{Ensemble Methods: Bootstrap Magic}
+
+
+**Bootstrap sample resembles the original sample:**
+
+We explain how bootstrap samples can be used as a new random sample from the population through an example. 
+
+i. We have a random sample $x_1, x_2, \ldots, x_{1000}$ of size n=1000.  Here we show the histogram of the sample.
+
+
+
+---
+\frametitle{Ensemble Methods}
+
+\framesubtitle{A single Bootstrap tree:}
+
+We first take a bootstrap sample, then build a single tree. Notice the structure of the trees are very similar to that of using the whole dataset. We then built another bootstrap tree. A better way to aggregate the two free trees is to take the average of fitted values, namely bagging of two trees. 
+
+---
+\frametitle{A single Bootstrap tree}
+\tiny
+```{r results = 'hold'}
+# bootstrap tree 1 
+n=263
+set.seed(1)  
+index1 <- sample(n, n, replace = TRUE)
+data2 <- data1[index1, ]  # data2 here is a bootstrap sample
+boot.1.single.full <- tree(LogSalary~., data2) 
+plot(boot.1.single.full)
+title(main = "First bootstrap tree")
+text(boot.1.single.full, pretty=0)
+```
+
+---
+\frametitle{Another Bootstrap tree}
+\tiny
+```{r results = 'hold'}
+# bootstrap tree 2 
+set.seed(2)
+index1 <- sample(n, n, replace = TRUE)
+data2 <- data1[index1, ]  # data2 here is a bootstrap sample
+boot.2.single.full <- tree(LogSalary~., data2) 
+plot(boot.2.single.full)
+title(main = "Second bootstrap tree")
+text(boot.2.single.full, pretty=0)
+```
+
+---
+\frametitle{Bagging}
+
+\framesubtitle{A new predictive equation: Average two trees}
+\tiny
+```{r results = 'hold'}
+# bag of two trees by averaging the two fitted equations. predict the response for the 10th player:
+data1[10, ]
+fit.bag.2.predict <- (predict(boot.1.single.full, data1[10, ]) + predict(boot.2.single.full, data1[10, ]))/2 #bagging
+data.frame(fitted=fit.bag.2.predict,  obsy=data1[10, "LogSalary"])  # not bad
+```
+
+\normalsize
+Remark: 
+
+* A bootstrap tree will resemble the tree built using the original data
+* The tree built depends on the bootstrap sample. 
+* We have aggregated two trees by taking average of the two predictive equations. 
+* We can of course aggregate more bootstrap trees. We can get this using randomForest function with specific settings. 
+
+---
+\frametitle{Ensemble Methods: Bagging}
+
+
+To bag many trees:
+
+Step1: Build m many bootstrap trees, say $T_1, T2, \ldots, T_m$.
+
+Step2: The final Bagging equation T is simply the average of $T_1, T2, \ldots, T_m$.
+
+We can use Random Forest package with one parameter `mtry` setting as the total number of predictors. You will see why once Random Forest is explained.
+
+For example to bag 10 bootstrap trees with minsize setting at 5, we can get it by specifying mtry = 19, ntree=10 in randomRorest() as follows  
+
+---
+\frametitle{Ensemble Methods: Bagging}
+
+\framesubtitle{R functions:}
+
++ We borrow package randomForest()
++ Begging can be done using this package
++ With mtry = total number of variables
+
+```{r}
+set.seed(1)
+fit.bagging.10 <- randomForest(LogSalary~., data1, mtry=19, ntree=10)
+```
+
+---
+\frametitle{Ensemble Methods: Bagging}
+
+\framesubtitle{Compare one tree with Bagging 10 trees:}
+How does this work comparing with a single tree? Here are the training errors
+\tiny
+```{r}
+set.seed(2)
+fit.bagging.1 <- randomForest(LogSalary~., data1, mtry=19, ntree=1)  # a single tree
+m1 <- mean((predict(fit.bagging.1, data1) - data1$LogSalary)^2)
+m10 <- mean((predict(fit.bagging.10, data1) - data1$LogSalary)^2)
+data.frame(MSE_Single=m1, MSE_10=m10)
+```
+
+---
+\frametitle{Ensemble Methods: Bagging}
+
+
+Wow, a huge reduction in bagging already! But we are only showing the deduction in training errors through. 
+
+Since bagging trees is a special case of Random Forest. We will not go further in this topic. 
+
+Summary: Bagging
+
++ May reduce testing errors
++ Lose interpretation of effects!
+
+## Random forest
+
+---
+\frametitle{Random forest}
+
+
+A single tree will be very similar in the way how variables are split at each node. Take a look at the bootstrap trees built here. What have you noticed???
+
+---
+\frametitle{Illustration of similarity of a single bootstrap tree}
+
+\tiny
+```{r}
+n=263
+set.seed(1)
+index1 <- sample(n, n, replace = TRUE)
+data2 <- data1[index1, ]  # data2 here is a bootstrap sample
+boot.1.single.full <- tree(LogSalary~., data2) 
+plot(boot.1.single.full)
+title(main = " Bootstrap trees")
+text(boot.1.single.full, pretty=0)
+```
+
+
+---
+\frametitle{Illustration of similarity of a single bootstrap tree}
+
+\tiny
+```{r}
+n=263
+set.seed(2)
+index1 <- sample(n, n, replace = TRUE)
+data2 <- data1[index1, ]  # data2 here is a bootstrap sample
+boot.1.single.full <- tree(LogSalary~., data2) 
+plot(boot.1.single.full)
+title(main = " Bootstrap trees")
+text(boot.1.single.full, pretty=0)
+```
+
+
+---
+\frametitle{Similarity of a single bootstrap tree}
+
+
+All the nodes are more or less similar which means all the bootstrap trees are similar. 
+
+- Topdown/greedy search are not flexible
+- Bagging similar equations will not reduce the variance
+
+Suggestions needed: how to break the still pattern of similar splitting points????
+
+
+---
+\frametitle{Random forest: Random tree}
+
+
+Goal: build many uncorrelated bootstrap trees
+
++ How? hoping to reduce the prediction errors!
++ Randomness
+
+Given $x_1, x_2,....x_p$. We will modify our top-down, binary tree to give a chance for any variables to be split earlier. 
+
+To find best variable/split point 
+
++ Randomly chosen m many variables
++ Find the best split variable and the best split point
++ Keep the node
++ Repeat the process to build a random tree
+
+
+---
+\frametitle{Random forest: Bagging}
+
+
+Take B many bootstrap samples of size n. Build a m split random trees. Record the prediction equation as $f_i(x_1, x_2,....x_p, m)$ we then bag then by taking average of these B many random trees. The final Random Forest equation is simply
+$$\hat y | (x_1, x_2,....x_p) = \sum_{i=1}^{i=B} f_i(x_1, x_2,....x_p, m)/B$$
+
+**Pros**: 
+
++ testing error might be reduced
+
+**Cons**:
+
++ can not interpret the prediction equation any more
++ introduce another tuning parameter m and B
+
+
+---
+\frametitle{Random forest: randomForest()}
+
+
+Created by Leo Breiman, randomForest() has the following algorithm: 
+
+1) Take B many bootstrap samples
+2) Build a deep random tree for each bootstrap sample by splitting only m (`mtry`) randomly chosen predictors at each split
+3) Bag all the random trees by taking average => prediction of y given $x_1,...,x_p$
+4) Use **Out of Bag** observations to provide testing errors to tune `mtry`. 
+
+**Remarks**:
+
+1) The only tuning parameter is mtry, the number of variables to be split at each node.
+2) For each tree specify `nodesize`: 
+  5 for regression trees and 1 for classification trees
+3) When mtry = p (= 19), randomForest gives us bagging estimates of non-random trees.
+
+
+---
+\frametitle{Random forest: randomForest()}
+
+
+We now proceed to investigate Random Forest in details. To tune the parameter `m`, the number of variables to be split at any node, we will use testing errors. Cross Validation can be used to evaluate each tree. Breiman introduces notion of **Out Of Bag, OOB errors** to estimate the testing error of the random forest build.
+
+
+ 
+---
+\frametitle{Build RF with fixed parameters (mtry=5)}
+
+
+Now let's build 100 random trees with m (mtry=5). 
+
+* For each tree, first take a Bootstrap sample of size n.
+* Build a single deep tree but at each split only pick up 5 randomly chosen variables to be split. 
+* Then average the 100 trees to get the RF prediction equation. 
+
+---
+\frametitle{Build RF with fixed parameters (mtry=5)}
+
+\tiny
+```{r results=TRUE}
+set.seed(1)
+fit.rf.5 <- randomForest(LogSalary~., data1, mtry=5, ntree=100) 
+# by default, the minsize = 5 in regression tree. 
+names(fit.rf.5)  #summary(fit.rf.5)
+# fit.rf.5$predicted is for the purpose of creating testing errors
+```
+
+---
+\frametitle{Predict y using fit.rf.5}
+\tiny
+
+```{r}
+fit.rf.5.pred <- predict(fit.rf.5, data1)
+MSE_Train <- mean((data1$LogSalary - fit.rf.5.pred)^2)     # training error
+```
+The training error is `r MSE_Train`
+
+
+
+---
+\frametitle{Testing errors of fit.rf.5}
+\tiny
+
+```{r}
+plot(fit.rf.5, type="p", pch=16,col="blue", main = "testing errors estimated by oob_mse" )
+fit.rf.5$mse[100]
+```
+
+
+
+
+---
+\frametitle{Tuning `ntree` and `mtry}
+
+Ready to tune mtry and B=number of the trees in the bag
+
+**a) ntree: given mtry, we see the effect of ntree first**
+\tiny
+```{r}
+fit.rf <- randomForest(LogSalary~., data1, mtry=5, ntree=500)    # change ntree
+plot(fit.rf, col="red", pch=16, type="p", 
+     main="default plot, ")
+```
+
+\normalsize
+We may need 250 trees to settle the OOB testing errors
+
+
+---
+\frametitle{Tuning `ntree` and `mtry}
+
+
+**b) mtry: the number of random split at each leaf**
+
+Now we fix `ntree=250`, We only want to compare the mse[250] to see the mtry effects.
+Here we loop mtry from 1 to 19 and return the testing errors of 250 trees
+
+
+\tiny
+```{r}
+rf.error.p <- 1:19  # set up a vector of length 19
+for (p in 1:19)  # repeat the following code inside { } 19 times
+{
+  fit.rf <- randomForest(LogSalary~., data1, mtry=p, ntree=250)
+  #plot(fit.rf, col= p, lwd = 3)
+  rf.error.p[p] <- fit.rf$mse[250]  # collecting oob mse based on 250 trees
+}
+rf.error.p   # oob mse returned: should be a vector of 19
+```
+
+
+---
+\frametitle{Tuning `ntree` and `mtry}
+
+
+\tiny
+```{r}
+plot(1:19, rf.error.p, pch=16,
+     main = "Testing errors of mtry with 250 trees",
+     xlab="mtry",
+     ylab="OOB mse of mtry")
+lines(1:19, rf.error.p)
+```
+
+
+---
+\frametitle{Tuning `ntree` and `mtry}
+
+Run above loop a few time, it is not very unstable.
+Notice
+
+1. mtry = 1 is clearly not a good choice.
+2. mtry = 19 is bagging, better but not the best.
+2. The recommended mtry for reg trees are mtry=p/3=19/3 about 6 or 7. Seems to agree with this example.  Are you convinced with p/3?
+
+We should treat mtry to be a tuning parameter!
+
+The final fit: we take mtry = 6
+
+
+---
+\frametitle{Tuning `ntree` and `mtry}
+
+\tiny
+```{r}
+fit.rf.final <- randomForest(LogSalary~., data1, mtry=6, ntree=250)
+plot(fit.rf.final)
+```
+
+
+
+---
+\frametitle{Tuning `ntree` and `mtry}
+
+
+**Remark:**
+
+* We don't need to split data to get testing error 
+* The testing error is provided using OOB errors. In this case since our final model uses `mtry`=6, `ntree`=250, so the testing error is estimated as `r fit.rf.final$mse[250]`
+
+---
+\frametitle{Predictions using RF}
+
+
+```{r}
+# Let's predict rownames(data1)[1]: "-Alan Ashby"
+person <- data1[1, ]   
+fit.person <- predict(fit.rf.final, person)
+fit.person 
+# the fitted salary in log scale is 6.196343 
+# (may not be the same each time we run the rf, why?)
+```
+
+Alan Ashby's true log salary is:
+```{r}
+alan_logsalary <- data1$LogSalary[1]
+alan_logsalary
+```
+
+
+The final fit should be done by $e^{\hat y} = e^{`r alan_logsalary`}$ =  `r exp(alan_logsalary)`!!!!
+
+
+---
+\frametitle{Recap}
+
+randomForest() has the following algorithm: 
+
+1) Take B many bootstrap samples
+2) Build a deep random tree for each bootstrap sample by splitting only m (`mtry`) randomly chosen predictors at each split
+3) Bag all the random trees by taking average => prediction of y given $x_1,...,x_p$
+4) Use **Out of Bag** observations to provide testing errors to tune `mtry`. 
+
+**Remarks**:
+
+1) The only tuning parameter is mtry, the number of variables to be split at each node.
+2) For each tree specify `nodesize`: 
+  5 for regression trees and 1 for classification trees
+3) When mtry = p (= 19), randomForest gives us bagging estimates of non-random trees.
+
+
+# Appendix
+
+## Pruning {-}
+
+---
+\frametitle{Pruning}
+
+The binary/top-down greedy algorithm is a forward splitting. One way to improve the perdition error is to find best sub-tree for given size, then use cross-validation to find a tree with small testing error while penalizing the size of the tree. `prune.tree` can be used to find a tree pruned.
+
+We first train a tree using `tree` then send it back to `prune.tree` to get best sub-tree. For detailed information, `help(prune.tree)`.
+
+The following example shows how to get a final tree with 4 nodes with the smallest testing error among all size 4 trees. 
+
+---
+\frametitle{Pruning}
+\tiny
+```{r, comment=""}
+# fit a tree with large size
+fit0.single <- tree(LogSalary~CAtBat, data1,
+          control=tree.control(nobs=nrow(data1),
+                minsize = 4,
+                mindev=0.007))
+summary(fit0.single)
+(summary(fit0.single))$size # size of the tree
+```
+
+---
+\frametitle{Pruning}
+
+\tiny
+```{r, comment=""}
+# prune fit0.single using prune.tree()
+fit0.single.p <- prune.tree(fit0.single, best=4)  # change best to see the best sub-tree
+# option "best" controls the number of terminal nodes (i.e. leaves)  
+# best=2 means taking 2 leaves
+summary(fit0.single.p)
+data.table(fit0.single.p$frame)
+```
+
+---
+\frametitle{Pruning}
+
+\tiny
+```{r, comment=""}
+#plot the best subtrees
+par(mfrow=c(1, 3))
+plot(fit0.single)
+title(main="Main tree")
+text(fit0.single) # main tree
+plot(fit0.single.p)
+title(main="Best size 4 pruned")
+text(fit0.single.p) # pruned tree
+partition.tree(fit0.single.p, col="red", lwd=1)
+points(data1$CAtBat, data1$LogSalary, pch=16, cex=.5)
+``` 
+
+## Bootstrap  {-}
+
+---
+\frametitle{Ensemble Methods: Bootstrap Magic}
+
+\tiny  
+```{r }
+set.seed(1)
+X <- rweibull(1000, shape=1.5)
+hist(X, breaks=100, col="red", main="The original sample with the true density", 
+     freq = FALSE)
+points(X, dweibull(X, shape=1.5))
+```
+
+---
+\frametitle{Ensemble Methods: Bootstrap Magic}
+
+This shows that the histogram is approximately same as the true density.
+  
+   ii. Now we take a bootstrap sample: randomly take 1000 obs'n from $x_1, x_2, \ldots, x_{1000}$ with replacement. We also show the histogram of the bootstrap sample.
+
+---
+\frametitle{Ensemble Methods: Bootstrap Magic}
+
+\tiny
+```{r }
+index <- sample(1000, 1000, replace=TRUE)
+Xboot <- X[index]
+hist(Xboot, breaks=100, col="red", 
+     freq = FALSE, main="A bootstrap sample")
+```
+
+---
+\frametitle{Ensemble Methods: Bootstrap Magic}
+
+iii. Putting two histograms together
+\tiny
+```{r echo=FALSE}
+par(mfrow=c(1,2))
+hist(X, breaks=100, col="blue", xlab="",  main = "One original, One bootstrap ")
+hist(Xboot, breaks=100, col = "red", xlab = "", main = "")
+par(mfrow=c(1,1))
+```
+
+---
+\frametitle{Ensemble Methods: Bootstrap Magic}
+
+Can you tell the difference between the two histograms? **Not really!**
+**They are very similar**. 
+
+**The reason:** 
+
+- When n is large, the cdf of X can be well approximated by the empirical cdf which corresponds to the histogram of X. 
+- A bootstrap sample is same as taking a random sample from the histogram of the first sample which is similar to the true density.
+
+**Implication:**
+
+ - We can get another sample from the population for free!
+ - We can then produce any statistics we want for free.
+
+
+In this lecture, we produce many threes from bootstrap samples. Then take average of the trees as a final predictive model. 
+
+## OOB  {-}
+
+---
+\frametitle{Random forest: randomForest()}
+
+\framesubtitle{Out-of-Bag (OOB) prediction and testing error estimation:}
+
+When a bootstrap sample is drown, on average there will be about $1/e=37\%$ of the observations not chosen. The proof is simple: P(one person not chosen)=P(not chosen at any round)= $(1-P(chosen))^n=(1-1/n)^n \approx 1/e$Those observations are collected for this particular bootstrap sample and they are called Out of Bag observations (OOB).  Since for each tree we only use the bootstrapped observations, hence the OOB observations can be used as a testing data for this tree. 
+
+Here is how RF estimate the testing errors using OOB observations. 
+
+**OOB prediction**
+To get the predicted value for each observation, we can find the trees in which this observation is OOB and then get predicted value from each of these trees and take average.
+This will be only used as testing predicted values for each observation.
+
+**OOB testing errors**
+We then take the residual squared of errors using OOB predicted values. 
