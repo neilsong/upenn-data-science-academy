@@ -287,10 +287,11 @@ plot(fit.final,2)
 The various assumption of the linear model: 
 We can say the model is homoscedastic and linear as there are equal amounts of points above and below the line. However, with an exception of some abnormalities of the large line at the bottom. This could be due to over fitting. 
 However in the second plot ( normal qq): most of the points are not falling on the curve. 
-Therefore, we can conclude that not all assumptions of a linear model are reasonbly met. 
- 
+Therefore, we can conclude that not all assumptions of a linear model are reasonably met. 
 
 vi) Based on your final model, summarize your findings. In particular, summarize the state effect controlling for others. Provide recommendations to policy makers to reduce COVID death rate.
+
+Based on the final model, which the base is a state, some other states when tested against the base have 0 correlation. Other states have high correlations to the base such as California. There are also other variables such as poverty, unemployment, percentage of employees in certain jobs, ages 65 and older, ages under 18, education college percentage, that have a significant affect on the covid death rate/catch based on the base. Recommendations would be to monitor older age people, warn against younger people going out, and warn workforce employees with those specific jobs. People in poverty or unemployed have a high correlation with the covid death rate based on the base.
 
 
 # Case Study 2: Framingham heart disease study
