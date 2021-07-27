@@ -280,7 +280,7 @@ fit.final <- fit.backward.9
 plot(fit.final,1)
 plot(fit.final,2)
 ```
-```
+
 The various assumption of the linear model: 
 We can say the model is homoscedastic and linear as there are equal amounts of points above and below the line. However, with an exception of some abnormalities of the large line at the bottom. This could be due to over fitting. 
 However in the second plot ( normal qq): most of the points are not falling on the curve. 
@@ -309,7 +309,7 @@ To keep our answers consistent, use a subset of the data, and exclude anyone wit
 hd_data <- read.csv("data/Framingham.dat")
 str(hd_data) 
 
-#### Renames, setting the variables with correct natures...
+### Renames, setting the variables with correct natures...
 names(hd_data)[1] <- "HD"
 hd_data$HD <- as.factor(hd_data$HD)
 hd_data$SEX <- as.factor(hd_data$SEX)
@@ -334,9 +334,20 @@ summary(hd_data.f)
 
 viii. Start with a full model using all the covariates. Use backward selection to get a model with all variables significant at 0.1 level. Summarize your final model.
 
+```{r}
+fit.final.0 <- glm(HD~AGE+SEX+SBP+CHOL++FRW+CIG, family=binomial, data=fram_data.f)
+summary(fit.final.0)
+```
+```{r}
+fit.final.1 <- update(fit.final.0, .~. -FRW)
+summary(fit.final.1)
+```
+
+
 **answer: **
 
 ix. Based on the model in viii, calculate the mis-classification error (MCE) with 1/2 and 1/3 as the threshold respectively. Which threshold achieves a smaller MCE? 
+
 
 
 **answer: **
