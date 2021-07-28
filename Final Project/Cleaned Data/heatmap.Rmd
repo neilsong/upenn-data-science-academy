@@ -1,0 +1,44 @@
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=8, fig.height=4, warning=FALSE)
+options(scipen = 0, digits = 3)  # controls base R output
+# check if you have ISLR package, if not, install it
+if(!require('pacman')) {install.packages('pacman')}
+pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
+               plotROC, usmap, glmnet, car, rworldmap)
+```
+
+```{r}
+GDP <- fread('GDP_per_capita_cleaned.csv')
+GDP <- GDP[Period=="Q1-2019"]
+GDP <- GDP[MEASURE!="HCPCARSA"]
+GDP <- GDP[Country!="G7"]
+GDP <- GDP[Country!="NAFTA"]
+GDP <- GDP[Country!="OECD - Total"]
+GDP <- GDP[Country!="OECD - Europe"]
+GDP <- GDP[Country!="European Union – 27 countries (from 01/02/2020)"]
+GDP <- GDP[Country!="Euro area (19 countries)"]
+
+mapped_data <- joinCountryData2Map(GDP, joinCode = "NAME", 
+    nameJoinColumn = "Country")
+
+par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
+mapCountryData(mapped_data, nameColumnToPlot = "Value")
+```
+
+```{r}
+GDP <- fread('GDP_per_capita_cleaned.csv')
+GDP <- GDP[Period=="Q1-2019"]
+GDP <- GDP[MEASURE!="HCPCARSA"]
+GDP <- GDP[Country!="G7"]
+GDP <- GDP[Country!="NAFTA"]
+GDP <- GDP[Country!="OECD - Total"]
+GDP <- GDP[Country!="OECD - Europe"]
+GDP <- GDP[Country!="European Union – 27 countries (from 01/02/2020)"]
+GDP <- GDP[Country!="Euro area (19 countries)"]
+
+mapped_data <- joinCountryData2Map(GDP, joinCode = "NAME", 
+    nameJoinColumn = "Country")
+
+par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
+mapCountryData(mapped_data, nameColumnToPlot = "Value")
+```
