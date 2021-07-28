@@ -4,11 +4,11 @@ options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
 pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
-               plotROC, usmap, glmnet, car, rworldmap)
+               plotROC, usmap, glmnet, car, rworldmap, countrycode)
 ```
 
 ```{r}
-# GDP <- fread('GDP_per_capita_cleaned.csv')
+GDP <- fread('GDP.csv')
 # GDP <- GDP[Period=="Q1-2019"]
 # GDP <- GDP[MEASURE!="HCPCARSA"]
 # GDP <- GDP[Country!="G7"]
@@ -17,20 +17,22 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 # GDP <- GDP[Country!="OECD - Europe"]
 # GDP <- GDP[Country!="European Union – 27 countries (from 01/02/2020)"]
 # GDP <- GDP[Country!="Euro area (19 countries)"]
+GDP <- GDP[V2!="Country Code"]
+GDP$V2 <- countrycode(GDP$V2, origin="wb", destination="iso3c")
+GDP <- GDP %>% filter(!is.na(V2)) %>% filter(!is.na(V64))
+GDP$V64 <- log(GDP$V64/1000)
 
-# mapped_data <- joinCountryData2Map(GDP, joinCode = "NAME", 
-#     nameJoinColumn = "Country")
+mapped_data <- joinCountryData2Map(GDP, joinCode = "ISO3", 
+    nameJoinColumn = "V2")
 
-# par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
-# mapCountryData(mapped_data, nameColumnToPlot = "Value")
+par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
+mapCountryData(mapped_data, nameColumnToPlot = "V64")
+
+GDPSort <- GDP %>% arrange(desc(V64)) %>% select(V1, V64)
 ```
 
 ```{r}
-GDP <- fread('Final GDP 2019 of all Countries in USD.csv')
-
-mapped_data <- joinCountryData2Map(GDP, joinCode = "ISO3", 
-    nameJoinColumn = "LOCATION")
-
-par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
-mapCountryData(mapped_data, nameColumnToPlot = "Value")
+GDPMiddle <- GDPSort[94:104]
+GDPBot <- GDPSort[183:198]
+GDPTop <- GDPTop[1:5]
 ```
