@@ -1,0 +1,119 @@
+---
+title: "2019-2021 Long-Run Interest Rates of Top Countries in Terms of GDP"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=8, fig.height=4, warning=FALSE)
+options(scipen = 0, digits = 3)  # controls base R output
+# check if you have ISLR package, if not, install it
+if(!require('pacman')) {install.packages('pacman')}
+pacman::p_load(ISLR, readxl, magrittr, dplyr, ggplot2, ggthemes,car,gapminder)
+```
+
+
+```{r Reading data in}
+ data <- read.csv("Data/Final Project/Data/OECD Data/Interest_rates_top_countries.csv", header=T, stringsAsFactors = FALSE)
+
+data_col <- data %>% select(Country,TIME,Value)
+
+```
+
+```{r Organizing month}
+data<- data[data_col$TIME=="2018",]
+
+data<-data_col[!grepl("Q", data_col$TIME) &grepl("-",data_col$TIME),]
+tyear<-substring(data$TIME,1,4)
+tmonth<-as.numeric(substring(data$TIME,6,7))
+ 
+data<-data.frame(data,year=tyear,month=tmonth)
+
+
+```
+
+```{r Selecting United States top countries}
+gdata1 <- data[grep("United States",data$Country),]
+gdata1 <- data[data$Country=="United States",]
+```
+
+
+
+## United States Long-Run Interest Rates 
+
+```{r Graphing US}
+
+
+gdata1 %>% 
+  ggplot(aes(x = month, y = Value)) +
+  geom_line(aes(group = year, col = year)) +
+  geom_point(aes(group = year, col = year)) +
+  labs(x = "Months", y="Long-Run Interest Rates") +
+  scale_x_continuous(breaks = seq(0,12, by = 1)) +
+  ggtitle('United States') + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+
+
+## India Long-Run Interest Rates 
+
+```{r}
+gdata2 <- data[grep("India",data$Country),]
+gdata2 <- data[data$Country=="India",]
+
+gdata2 %>% 
+  ggplot(aes(x = month, y = Value)) +
+  geom_line(aes(group = year, col = year)) +
+  geom_point(aes(group = year, col = year)) +
+  labs(x = "Months", y="Long-Run Interest Rates") +
+  scale_x_continuous(breaks = seq(0,12, by = 1)) +
+  ggtitle('India') + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+
+
+
+
+## Japan Long-Run Interest Rates 
+
+```{r}
+gdata3 <- data[grep("Japan",data$Country),]
+gdata3 <- data[data$Country=="Japan",]
+
+gdata3 %>% 
+  ggplot(aes(x = month, y = Value)) +
+  geom_line(aes(group = year, col = year)) +
+  geom_point(aes(group = year, col = year)) +
+  labs(x = "Months", y="Long-Run Interest Rates") +
+  scale_x_continuous(breaks = seq(0,12, by = 1)) + 
+  ggtitle('Japan') + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+
+
+
+## France Long-Run Interest Rates 
+
+```{r}
+gdata4 <- data[grep("France",data$Country),]
+gdata4 <- data[data$Country=="France",]
+
+gdata4 %>% 
+  ggplot(aes(x = month, y = Value)) +
+  geom_line(aes(group = year, col = year)) +
+  geom_point(aes(group = year, col = year)) +
+  labs(x = "Months", y="Long-Run Interest Rates") +
+  scale_x_continuous(breaks = seq(0,12, by = 1)) +
+  ggtitle('France') + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+

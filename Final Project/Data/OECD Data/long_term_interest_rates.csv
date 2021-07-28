@@ -1,4 +1,5 @@
-﻿"SUBJECT","Subject","LOCATION","Country","FREQUENCY","Frequency","TIME","Time","Unit Code","Unit","PowerCode Code","PowerCode","Reference Period Code","Reference Period","Value","Flag Codes","Flags"
+"SUBJECT","Subject","LOCATION","Country","FREQUENCY","Frequency","TIME","Time","Unit Code","Unit","PowerCode Code","PowerCode","Reference Period Code","Reference Period","Value","Flag Codes","Flags"
+
 "IRLT","Long-term interest rates, Per cent per annum","AUS","Australia","A","Annual","2018","2018","PC","Percentage","0","Units",,,2.684167,,
 "IRLT","Long-term interest rates, Per cent per annum","AUS","Australia","A","Annual","2019","2019","PC","Percentage","0","Units",,,1.493333,,
 "IRLT","Long-term interest rates, Per cent per annum","AUS","Australia","A","Annual","2020","2020","PC","Percentage","0","Units",,,0.9208333,,
