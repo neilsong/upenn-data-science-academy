@@ -1,0 +1,1325 @@
+"COUNTRY","Country","Year","INDICATOR","Indicator","Unit.Code","Unit","PowerCode","Reference.Period","Value"
+"AUS","Australia",2007,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,189198
+"AUS","Australia",2008,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,204591
+"AUS","Australia",2009,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,204681
+"AUS","Australia",2010,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,225167
+"AUS","Australia",2011,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,235982
+"AUS","Australia",2012,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,239993
+"AUS","Australia",2013,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,243110
+"AUS","Australia",2014,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,251393
+"AUS","Australia",2015,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,261505
+"AUS","Australia",2016,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,271388
+"AUS","Australia",2017,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,281388
+"AUS","Australia",2018,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,283697
+"AUS","Australia",2019,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","AUD","Australian Dollar","Millions",NA,426631
+"AUS","Australia",2007,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,699871
+"AUS","Australia",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,767471
+"AUS","Australia",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,713201
+"AUS","Australia",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,689172
+"AUS","Australia",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,712918
+"AUS","Australia",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,732689
+"AUS","Australia",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,745093
+"AUS","Australia",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,778401
+"AUS","Australia",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,831972
+"AUS","Australia",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,875498
+"AUS","Australia",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,904545
+"AUS","Australia",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,954829
+"AUS","Australia",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","AUD","Australian Dollar","Millions",NA,974192
+"AUS","Australia",2007,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,27.03
+"AUS","Australia",2008,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,26.66
+"AUS","Australia",2009,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,28.7
+"AUS","Australia",2010,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,32.67
+"AUS","Australia",2011,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,33.1
+"AUS","Australia",2012,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,32.76
+"AUS","Australia",2013,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,32.63
+"AUS","Australia",2014,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,32.3
+"AUS","Australia",2015,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,31.43
+"AUS","Australia",2016,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,31
+"AUS","Australia",2017,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,31.11
+"AUS","Australia",2018,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,29.71
+"AUS","Australia",2019,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,43.79
+"AUS","Australia",2007,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.5
+"AUS","Australia",2008,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,2.07
+"AUS","Australia",2009,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,3.27
+"AUS","Australia",2010,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,3.55
+"AUS","Australia",2011,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,3.16
+"AUS","Australia",2012,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,2.68
+"AUS","Australia",2013,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,2.03
+"AUS","Australia",2014,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,1.39
+"AUS","Australia",2015,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,1.01
+"AUS","Australia",2016,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,1.13
+"AUS","Australia",2017,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.78
+"AUS","Australia",2018,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.81
+"AUS","Australia",2019,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.92
+"AUS","Australia",2007,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,8.66
+"AUS","Australia",2008,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,8.04
+"AUS","Australia",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,7.6
+"AUS","Australia",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,8.4
+"AUS","Australia",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,8.02
+"AUS","Australia",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,7.13
+"AUS","Australia",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,6.54
+"AUS","Australia",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,6.27
+"AUS","Australia",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.63
+"AUS","Australia",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.36
+"AUS","Australia",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.28
+"AUS","Australia",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.33
+"AUS","Australia",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,4.18
+"AUS","Australia",2007,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,7.95
+"AUS","Australia",2008,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,6.34
+"AUS","Australia",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.94
+"AUS","Australia",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,7.02
+"AUS","Australia",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,6.74
+"AUS","Australia",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.5
+"AUS","Australia",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,4.77
+"AUS","Australia",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,4.6
+"AUS","Australia",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.9
+"AUS","Australia",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.49
+"AUS","Australia",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.43
+"AUS","Australia",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.72
+"AUS","Australia",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.48
+"AUS","Australia",2007,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.71
+"AUS","Australia",2008,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.7
+"AUS","Australia",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.66
+"AUS","Australia",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.38
+"AUS","Australia",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.28
+"AUS","Australia",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.63
+"AUS","Australia",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.77
+"AUS","Australia",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.67
+"AUS","Australia",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.73
+"AUS","Australia",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.87
+"AUS","Australia",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.85
+"AUS","Australia",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.61
+"AUS","Australia",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.7
+"AUS","Australia",2007,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,6939
+"AUS","Australia",2008,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,8315
+"AUS","Australia",2009,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,7903
+"AUS","Australia",2010,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,8912
+"AUS","Australia",2011,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,8700
+"AUS","Australia",2012,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,7652
+"AUS","Australia",2013,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,8348
+"AUS","Australia",2014,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,7907
+"AUS","Australia",2015,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,8802
+"AUS","Australia",2016,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,9213
+"AUS","Australia",2017,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,10575
+"AUS","Australia",2018,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,11001
+"AUS","Australia",2019,"VC","Growth capital and venture capital","AUD","Australian Dollar","Millions",NA,12162
+"AUS","Australia",2008,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,19.83
+"AUS","Australia",2009,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-4.95
+"AUS","Australia",2010,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,12.77
+"AUS","Australia",2011,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-2.38
+"AUS","Australia",2012,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-12.05
+"AUS","Australia",2013,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,9.1
+"AUS","Australia",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.28
+"AUS","Australia",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,11.32
+"AUS","Australia",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,4.67
+"AUS","Australia",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,14.78
+"AUS","Australia",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,4.03
+"AUS","Australia",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,10.55
+"AUS","Australia",2007,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,9245.2
+"AUS","Australia",2008,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,9279.8
+"AUS","Australia",2009,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,6731.8
+"AUS","Australia",2010,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,6549.4
+"AUS","Australia",2011,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,6899.8
+"AUS","Australia",2012,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,8746.6
+"AUS","Australia",2013,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,7336
+"AUS","Australia",2014,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,8767.3
+"AUS","Australia",2015,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,9861.5
+"AUS","Australia",2016,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,8890.7
+"AUS","Australia",2017,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,10140.8
+"AUS","Australia",2018,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,9714.2
+"AUS","Australia",2019,"LEASING","Leasing and hire purchases","AUD","Australian Dollar","Millions",NA,9977.9
+"AUS","Australia",2007,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,54757
+"AUS","Australia",2008,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,64991
+"AUS","Australia",2009,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,63101
+"AUS","Australia",2010,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,58661
+"AUS","Australia",2011,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,61422
+"AUS","Australia",2012,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,63361
+"AUS","Australia",2013,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,63272
+"AUS","Australia",2014,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,62391
+"AUS","Australia",2015,"FACTORING","Factoring and invoicing","AUD","Australian Dollar","Millions",NA,64400
+"AUS","Australia",2007,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,45
+"AUS","Australia",2008,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,47
+"AUS","Australia",2009,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,47
+"AUS","Australia",2010,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,50
+"AUS","Australia",2011,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,51
+"AUS","Australia",2012,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,53
+"AUS","Australia",2013,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,49
+"AUS","Australia",2014,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,39
+"AUS","Australia",2015,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,41
+"AUS","Australia",2016,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,36
+"AUS","Australia",2017,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,32
+"AUS","Australia",2008,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,4.44
+"AUS","Australia",2009,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,0
+"AUS","Australia",2010,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,6.38
+"AUS","Australia",2011,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,2
+"AUS","Australia",2012,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,3.92
+"AUS","Australia",2013,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-7.55
+"AUS","Australia",2014,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-20.41
+"AUS","Australia",2015,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,5.13
+"AUS","Australia",2016,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-12.2
+"AUS","Australia",2017,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-11.11
+"AUT","Austria",2007,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,123.07
+"AUT","Austria",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,134.9
+"AUT","Austria",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,132.41
+"AUT","Austria",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,135.47
+"AUT","Austria",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,138.84
+"AUT","Austria",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,140.38
+"AUT","Austria",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,140.33
+"AUT","Austria",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,136.61
+"AUT","Austria",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,137.2
+"AUT","Austria",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,135.6
+"AUT","Austria",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,143.8
+"AUT","Austria",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,153
+"AUT","Austria",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Billions",NA,162.9
+"AUT","Austria",2009,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,85490
+"AUT","Austria",2010,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,74896
+"AUT","Austria",2011,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,73041
+"AUT","Austria",2012,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,80867
+"AUT","Austria",2013,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,73460
+"AUT","Austria",2014,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,73126
+"AUT","Austria",2015,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,61711
+"AUT","Austria",2016,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,55543
+"AUT","Austria",2017,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,64418
+"AUT","Austria",2018,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,64438
+"AUT","Austria",2019,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,71311
+"AUT","Austria",2009,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,10054
+"AUT","Austria",2010,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,9414
+"AUT","Austria",2011,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,9476
+"AUT","Austria",2012,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,9347
+"AUT","Austria",2013,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,8884
+"AUT","Austria",2014,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,8237
+"AUT","Austria",2015,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,8116
+"AUT","Austria",2016,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,7499
+"AUT","Austria",2017,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,8304
+"AUT","Austria",2018,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,8182
+"AUT","Austria",2019,"SME_LENDING_FLOW","New business lending, SMEs","EUR","Euro","Millions",NA,8634
+"AUT","Austria",2009,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,11.76
+"AUT","Austria",2010,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.57
+"AUT","Austria",2011,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.97
+"AUT","Austria",2012,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,11.56
+"AUT","Austria",2013,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.09
+"AUT","Austria",2014,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,11.26
+"AUT","Austria",2015,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,13.15
+"AUT","Austria",2016,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,13.5
+"AUT","Austria",2017,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.89
+"AUT","Austria",2018,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.7
+"AUT","Austria",2019,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.11
+"AUT","Austria",2007,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,341
+"AUT","Austria",2008,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,164
+"AUT","Austria",2009,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,214
+"AUT","Austria",2010,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,173
+"AUT","Austria",2011,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,143
+"AUT","Austria",2012,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,158
+"AUT","Austria",2013,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,167
+"AUT","Austria",2014,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,172
+"AUT","Austria",2015,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,204
+"AUT","Austria",2016,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,192
+"AUT","Austria",2017,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,279.23
+"AUT","Austria",2018,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,300.76
+"AUT","Austria",2019,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,365.98
+"AUT","Austria",2007,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,429
+"AUT","Austria",2008,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,211
+"AUT","Austria",2009,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,279
+"AUT","Austria",2010,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,226
+"AUT","Austria",2011,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,185
+"AUT","Austria",2012,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,207
+"AUT","Austria",2013,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,211
+"AUT","Austria",2014,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,225
+"AUT","Austria",2015,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,258
+"AUT","Austria",2016,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,282
+"AUT","Austria",2017,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,413.77
+"AUT","Austria",2018,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,395.34
+"AUT","Austria",2019,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,548.79
+"AUT","Austria",2007,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,535
+"AUT","Austria",2008,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,579
+"AUT","Austria",2009,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,574
+"AUT","Austria",2010,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,607
+"AUT","Austria",2011,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,633
+"AUT","Austria",2012,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,539
+"AUT","Austria",2013,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,594
+"AUT","Austria",2014,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,490
+"AUT","Austria",2015,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,543
+"AUT","Austria",2016,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,454
+"AUT","Austria",2017,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,649.15
+"AUT","Austria",2018,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,545.01
+"AUT","Austria",2019,"DIRECT_LOANS","Direct government loans, SMEs",NA,NA,"Millions",NA,630.53
+"AUT","Austria",2007,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.11
+"AUT","Austria",2008,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.47
+"AUT","Austria",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.89
+"AUT","Austria",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.43
+"AUT","Austria",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.92
+"AUT","Austria",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.46
+"AUT","Austria",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.28
+"AUT","Austria",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.27
+"AUT","Austria",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.02
+"AUT","Austria",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.92
+"AUT","Austria",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.8
+"AUT","Austria",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.82
+"AUT","Austria",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.8
+"AUT","Austria",2007,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,4.69
+"AUT","Austria",2008,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.04
+"AUT","Austria",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.33
+"AUT","Austria",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.96
+"AUT","Austria",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.55
+"AUT","Austria",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.98
+"AUT","Austria",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.77
+"AUT","Austria",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.74
+"AUT","Austria",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.61
+"AUT","Austria",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.54
+"AUT","Austria",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.45
+"AUT","Austria",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.38
+"AUT","Austria",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.32
+"AUT","Austria",2007,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.42
+"AUT","Austria",2008,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.43
+"AUT","Austria",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.56
+"AUT","Austria",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.47
+"AUT","Austria",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.37
+"AUT","Austria",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.48
+"AUT","Austria",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.51
+"AUT","Austria",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.53
+"AUT","Austria",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.41
+"AUT","Austria",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.38
+"AUT","Austria",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.35
+"AUT","Austria",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.44
+"AUT","Austria",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.48
+"AUT","Austria",2007,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,83.79
+"AUT","Austria",2008,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,73.03
+"AUT","Austria",2009,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,113.1
+"AUT","Austria",2010,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,75.29
+"AUT","Austria",2011,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,208.67
+"AUT","Austria",2012,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,64.55
+"AUT","Austria",2013,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,82.02
+"AUT","Austria",2014,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,104.84
+"AUT","Austria",2015,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,197.07
+"AUT","Austria",2016,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,85.48
+"AUT","Austria",2017,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,286.75
+"AUT","Austria",2018,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,134.89
+"AUT","Austria",2019,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,168.42
+"AUT","Austria",2008,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-12.84
+"AUT","Austria",2009,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,54.87
+"AUT","Austria",2010,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-33.44
+"AUT","Austria",2011,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,177.17
+"AUT","Austria",2012,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-69.07
+"AUT","Austria",2013,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,27.06
+"AUT","Austria",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,27.83
+"AUT","Austria",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,87.97
+"AUT","Austria",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-56.63
+"AUT","Austria",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,235.47
+"AUT","Austria",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-52.96
+"AUT","Austria",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,24.86
+"AUT","Austria",2008,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,8
+"AUT","Austria",2009,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,8
+"AUT","Austria",2010,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,11
+"AUT","Austria",2011,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,12
+"AUT","Austria",2012,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,11
+"AUT","Austria",2013,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,12
+"AUT","Austria",2014,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,13
+"AUT","Austria",2015,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,4
+"AUT","Austria",2016,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,4
+"AUT","Austria",2017,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,2
+"AUT","Austria",2018,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,1
+"AUT","Austria",2019,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,1
+"AUT","Austria",2007,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,6295
+"AUT","Austria",2008,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,6315
+"AUT","Austria",2009,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,6902
+"AUT","Austria",2010,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,6376
+"AUT","Austria",2011,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,5869
+"AUT","Austria",2012,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,6041
+"AUT","Austria",2013,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,5459
+"AUT","Austria",2014,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,5423
+"AUT","Austria",2015,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,5150
+"AUT","Austria",2016,"SME_BANKRUPTCIES","Bankruptcies, SMEs",NA,NA,"Units",NA,5226
+"AUT","Austria",2008,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,0.32
+"AUT","Austria",2009,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,9.3
+"AUT","Austria",2010,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-7.62
+"AUT","Austria",2011,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-7.95
+"AUT","Austria",2012,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,2.93
+"AUT","Austria",2013,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-9.63
+"AUT","Austria",2014,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-0.66
+"AUT","Austria",2015,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.03
+"AUT","Austria",2016,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,1.48
+"AUT","Austria",2009,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,59.82
+"AUT","Austria",2010,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,54.59
+"AUT","Austria",2011,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,52.17
+"AUT","Austria",2012,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,52.43
+"AUT","Austria",2013,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,51.06
+"AUT","Austria",2014,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,48.76
+"AUT","Austria",2015,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,41.21
+"AUT","Austria",2016,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,40.14
+"AUT","Austria",2017,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,30.58
+"AUT","Austria",2018,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,24.42
+"AUT","Austria",2019,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,22.85
+"BEL","Belgium",2007,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,82833
+"BEL","Belgium",2008,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,89066
+"BEL","Belgium",2009,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,88925
+"BEL","Belgium",2010,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,93900
+"BEL","Belgium",2011,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,100031
+"BEL","Belgium",2012,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,109646
+"BEL","Belgium",2013,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,109487
+"BEL","Belgium",2014,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,100743
+"BEL","Belgium",2015,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,104422
+"BEL","Belgium",2016,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,108005
+"BEL","Belgium",2017,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,115709
+"BEL","Belgium",2018,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,123901
+"BEL","Belgium",2019,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","EUR","Euro","Millions",NA,127019
+"BEL","Belgium",2007,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,134211
+"BEL","Belgium",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,149389
+"BEL","Belgium",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,141761
+"BEL","Belgium",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,150610
+"BEL","Belgium",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,153739
+"BEL","Belgium",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,167571
+"BEL","Belgium",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,161973
+"BEL","Belgium",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,151734
+"BEL","Belgium",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,164596
+"BEL","Belgium",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,163354
+"BEL","Belgium",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,173591
+"BEL","Belgium",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,184087
+"BEL","Belgium",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,188821
+"BEL","Belgium",2007,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,61.72
+"BEL","Belgium",2008,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,59.62
+"BEL","Belgium",2009,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,62.73
+"BEL","Belgium",2010,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,62.35
+"BEL","Belgium",2011,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,65.07
+"BEL","Belgium",2012,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,65.43
+"BEL","Belgium",2013,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,67.6
+"BEL","Belgium",2014,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,66.39
+"BEL","Belgium",2015,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,63.44
+"BEL","Belgium",2016,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,66.12
+"BEL","Belgium",2017,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,66.66
+"BEL","Belgium",2018,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,67.31
+"BEL","Belgium",2019,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,67.27
+"BEL","Belgium",2007,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,37394
+"BEL","Belgium",2008,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,40355
+"BEL","Belgium",2009,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,34120
+"BEL","Belgium",2010,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,35414
+"BEL","Belgium",2011,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,36476
+"BEL","Belgium",2012,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,34484
+"BEL","Belgium",2013,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,33829
+"BEL","Belgium",2014,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,31360
+"BEL","Belgium",2015,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,30890
+"BEL","Belgium",2016,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,31995
+"BEL","Belgium",2017,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,33618
+"BEL","Belgium",2018,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,36680
+"BEL","Belgium",2019,"SME_LENDING_ST","Short-term loans, SMEs ","EUR","Euro","Millions",NA,36747
+"BEL","Belgium",2007,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,59676
+"BEL","Belgium",2008,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,66092
+"BEL","Belgium",2009,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,72233
+"BEL","Belgium",2010,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,77194
+"BEL","Belgium",2011,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,79329
+"BEL","Belgium",2012,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,82484
+"BEL","Belgium",2013,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,83893
+"BEL","Belgium",2014,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,80301
+"BEL","Belgium",2015,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,84724
+"BEL","Belgium",2016,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,90780
+"BEL","Belgium",2017,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,97769
+"BEL","Belgium",2018,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,103466
+"BEL","Belgium",2019,"SME_LENDING_LT","Long-term loans, SMEs ","EUR","Euro","Millions",NA,109576
+"BEL","Belgium",2008,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,156.54
+"BEL","Belgium",2009,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,411.94
+"BEL","Belgium",2010,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,553.94
+"BEL","Belgium",2011,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,317.51
+"BEL","Belgium",2012,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,266.01
+"BEL","Belgium",2013,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,480.21
+"BEL","Belgium",2014,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,265.6
+"BEL","Belgium",2015,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,448.23
+"BEL","Belgium",2016,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,398.34
+"BEL","Belgium",2017,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,458.36
+"BEL","Belgium",2018,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,612
+"BEL","Belgium",2019,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,520
+"BEL","Belgium",2008,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,312.67
+"BEL","Belgium",2009,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,832.7
+"BEL","Belgium",2010,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,888.38
+"BEL","Belgium",2011,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,561.74
+"BEL","Belgium",2012,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,484.34
+"BEL","Belgium",2013,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,826.07
+"BEL","Belgium",2014,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,476.75
+"BEL","Belgium",2015,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,805.59
+"BEL","Belgium",2016,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,735.91
+"BEL","Belgium",2017,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,828.26
+"BEL","Belgium",2018,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,1130
+"BEL","Belgium",2019,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","EUR","Euro","Millions",NA,993
+"BEL","Belgium",2008,"DIRECT_LOANS","Direct government loans, SMEs","EUR","Euro","Millions",NA,113.71
+"BEL","Belgium",2009,"DIRECT_LOANS","Direct government loans, SMEs","EUR","Euro","Millions",NA,142.2
+"BEL","Belgium",2010,"DIRECT_LOANS","Direct government loans, SMEs","EUR","Euro","Millions",NA,141.87
+"BEL","Belgium",2011,"DIRECT_LOANS","Direct government loans, SMEs","EUR","Euro","Millions",NA,148.29
+"BEL","Belgium",2012,"DIRECT_LOANS","Direct government loans, SMEs","EUR","Euro","Millions",NA,170.54
+"BEL","Belgium",2013,"DIRECT_LOANS","Direct government loans, SMEs","EUR","Euro","Millions",NA,235.62
+"BEL","Belgium",2007,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.45
+"BEL","Belgium",2008,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.7
+"BEL","Belgium",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.01
+"BEL","Belgium",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.51
+"BEL","Belgium",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.88
+"BEL","Belgium",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.32
+"BEL","Belgium",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.06
+"BEL","Belgium",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.09
+"BEL","Belgium",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.83
+"BEL","Belgium",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.72
+"BEL","Belgium",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.66
+"BEL","Belgium",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.6
+"BEL","Belgium",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.57
+"BEL","Belgium",2007,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,4.72
+"BEL","Belgium",2008,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.05
+"BEL","Belgium",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.09
+"BEL","Belgium",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.7
+"BEL","Belgium",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.22
+"BEL","Belgium",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.74
+"BEL","Belgium",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.76
+"BEL","Belgium",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.77
+"BEL","Belgium",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.6
+"BEL","Belgium",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.34
+"BEL","Belgium",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.4
+"BEL","Belgium",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.35
+"BEL","Belgium",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.31
+"BEL","Belgium",2007,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.73
+"BEL","Belgium",2008,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.65
+"BEL","Belgium",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.92
+"BEL","Belgium",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.81
+"BEL","Belgium",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.66
+"BEL","Belgium",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.58
+"BEL","Belgium",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.3
+"BEL","Belgium",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.32
+"BEL","Belgium",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.23
+"BEL","Belgium",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.38
+"BEL","Belgium",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.26
+"BEL","Belgium",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.25
+"BEL","Belgium",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.26
+"BEL","Belgium",2010,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,74.3
+"BEL","Belgium",2011,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,71.9
+"BEL","Belgium",2012,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,78.6
+"BEL","Belgium",2007,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,77.8
+"BEL","Belgium",2008,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,79.05
+"BEL","Belgium",2009,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,80.69
+"BEL","Belgium",2010,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,80.07
+"BEL","Belgium",2011,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,80.16
+"BEL","Belgium",2012,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,77.45
+"BEL","Belgium",2013,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,77.79
+"BEL","Belgium",2014,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,79.76
+"BEL","Belgium",2015,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,79.62
+"BEL","Belgium",2016,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,80.01
+"BEL","Belgium",2017,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,79.86
+"BEL","Belgium",2018,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,80.39
+"BEL","Belgium",2019,"UTILISATION","Utilisation rate (SME loans used/ authorised)","PC","Percentage","Units",NA,80.89
+"BEL","Belgium",2007,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,502.26
+"BEL","Belgium",2008,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,507.83
+"BEL","Belgium",2009,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,618.05
+"BEL","Belgium",2010,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,363.6
+"BEL","Belgium",2011,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,411.11
+"BEL","Belgium",2012,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,445.36
+"BEL","Belgium",2013,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,438.09
+"BEL","Belgium",2014,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,580.86
+"BEL","Belgium",2015,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,548.18
+"BEL","Belgium",2016,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,843.14
+"BEL","Belgium",2017,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,767.18
+"BEL","Belgium",2018,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,837.5
+"BEL","Belgium",2019,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,1175.17
+"BEL","Belgium",2008,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,1.11
+"BEL","Belgium",2009,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,21.7
+"BEL","Belgium",2010,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-41.17
+"BEL","Belgium",2011,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,13.07
+"BEL","Belgium",2012,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,8.33
+"BEL","Belgium",2013,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-1.63
+"BEL","Belgium",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,32.59
+"BEL","Belgium",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.63
+"BEL","Belgium",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,53.81
+"BEL","Belgium",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-9.01
+"BEL","Belgium",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,9.17
+"BEL","Belgium",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,40.32
+"BEL","Belgium",2009,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,17
+"BEL","Belgium",2010,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,17
+"BEL","Belgium",2011,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,15
+"BEL","Belgium",2012,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,19
+"BEL","Belgium",2013,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,18
+"BEL","Belgium",2014,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,19
+"BEL","Belgium",2015,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,13
+"BEL","Belgium",2016,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,10
+"BEL","Belgium",2017,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,8
+"BEL","Belgium",2018,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,9
+"BEL","Belgium",2019,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,7
+"BEL","Belgium",2007,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,7652
+"BEL","Belgium",2008,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,8443
+"BEL","Belgium",2009,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,9391
+"BEL","Belgium",2010,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,9531
+"BEL","Belgium",2011,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,10187
+"BEL","Belgium",2012,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,10526
+"BEL","Belgium",2013,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,11680
+"BEL","Belgium",2014,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,10675
+"BEL","Belgium",2015,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,9728
+"BEL","Belgium",2016,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,9134
+"BEL","Belgium",2017,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,9935
+"BEL","Belgium",2018,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,9860
+"BEL","Belgium",2019,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,10567
+"BEL","Belgium",2008,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,10.34
+"BEL","Belgium",2009,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,11.23
+"BEL","Belgium",2010,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,1.49
+"BEL","Belgium",2011,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,6.88
+"BEL","Belgium",2012,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,3.33
+"BEL","Belgium",2013,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,10.96
+"BEL","Belgium",2014,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-8.6
+"BEL","Belgium",2015,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-8.87
+"BEL","Belgium",2016,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-6.11
+"BEL","Belgium",2017,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,8.77
+"BEL","Belgium",2018,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-0.75
+"BEL","Belgium",2019,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,7.17
+"BEL","Belgium",2007,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,45.14
+"BEL","Belgium",2008,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,45.31
+"BEL","Belgium",2009,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,38.37
+"BEL","Belgium",2010,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,37.71
+"BEL","Belgium",2011,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,36.46
+"BEL","Belgium",2012,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,31.45
+"BEL","Belgium",2013,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,30.9
+"BEL","Belgium",2014,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,31.13
+"BEL","Belgium",2015,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,29.58
+"BEL","Belgium",2016,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,29.62
+"BEL","Belgium",2017,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,29.05
+"BEL","Belgium",2018,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,29.6
+"BEL","Belgium",2019,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,28.93
+"CAN","Canada",2007,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,83422
+"CAN","Canada",2008,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,83363
+"CAN","Canada",2009,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,86428
+"CAN","Canada",2010,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,85676
+"CAN","Canada",2011,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,90137
+"CAN","Canada",2012,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,87787
+"CAN","Canada",2013,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,92173
+"CAN","Canada",2014,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,93533
+"CAN","Canada",2015,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,97429
+"CAN","Canada",2016,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,99649
+"CAN","Canada",2017,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,104143
+"CAN","Canada",2018,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,105663
+"CAN","Canada",2019,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CAD","Canadian Dollar","Millions",NA,108591
+"CAN","Canada",2007,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,479793
+"CAN","Canada",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,533951
+"CAN","Canada",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,482290
+"CAN","Canada",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,489480
+"CAN","Canada",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,514482
+"CAN","Canada",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,557388
+"CAN","Canada",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,602155
+"CAN","Canada",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,658508
+"CAN","Canada",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,739067
+"CAN","Canada",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,774703
+"CAN","Canada",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,834092
+"CAN","Canada",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,918223
+"CAN","Canada",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CAD","Canadian Dollar","Millions",NA,957660
+"CAN","Canada",2007,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,17.39
+"CAN","Canada",2008,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,15.61
+"CAN","Canada",2009,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,17.92
+"CAN","Canada",2010,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,17.5
+"CAN","Canada",2011,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,17.52
+"CAN","Canada",2012,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,15.75
+"CAN","Canada",2013,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,15.31
+"CAN","Canada",2014,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,14.2
+"CAN","Canada",2015,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,13.18
+"CAN","Canada",2016,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,12.86
+"CAN","Canada",2017,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,12.49
+"CAN","Canada",2018,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,11.51
+"CAN","Canada",2019,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,11.34
+"CAN","Canada",2011,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,126179
+"CAN","Canada",2012,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,141639
+"CAN","Canada",2013,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,151027
+"CAN","Canada",2014,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,168678
+"CAN","Canada",2015,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,188351
+"CAN","Canada",2016,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,203990
+"CAN","Canada",2017,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,233939
+"CAN","Canada",2018,"CORPORATE_LENDING_FLOW","New business lending, total","CAD","Canadian Dollar","Millions",NA,269722
+"CAN","Canada",2011,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,20176
+"CAN","Canada",2012,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,21670
+"CAN","Canada",2013,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,22806
+"CAN","Canada",2014,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,23129
+"CAN","Canada",2015,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,23971
+"CAN","Canada",2016,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,22761
+"CAN","Canada",2017,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,25217
+"CAN","Canada",2018,"SME_LENDING_FLOW","New business lending, SMEs","CAD","Canadian Dollar","Millions",NA,27185
+"CAN","Canada",2011,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,15.99
+"CAN","Canada",2012,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,15.3
+"CAN","Canada",2013,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,15.1
+"CAN","Canada",2014,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,13.71
+"CAN","Canada",2015,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,12.73
+"CAN","Canada",2016,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,11.16
+"CAN","Canada",2017,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,10.78
+"CAN","Canada",2018,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,10.08
+"CAN","Canada",2007,"SME_LENDING_ST","Short-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,15056
+"CAN","Canada",2011,"SME_LENDING_ST","Short-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,6911
+"CAN","Canada",2014,"SME_LENDING_ST","Short-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,15600
+"CAN","Canada",2017,"SME_LENDING_ST","Short-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,24176
+"CAN","Canada",2007,"SME_LENDING_LT","Long-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,21118
+"CAN","Canada",2011,"SME_LENDING_LT","Long-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,12763
+"CAN","Canada",2014,"SME_LENDING_LT","Long-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,12400
+"CAN","Canada",2017,"SME_LENDING_LT","Long-term loans, SMEs ","CAD","Canadian Dollar","Millions",NA,32439
+"CAN","Canada",2007,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.2
+"CAN","Canada",2008,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.3
+"CAN","Canada",2009,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.2
+"CAN","Canada",2010,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.3
+"CAN","Canada",2011,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.3
+"CAN","Canada",2012,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.1
+"CAN","Canada",2013,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.1
+"CAN","Canada",2014,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.5
+"CAN","Canada",2015,"GUARANTEED_LOANS","Government guaranteed loans, SMEs",NA,NA,"Billions",NA,1.2
+"CAN","Canada",2007,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,4.4
+"CAN","Canada",2008,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,4.1
+"CAN","Canada",2009,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,5.5
+"CAN","Canada",2010,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,4.7
+"CAN","Canada",2011,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,6
+"CAN","Canada",2012,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,5.8
+"CAN","Canada",2013,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,4.6
+"CAN","Canada",2014,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,6.5
+"CAN","Canada",2015,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,6.7
+"CAN","Canada",2016,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,7.9
+"CAN","Canada",2017,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,8
+"CAN","Canada",2018,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,8.4
+"CAN","Canada",2019,"DIRECT_LOANS","Direct government loans, SMEs","CAD","Canadian Dollar","Billions",NA,8.1
+"CAN","Canada",2007,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.07
+"CAN","Canada",2008,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.07
+"CAN","Canada",2009,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.54
+"CAN","Canada",2010,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.24
+"CAN","Canada",2011,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.03
+"CAN","Canada",2012,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.02
+"CAN","Canada",2013,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.04
+"CAN","Canada",2014,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.03
+"CAN","Canada",2015,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.03
+"CAN","Canada",2016,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,0.12
+"CAN","Canada",2007,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.66
+"CAN","Canada",2008,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.97
+"CAN","Canada",2009,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,1.37
+"CAN","Canada",2010,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.81
+"CAN","Canada",2011,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.6
+"CAN","Canada",2012,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.54
+"CAN","Canada",2013,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.4
+"CAN","Canada",2014,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.41
+"CAN","Canada",2015,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.57
+"CAN","Canada",2016,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.49
+"CAN","Canada",2017,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,0.45
+"CAN","Canada",2007,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,7.5
+"CAN","Canada",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,6.2
+"CAN","Canada",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.8
+"CAN","Canada",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.3
+"CAN","Canada",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.4
+"CAN","Canada",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.6
+"CAN","Canada",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.1
+"CAN","Canada",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.1
+"CAN","Canada",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.3
+"CAN","Canada",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.2
+"CAN","Canada",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.7
+"CAN","Canada",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.3
+"CAN","Canada",2007,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,6.1
+"CAN","Canada",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3.1
+"CAN","Canada",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,2.6
+"CAN","Canada",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3
+"CAN","Canada",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3
+"CAN","Canada",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3
+"CAN","Canada",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3
+"CAN","Canada",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,2.8
+"CAN","Canada",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,2.7
+"CAN","Canada",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,2.9
+"CAN","Canada",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3.64
+"CAN","Canada",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms",NA,NA,"Units",NA,3.6
+"CAN","Canada",2007,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.4
+"CAN","Canada",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,3.1
+"CAN","Canada",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,3.2
+"CAN","Canada",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.3
+"CAN","Canada",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.4
+"CAN","Canada",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.6
+"CAN","Canada",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.1
+"CAN","Canada",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.3
+"CAN","Canada",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.6
+"CAN","Canada",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.3
+"CAN","Canada",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.06
+"CAN","Canada",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.7
+"CAN","Canada",2007,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,47.7
+"CAN","Canada",2009,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,56.1
+"CAN","Canada",2010,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,66.7
+"CAN","Canada",2011,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,64.8
+"CAN","Canada",2012,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,76
+"CAN","Canada",2013,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,56
+"CAN","Canada",2014,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,66.6
+"CAN","Canada",2015,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,80
+"CAN","Canada",2016,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,74
+"CAN","Canada",2017,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,64.1
+"CAN","Canada",2018,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,70
+"CAN","Canada",2019,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)","PC","Percentage","Units",NA,72.73
+"CAN","Canada",2010,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,9
+"CAN","Canada",2011,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,8
+"CAN","Canada",2012,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,7
+"CAN","Canada",2013,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,9
+"CAN","Canada",2014,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,12.8
+"CAN","Canada",2015,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,7
+"CAN","Canada",2016,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,9
+"CAN","Canada",2017,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,9.5
+"CAN","Canada",2018,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,9
+"CAN","Canada",2019,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,8.33
+"CAN","Canada",2013,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,1.88
+"CAN","Canada",2014,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,2.06
+"CAN","Canada",2015,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,2.3
+"CAN","Canada",2016,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,3.61
+"CAN","Canada",2017,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,3.61
+"CAN","Canada",2018,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,3.42
+"CAN","Canada",2019,"VC","Growth capital and venture capital","EUR","Euro","Billions",NA,4.43
+"CAN","Canada",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,9.57
+"CAN","Canada",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,11.65
+"CAN","Canada",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,56.96
+"CAN","Canada",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,0
+"CAN","Canada",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.26
+"CAN","Canada",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,29.53
+"CAN","Canada",2007,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,7
+"CAN","Canada",2008,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,6.6
+"CAN","Canada",2009,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,5.9
+"CAN","Canada",2010,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,4.6
+"CAN","Canada",2011,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,4.3
+"CAN","Canada",2012,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,3.8
+"CAN","Canada",2013,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,3.6
+"CAN","Canada",2014,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,3.4
+"CAN","Canada",2015,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,3.3
+"CAN","Canada",2016,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,3.1
+"CAN","Canada",2017,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2.84
+"CAN","Canada",2018,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2.79
+"CAN","Canada",2019,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2.81
+"CAN","Canada",2008,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.71
+"CAN","Canada",2009,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-10.61
+"CAN","Canada",2010,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-22.03
+"CAN","Canada",2011,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-6.52
+"CAN","Canada",2012,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-11.63
+"CAN","Canada",2013,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.26
+"CAN","Canada",2014,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-5.56
+"CAN","Canada",2015,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-2.94
+"CAN","Canada",2016,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-6.06
+"CAN","Canada",2017,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-8.39
+"CAN","Canada",2018,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-1.76
+"CAN","Canada",2019,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,0.72
+"CAN","Canada",2007,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,41.62
+"CAN","Canada",2009,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,43.4
+"CAN","Canada",2010,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,36.3
+"CAN","Canada",2011,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,35.13
+"CAN","Canada",2012,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,39
+"CAN","Canada",2013,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,46
+"CAN","Canada",2014,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,55.71
+"CAN","Canada",2015,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,47.2
+"CAN","Canada",2016,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,36.2
+"CAN","Canada",2017,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,42.8
+"CAN","Canada",2018,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,30.1
+"CAN","Canada",2019,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,19.5
+"CZE","Czech Republic",2008,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,555030
+"CZE","Czech Republic",2009,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,527545
+"CZE","Czech Republic",2010,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,550072
+"CZE","Czech Republic",2011,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,587908
+"CZE","Czech Republic",2012,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,589675
+"CZE","Czech Republic",2013,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,610789
+"CZE","Czech Republic",2014,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,621385
+"CZE","Czech Republic",2015,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,652590
+"CZE","Czech Republic",2016,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,702814
+"CZE","Czech Republic",2017,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,725635
+"CZE","Czech Republic",2018,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,762997
+"CZE","Czech Republic",2019,"SME_LENDING_STOCK","Outstanding business loans, SMEs ","CZK","Czech Koruna","Millions",NA,794715
+"CZE","Czech Republic",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,850765
+"CZE","Czech Republic",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,784069
+"CZE","Czech Republic",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,783538
+"CZE","Czech Republic",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,831206
+"CZE","Czech Republic",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,840593
+"CZE","Czech Republic",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,871578
+"CZE","Czech Republic",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,890229
+"CZE","Czech Republic",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,935364
+"CZE","Czech Republic",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,994855
+"CZE","Czech Republic",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,1036136
+"CZE","Czech Republic",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,1097391
+"CZE","Czech Republic",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","CZK","Czech Koruna","Millions",NA,1133112.7
+"CZE","Czech Republic",2008,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,65.24
+"CZE","Czech Republic",2009,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,67.28
+"CZE","Czech Republic",2010,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.2
+"CZE","Czech Republic",2011,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.73
+"CZE","Czech Republic",2012,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.15
+"CZE","Czech Republic",2013,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.08
+"CZE","Czech Republic",2014,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,69.8
+"CZE","Czech Republic",2015,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,69.77
+"CZE","Czech Republic",2016,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.64
+"CZE","Czech Republic",2017,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.03
+"CZE","Czech Republic",2018,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,69.53
+"CZE","Czech Republic",2019,"SME_LENDING_PROPORTION","Share of SME outstanding loans (% of total outstanding business loans)","PC","Percentage","Units",NA,70.14
+"CZE","Czech Republic",2008,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,866109
+"CZE","Czech Republic",2009,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,780874
+"CZE","Czech Republic",2010,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,667977
+"CZE","Czech Republic",2011,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,599089
+"CZE","Czech Republic",2012,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,694944
+"CZE","Czech Republic",2013,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,500502
+"CZE","Czech Republic",2014,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,544725
+"CZE","Czech Republic",2015,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,607585
+"CZE","Czech Republic",2016,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,510582
+"CZE","Czech Republic",2017,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,457935
+"CZE","Czech Republic",2018,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,461843.1
+"CZE","Czech Republic",2019,"CORPORATE_LENDING_FLOW","New business lending, total","CZK","Czech Koruna","Millions",NA,521126.2
+"CZE","Czech Republic",2008,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,207237
+"CZE","Czech Republic",2009,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,147740
+"CZE","Czech Republic",2010,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,123398
+"CZE","Czech Republic",2011,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,124117
+"CZE","Czech Republic",2012,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,129830
+"CZE","Czech Republic",2013,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,86660
+"CZE","Czech Republic",2014,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,97764
+"CZE","Czech Republic",2015,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,118217
+"CZE","Czech Republic",2016,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,100464
+"CZE","Czech Republic",2017,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,101243
+"CZE","Czech Republic",2018,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,97925.1
+"CZE","Czech Republic",2019,"SME_LENDING_FLOW","New business lending, SMEs","CZK","Czech Koruna","Millions",NA,92273.8
+"CZE","Czech Republic",2008,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,23.93
+"CZE","Czech Republic",2009,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,18.92
+"CZE","Czech Republic",2010,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,18.47
+"CZE","Czech Republic",2011,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,20.72
+"CZE","Czech Republic",2012,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,18.68
+"CZE","Czech Republic",2013,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,17.31
+"CZE","Czech Republic",2014,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,17.95
+"CZE","Czech Republic",2015,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,19.46
+"CZE","Czech Republic",2016,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,19.68
+"CZE","Czech Republic",2017,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,22.11
+"CZE","Czech Republic",2018,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,21.2
+"CZE","Czech Republic",2019,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,17.71
+"CZE","Czech Republic",2008,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,3529
+"CZE","Czech Republic",2009,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,6369
+"CZE","Czech Republic",2010,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,6593
+"CZE","Czech Republic",2011,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,472
+"CZE","Czech Republic",2012,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,1534
+"CZE","Czech Republic",2013,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,3251
+"CZE","Czech Republic",2014,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,4010
+"CZE","Czech Republic",2015,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,6913
+"CZE","Czech Republic",2016,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,3530
+"CZE","Czech Republic",2017,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,4014
+"CZE","Czech Republic",2018,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,6485
+"CZE","Czech Republic",2019,"LOAN_GUARANTEES","Government loan guarantees, SMEs","CZK","Czech Koruna","Millions",NA,9786
+"CZE","Czech Republic",2008,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,5094
+"CZE","Czech Republic",2009,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,9550
+"CZE","Czech Republic",2010,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,10070
+"CZE","Czech Republic",2011,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,630
+"CZE","Czech Republic",2012,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,2215
+"CZE","Czech Republic",2013,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,4616
+"CZE","Czech Republic",2014,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,5771
+"CZE","Czech Republic",2015,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,9947
+"CZE","Czech Republic",2016,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,5055
+"CZE","Czech Republic",2017,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,5758
+"CZE","Czech Republic",2018,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,9287
+"CZE","Czech Republic",2019,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","CZK","Czech Koruna","Millions",NA,13534
+"CZE","Czech Republic",2008,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.57
+"CZE","Czech Republic",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,4.64
+"CZE","Czech Republic",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,4.01
+"CZE","Czech Republic",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.73
+"CZE","Czech Republic",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.48
+"CZE","Czech Republic",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.13
+"CZE","Czech Republic",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.76
+"CZE","Czech Republic",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.7
+"CZE","Czech Republic",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.5
+"CZE","Czech Republic",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.5
+"CZE","Czech Republic",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.14
+"CZE","Czech Republic",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.8
+"CZE","Czech Republic",2008,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,4.84
+"CZE","Czech Republic",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.46
+"CZE","Czech Republic",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.34
+"CZE","Czech Republic",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.63
+"CZE","Czech Republic",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.43
+"CZE","Czech Republic",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.89
+"CZE","Czech Republic",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2
+"CZE","Czech Republic",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.8
+"CZE","Czech Republic",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.8
+"CZE","Czech Republic",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.9
+"CZE","Czech Republic",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.62
+"CZE","Czech Republic",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.1
+"CZE","Czech Republic",2008,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.73
+"CZE","Czech Republic",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.18
+"CZE","Czech Republic",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.67
+"CZE","Czech Republic",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.1
+"CZE","Czech Republic",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.05
+"CZE","Czech Republic",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.24
+"CZE","Czech Republic",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.76
+"CZE","Czech Republic",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.9
+"CZE","Czech Republic",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.7
+"CZE","Czech Republic",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.6
+"CZE","Czech Republic",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.52
+"CZE","Czech Republic",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.7
+"CZE","Czech Republic",2008,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,103986
+"CZE","Czech Republic",2009,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,219659
+"CZE","Czech Republic",2010,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,153843
+"CZE","Czech Republic",2011,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,18284
+"CZE","Czech Republic",2012,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,9492
+"CZE","Czech Republic",2013,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,23298
+"CZE","Czech Republic",2014,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,34557
+"CZE","Czech Republic",2015,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,12433
+"CZE","Czech Republic",2016,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,9378
+"CZE","Czech Republic",2017,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,16306
+"CZE","Czech Republic",2018,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,18722
+"CZE","Czech Republic",2019,"VC","Growth capital and venture capital","EUR","Euro","Thousands",NA,23889
+"CZE","Czech Republic",2009,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,111.24
+"CZE","Czech Republic",2010,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-29.96
+"CZE","Czech Republic",2011,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-88.12
+"CZE","Czech Republic",2012,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-48.09
+"CZE","Czech Republic",2013,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,145.45
+"CZE","Czech Republic",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,48.33
+"CZE","Czech Republic",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-64.02
+"CZE","Czech Republic",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-24.57
+"CZE","Czech Republic",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,73.88
+"CZE","Czech Republic",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,14.82
+"CZE","Czech Republic",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,27.6
+"CZE","Czech Republic",2008,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,18
+"CZE","Czech Republic",2009,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,19
+"CZE","Czech Republic",2010,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,14
+"CZE","Czech Republic",2011,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,14
+"CZE","Czech Republic",2012,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,15
+"CZE","Czech Republic",2013,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,14
+"CZE","Czech Republic",2014,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,14
+"CZE","Czech Republic",2015,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,14
+"CZE","Czech Republic",2016,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,19
+"CZE","Czech Republic",2017,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,16
+"CZE","Czech Republic",2018,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,38
+"CZE","Czech Republic",2019,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,23.5
+"CZE","Czech Republic",2008,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,873
+"CZE","Czech Republic",2009,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1280
+"CZE","Czech Republic",2010,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1301
+"CZE","Czech Republic",2011,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1263
+"CZE","Czech Republic",2012,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1345
+"CZE","Czech Republic",2013,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1379
+"CZE","Czech Republic",2014,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1228
+"CZE","Czech Republic",2015,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1001
+"CZE","Czech Republic",2016,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,904
+"CZE","Czech Republic",2017,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,769
+"CZE","Czech Republic",2018,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,649
+"CZE","Czech Republic",2019,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,680
+"CZE","Czech Republic",2009,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,46.62
+"CZE","Czech Republic",2010,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,1.64
+"CZE","Czech Republic",2011,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-2.92
+"CZE","Czech Republic",2012,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,6.49
+"CZE","Czech Republic",2013,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,2.53
+"CZE","Czech Republic",2014,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-10.95
+"CZE","Czech Republic",2015,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-18.49
+"CZE","Czech Republic",2016,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-9.69
+"CZE","Czech Republic",2017,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-14.93
+"CZE","Czech Republic",2018,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-15.6
+"CZE","Czech Republic",2019,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,4.78
+"CZE","Czech Republic",2010,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,59.67
+"CZE","Czech Republic",2011,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,58.36
+"CZE","Czech Republic",2012,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,59.97
+"CZE","Czech Republic",2013,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,52.54
+"CZE","Czech Republic",2014,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,41.28
+"CZE","Czech Republic",2015,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,35.31
+"CZE","Czech Republic",2016,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,36.8
+"CZE","Czech Republic",2017,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,33.46
+"CZE","Czech Republic",2018,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,30.47
+"CZE","Czech Republic",2019,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,23.96
+"DNK","Denmark",2007,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,731.73
+"DNK","Denmark",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,809.36
+"DNK","Denmark",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,814.12
+"DNK","Denmark",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,812.01
+"DNK","Denmark",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,808.65
+"DNK","Denmark",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,829.69
+"DNK","Denmark",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,860.31
+"DNK","Denmark",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,914.33
+"DNK","Denmark",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,940.37
+"DNK","Denmark",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,988.77
+"DNK","Denmark",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,1033.2
+"DNK","Denmark",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,1079.52
+"DNK","Denmark",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","DKK","Danish Krone","Billions",NA,1126.74
+"DNK","Denmark",2007,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,26.43
+"DNK","Denmark",2008,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,26.27
+"DNK","Denmark",2009,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,22.42
+"DNK","Denmark",2010,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,22.7
+"DNK","Denmark",2011,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,24.1
+"DNK","Denmark",2012,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,20.15
+"DNK","Denmark",2013,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,22.06
+"DNK","Denmark",2014,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,34.04
+"DNK","Denmark",2015,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,35.46
+"DNK","Denmark",2016,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,30.85
+"DNK","Denmark",2017,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,29.2
+"DNK","Denmark",2018,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,26.7
+"DNK","Denmark",2019,"SME_LENDING_ST","Short-term loans, SMEs ","DKK","Danish Krone","Billions",NA,24.21
+"DNK","Denmark",2007,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,14.42
+"DNK","Denmark",2008,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,8.96
+"DNK","Denmark",2009,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,6.04
+"DNK","Denmark",2010,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,22.7
+"DNK","Denmark",2011,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,10.07
+"DNK","Denmark",2012,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,18.98
+"DNK","Denmark",2013,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,14.55
+"DNK","Denmark",2014,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,20.53
+"DNK","Denmark",2015,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,37.68
+"DNK","Denmark",2016,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,20.56
+"DNK","Denmark",2017,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,23.29
+"DNK","Denmark",2018,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,21.76
+"DNK","Denmark",2019,"SME_LENDING_LT","Long-term loans, SMEs ",NA,NA,"Billions",NA,43.7
+"DNK","Denmark",2007,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,210
+"DNK","Denmark",2008,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,178
+"DNK","Denmark",2009,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,209
+"DNK","Denmark",2010,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,769
+"DNK","Denmark",2011,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,1192
+"DNK","Denmark",2012,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,1222
+"DNK","Denmark",2013,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,685
+"DNK","Denmark",2014,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,652
+"DNK","Denmark",2015,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,668
+"DNK","Denmark",2016,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,620
+"DNK","Denmark",2017,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,514
+"DNK","Denmark",2018,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,529
+"DNK","Denmark",2019,"LOAN_GUARANTEES","Government loan guarantees, SMEs","DKK","Danish Krone","Millions",NA,512
+"DNK","Denmark",2011,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,17
+"DNK","Denmark",2012,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,61
+"DNK","Denmark",2013,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,251
+"DNK","Denmark",2014,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,699
+"DNK","Denmark",2015,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,1040
+"DNK","Denmark",2016,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,1213
+"DNK","Denmark",2017,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,1377
+"DNK","Denmark",2018,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,1225
+"DNK","Denmark",2019,"GUARANTEED_LOANS","Government guaranteed loans, SMEs","DKK","Danish Krone","Millions",NA,1246
+"DNK","Denmark",2007,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.97
+"DNK","Denmark",2008,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,6.59
+"DNK","Denmark",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.33
+"DNK","Denmark",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,4.39
+"DNK","Denmark",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,4.38
+"DNK","Denmark",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.91
+"DNK","Denmark",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.78
+"DNK","Denmark",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.44
+"DNK","Denmark",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.99
+"DNK","Denmark",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.74
+"DNK","Denmark",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.36
+"DNK","Denmark",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.27
+"DNK","Denmark",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,1.85
+"DNK","Denmark",2007,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.23
+"DNK","Denmark",2008,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.68
+"DNK","Denmark",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,3.63
+"DNK","Denmark",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.49
+"DNK","Denmark",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.4
+"DNK","Denmark",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.14
+"DNK","Denmark",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.73
+"DNK","Denmark",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.65
+"DNK","Denmark",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.53
+"DNK","Denmark",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.34
+"DNK","Denmark",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.24
+"DNK","Denmark",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,0.98
+"DNK","Denmark",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.07
+"DNK","Denmark",2007,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.75
+"DNK","Denmark",2008,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.91
+"DNK","Denmark",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.7
+"DNK","Denmark",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.9
+"DNK","Denmark",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.97
+"DNK","Denmark",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.77
+"DNK","Denmark",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,2.04
+"DNK","Denmark",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.79
+"DNK","Denmark",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.45
+"DNK","Denmark",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.4
+"DNK","Denmark",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.12
+"DNK","Denmark",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.29
+"DNK","Denmark",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.78
+"DNK","Denmark",2007,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,3
+"DNK","Denmark",2010,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,12
+"DNK","Denmark",2014,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,14
+"DNK","Denmark",2007,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,263.48
+"DNK","Denmark",2008,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,204.61
+"DNK","Denmark",2009,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,158.68
+"DNK","Denmark",2010,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,280.18
+"DNK","Denmark",2011,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,186.36
+"DNK","Denmark",2012,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,270.46
+"DNK","Denmark",2013,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,241.23
+"DNK","Denmark",2014,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,229.82
+"DNK","Denmark",2015,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,339.36
+"DNK","Denmark",2016,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,554.28
+"DNK","Denmark",2017,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,531.93
+"DNK","Denmark",2018,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,699.32
+"DNK","Denmark",2019,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,434.01
+"DNK","Denmark",2008,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-22.34
+"DNK","Denmark",2009,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-22.45
+"DNK","Denmark",2010,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,76.57
+"DNK","Denmark",2011,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-33.49
+"DNK","Denmark",2012,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,45.13
+"DNK","Denmark",2013,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-10.81
+"DNK","Denmark",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-4.73
+"DNK","Denmark",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,47.66
+"DNK","Denmark",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,63.33
+"DNK","Denmark",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-4.03
+"DNK","Denmark",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,31.47
+"DNK","Denmark",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-37.94
+"DNK","Denmark",2007,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,7.2
+"DNK","Denmark",2008,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,6.1
+"DNK","Denmark",2009,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,12
+"DNK","Denmark",2010,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,12
+"DNK","Denmark",2011,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,13
+"DNK","Denmark",2012,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,12
+"DNK","Denmark",2013,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,10
+"DNK","Denmark",2014,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,9
+"DNK","Denmark",2015,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,4
+"DNK","Denmark",2016,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,4
+"DNK","Denmark",2017,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,2
+"DNK","Denmark",2018,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,3
+"DNK","Denmark",2019,"PAYMENT_DELAYS","Payment delays, B2B","DAY","Days","Units",NA,3
+"DNK","Denmark",2009,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2563
+"DNK","Denmark",2010,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2583
+"DNK","Denmark",2011,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1938
+"DNK","Denmark",2012,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1958
+"DNK","Denmark",2013,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1698
+"DNK","Denmark",2014,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1328
+"DNK","Denmark",2015,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1584
+"DNK","Denmark",2016,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1853
+"DNK","Denmark",2017,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,1888
+"DNK","Denmark",2018,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2013
+"DNK","Denmark",2019,"SME_BANKRUPTCIES","Bankruptcies, SMEs","NBR","Number","Units",NA,2153
+"DNK","Denmark",2010,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,0.78
+"DNK","Denmark",2011,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-24.97
+"DNK","Denmark",2012,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,1.03
+"DNK","Denmark",2013,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-13.28
+"DNK","Denmark",2014,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-21.79
+"DNK","Denmark",2015,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,19.28
+"DNK","Denmark",2016,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,16.98
+"DNK","Denmark",2017,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,1.89
+"DNK","Denmark",2018,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,6.62
+"DNK","Denmark",2019,"SME_BANKRUPTCIES_GROWTH","Bankruptcies, SMEs (%, Year-on-year growth rate)","PC","Percentage","Units",NA,6.95
+"DNK","Denmark",2007,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,64.7
+"DNK","Denmark",2008,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,74.57
+"DNK","Denmark",2009,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,78.79
+"DNK","Denmark",2010,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,50
+"DNK","Denmark",2011,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,70.53
+"DNK","Denmark",2012,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,51.49
+"DNK","Denmark",2013,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,60.25
+"DNK","Denmark",2014,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,62.38
+"DNK","Denmark",2015,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,48.48
+"DNK","Denmark",2016,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,60
+"DNK","Denmark",2017,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,55.63
+"DNK","Denmark",2018,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,55.09
+"DNK","Denmark",2019,"ST_LENDING_PROPORTION","Share of short-term SME lending (% of total SME lending)","PC","Percentage","Units",NA,35.66
+"FIN","Finland",2007,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,48386
+"FIN","Finland",2008,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,57594
+"FIN","Finland",2009,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,54093
+"FIN","Finland",2010,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,56471
+"FIN","Finland",2011,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,60361
+"FIN","Finland",2012,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,63282
+"FIN","Finland",2013,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,66727
+"FIN","Finland",2014,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,68373
+"FIN","Finland",2015,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,72503
+"FIN","Finland",2016,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,76026
+"FIN","Finland",2017,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,78143
+"FIN","Finland",2018,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,85320
+"FIN","Finland",2019,"CORPORATE_LENDING_STOCK","Outstanding business loans, total ","EUR","Euro","Millions",NA,90977
+"FIN","Finland",2007,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,42698
+"FIN","Finland",2008,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,54368
+"FIN","Finland",2009,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,50850
+"FIN","Finland",2010,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,54422
+"FIN","Finland",2011,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,37438
+"FIN","Finland",2012,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,34856
+"FIN","Finland",2013,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,39516
+"FIN","Finland",2014,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,35560
+"FIN","Finland",2015,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,34976
+"FIN","Finland",2016,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,36447
+"FIN","Finland",2017,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,37087
+"FIN","Finland",2018,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,36256
+"FIN","Finland",2019,"CORPORATE_LENDING_FLOW","New business lending, total",NA,NA,"Millions",NA,36797
+"FIN","Finland",2007,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,11576
+"FIN","Finland",2008,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,11881
+"FIN","Finland",2009,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,9944
+"FIN","Finland",2010,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,8300
+"FIN","Finland",2011,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,7902
+"FIN","Finland",2012,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,7749
+"FIN","Finland",2013,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,7330
+"FIN","Finland",2014,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,6832
+"FIN","Finland",2015,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,8444
+"FIN","Finland",2016,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,9083
+"FIN","Finland",2017,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,9607
+"FIN","Finland",2018,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,10132
+"FIN","Finland",2019,"SME_LENDING_FLOW","New business lending, SMEs",NA,NA,"Millions",NA,9773
+"FIN","Finland",2007,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,27.11
+"FIN","Finland",2008,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,21.85
+"FIN","Finland",2009,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,19.56
+"FIN","Finland",2010,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,15.25
+"FIN","Finland",2011,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,21.11
+"FIN","Finland",2012,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,22.23
+"FIN","Finland",2013,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,18.55
+"FIN","Finland",2014,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,19.21
+"FIN","Finland",2015,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,24.14
+"FIN","Finland",2016,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,24.92
+"FIN","Finland",2017,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,25.9
+"FIN","Finland",2018,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,27.95
+"FIN","Finland",2019,"NEW_LENDING_PROPORTION","Share of new SME lending (% of total new lending)","PC","Percentage","Units",NA,26.56
+"FIN","Finland",2007,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,416
+"FIN","Finland",2008,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,438
+"FIN","Finland",2009,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,474
+"FIN","Finland",2010,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,447
+"FIN","Finland",2011,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,497
+"FIN","Finland",2012,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,408
+"FIN","Finland",2013,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,379
+"FIN","Finland",2014,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,476
+"FIN","Finland",2015,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,522
+"FIN","Finland",2016,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,570
+"FIN","Finland",2017,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,540
+"FIN","Finland",2018,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,563
+"FIN","Finland",2019,"LOAN_GUARANTEES","Government loan guarantees, SMEs","EUR","Euro","Millions",NA,611
+"FIN","Finland",2015,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,4.07
+"FIN","Finland",2016,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,3.07
+"FIN","Finland",2017,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,2.68
+"FIN","Finland",2018,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,3.72
+"FIN","Finland",2019,"NPL_CORPORATE","Non-performing loans, total (% of all business loans)","PC","Percentage","Units",NA,3.75
+"FIN","Finland",2015,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,1423
+"FIN","Finland",2016,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,1119
+"FIN","Finland",2017,"NPL_SMES","Non-performing loans, SMEs (% of all SME loans)",NA,NA,"Units",NA,994
+"FIN","Finland",2007,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.39
+"FIN","Finland",2008,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,5.58
+"FIN","Finland",2009,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.02
+"FIN","Finland",2010,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.66
+"FIN","Finland",2011,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.23
+"FIN","Finland",2012,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.86
+"FIN","Finland",2013,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.81
+"FIN","Finland",2014,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.94
+"FIN","Finland",2015,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.96
+"FIN","Finland",2016,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.76
+"FIN","Finland",2017,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,2.75
+"FIN","Finland",2018,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.21
+"FIN","Finland",2019,"INTEREST_RATE_SMES","Interest rate, SMEs","PC","Percentage","Units",NA,3.29
+"FIN","Finland",2007,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,4.83
+"FIN","Finland",2008,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,5.08
+"FIN","Finland",2009,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.24
+"FIN","Finland",2010,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.86
+"FIN","Finland",2011,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.59
+"FIN","Finland",2012,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,2.07
+"FIN","Finland",2013,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.91
+"FIN","Finland",2014,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.92
+"FIN","Finland",2015,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.46
+"FIN","Finland",2016,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.33
+"FIN","Finland",2017,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.35
+"FIN","Finland",2018,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.25
+"FIN","Finland",2019,"INTEREST_RATE_LARGEFIRMS","Interest rate, large firms","PC","Percentage","Units",NA,1.37
+"FIN","Finland",2007,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.56
+"FIN","Finland",2008,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.5
+"FIN","Finland",2009,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.78
+"FIN","Finland",2010,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.8
+"FIN","Finland",2011,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.64
+"FIN","Finland",2012,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.79
+"FIN","Finland",2013,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,0.9
+"FIN","Finland",2014,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.02
+"FIN","Finland",2015,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.5
+"FIN","Finland",2016,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.43
+"FIN","Finland",2017,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.4
+"FIN","Finland",2018,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.96
+"FIN","Finland",2019,"INTEREST_RATE_SPREAD","Interest rate spread (% points)","PC","Percentage","Units",NA,1.92
+"FIN","Finland",2010,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,33
+"FIN","Finland",2011,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,34
+"FIN","Finland",2012,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,35
+"FIN","Finland",2013,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,41
+"FIN","Finland",2014,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,41
+"FIN","Finland",2015,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,38
+"FIN","Finland",2016,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,35
+"FIN","Finland",2017,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,34
+"FIN","Finland",2018,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,31
+"FIN","Finland",2019,"COLLATERAL","Collateral, SMEs (% of SMEs needing collateral to obtain bank lending)",NA,NA,"Units",NA,27
+"FIN","Finland",2011,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,1
+"FIN","Finland",2012,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,5
+"FIN","Finland",2013,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,10
+"FIN","Finland",2014,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,8
+"FIN","Finland",2015,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,3
+"FIN","Finland",2016,"REJECTION","Rejection rate (1-(SME loans authorised/ requested))","PC","Percentage","Units",NA,4
+"FIN","Finland",2007,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,189
+"FIN","Finland",2008,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,218
+"FIN","Finland",2009,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,146
+"FIN","Finland",2010,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,351
+"FIN","Finland",2011,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,148
+"FIN","Finland",2012,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,185
+"FIN","Finland",2013,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,173
+"FIN","Finland",2014,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,168
+"FIN","Finland",2015,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,190
+"FIN","Finland",2016,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,219
+"FIN","Finland",2017,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,203
+"FIN","Finland",2018,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,368
+"FIN","Finland",2019,"VC","Growth capital and venture capital","EUR","Euro","Millions",NA,596
+"FIN","Finland",2008,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,15.34
+"FIN","Finland",2009,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-33.03
+"FIN","Finland",2010,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,140.41
+"FIN","Finland",2011,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-57.83
+"FIN","Finland",2012,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,25
+"FIN","Finland",2013,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-6.49
+"FIN","Finland",2014,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-2.89
+"FIN","Finland",2015,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,13.1
+"FIN","Finland",2016,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,15.26
+"FIN","Finland",2017,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,-7.31
+"FIN","Finland",2018,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,81.28
+"FIN","Finland",2019,"VC_GROWTH","Growth capital and venture capital (%, Year-on-year growth rate)","PC","Percentage","Units",NA,61.96
