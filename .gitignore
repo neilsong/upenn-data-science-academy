@@ -7,3 +7,5 @@ figure-latex
 quizzes/
 *.Rhistory
 *.RData
+*_cache/
+*_files/
