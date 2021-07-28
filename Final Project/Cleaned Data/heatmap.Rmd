@@ -26,7 +26,7 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 ```
 
 ```{r}
-GDP <- fread('GDP_per_capita.csv')
+GDP <- fread('Final GDP 2019 of all Countries in USD.csv')
 
 mapped_data <- joinCountryData2Map(GDP, joinCode = "ISO3", 
     nameJoinColumn = "LOCATION")
