@@ -8,36 +8,28 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 ```
 
 ```{r}
-GDP <- fread('GDP_per_capita_cleaned.csv')
-GDP <- GDP[Period=="Q1-2019"]
-GDP <- GDP[MEASURE!="HCPCARSA"]
-GDP <- GDP[Country!="G7"]
-GDP <- GDP[Country!="NAFTA"]
-GDP <- GDP[Country!="OECD - Total"]
-GDP <- GDP[Country!="OECD - Europe"]
-GDP <- GDP[Country!="European Union – 27 countries (from 01/02/2020)"]
-GDP <- GDP[Country!="Euro area (19 countries)"]
+# GDP <- fread('GDP_per_capita_cleaned.csv')
+# GDP <- GDP[Period=="Q1-2019"]
+# GDP <- GDP[MEASURE!="HCPCARSA"]
+# GDP <- GDP[Country!="G7"]
+# GDP <- GDP[Country!="NAFTA"]
+# GDP <- GDP[Country!="OECD - Total"]
+# GDP <- GDP[Country!="OECD - Europe"]
+# GDP <- GDP[Country!="European Union – 27 countries (from 01/02/2020)"]
+# GDP <- GDP[Country!="Euro area (19 countries)"]
 
-mapped_data <- joinCountryData2Map(GDP, joinCode = "NAME", 
-    nameJoinColumn = "Country")
+# mapped_data <- joinCountryData2Map(GDP, joinCode = "NAME", 
+#     nameJoinColumn = "Country")
 
-par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
-mapCountryData(mapped_data, nameColumnToPlot = "Value")
+# par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
+# mapCountryData(mapped_data, nameColumnToPlot = "Value")
 ```
 
 ```{r}
-GDP <- fread('GDP_per_capita_cleaned.csv')
-GDP <- GDP[Period=="Q1-2019"]
-GDP <- GDP[MEASURE!="HCPCARSA"]
-GDP <- GDP[Country!="G7"]
-GDP <- GDP[Country!="NAFTA"]
-GDP <- GDP[Country!="OECD - Total"]
-GDP <- GDP[Country!="OECD - Europe"]
-GDP <- GDP[Country!="European Union – 27 countries (from 01/02/2020)"]
-GDP <- GDP[Country!="Euro area (19 countries)"]
+GDP <- fread('GDP_per_capita.csv')
 
-mapped_data <- joinCountryData2Map(GDP, joinCode = "NAME", 
-    nameJoinColumn = "Country")
+mapped_data <- joinCountryData2Map(GDP, joinCode = "ISO3", 
+    nameJoinColumn = "LOCATION")
 
 par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
 mapCountryData(mapped_data, nameColumnToPlot = "Value")
