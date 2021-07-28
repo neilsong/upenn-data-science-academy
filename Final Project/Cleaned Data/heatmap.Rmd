@@ -1,5 +1,5 @@
 ```{r setup, include=FALSE, echo = FALSE}
-knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=8, fig.height=4, warning=FALSE)
+knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=9, fig.height=6, warning=FALSE)
 options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
