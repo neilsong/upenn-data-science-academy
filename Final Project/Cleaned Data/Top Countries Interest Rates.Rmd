@@ -15,7 +15,7 @@ pacman::p_load(ISLR, readxl, magrittr, dplyr, ggplot2, ggthemes,car,gapminder)
 
 
 ```{r Reading data in}
- data <- read.csv("~/Documents/GitHub/Penn/upenn-data-science-academy/Final Project/Data/OECD Data/Interest_rates_top_countries.csv", header=T, stringsAsFactors = FALSE)
+ data <- read.csv("Data/Final Project/Data/OECD Data/Interest_rates_top_countries.csv", header=T, stringsAsFactors = FALSE)
 
 data_col <- data %>% select(Country,TIME,Value)
 
