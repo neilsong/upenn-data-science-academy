@@ -58,9 +58,16 @@ newdata[newdata$Country=="United States" & newdata$TIME=="2018-02",]
 
 ```{r}
 ## graphing only United States: will work on putting together other countries tomorrow
+
+#Graph top countries
 #gdata <- newdata[grep("United",newdata$Country),]
-gdata <- newdata[newdata$Country=="United States",]
+gdata1 <- newdata[newdata$Country=="United States",]
 dim(gdata)
+
+gdata2 <- newdata[grep("China",newdata$Country),]
+gdata2 <- newdata[newdata$Country=="China",]
+dim(gdata)
+
 
 ```
 
