@@ -8,18 +8,28 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 ```
 
 ```{r}
+<<<<<<< HEAD
 cc <- fread('../oecd-new/Consumer confidence_monthly.csv')
 infl <- fread('../oecd-new/monthly-inflation.csv')
 unemployment <- fread('../oecd-new/monthly-unemployment.csv')
 interest_rate <- fread('../oecd-new/monthly-inflation.csv')
+=======
+gdp <- fread('GDP_per_capita_cleaned.csv')
+cc <- fread('../oecd-new/Consumer confidence_monthly.csv')
+infl <- fread('../oecd-new/CPI_Inflation_monthly.csv')
+imex <- fread('../oecd-new/')
+dfs <- df %>% arrange(desc(Value)) %>% select(LOCATION, Country, Value)
+>>>>>>> parent of b71fe77 (covid xgboost model)
 
 dfs <- df %>% arrange(desc(Value)) %>% select(LOCATION, Country, Value)
 
+rate <- rate[Country %in% unique(dfs$Country)]
 
 rate <- rate[Country %in% unique(dfs$Country)]
 
 
 
+<<<<<<< HEAD
 
 # rate <- rate[Frequency != "Quarterly"]
 # rate <- rate %>% 
@@ -34,4 +44,19 @@ rate <- rate[Country %in% unique(dfs$Country)]
 # rate <- rate %>%
 #     filter(unit!="Index")
 
+=======
+# rate <- rate[Frequency != "Quarterly"]
+# rate <- rate %>% 
+#     select(Subject, LOCATION, Country, Time, Unit, Value) %>%
+#     rename(code = LOCATION, country=Country, month = Time, value = Value, unit=Unit, sub=Subject)
+
+# subs <- c("Exports in goods, s.a.", "Imports in goods, s.a.", "Consumer prices: all items", "Long-term interest rate", "Monthly unemployment rate: all persons, s.a.", "Consumer confidence indicator, s.a.", "Producer prices - Manufacturing ", "Manufacturing - Confidence indicator, s.a.", "GDP (ratio to trend, smoothed)")
+
+# rate <- rate %>%
+#     filter(sub %in% subs)
+
+# rate <- rate %>%
+#     filter(unit!="Index")
+
+>>>>>>> parent of b71fe77 (covid xgboost model)
 ```
