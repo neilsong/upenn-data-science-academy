@@ -112,7 +112,7 @@ gdata3 %>%
 
 ```{r}
 
-gdatatop <- newdata[,newdata$Country=="United Kingdom" & newdata$Country=="United States" & newdata$Country=="India" & newdata$Country=="France",]
+gdatatop <- newdata[newdata$Country=="United Kingdom" | newdata$Country=="United States" | newdata$Country=="India" | newdata$Country=="France",]
 
 gdatatop %>% 
   ggplot(aes(x = month, y = Value)) +
