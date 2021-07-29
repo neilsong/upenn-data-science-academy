@@ -4,7 +4,7 @@ options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
 pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
-               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies, DiagrammeR)
+               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies,xg, DiagrammeR)
 ```
 
 ```{r}
