@@ -1,0 +1,3457 @@
+"country","month","newcase"
+"Afghanistan","2020-02",1
+"Afghanistan","2020-03",174
+"Afghanistan","2020-04",1952
+"Afghanistan","2020-05",13081
+"Afghanistan","2020-06",16299
+"Afghanistan","2020-07",5158
+"Afghanistan","2020-08",1494
+"Afghanistan","2020-09",1109
+"Afghanistan","2020-10",2157
+"Afghanistan","2020-11",4849
+"Afghanistan","2020-12",5252
+"Afghanistan","2021-01",3497
+"Afghanistan","2021-02",691
+"Afghanistan","2021-03",740
+"Afghanistan","2021-04",3291
+"Afghanistan","2021-05",12093
+"Afghanistan","2021-06",46821
+"Afghanistan","2021-07",26349
+"Africa","2020-02",3
+"Africa","2020-03",5778
+"Africa","2020-04",32972
+"Africa","2020-05",107806
+"Africa","2020-06",258342
+"Africa","2020-07",523179
+"Africa","2020-08",324155
+"Africa","2020-09",229700
+"Africa","2020-10",303539
+"Africa","2020-11",388849
+"Africa","2020-12",586136
+"Africa","2021-01",809158
+"Africa","2021-02",327690
+"Africa","2021-03",320006
+"Africa","2021-04",340386
+"Africa","2021-05",282761
+"Africa","2021-06",664154
+"Africa","2021-07",1028996
+"Albania","2020-03",243
+"Albania","2020-04",530
+"Albania","2020-05",364
+"Albania","2020-06",1398
+"Albania","2020-07",2741
+"Albania","2020-08",4237
+"Albania","2020-09",4136
+"Albania","2020-10",7226
+"Albania","2020-11",17307
+"Albania","2020-12",20134
+"Albania","2021-01",19811
+"Albania","2021-02",29040
+"Albania","2021-03",17990
+"Albania","2021-04",5928
+"Albania","2021-05",1230
+"Albania","2021-06",206
+"Albania","2021-07",401
+"Algeria","2020-02",1
+"Algeria","2020-03",715
+"Algeria","2020-04",3290
+"Algeria","2020-05",5388
+"Algeria","2020-06",4513
+"Algeria","2020-07",16487
+"Algeria","2020-08",14100
+"Algeria","2020-09",7036
+"Algeria","2020-10",6412
+"Algeria","2020-11",25257
+"Algeria","2020-12",16411
+"Algeria","2021-01",7729
+"Algeria","2021-02",5753
+"Algeria","2021-03",4100
+"Algeria","2021-04",4916
+"Algeria","2021-05",6805
+"Algeria","2021-06",10713
+"Algeria","2021-07",25578
+"Andorra","2020-03",376
+"Andorra","2020-04",369
+"Andorra","2020-05",19
+"Andorra","2020-06",91
+"Andorra","2020-07",70
+"Andorra","2020-08",251
+"Andorra","2020-09",874
+"Andorra","2020-10",2706
+"Andorra","2020-11",1989
+"Andorra","2020-12",1304
+"Andorra","2021-01",1888
+"Andorra","2021-02",929
+"Andorra","2021-03",1144
+"Andorra","2021-04",1222
+"Andorra","2021-05",495
+"Andorra","2021-06",184
+"Andorra","2021-07",675
+"Angola","2020-03",7
+"Angola","2020-04",20
+"Angola","2020-05",59
+"Angola","2020-06",198
+"Angola","2020-07",864
+"Angola","2020-08",1506
+"Angola","2020-09",2318
+"Angola","2020-10",5833
+"Angola","2020-11",4334
+"Angola","2020-12",2414
+"Angola","2021-01",2243
+"Angola","2021-02",1011
+"Angola","2021-03",1504
+"Angola","2021-04",4341
+"Angola","2021-05",7899
+"Angola","2021-06",4298
+"Angola","2021-07",3261
+"Antigua and Barbuda","2020-03",7
+"Antigua and Barbuda","2020-04",17
+"Antigua and Barbuda","2020-05",2
+"Antigua and Barbuda","2020-06",43
+"Antigua and Barbuda","2020-07",22
+"Antigua and Barbuda","2020-08",3
+"Antigua and Barbuda","2020-09",7
+"Antigua and Barbuda","2020-10",27
+"Antigua and Barbuda","2020-11",13
+"Antigua and Barbuda","2020-12",18
+"Antigua and Barbuda","2021-01",75
+"Antigua and Barbuda","2021-02",496
+"Antigua and Barbuda","2021-03",406
+"Antigua and Barbuda","2021-04",96
+"Antigua and Barbuda","2021-05",28
+"Antigua and Barbuda","2021-06",3
+"Antigua and Barbuda","2021-07",25
+"Argentina","2020-03",1054
+"Argentina","2020-04",3374
+"Argentina","2020-05",12423
+"Argentina","2020-06",47679
+"Argentina","2020-07",126772
+"Argentina","2020-08",226433
+"Argentina","2020-09",333266
+"Argentina","2020-10",415923
+"Argentina","2020-11",257609
+"Argentina","2020-12",200981
+"Argentina","2021-01",301725
+"Argentina","2021-02",180126
+"Argentina","2021-03",241456
+"Argentina","2021-04",628542
+"Argentina","2021-05",804421
+"Argentina","2021-06",688590
+"Argentina","2021-07",405553
+"Armenia","2020-03",532
+"Armenia","2020-04",1534
+"Armenia","2020-05",7216
+"Armenia","2020-06",16260
+"Armenia","2020-07",13008
+"Armenia","2020-08",5231
+"Armenia","2020-09",6578
+"Armenia","2020-10",39454
+"Armenia","2020-11",45311
+"Armenia","2020-12",24285
+"Armenia","2021-01",7617
+"Armenia","2021-02",5032
+"Armenia","2021-03",20581
+"Armenia","2021-04",23425
+"Armenia","2021-05",6606
+"Armenia","2021-06",2425
+"Armenia","2021-07",3995
+"Asia","2020-01",9333
+"Asia","2020-02",73831
+"Asia","2020-03",95313
+"Asia","2020-04",341931
+"Asia","2020-05",617814
+"Asia","2020-06",1166426
+"Asia","2020-07",1991314
+"Asia","2020-08",2817359
+"Asia","2020-09",3554777
+"Asia","2020-10",3045973
+"Asia","2020-11",3076661
+"Asia","2020-12",3100559
+"Asia","2021-01",2398209
+"Asia","2021-02",1908902
+"Asia","2021-03",3484950
+"Asia","2021-04",11019175
+"Asia","2021-05",11739557
+"Asia","2021-06",4554962
+"Asia","2021-07",5142339
+"Australia","2020-01",9
+"Australia","2020-02",16
+"Australia","2020-03",4534
+"Australia","2020-04",2207
+"Australia","2020-05",436
+"Australia","2020-06",718
+"Australia","2020-07",9360
+"Australia","2020-08",8539
+"Australia","2020-09",1277
+"Australia","2020-10",499
+"Australia","2020-11",317
+"Australia","2020-12",513
+"Australia","2021-01",393
+"Australia","2021-02",160
+"Australia","2021-03",344
+"Australia","2021-04",489
+"Australia","2021-05",307
+"Australia","2021-06",525
+"Australia","2021-07",2830
+"Austria","2020-02",9
+"Austria","2020-03",10171
+"Austria","2020-04",5272
+"Austria","2020-05",1279
+"Austria","2020-06",1035
+"Austria","2020-07",3364
+"Austria","2020-08",6308
+"Austria","2020-09",17375
+"Austria","2020-10",60112
+"Austria","2020-11",177531
+"Austria","2020-12",78359
+"Austria","2021-01",53583
+"Austria","2021-02",45042
+"Austria","2021-03",86789
+"Austria","2021-04",72641
+"Austria","2021-05",25945
+"Austria","2021-06",5597
+"Austria","2021-07",6537
+"Azerbaijan","2020-03",298
+"Azerbaijan","2020-04",1506
+"Azerbaijan","2020-05",3690
+"Azerbaijan","2020-06",12030
+"Azerbaijan","2020-07",14354
+"Azerbaijan","2020-08",4557
+"Azerbaijan","2020-09",3794
+"Azerbaijan","2020-10",15040
+"Azerbaijan","2020-11",65907
+"Azerbaijan","2020-12",97524
+"Azerbaijan","2021-01",11519
+"Azerbaijan","2021-02",4318
+"Azerbaijan","2021-03",27176
+"Azerbaijan","2021-04",57396
+"Azerbaijan","2021-05",14847
+"Azerbaijan","2021-06",2091
+"Azerbaijan","2021-07",5136
+"Bahamas","2020-03",14
+"Bahamas","2020-04",67
+"Bahamas","2020-05",21
+"Bahamas","2020-06",2
+"Bahamas","2020-07",470
+"Bahamas","2020-08",1643
+"Bahamas","2020-09",1906
+"Bahamas","2020-10",2591
+"Bahamas","2020-11",827
+"Bahamas","2020-12",330
+"Bahamas","2021-01",303
+"Bahamas","2021-02",345
+"Bahamas","2021-03",600
+"Bahamas","2021-04",1334
+"Bahamas","2021-05",1343
+"Bahamas","2021-06",790
+"Bahamas","2021-07",1666
+"Bahrain","2020-02",41
+"Bahrain","2020-03",526
+"Bahrain","2020-04",2473
+"Bahrain","2020-05",8358
+"Bahrain","2020-06",15360
+"Bahrain","2020-07",14224
+"Bahrain","2020-08",10990
+"Bahrain","2020-09",18892
+"Bahrain","2020-10",10781
+"Bahrain","2020-11",5311
+"Bahrain","2020-12",5719
+"Bahrain","2021-01",10382
+"Bahrain","2021-02",19337
+"Bahrain","2021-03",22051
+"Bahrain","2021-04",32489
+"Bahrain","2021-05",63597
+"Bahrain","2021-06",25296
+"Bahrain","2021-07",2904
+"Bangladesh","2020-03",51
+"Bangladesh","2020-04",7616
+"Bangladesh","2020-05",39486
+"Bangladesh","2020-06",98330
+"Bangladesh","2020-07",92178
+"Bangladesh","2020-08",75335
+"Bangladesh","2020-09",50483
+"Bangladesh","2020-10",44205
+"Bangladesh","2020-11",57248
+"Bangladesh","2020-12",48578
+"Bangladesh","2021-01",21629
+"Bangladesh","2021-02",11077
+"Bangladesh","2021-03",65079
+"Bangladesh","2021-04",147837
+"Bangladesh","2021-05",41408
+"Bangladesh","2021-06",112718
+"Bangladesh","2021-07",281494
+"Barbados","2020-03",34
+"Barbados","2020-04",47
+"Barbados","2020-05",11
+"Barbados","2020-06",5
+"Barbados","2020-07",13
+"Barbados","2020-08",64
+"Barbados","2020-09",16
+"Barbados","2020-10",47
+"Barbados","2020-11",39
+"Barbados","2020-12",107
+"Barbados","2021-01",1162
+"Barbados","2021-02",1523
+"Barbados","2021-03",584
+"Barbados","2021-04",203
+"Barbados","2021-05",162
+"Barbados","2021-06",64
+"Barbados","2021-07",278
+"Belarus","2020-02",1
+"Belarus","2020-03",151
+"Belarus","2020-04",13875
+"Belarus","2020-05",28529
+"Belarus","2020-06",19562
+"Belarus","2020-07",5690
+"Belarus","2020-08",4035
+"Belarus","2020-09",6788
+"Belarus","2020-10",19851
+"Belarus","2020-11",38165
+"Belarus","2020-12",57637
+"Belarus","2021-01",54052
+"Belarus","2021-02",38970
+"Belarus","2021-03",34501
+"Belarus","2021-04",36931
+"Belarus","2021-05",35701
+"Belarus","2021-06",22750
+"Belarus","2021-07",24692
+"Belgium","2020-02",1
+"Belgium","2020-03",12774
+"Belgium","2020-04",35744
+"Belgium","2020-05",9862
+"Belgium","2020-06",3046
+"Belgium","2020-07",7324
+"Belgium","2020-08",16485
+"Belgium","2020-09",33216
+"Belgium","2020-10",310777
+"Belgium","2020-11",148116
+"Belgium","2020-12",69151
+"Belgium","2021-01",63657
+"Belgium","2021-02",61358
+"Belgium","2021-03",110942
+"Belgium","2021-04",107776
+"Belgium","2021-05",71772
+"Belgium","2021-06",23130
+"Belgium","2021-07",33899
+"Belize","2020-03",3
+"Belize","2020-04",15
+"Belize","2020-05",0
+"Belize","2020-06",6
+"Belize","2020-07",24
+"Belize","2020-08",959
+"Belize","2020-09",985
+"Belize","2020-10",1495
+"Belize","2020-11",2367
+"Belize","2020-12",4922
+"Belize","2021-01",1132
+"Belize","2021-02",385
+"Belize","2021-03",163
+"Belize","2021-04",212
+"Belize","2021-05",141
+"Belize","2021-06",442
+"Belize","2021-07",732
+"Benin","2020-03",9
+"Benin","2020-04",55
+"Benin","2020-05",168
+"Benin","2020-06",967
+"Benin","2020-07",606
+"Benin","2020-08",340
+"Benin","2020-09",212
+"Benin","2020-10",286
+"Benin","2020-11",372
+"Benin","2020-12",236
+"Benin","2021-01",642
+"Benin","2021-02",1541
+"Benin","2021-03",1666
+"Benin","2021-04",721
+"Benin","2021-05",237
+"Benin","2021-06",141
+"Benin","2021-07",125
+"Bhutan","2020-03",4
+"Bhutan","2020-04",3
+"Bhutan","2020-05",36
+"Bhutan","2020-06",34
+"Bhutan","2020-07",24
+"Bhutan","2020-08",124
+"Bhutan","2020-09",57
+"Bhutan","2020-10",67
+"Bhutan","2020-11",61
+"Bhutan","2020-12",260
+"Bhutan","2021-01",189
+"Bhutan","2021-02",8
+"Bhutan","2021-03",6
+"Bhutan","2021-04",201
+"Bhutan","2021-05",546
+"Bhutan","2021-06",480
+"Bhutan","2021-07",400
+"Bolivia","2020-03",107
+"Bolivia","2020-04",1060
+"Bolivia","2020-05",8815
+"Bolivia","2020-06",23237
+"Bolivia","2020-07",43570
+"Bolivia","2020-08",39809
+"Bolivia","2020-09",18713
+"Bolivia","2020-10",6446
+"Bolivia","2020-11",2951
+"Bolivia","2020-12",15416
+"Bolivia","2021-01",56711
+"Bolivia","2021-02",32175
+"Bolivia","2021-03",23401
+"Bolivia","2021-04",31321
+"Bolivia","2021-05",67547
+"Bolivia","2021-06",68345
+"Bolivia","2021-07",30400
+"Bosnia and Herzegovina","2020-03",420
+"Bosnia and Herzegovina","2020-04",1337
+"Bosnia and Herzegovina","2020-05",753
+"Bosnia and Herzegovina","2020-06",1943
+"Bosnia and Herzegovina","2020-07",7423
+"Bosnia and Herzegovina","2020-08",8088
+"Bosnia and Herzegovina","2020-09",7505
+"Bosnia and Herzegovina","2020-10",22621
+"Bosnia and Herzegovina","2020-11",37811
+"Bosnia and Herzegovina","2020-12",23084
+"Bosnia and Herzegovina","2021-01",10512
+"Bosnia and Herzegovina","2021-02",9482
+"Bosnia and Herzegovina","2021-03",38647
+"Bosnia and Herzegovina","2021-04",28835
+"Bosnia and Herzegovina","2021-05",5551
+"Bosnia and Herzegovina","2021-06",1010
+"Bosnia and Herzegovina","2021-07",501
+"Botswana","2020-03",4
+"Botswana","2020-04",19
+"Botswana","2020-05",12
+"Botswana","2020-06",192
+"Botswana","2020-07",577
+"Botswana","2020-08",829
+"Botswana","2020-09",1539
+"Botswana","2020-10",3470
+"Botswana","2020-11",4100
+"Botswana","2020-12",4063
+"Botswana","2021-01",6488
+"Botswana","2021-02",7078
+"Botswana","2021-03",11477
+"Botswana","2021-04",7086
+"Botswana","2021-05",8039
+"Botswana","2021-06",14707
+"Botswana","2021-07",32444
+"Brazil","2020-02",2
+"Brazil","2020-03",5715
+"Brazil","2020-04",81470
+"Brazil","2020-05",427662
+"Brazil","2020-06",887192
+"Brazil","2020-07",1260444
+"Brazil","2020-08",1245787
+"Brazil","2020-09",902663
+"Brazil","2020-10",724670
+"Brazil","2020-11",800273
+"Brazil","2020-12",1340095
+"Brazil","2021-01",1528758
+"Brazil","2021-02",1346528
+"Brazil","2021-03",2197488
+"Brazil","2021-04",1910264
+"Brazil","2021-05",1886543
+"Brazil","2021-06",2011587
+"Brazil","2021-07",1191932
+"Brunei","2020-03",129
+"Brunei","2020-04",9
+"Brunei","2020-05",3
+"Brunei","2020-06",0
+"Brunei","2020-07",0
+"Brunei","2020-08",3
+"Brunei","2020-09",2
+"Brunei","2020-10",2
+"Brunei","2020-11",2
+"Brunei","2020-12",7
+"Brunei","2021-01",23
+"Brunei","2021-02",6
+"Brunei","2021-03",26
+"Brunei","2021-04",12
+"Brunei","2021-05",18
+"Brunei","2021-06",18
+"Brunei","2021-07",73
+"Bulgaria","2020-03",399
+"Bulgaria","2020-04",1107
+"Bulgaria","2020-05",1007
+"Bulgaria","2020-06",2476
+"Bulgaria","2020-07",6701
+"Bulgaria","2020-08",4576
+"Bulgaria","2020-09",4567
+"Bulgaria","2020-10",32011
+"Bulgaria","2020-11",92456
+"Bulgaria","2020-12",56966
+"Bulgaria","2021-01",16482
+"Bulgaria","2021-02",28290
+"Bulgaria","2021-03",95595
+"Bulgaria","2021-04",61747
+"Bulgaria","2021-05",14197
+"Bulgaria","2021-06",3252
+"Bulgaria","2021-07",2250
+"Burkina Faso","2020-03",261
+"Burkina Faso","2020-04",384
+"Burkina Faso","2020-05",202
+"Burkina Faso","2020-06",115
+"Burkina Faso","2020-07",144
+"Burkina Faso","2020-08",262
+"Burkina Faso","2020-09",688
+"Burkina Faso","2020-10",444
+"Burkina Faso","2020-11",386
+"Burkina Faso","2020-12",3821
+"Burkina Faso","2021-01",3975
+"Burkina Faso","2021-02",1300
+"Burkina Faso","2021-03",735
+"Burkina Faso","2021-04",593
+"Burkina Faso","2021-05",124
+"Burkina Faso","2021-06",45
+"Burkina Faso","2021-07",77
+"Burundi","2020-03",2
+"Burundi","2020-04",9
+"Burundi","2020-05",52
+"Burundi","2020-06",107
+"Burundi","2020-07",217
+"Burundi","2020-08",58
+"Burundi","2020-09",63
+"Burundi","2020-10",77
+"Burundi","2020-11",103
+"Burundi","2020-12",130
+"Burundi","2021-01",814
+"Burundi","2021-02",577
+"Burundi","2021-03",601
+"Burundi","2021-04",1185
+"Burundi","2021-05",795
+"Burundi","2021-06",662
+"Burundi","2021-07",1121
+"Cambodia","2020-01",1
+"Cambodia","2020-02",0
+"Cambodia","2020-03",108
+"Cambodia","2020-04",13
+"Cambodia","2020-05",3
+"Cambodia","2020-06",16
+"Cambodia","2020-07",98
+"Cambodia","2020-08",35
+"Cambodia","2020-09",3
+"Cambodia","2020-10",14
+"Cambodia","2020-11",35
+"Cambodia","2020-12",52
+"Cambodia","2021-01",88
+"Cambodia","2021-02",354
+"Cambodia","2021-03",1620
+"Cambodia","2021-04",10962
+"Cambodia","2021-05",16692
+"Cambodia","2021-06",20291
+"Cambodia","2021-07",24001
+"Cameroon","2020-03",193
+"Cameroon","2020-04",1639
+"Cameroon","2020-05",4072
+"Cameroon","2020-06",6688
+"Cameroon","2020-07",4663
+"Cameroon","2020-08",1887
+"Cameroon","2020-09",1696
+"Cameroon","2020-10",955
+"Cameroon","2020-11",2652
+"Cameroon","2020-12",1832
+"Cameroon","2021-01",3340
+"Cameroon","2021-02",6097
+"Cameroon","2021-03",11955
+"Cameroon","2021-04",24581
+"Cameroon","2021-05",6679
+"Cameroon","2021-06",1929
+"Cameroon","2021-07",1206
+"Canada","2020-01",4
+"Canada","2020-02",17
+"Canada","2020-03",9225
+"Canada","2020-04",47470
+"Canada","2020-05",35772
+"Canada","2020-06",13541
+"Canada","2020-07",12268
+"Canada","2020-08",12552
+"Canada","2020-09",31887
+"Canada","2020-10",75455
+"Canada","2020-11",144517
+"Canada","2020-12",204721
+"Canada","2021-01",196306
+"Canada","2021-02",87508
+"Canada","2021-03",118250
+"Canada","2021-04",239812
+"Canada","2021-05",160509
+"Canada","2021-06",33356
+"Canada","2021-07",12233
+"Cape Verde","2020-03",6
+"Cape Verde","2020-04",115
+"Cape Verde","2020-05",314
+"Cape Verde","2020-06",792
+"Cape Verde","2020-07",1224
+"Cape Verde","2020-08",1433
+"Cape Verde","2020-09",2140
+"Cape Verde","2020-10",2769
+"Cape Verde","2020-11",1968
+"Cape Verde","2020-12",1079
+"Cape Verde","2021-01",2230
+"Cape Verde","2021-02",1330
+"Cape Verde","2021-03",2070
+"Cape Verde","2021-04",6412
+"Cape Verde","2021-05",6557
+"Cape Verde","2021-06",2018
+"Cape Verde","2021-07",1169
+"Central African Republic","2020-03",3
+"Central African Republic","2020-04",47
+"Central African Republic","2020-05",961
+"Central African Republic","2020-06",2734
+"Central African Republic","2020-07",863
+"Central African Republic","2020-08",103
+"Central African Republic","2020-09",118
+"Central African Republic","2020-10",37
+"Central African Republic","2020-11",47
+"Central African Republic","2020-12",50
+"Central African Republic","2021-01",18
+"Central African Republic","2021-02",23
+"Central African Republic","2021-03",157
+"Central African Republic","2021-04",1250
+"Central African Republic","2021-05",680
+"Central African Republic","2021-06",50
+"Central African Republic","2021-07",7
+"Chad","2020-03",7
+"Chad","2020-04",66
+"Chad","2020-05",705
+"Chad","2020-06",88
+"Chad","2020-07",70
+"Chad","2020-08",77
+"Chad","2020-09",187
+"Chad","2020-10",283
+"Chad","2020-11",205
+"Chad","2020-12",425
+"Chad","2021-01",1263
+"Chad","2021-02",597
+"Chad","2021-03",560
+"Chad","2021-04",284
+"Chad","2021-05",114
+"Chad","2021-06",20
+"Chad","2021-07",20
+"Chile","2020-02",2
+"Chile","2020-03",2842
+"Chile","2020-04",14858
+"Chile","2020-05",105848
+"Chile","2020-06",155843
+"Chile","2020-07",76274
+"Chile","2020-08",56059
+"Chile","2020-09",51265
+"Chile","2020-10",47265
+"Chile","2020-11",41487
+"Chile","2020-12",57230
+"Chile","2021-01",118136
+"Chile","2021-02",97516
+"Chile","2021-03",170913
+"Chile","2021-04",202707
+"Chile","2021-05",186101
+"Chile","2021-06",171556
+"Chile","2021-07",55188
+"China","2020-01",9242
+"China","2020-02",69471
+"China","2020-03",2304
+"China","2020-04",1354
+"China","2020-05",143
+"China","2020-06",518
+"China","2020-07",803
+"China","2020-08",721
+"China","2020-09",354
+"China","2020-10",585
+"China","2020-11",545
+"China","2020-12",529
+"China","2021-01",2494
+"China","2021-02",349
+"China","2021-03",305
+"China","2021-04",455
+"China","2021-05",453
+"China","2021-06",673
+"China","2021-07",975
+"Colombia","2020-03",906
+"Colombia","2020-04",5601
+"Colombia","2020-05",22876
+"Colombia","2020-06",68463
+"Colombia","2020-07",197662
+"Colombia","2020-08",319586
+"Colombia","2020-09",214585
+"Colombia","2020-10",244505
+"Colombia","2020-11",242622
+"Colombia","2020-12",325969
+"Colombia","2021-01",452109
+"Colombia","2021-02",156806
+"Colombia","2021-03",154687
+"Colombia","2021-04",453347
+"Colombia","2021-05",546732
+"Colombia","2021-06",834526
+"Colombia","2021-07",506793
+"Comoros","2020-04",1
+"Comoros","2020-05",105
+"Comoros","2020-06",197
+"Comoros","2020-07",75
+"Comoros","2020-08",45
+"Comoros","2020-09",56
+"Comoros","2020-10",66
+"Comoros","2020-11",66
+"Comoros","2020-12",212
+"Comoros","2021-01",1903
+"Comoros","2021-02",845
+"Comoros","2021-03",125
+"Comoros","2021-04",138
+"Comoros","2021-05",47
+"Comoros","2021-06",55
+"Comoros","2021-07",88
+"Congo","2020-03",19
+"Congo","2020-04",201
+"Congo","2020-05",391
+"Congo","2020-06",476
+"Congo","2020-07",2113
+"Congo","2020-08",779
+"Congo","2020-09",1110
+"Congo","2020-10",201
+"Congo","2020-11",484
+"Congo","2020-12",1333
+"Congo","2021-01",780
+"Congo","2021-02",933
+"Congo","2021-03",861
+"Congo","2021-04",997
+"Congo","2021-05",980
+"Congo","2021-06",938
+"Congo","2021-07",560
+"Costa Rica","2020-03",347
+"Costa Rica","2020-04",372
+"Costa Rica","2020-05",337
+"Costa Rica","2020-06",2403
+"Costa Rica","2020-07",14361
+"Costa Rica","2020-08",23467
+"Costa Rica","2020-09",34473
+"Costa Rica","2020-10",34211
+"Costa Rica","2020-11",29667
+"Costa Rica","2020-12",29683
+"Costa Rica","2021-01",23955
+"Costa Rica","2021-02",11065
+"Costa Rica","2021-03",12423
+"Costa Rica","2021-04",34227
+"Costa Rica","2021-05",67995
+"Costa Rica","2021-06",48952
+"Costa Rica","2021-07",34106
+"Cote d'Ivoire","2020-03",179
+"Cote d'Ivoire","2020-04",1096
+"Cote d'Ivoire","2020-05",1558
+"Cote d'Ivoire","2020-06",6666
+"Cote d'Ivoire","2020-07",6548
+"Cote d'Ivoire","2020-08",2020
+"Cote d'Ivoire","2020-09",1657
+"Cote d'Ivoire","2020-10",992
+"Cote d'Ivoire","2020-11",615
+"Cote d'Ivoire","2020-12",1159
+"Cote d'Ivoire","2021-01",5909
+"Cote d'Ivoire","2021-02",4355
+"Cote d'Ivoire","2021-03",11135
+"Cote d'Ivoire","2021-04",2147
+"Cote d'Ivoire","2021-05",1256
+"Cote d'Ivoire","2021-06",1013
+"Cote d'Ivoire","2021-07",1394
+"Croatia","2020-02",6
+"Croatia","2020-03",861
+"Croatia","2020-04",1209
+"Croatia","2020-05",170
+"Croatia","2020-06",531
+"Croatia","2020-07",2362
+"Croatia","2020-08",5130
+"Croatia","2020-09",6324
+"Croatia","2020-10",32723
+"Croatia","2020-11",79126
+"Croatia","2020-12",82395
+"Croatia","2021-01",21589
+"Croatia","2021-02",10547
+"Croatia","2021-03",28659
+"Croatia","2021-04",60551
+"Croatia","2021-05",23998
+"Croatia","2021-06",3691
+"Croatia","2021-07",2969
+"Cuba","2020-03",186
+"Cuba","2020-04",1315
+"Cuba","2020-05",544
+"Cuba","2020-06",296
+"Cuba","2020-07",267
+"Cuba","2020-08",1424
+"Cuba","2020-09",1565
+"Cuba","2020-10",1290
+"Cuba","2020-11",1397
+"Cuba","2020-12",3579
+"Cuba","2021-01",14823
+"Cuba","2021-02",23093
+"Cuba","2021-03",25484
+"Cuba","2021-04",31444
+"Cuba","2021-05",35559
+"Cuba","2021-06",48727
+"Cuba","2021-07",158062
+"Cyprus","2020-03",262
+"Cyprus","2020-04",588
+"Cyprus","2020-05",94
+"Cyprus","2020-06",54
+"Cyprus","2020-07",116
+"Cyprus","2020-08",374
+"Cyprus","2020-09",267
+"Cyprus","2020-10",2611
+"Cyprus","2020-11",6199
+"Cyprus","2020-12",11454
+"Cyprus","2021-01",8857
+"Cyprus","2021-02",3831
+"Cyprus","2021-03",11157
+"Cyprus","2021-04",19369
+"Cyprus","2021-05",7224
+"Cyprus","2021-06",3403
+"Cyprus","2021-07",23500
+"Czechia","2020-03",3308
+"Czechia","2020-04",4374
+"Czechia","2020-05",1586
+"Czechia","2020-06",2686
+"Czechia","2020-07",4620
+"Czechia","2020-08",8044
+"Czechia","2020-09",46145
+"Czechia","2020-10",264339
+"Czechia","2020-11",188196
+"Czechia","2020-12",195363
+"Czechia","2021-01",266113
+"Czechia","2021-02",250706
+"Czechia","2021-03",296852
+"Czechia","2021-04",98426
+"Czechia","2021-05",30514
+"Czechia","2021-06",6015
+"Czechia","2021-07",5477
+"Democratic Republic of Congo","2020-03",98
+"Democratic Republic of Congo","2020-04",474
+"Democratic Republic of Congo","2020-05",2498
+"Democratic Republic of Congo","2020-06",3969
+"Democratic Republic of Congo","2020-07",2031
+"Democratic Republic of Congo","2020-08",1027
+"Democratic Republic of Congo","2020-09",562
+"Democratic Republic of Congo","2020-10",647
+"Democratic Republic of Congo","2020-11",1466
+"Democratic Republic of Congo","2020-12",4886
+"Democratic Republic of Congo","2021-01",5113
+"Democratic Republic of Congo","2021-02",3142
+"Democratic Republic of Congo","2021-03",2229
+"Democratic Republic of Congo","2021-04",1711
+"Democratic Republic of Congo","2021-05",1798
+"Democratic Republic of Congo","2021-06",9185
+"Democratic Republic of Congo","2021-07",7932
+"Denmark","2020-02",3
+"Denmark","2020-03",3036
+"Denmark","2020-04",6317
+"Denmark","2020-05",2513
+"Denmark","2020-06",1099
+"Denmark","2020-07",1060
+"Denmark","2020-08",3382
+"Denmark","2020-09",11069
+"Denmark","2020-10",18384
+"Denmark","2020-11",34139
+"Denmark","2020-12",83114
+"Denmark","2021-01",35040
+"Denmark","2021-02",12727
+"Denmark","2021-03",19412
+"Denmark","2021-04",19954
+"Denmark","2021-05",30736
+"Denmark","2021-06",12518
+"Denmark","2021-07",19419
+"Djibouti","2020-03",30
+"Djibouti","2020-04",1059
+"Djibouti","2020-05",2265
+"Djibouti","2020-06",1328
+"Djibouti","2020-07",402
+"Djibouti","2020-08",303
+"Djibouti","2020-09",29
+"Djibouti","2020-10",145
+"Djibouti","2020-11",118
+"Djibouti","2020-12",152
+"Djibouti","2021-01",101
+"Djibouti","2021-02",134
+"Djibouti","2021-03",1936
+"Djibouti","2021-04",3098
+"Djibouti","2021-05",433
+"Djibouti","2021-06",69
+"Djibouti","2021-07",38
+"Dominica","2020-03",12
+"Dominica","2020-04",4
+"Dominica","2020-05",0
+"Dominica","2020-06",2
+"Dominica","2020-07",0
+"Dominica","2020-08",2
+"Dominica","2020-09",10
+"Dominica","2020-10",20
+"Dominica","2020-11",35
+"Dominica","2020-12",3
+"Dominica","2021-01",29
+"Dominica","2021-02",25
+"Dominica","2021-03",19
+"Dominica","2021-04",13
+"Dominica","2021-05",14
+"Dominica","2021-06",5
+"Dominica","2021-07",16
+"Dominican Republic","2020-03",1109
+"Dominican Republic","2020-04",5863
+"Dominican Republic","2020-05",10313
+"Dominican Republic","2020-06",15283
+"Dominican Republic","2020-07",37081
+"Dominican Republic","2020-08",25066
+"Dominican Republic","2020-09",17494
+"Dominican Republic","2020-10",14809
+"Dominican Republic","2020-11",16970
+"Dominican Republic","2020-12",26797
+"Dominican Republic","2021-01",43275
+"Dominican Republic","2021-02",25557
+"Dominican Republic","2021-03",13110
+"Dominican Republic","2021-04",13834
+"Dominican Republic","2021-05",26225
+"Dominican Republic","2021-06",32435
+"Dominican Republic","2021-07",15277
+"Ecuador","2020-03",2240
+"Ecuador","2020-04",22694
+"Ecuador","2020-05",14164
+"Ecuador","2020-06",17334
+"Ecuador","2020-07",28923
+"Ecuador","2020-08",28412
+"Ecuador","2020-09",23280
+"Ecuador","2020-10",31145
+"Ecuador","2020-11",24493
+"Ecuador","2020-12",19827
+"Ecuador","2021-01",38316
+"Ecuador","2021-02",35327
+"Ecuador","2021-03",42600
+"Ecuador","2021-04",53107
+"Ecuador","2021-05",44175
+"Ecuador","2021-06",32467
+"Ecuador","2021-07",22216
+"Egypt","2020-02",1
+"Egypt","2020-03",709
+"Egypt","2020-04",4827
+"Egypt","2020-05",19448
+"Egypt","2020-06",43326
+"Egypt","2020-07",25767
+"Egypt","2020-08",4861
+"Egypt","2020-09",4259
+"Egypt","2020-10",4357
+"Egypt","2020-11",8356
+"Egypt","2020-12",22151
+"Egypt","2021-01",27889
+"Egypt","2021-02",16473
+"Egypt","2021-03",19707
+"Egypt","2021-04",25421
+"Egypt","2021-05",35098
+"Egypt","2021-06",18632
+"Egypt","2021-07",2808
+"El Salvador","2020-03",32
+"El Salvador","2020-04",363
+"El Salvador","2020-05",2122
+"El Salvador","2020-06",3921
+"El Salvador","2020-07",10194
+"El Salvador","2020-08",9097
+"El Salvador","2020-09",3348
+"El Salvador","2020-10",4749
+"El Salvador","2020-11",5115
+"El Salvador","2020-12",7301
+"El Salvador","2021-01",8724
+"El Salvador","2021-02",5215
+"El Salvador","2021-03",4545
+"El Salvador","2021-04",4472
+"El Salvador","2021-05",4504
+"El Salvador","2021-06",5064
+"El Salvador","2021-07",7013
+"Equatorial Guinea","2020-03",12
+"Equatorial Guinea","2020-04",303
+"Equatorial Guinea","2020-05",991
+"Equatorial Guinea","2020-06",695
+"Equatorial Guinea","2020-07",2820
+"Equatorial Guinea","2020-08",120
+"Equatorial Guinea","2020-09",89
+"Equatorial Guinea","2020-10",58
+"Equatorial Guinea","2020-11",65
+"Equatorial Guinea","2020-12",124
+"Equatorial Guinea","2021-01",239
+"Equatorial Guinea","2021-02",489
+"Equatorial Guinea","2021-03",909
+"Equatorial Guinea","2021-04",780
+"Equatorial Guinea","2021-05",835
+"Equatorial Guinea","2021-06",205
+"Equatorial Guinea","2021-07",146
+"Eritrea","2020-03",15
+"Eritrea","2020-04",24
+"Eritrea","2020-05",0
+"Eritrea","2020-06",164
+"Eritrea","2020-07",76
+"Eritrea","2020-08",40
+"Eritrea","2020-09",56
+"Eritrea","2020-10",88
+"Eritrea","2020-11",114
+"Eritrea","2020-12",743
+"Eritrea","2021-01",815
+"Eritrea","2021-02",712
+"Eritrea","2021-03",438
+"Eritrea","2021-04",386
+"Eritrea","2021-05",423
+"Eritrea","2021-06",1915
+"Eritrea","2021-07",508
+"Estonia","2020-02",1
+"Estonia","2020-03",744
+"Estonia","2020-04",944
+"Estonia","2020-05",180
+"Estonia","2020-06",120
+"Estonia","2020-07",75
+"Estonia","2020-08",311
+"Estonia","2020-09",996
+"Estonia","2020-10",1534
+"Estonia","2020-11",7403
+"Estonia","2020-12",15682
+"Estonia","2021-01",16218
+"Estonia","2021-02",21392
+"Estonia","2021-03",40824
+"Estonia","2021-04",15595
+"Estonia","2021-05",7525
+"Estonia","2021-06",1520
+"Estonia","2021-07",1653
+"Eswatini","2020-03",9
+"Eswatini","2020-04",91
+"Eswatini","2020-05",185
+"Eswatini","2020-06",527
+"Eswatini","2020-07",1836
+"Eswatini","2020-08",1929
+"Eswatini","2020-09",905
+"Eswatini","2020-10",435
+"Eswatini","2020-11",502
+"Eswatini","2020-12",2939
+"Eswatini","2021-01",6353
+"Eswatini","2021-02",1303
+"Eswatini","2021-03",323
+"Eswatini","2021-04",1121
+"Eswatini","2021-05",137
+"Eswatini","2021-06",489
+"Eswatini","2021-07",4624
+"Ethiopia","2020-03",26
+"Ethiopia","2020-04",105
+"Ethiopia","2020-05",1041
+"Ethiopia","2020-06",4674
+"Ethiopia","2020-07",11684
+"Ethiopia","2020-08",34601
+"Ethiopia","2020-09",23237
+"Ethiopia","2020-10",20801
+"Ethiopia","2020-11",13905
+"Ethiopia","2020-12",14190
+"Ethiopia","2021-01",13386
+"Ethiopia","2021-02",21422
+"Ethiopia","2021-03",47517
+"Ethiopia","2021-04",50853
+"Ethiopia","2021-05",14099
+"Ethiopia","2021-06",4633
+"Ethiopia","2021-07",2746
+"Europe","2020-01",17
+"Europe","2020-02",1489
+"Europe","2020-03",463735
+"Europe","2020-04",892559
+"Europe","2020-05",602012
+"Europe","2020-06",449425
+"Europe","2020-07",462269
+"Europe","2020-08",769243
+"Europe","2020-09",1450608
+"Europe","2020-10",4870920
+"Europe","2020-11",7381951
+"Europe","2020-12",6462919
+"Europe","2021-01",6549724
+"Europe","2021-02",3975088
+"Europe","2021-03",5516399
+"Europe","2021-04",5015120
+"Europe","2021-05",2372893
+"Europe","2021-06",1372736
+"Europe","2021-07",3043975
+"European Union","2020-01",13
+"European Union","2020-02",1392
+"European Union","2020-03",396308
+"European Union","2020-04",591740
+"European Union","2020-05",171083
+"European Union","2020-06",117171
+"European Union","2020-07",173538
+"European Union","2020-08",475381
+"European Union","2020-09",999760
+"European Union","2020-10",3467767
+"European Union","2020-11",5226912
+"European Union","2020-12",3925325
+"European Union","2021-01",4087544
+"European Union","2021-02",2846915
+"European Union","2021-03",4305283
+"European Union","2021-04",3985082
+"European Union","2021-05",1776402
+"European Union","2021-06",537165
+"European Union","2021-07",1364341
+"Fiji","2020-03",5
+"Fiji","2020-04",13
+"Fiji","2020-05",0
+"Fiji","2020-06",0
+"Fiji","2020-07",9
+"Fiji","2020-08",1
+"Fiji","2020-09",4
+"Fiji","2020-10",2
+"Fiji","2020-11",8
+"Fiji","2020-12",7
+"Fiji","2021-01",6
+"Fiji","2021-02",4
+"Fiji","2021-03",8
+"Fiji","2021-04",50
+"Fiji","2021-05",321
+"Fiji","2021-06",3980
+"Fiji","2021-07",20721
+"Finland","2020-01",1
+"Finland","2020-02",2
+"Finland","2020-03",1415
+"Finland","2020-04",3577
+"Finland","2020-05",1864
+"Finland","2020-06",355
+"Finland","2020-07",218
+"Finland","2020-08",654
+"Finland","2020-09",1906
+"Finland","2020-10",6121
+"Finland","2020-11",8799
+"Finland","2020-12",11195
+"Finland","2021-01",9131
+"Finland","2021-02",12434
+"Finland","2021-03",19780
+"Finland","2021-04",9356
+"Finland","2021-05",5680
+"Finland","2021-06",3254
+"Finland","2021-07",8109
+"France","2020-01",5
+"France","2020-02",95
+"France","2020-03",52178
+"France","2020-04",116583
+"France","2020-05",22114
+"France","2020-06",13269
+"France","2020-07",22995
+"France","2020-08",93921
+"France","2020-09",284733
+"France","2020-10",808471
+"France","2020-11",862510
+"France","2020-12",400792
+"France","2021-01",578254
+"France","2021-02",559719
+"France","2021-03",889429
+"France","2021-04",972767
+"France","2021-05",399620
+"France","2021-06",108477
+"France","2021-07",251665
+"Gabon","2020-03",16
+"Gabon","2020-04",260
+"Gabon","2020-05",2379
+"Gabon","2020-06",2739
+"Gabon","2020-07",1958
+"Gabon","2020-08",1181
+"Gabon","2020-09",233
+"Gabon","2020-10",202
+"Gabon","2020-11",246
+"Gabon","2020-12",357
+"Gabon","2021-01",1177
+"Gabon","2021-02",3816
+"Gabon","2021-03",4986
+"Gabon","2021-04",3525
+"Gabon","2021-05",1354
+"Gabon","2021-06",555
+"Gabon","2021-07",360
+"Gambia","2020-03",4
+"Gambia","2020-04",7
+"Gambia","2020-05",14
+"Gambia","2020-06",24
+"Gambia","2020-07",449
+"Gambia","2020-08",2465
+"Gambia","2020-09",616
+"Gambia","2020-10",93
+"Gambia","2020-11",70
+"Gambia","2020-12",55
+"Gambia","2021-01",293
+"Gambia","2021-02",622
+"Gambia","2021-03",747
+"Gambia","2021-04",439
+"Gambia","2021-05",95
+"Gambia","2021-06",86
+"Gambia","2021-07",1254
+"Georgia","2020-02",1
+"Georgia","2020-03",109
+"Georgia","2020-04",429
+"Georgia","2020-05",244
+"Georgia","2020-06",145
+"Georgia","2020-07",240
+"Georgia","2020-08",319
+"Georgia","2020-09",4705
+"Georgia","2020-10",32744
+"Georgia","2020-11",96648
+"Georgia","2020-12",91836
+"Georgia","2021-01",30691
+"Georgia","2021-02",12647
+"Georgia","2021-03",11003
+"Georgia","2021-04",28549
+"Georgia","2021-05",33653
+"Georgia","2021-06",22115
+"Georgia","2021-07",41611
+"Germany","2020-01",5
+"Germany","2020-02",74
+"Germany","2020-03",71729
+"Germany","2020-04",91201
+"Germany","2020-05",20401
+"Germany","2020-06",12008
+"Germany","2020-07",14981
+"Germany","2020-08",34403
+"Germany","2020-09",48111
+"Germany","2020-10",238877
+"Germany","2020-11",538122
+"Germany","2020-12",690608
+"Germany","2021-01",465139
+"Germany","2021-02",224636
+"Germany","2021-03",393349
+"Germany","2021-04",561721
+"Germany","2021-05",284556
+"Germany","2021-06",46284
+"Germany","2021-07",30296
+"Ghana","2020-03",161
+"Ghana","2020-04",1913
+"Ghana","2020-05",5996
+"Ghana","2020-06",9671
+"Ghana","2020-07",17760
+"Ghana","2020-08",8797
+"Ghana","2020-09",2328
+"Ghana","2020-10",1429
+"Ghana","2020-11",3612
+"Ghana","2020-12",3104
+"Ghana","2021-01",12239
+"Ghana","2021-02",17013
+"Ghana","2021-03",6560
+"Ghana","2021-04",1979
+"Ghana","2021-05",1336
+"Ghana","2021-06",2016
+"Ghana","2021-07",6189
+"Greece","2020-02",4
+"Greece","2020-03",1310
+"Greece","2020-04",1277
+"Greece","2020-05",326
+"Greece","2020-06",492
+"Greece","2020-07",1068
+"Greece","2020-08",5840
+"Greece","2020-09",8158
+"Greece","2020-10",20776
+"Greece","2020-11",66020
+"Greece","2020-12",33579
+"Greece","2021-01",18107
+"Greece","2021-02",34143
+"Greece","2021-03",72589
+"Greece","2021-04",81344
+"Greece","2021-05",57273
+"Greece","2021-06",20150
+"Greece","2021-07",59689
+"Grenada","2020-03",9
+"Grenada","2020-04",11
+"Grenada","2020-05",3
+"Grenada","2020-06",0
+"Grenada","2020-07",1
+"Grenada","2020-08",0
+"Grenada","2020-09",0
+"Grenada","2020-10",4
+"Grenada","2020-11",13
+"Grenada","2020-12",86
+"Grenada","2021-01",21
+"Grenada","2021-02",0
+"Grenada","2021-03",7
+"Grenada","2021-04",5
+"Grenada","2021-05",1
+"Grenada","2021-06",0
+"Grenada","2021-07",3
+"Guatemala","2020-03",38
+"Guatemala","2020-04",561
+"Guatemala","2020-05",4488
+"Guatemala","2020-06",13009
+"Guatemala","2020-07",31693
+"Guatemala","2020-08",24285
+"Guatemala","2020-09",17672
+"Guatemala","2020-10",16193
+"Guatemala","2020-11",14123
+"Guatemala","2020-12",15950
+"Guatemala","2021-01",21492
+"Guatemala","2021-02",15038
+"Guatemala","2021-03",19292
+"Guatemala","2021-04",33837
+"Guatemala","2021-05",26746
+"Guatemala","2021-06",39166
+"Guatemala","2021-07",61640
+"Guinea","2020-03",22
+"Guinea","2020-04",1473
+"Guinea","2020-05",2211
+"Guinea","2020-06",1685
+"Guinea","2020-07",1917
+"Guinea","2020-08",2101
+"Guinea","2020-09",1243
+"Guinea","2020-10",1420
+"Guinea","2020-11",1047
+"Guinea","2020-12",603
+"Guinea","2021-01",824
+"Guinea","2021-02",1446
+"Guinea","2021-03",3916
+"Guinea","2021-04",2307
+"Guinea","2021-05",962
+"Guinea","2021-06",593
+"Guinea","2021-07",1441
+"Guinea-Bissau","2020-03",8
+"Guinea-Bissau","2020-04",197
+"Guinea-Bissau","2020-05",1051
+"Guinea-Bissau","2020-06",398
+"Guinea-Bissau","2020-07",327
+"Guinea-Bissau","2020-08",224
+"Guinea-Bissau","2020-09",119
+"Guinea-Bissau","2020-10",89
+"Guinea-Bissau","2020-11",28
+"Guinea-Bissau","2020-12",11
+"Guinea-Bissau","2021-01",182
+"Guinea-Bissau","2021-02",628
+"Guinea-Bissau","2021-03",388
+"Guinea-Bissau","2021-04",84
+"Guinea-Bissau","2021-05",32
+"Guinea-Bissau","2021-06",93
+"Guinea-Bissau","2021-07",422
+"Guyana","2020-03",12
+"Guyana","2020-04",70
+"Guyana","2020-05",71
+"Guyana","2020-06",92
+"Guyana","2020-07",168
+"Guyana","2020-08",893
+"Guyana","2020-09",1588
+"Guyana","2020-10",1268
+"Guyana","2020-11",1244
+"Guyana","2020-12",926
+"Guyana","2021-01",1309
+"Guyana","2021-02",944
+"Guyana","2021-03",1664
+"Guyana","2021-04",3034
+"Guyana","2021-05",3669
+"Guyana","2021-06",3103
+"Guyana","2021-07",2179
+"Haiti","2020-03",15
+"Haiti","2020-04",61
+"Haiti","2020-05",1508
+"Haiti","2020-06",4263
+"Haiti","2020-07",1531
+"Haiti","2020-08",831
+"Haiti","2020-09",531
+"Haiti","2020-10",314
+"Haiti","2020-11",218
+"Haiti","2020-12",727
+"Haiti","2021-01",1534
+"Haiti","2021-02",897
+"Haiti","2021-03",328
+"Haiti","2021-04",298
+"Haiti","2021-05",1295
+"Haiti","2021-06",4211
+"Haiti","2021-07",1356
+"Honduras","2020-03",141
+"Honduras","2020-04",630
+"Honduras","2020-05",4431
+"Honduras","2020-06",14356
+"Honduras","2020-07",22456
+"Honduras","2020-08",19000
+"Honduras","2020-09",15886
+"Honduras","2020-10",19988
+"Honduras","2020-11",11365
+"Honduras","2020-12",13574
+"Honduras","2021-01",26016
+"Honduras","2021-02",22461
+"Honduras","2021-03",18739
+"Honduras","2021-04",23290
+"Honduras","2021-05",25894
+"Honduras","2021-06",24533
+"Honduras","2021-07",28927
+"Hong Kong","2020-01",12
+"Hong Kong","2020-02",83
+"Hong Kong","2020-03",619
+"Hong Kong","2020-04",323
+"Hong Kong","2020-05",47
+"Hong Kong","2020-06",121
+"Hong Kong","2020-07",2067
+"Hong Kong","2020-08",1538
+"Hong Kong","2020-09",277
+"Hong Kong","2020-10",236
+"Hong Kong","2020-11",991
+"Hong Kong","2020-12",2532
+"Hong Kong","2021-01",1606
+"Hong Kong","2021-02",553
+"Hong Kong","2021-03",462
+"Hong Kong","2021-04",307
+"Hong Kong","2021-05",67
+"Hong Kong","2021-06",82
+"Hong Kong","2021-07",56
+"Hungary","2020-03",492
+"Hungary","2020-04",2283
+"Hungary","2020-05",1101
+"Hungary","2020-06",279
+"Hungary","2020-07",350
+"Hungary","2020-08",1634
+"Hungary","2020-09",20322
+"Hungary","2020-10",48860
+"Hungary","2020-11",141801
+"Hungary","2020-12",105392
+"Hungary","2021-01",45072
+"Hungary","2021-02",61013
+"Hungary","2021-03",223834
+"Hungary","2021-04",126915
+"Hungary","2021-05",25190
+"Hungary","2021-06",3590
+"Hungary","2021-07",1160
+"Iceland","2020-02",1
+"Iceland","2020-03",1134
+"Iceland","2020-04",662
+"Iceland","2020-05",9
+"Iceland","2020-06",18
+"Iceland","2020-07",61
+"Iceland","2020-08",222
+"Iceland","2020-09",621
+"Iceland","2020-10",2137
+"Iceland","2020-11",527
+"Iceland","2020-12",362
+"Iceland","2021-01",248
+"Iceland","2021-02",47
+"Iceland","2021-03",156
+"Iceland","2021-04",267
+"Iceland","2021-05",104
+"Iceland","2021-06",73
+"Iceland","2021-07",779
+"India","2020-01",1
+"India","2020-02",2
+"India","2020-03",1394
+"India","2020-04",33466
+"India","2020-05",155746
+"India","2020-06",394872
+"India","2020-07",1110507
+"India","2020-08",1995178
+"India","2020-09",2621418
+"India","2020-10",1871498
+"India","2020-11",1278727
+"India","2020-12",823900
+"India","2021-01",470901
+"India","2021-02",354631
+"India","2021-03",1109424
+"India","2021-04",6943304
+"India","2021-05",9010075
+"India","2021-06",2236590
+"India","2021-07",1072971
+"Indonesia","2020-03",1528
+"Indonesia","2020-04",8590
+"Indonesia","2020-05",16355
+"Indonesia","2020-06",29912
+"Indonesia","2020-07",51991
+"Indonesia","2020-08",66420
+"Indonesia","2020-09",112212
+"Indonesia","2020-10",123080
+"Indonesia","2020-11",128795
+"Indonesia","2020-12",204315
+"Indonesia","2021-01",335116
+"Indonesia","2021-02",256320
+"Indonesia","2021-03",177078
+"Indonesia","2021-04",156656
+"Indonesia","2021-05",153335
+"Indonesia","2021-06",356569
+"Indonesia","2021-07",1061664
+"International","2020-02",705
+"International","2020-03",9
+"International","2020-04",7
+"International","2020-05",0
+"International","2020-06",0
+"International","2020-07",0
+"International","2020-08",0
+"International","2020-09",0
+"International","2020-10",0
+"International","2020-11",0
+"International","2020-12",0
+"International","2021-01",0
+"International","2021-02",0
+"International","2021-03",0
+"International","2021-04",0
+"International","2021-05",0
+"International","2021-06",0
+"International","2021-07",0
+"Iran","2020-02",593
+"Iran","2020-03",44012
+"Iran","2020-04",50035
+"Iran","2020-05",56826
+"Iran","2020-06",76196
+"Iran","2020-07",76542
+"Iran","2020-08",71008
+"Iran","2020-09",82007
+"Iran","2020-10",155553
+"Iran","2020-11",349298
+"Iran","2020-12",263072
+"Iran","2021-01",192857
+"Iran","2021-02",213170
+"Iran","2021-03",254395
+"Iran","2021-04",613513
+"Iran","2021-05",414059
+"Iran","2021-06",291421
+"Iran","2021-07",553640
+"Iraq","2020-02",13
+"Iraq","2020-03",681
+"Iraq","2020-04",1391
+"Iraq","2020-05",4354
+"Iraq","2020-06",42670
+"Iraq","2020-07",75500
+"Iraq","2020-08",110325
+"Iraq","2020-09",128047
+"Iraq","2020-10",109649
+"Iraq","2020-11",79919
+"Iraq","2020-12",42742
+"Iraq","2021-01",24345
+"Iraq","2021-02",75853
+"Iraq","2021-03",155435
+"Iraq","2021-04",214275
+"Iraq","2021-05",136153
+"Iraq","2021-06",144552
+"Iraq","2021-07",231109
+"Ireland","2020-02",1
+"Ireland","2020-03",3234
+"Ireland","2020-04",17377
+"Ireland","2020-05",4378
+"Ireland","2020-06",483
+"Ireland","2020-07",592
+"Ireland","2020-08",2746
+"Ireland","2020-09",7344
+"Ireland","2020-10",25301
+"Ireland","2020-11",11088
+"Ireland","2020-12",19235
+"Ireland","2021-01",104768
+"Ireland","2021-02",23045
+"Ireland","2021-03",16262
+"Ireland","2021-04",13016
+"Ireland","2021-05",13173
+"Ireland","2021-06",9865
+"Ireland","2021-07",23478
+"Israel","2020-02",6
+"Israel","2020-03",5711
+"Israel","2020-04",10179
+"Israel","2020-05",1183
+"Israel","2020-06",8359
+"Israel","2020-07",46296
+"Israel","2020-08",45172
+"Israel","2020-09",130505
+"Israel","2020-10",66938
+"Israel","2020-11",22842
+"Israel","2020-12",86071
+"Israel","2021-01",220173
+"Israel","2021-02",132372
+"Israel","2021-03",57298
+"Israel","2021-04",5376
+"Israel","2021-05",994
+"Israel","2021-06",2302
+"Israel","2021-07",23135
+"Italy","2020-01",2
+"Italy","2020-02",1126
+"Italy","2020-03",104664
+"Italy","2020-04",99671
+"Italy","2020-05",27534
+"Italy","2020-06",7581
+"Italy","2020-07",6959
+"Italy","2020-08",21677
+"Italy","2020-09",45647
+"Italy","2020-10",364569
+"Italy","2020-11",922124
+"Italy","2020-12",505612
+"Italy","2021-01",445866
+"Italy","2021-02",372233
+"Italy","2021-03",659634
+"Italy","2021-04",437754
+"Italy","2021-05",195168
+"Italy","2021-06",42088
+"Italy","2021-07",65137
+"Jamaica","2020-03",36
+"Jamaica","2020-04",386
+"Jamaica","2020-05",164
+"Jamaica","2020-06",116
+"Jamaica","2020-07",176
+"Jamaica","2020-08",1581
+"Jamaica","2020-09",4023
+"Jamaica","2020-10",2612
+"Jamaica","2020-11",1669
+"Jamaica","2020-12",2064
+"Jamaica","2021-01",2826
+"Jamaica","2021-02",7610
+"Jamaica","2021-03",15974
+"Jamaica","2021-04",6341
+"Jamaica","2021-05",2979
+"Jamaica","2021-06",1567
+"Jamaica","2021-07",2017
+"Japan","2020-01",13
+"Japan","2020-02",230
+"Japan","2020-03",2010
+"Japan","2020-04",12029
+"Japan","2020-05",2467
+"Japan","2020-06",1864
+"Japan","2020-07",17619
+"Japan","2020-08",32162
+"Japan","2020-09",15195
+"Japan","2020-10",17736
+"Japan","2020-11",47635
+"Japan","2020-12",86849
+"Japan","2021-01",154355
+"Japan","2021-02",41924
+"Japan","2021-03",42551
+"Japan","2021-04",118623
+"Japan","2021-05",153924
+"Japan","2021-06",53117
+"Japan","2021-07",83462
+"Jordan","2020-03",274
+"Jordan","2020-04",179
+"Jordan","2020-05",286
+"Jordan","2020-06",393
+"Jordan","2020-07",61
+"Jordan","2020-08",841
+"Jordan","2020-09",9791
+"Jordan","2020-10",60782
+"Jordan","2020-11",146823
+"Jordan","2020-12",75064
+"Jordan","2021-01",32361
+"Jordan","2021-02",64235
+"Jordan","2021-03",220487
+"Jordan","2021-04",99796
+"Jordan","2021-05",25161
+"Jordan","2021-06",14870
+"Jordan","2021-07",15923
+"Kazakhstan","2020-03",343
+"Kazakhstan","2020-04",3059
+"Kazakhstan","2020-05",7456
+"Kazakhstan","2020-06",11450
+"Kazakhstan","2020-07",68059
+"Kazakhstan","2020-08",40306
+"Kazakhstan","2020-09",10034
+"Kazakhstan","2020-10",8992
+"Kazakhstan","2020-11",24864
+"Kazakhstan","2020-12",26633
+"Kazakhstan","2021-01",34648
+"Kazakhstan","2021-02",26871
+"Kazakhstan","2021-03",34757
+"Kazakhstan","2021-04",78067
+"Kazakhstan","2021-05",67396
+"Kazakhstan","2021-06",39751
+"Kazakhstan","2021-07",126960
+"Kenya","2020-03",59
+"Kenya","2020-04",337
+"Kenya","2020-05",1566
+"Kenya","2020-06",4404
+"Kenya","2020-07",14270
+"Kenya","2020-08",13565
+"Kenya","2020-09",4328
+"Kenya","2020-10",16663
+"Kenya","2020-11",28426
+"Kenya","2020-12",12840
+"Kenya","2021-01",4315
+"Kenya","2021-02",5200
+"Kenya","2021-03",28085
+"Kenya","2021-04",25260
+"Kenya","2021-05",11417
+"Kenya","2021-06",13426
+"Kenya","2021-07",14774
+"Kiribati","2021-05",2
+"Kiribati","2021-06",0
+"Kiribati","2021-07",0
+"Kosovo","2020-03",106
+"Kosovo","2020-04",693
+"Kosovo","2020-05",271
+"Kosovo","2020-06",1729
+"Kosovo","2020-07",5531
+"Kosovo","2020-08",5124
+"Kosovo","2020-09",2166
+"Kosovo","2020-10",3708
+"Kosovo","2020-11",20268
+"Kosovo","2020-12",11548
+"Kosovo","2021-01",9074
+"Kosovo","2021-02",8233
+"Kosovo","2021-03",20730
+"Kosovo","2021-04",14457
+"Kosovo","2021-05",3364
+"Kosovo","2021-06",756
+"Kosovo","2021-07",315
+"Kuwait","2020-02",45
+"Kuwait","2020-03",244
+"Kuwait","2020-04",3735
+"Kuwait","2020-05",23019
+"Kuwait","2020-06",19152
+"Kuwait","2020-07",20762
+"Kuwait","2020-08",18152
+"Kuwait","2020-09",20073
+"Kuwait","2020-10",20744
+"Kuwait","2020-11",16709
+"Kuwait","2020-12",7949
+"Kuwait","2021-01",14673
+"Kuwait","2021-02",25595
+"Kuwait","2021-03",41251
+"Kuwait","2021-04",41888
+"Kuwait","2021-05",35231
+"Kuwait","2021-06",47465
+"Kuwait","2021-07",37851
+"Kyrgyzstan","2020-03",107
+"Kyrgyzstan","2020-04",639
+"Kyrgyzstan","2020-05",1002
+"Kyrgyzstan","2020-06",3758
+"Kyrgyzstan","2020-07",30299
+"Kyrgyzstan","2020-08",8093
+"Kyrgyzstan","2020-09",2771
+"Kyrgyzstan","2020-10",12209
+"Kyrgyzstan","2020-11",14300
+"Kyrgyzstan","2020-12",7856
+"Kyrgyzstan","2021-01",3554
+"Kyrgyzstan","2021-02",1663
+"Kyrgyzstan","2021-03",2287
+"Kyrgyzstan","2021-04",6737
+"Kyrgyzstan","2021-05",9454
+"Kyrgyzstan","2021-06",20274
+"Kyrgyzstan","2021-07",34086
+"Laos","2020-03",9
+"Laos","2020-04",10
+"Laos","2020-05",0
+"Laos","2020-06",0
+"Laos","2020-07",1
+"Laos","2020-08",2
+"Laos","2020-09",1
+"Laos","2020-10",1
+"Laos","2020-11",15
+"Laos","2020-12",2
+"Laos","2021-01",3
+"Laos","2021-02",1
+"Laos","2021-03",4
+"Laos","2021-04",708
+"Laos","2021-05",1155
+"Laos","2021-06",209
+"Laos","2021-07",3033
+"Latvia","2020-03",398
+"Latvia","2020-04",460
+"Latvia","2020-05",208
+"Latvia","2020-06",52
+"Latvia","2020-07",113
+"Latvia","2020-08",165
+"Latvia","2020-09",428
+"Latvia","2020-10",4070
+"Latvia","2020-11",11181
+"Latvia","2020-12",23829
+"Latvia","2021-01",25337
+"Latvia","2021-02",19945
+"Latvia","2021-03",16177
+"Latvia","2021-04",16195
+"Latvia","2021-05",14641
+"Latvia","2021-06",4230
+"Latvia","2021-07",1143
+"Lebanon","2020-02",4
+"Lebanon","2020-03",466
+"Lebanon","2020-04",255
+"Lebanon","2020-05",495
+"Lebanon","2020-06",558
+"Lebanon","2020-07",2777
+"Lebanon","2020-08",12753
+"Lebanon","2020-09",22326
+"Lebanon","2020-10",41594
+"Lebanon","2020-11",46716
+"Lebanon","2020-12",53559
+"Lebanon","2021-01",119549
+"Lebanon","2021-02",73998
+"Lebanon","2021-03",93350
+"Lebanon","2021-04",58178
+"Lebanon","2021-05",13810
+"Lebanon","2021-06",4478
+"Lebanon","2021-07",12279
+"Lesotho","2020-05",2
+"Lesotho","2020-06",25
+"Lesotho","2020-07",577
+"Lesotho","2020-08",481
+"Lesotho","2020-09",510
+"Lesotho","2020-10",358
+"Lesotho","2020-11",156
+"Lesotho","2020-12",985
+"Lesotho","2021-01",5570
+"Lesotho","2021-02",1827
+"Lesotho","2021-03",215
+"Lesotho","2021-04",25
+"Lesotho","2021-05",100
+"Lesotho","2021-06",513
+"Lesotho","2021-07",1536
+"Liberia","2020-03",3
+"Liberia","2020-04",138
+"Liberia","2020-05",147
+"Liberia","2020-06",492
+"Liberia","2020-07",406
+"Liberia","2020-08",118
+"Liberia","2020-09",39
+"Liberia","2020-10",83
+"Liberia","2020-11",169
+"Liberia","2020-12",184
+"Liberia","2021-01",160
+"Liberia","2021-02",75
+"Liberia","2021-03",28
+"Liberia","2021-04",57
+"Liberia","2021-05",92
+"Liberia","2021-06",1902
+"Liberia","2021-07",1303
+"Libya","2020-03",10
+"Libya","2020-04",51
+"Libya","2020-05",95
+"Libya","2020-06",668
+"Libya","2020-07",2797
+"Libya","2020-08",10345
+"Libya","2020-09",20559
+"Libya","2020-10",26570
+"Libya","2020-11",21714
+"Libya","2020-12",17468
+"Libya","2021-01",18354
+"Libya","2021-02",14707
+"Libya","2021-03",25619
+"Libya","2021-04",18551
+"Libya","2021-05",8268
+"Libya","2021-06",7698
+"Libya","2021-07",46835
+"Liechtenstein","2020-03",68
+"Liechtenstein","2020-04",14
+"Liechtenstein","2020-05",0
+"Liechtenstein","2020-06",0
+"Liechtenstein","2020-07",6
+"Liechtenstein","2020-08",19
+"Liechtenstein","2020-09",11
+"Liechtenstein","2020-10",415
+"Liechtenstein","2020-11",737
+"Liechtenstein","2020-12",866
+"Liechtenstein","2021-01",357
+"Liechtenstein","2021-02",74
+"Liechtenstein","2021-03",103
+"Liechtenstein","2021-04",256
+"Liechtenstein","2021-05",86
+"Liechtenstein","2021-06",24
+"Liechtenstein","2021-07",44
+"Lithuania","2020-02",1
+"Lithuania","2020-03",467
+"Lithuania","2020-04",907
+"Lithuania","2020-05",292
+"Lithuania","2020-06",145
+"Lithuania","2020-07",257
+"Lithuania","2020-08",831
+"Lithuania","2020-09",1788
+"Lithuania","2020-10",10127
+"Lithuania","2020-11",46496
+"Lithuania","2020-12",80644
+"Lithuania","2021-01",40588
+"Lithuania","2021-02",16602
+"Lithuania","2021-03",16974
+"Lithuania","2021-04",31150
+"Lithuania","2021-05",27114
+"Lithuania","2021-06",4386
+"Lithuania","2021-07",2515
+"Luxembourg","2020-02",1
+"Luxembourg","2020-03",2177
+"Luxembourg","2020-04",1606
+"Luxembourg","2020-05",234
+"Luxembourg","2020-06",281
+"Luxembourg","2020-07",2396
+"Luxembourg","2020-08",-70
+"Luxembourg","2020-09",1884
+"Luxembourg","2020-10",8625
+"Luxembourg","2020-11",17544
+"Luxembourg","2020-12",11737
+"Luxembourg","2021-01",3973
+"Luxembourg","2021-02",4722
+"Luxembourg","2021-03",6532
+"Luxembourg","2021-04",5563
+"Luxembourg","2021-05",2727
+"Luxembourg","2021-06",855
+"Luxembourg","2021-07",2850
+"Madagascar","2020-03",57
+"Madagascar","2020-04",71
+"Madagascar","2020-05",643
+"Madagascar","2020-06",1443
+"Madagascar","2020-07",8654
+"Madagascar","2020-08",3995
+"Madagascar","2020-09",1545
+"Madagascar","2020-10",703
+"Madagascar","2020-11",230
+"Madagascar","2020-12",373
+"Madagascar","2021-01",1351
+"Madagascar","2021-02",766
+"Madagascar","2021-03",4595
+"Madagascar","2021-04",12588
+"Madagascar","2021-05",4328
+"Madagascar","2021-06",874
+"Madagascar","2021-07",391
+"Malawi","2020-04",37
+"Malawi","2020-05",247
+"Malawi","2020-06",940
+"Malawi","2020-07",2854
+"Malawi","2020-08",1488
+"Malawi","2020-09",207
+"Malawi","2020-10",157
+"Malawi","2020-11",98
+"Malawi","2020-12",555
+"Malawi","2021-01",17380
+"Malawi","2021-02",7982
+"Malawi","2021-03",1606
+"Malawi","2021-04",527
+"Malawi","2021-05",260
+"Malawi","2021-06",1788
+"Malawi","2021-07",13626
+"Malaysia","2020-01",8
+"Malaysia","2020-02",17
+"Malaysia","2020-03",2741
+"Malaysia","2020-04",3236
+"Malaysia","2020-05",1817
+"Malaysia","2020-06",820
+"Malaysia","2020-07",337
+"Malaysia","2020-08",364
+"Malaysia","2020-09",1884
+"Malaysia","2020-10",20324
+"Malaysia","2020-11",34149
+"Malaysia","2020-12",47313
+"Malaysia","2021-01",101949
+"Malaysia","2021-02",85793
+"Malaysia","2021-03",44748
+"Malaysia","2021-04",63213
+"Malaysia","2021-05",163644
+"Malaysia","2021-06",179622
+"Malaysia","2021-07",292092
+"Maldives","2020-03",18
+"Maldives","2020-04",450
+"Maldives","2020-05",1305
+"Maldives","2020-06",588
+"Maldives","2020-07",1432
+"Maldives","2020-08",4011
+"Maldives","2020-09",2487
+"Maldives","2020-10",1368
+"Maldives","2020-11",1352
+"Maldives","2020-12",746
+"Maldives","2021-01",2084
+"Maldives","2021-02",3952
+"Maldives","2021-03",4286
+"Maldives","2021-04",5756
+"Maldives","2021-05",34561
+"Maldives","2021-06",9402
+"Maldives","2021-07",3155
+"Mali","2020-03",28
+"Mali","2020-04",462
+"Mali","2020-05",775
+"Mali","2020-06",916
+"Mali","2020-07",354
+"Mali","2020-08",241
+"Mali","2020-09",342
+"Mali","2020-10",436
+"Mali","2020-11",1156
+"Mali","2020-12",2380
+"Mali","2021-01",1001
+"Mali","2021-02",285
+"Mali","2021-03",1666
+"Mali","2021-04",3816
+"Mali","2021-05",409
+"Mali","2021-06",159
+"Mali","2021-07",125
+"Malta","2020-03",169
+"Malta","2020-04",296
+"Malta","2020-05",153
+"Malta","2020-06",52
+"Malta","2020-07",154
+"Malta","2020-08",1059
+"Malta","2020-09",1175
+"Malta","2020-10",2984
+"Malta","2020-11",3831
+"Malta","2020-12",2901
+"Malta","2021-01",5129
+"Malta","2021-02",4579
+"Malta","2021-03",6551
+"Malta","2021-04",1259
+"Malta","2021-05",243
+"Malta","2021-06",88
+"Malta","2021-07",3281
+"Marshall Islands","2020-10",2
+"Marshall Islands","2020-11",2
+"Marshall Islands","2020-12",0
+"Marshall Islands","2021-01",0
+"Marshall Islands","2021-02",0
+"Marshall Islands","2021-03",0
+"Marshall Islands","2021-04",0
+"Marshall Islands","2021-05",0
+"Marshall Islands","2021-06",0
+"Marshall Islands","2021-07",0
+"Mauritania","2020-03",6
+"Mauritania","2020-04",2
+"Mauritania","2020-05",522
+"Mauritania","2020-06",3833
+"Mauritania","2020-07",1947
+"Mauritania","2020-08",738
+"Mauritania","2020-09",454
+"Mauritania","2020-10",201
+"Mauritania","2020-11",898
+"Mauritania","2020-12",5763
+"Mauritania","2021-01",2271
+"Mauritania","2021-02",572
+"Mauritania","2021-03",640
+"Mauritania","2021-04",555
+"Mauritania","2021-05",1145
+"Mauritania","2021-06",1261
+"Mauritania","2021-07",3541
+"Mauritius","2020-03",143
+"Mauritius","2020-04",189
+"Mauritius","2020-05",3
+"Mauritius","2020-06",6
+"Mauritius","2020-07",3
+"Mauritius","2020-08",12
+"Mauritius","2020-09",25
+"Mauritius","2020-10",60
+"Mauritius","2020-11",63
+"Mauritius","2020-12",23
+"Mauritius","2021-01",42
+"Mauritius","2021-02",41
+"Mauritius","2021-03",418
+"Mauritius","2021-04",181
+"Mauritius","2021-05",166
+"Mauritius","2021-06",523
+"Mauritius","2021-07",1887
+"Mexico","2020-02",4
+"Mexico","2020-03",1211
+"Mexico","2020-04",18009
+"Mexico","2020-05",71440
+"Mexico","2020-06",135425
+"Mexico","2020-07",198548
+"Mexico","2020-08",174923
+"Mexico","2020-09",143656
+"Mexico","2020-10",181746
+"Mexico","2020-11",188581
+"Mexico","2020-12",312551
+"Mexico","2021-01",438166
+"Mexico","2021-02",222678
+"Mexico","2021-03",151949
+"Mexico","2021-04",105868
+"Mexico","2021-05",68987
+"Mexico","2021-06",105527
+"Mexico","2021-07",252577
+"Micronesia (country)","2021-01",1
+"Micronesia (country)","2021-02",0
+"Micronesia (country)","2021-03",0
+"Micronesia (country)","2021-04",0
+"Micronesia (country)","2021-05",0
+"Micronesia (country)","2021-06",0
+"Micronesia (country)","2021-07",0
+"Moldova","2020-03",353
+"Moldova","2020-04",3544
+"Moldova","2020-05",4354
+"Moldova","2020-06",8362
+"Moldova","2020-07",8120
+"Moldova","2020-08",12187
+"Moldova","2020-09",16122
+"Moldova","2020-10",22998
+"Moldova","2020-11",31324
+"Moldova","2020-12",37454
+"Moldova","2021-01",14986
+"Moldova","2021-02",25649
+"Moldova","2021-03",44788
+"Moldova","2021-04",20596
+"Moldova","2021-05",4349
+"Moldova","2021-06",1548
+"Moldova","2021-07",2118
+"Monaco","2020-02",1
+"Monaco","2020-03",51
+"Monaco","2020-04",43
+"Monaco","2020-05",4
+"Monaco","2020-06",4
+"Monaco","2020-07",17
+"Monaco","2020-08",34
+"Monaco","2020-09",64
+"Monaco","2020-10",141
+"Monaco","2020-11",250
+"Monaco","2020-12",266
+"Monaco","2021-01",614
+"Monaco","2021-02",467
+"Monaco","2021-03",332
+"Monaco","2021-04",166
+"Monaco","2021-05",50
+"Monaco","2021-06",73
+"Monaco","2021-07",237
+"Mongolia","2020-03",12
+"Mongolia","2020-04",26
+"Mongolia","2020-05",141
+"Mongolia","2020-06",41
+"Mongolia","2020-07",71
+"Mongolia","2020-08",13
+"Mongolia","2020-09",9
+"Mongolia","2020-10",33
+"Mongolia","2020-11",455
+"Mongolia","2020-12",419
+"Mongolia","2021-01",594
+"Mongolia","2021-02",1138
+"Mongolia","2021-03",5889
+"Mongolia","2021-04",28444
+"Mongolia","2021-05",21154
+"Mongolia","2021-06",57039
+"Mongolia","2021-07",44866
+"Montenegro","2020-03",109
+"Montenegro","2020-04",213
+"Montenegro","2020-05",2
+"Montenegro","2020-06",224
+"Montenegro","2020-07",2525
+"Montenegro","2020-08",1762
+"Montenegro","2020-09",5937
+"Montenegro","2020-10",7569
+"Montenegro","2020-11",16924
+"Montenegro","2020-12",12982
+"Montenegro","2021-01",13412
+"Montenegro","2021-02",14175
+"Montenegro","2021-03",15384
+"Montenegro","2021-04",6171
+"Montenegro","2021-05",2234
+"Montenegro","2021-06",629
+"Montenegro","2021-07",1100
+"Morocco","2020-03",617
+"Morocco","2020-04",3806
+"Morocco","2020-05",3384
+"Morocco","2020-06",4726
+"Morocco","2020-07",11789
+"Morocco","2020-08",38268
+"Morocco","2020-09",61063
+"Morocco","2020-10",95431
+"Morocco","2020-11",137252
+"Morocco","2020-12",82857
+"Morocco","2021-01",31964
+"Morocco","2021-02",12497
+"Morocco","2021-03",12443
+"Morocco","2021-04",15152
+"Morocco","2021-05",7967
+"Morocco","2021-06",12145
+"Morocco","2021-07",57087
+"Mozambique","2020-03",8
+"Mozambique","2020-04",68
+"Mozambique","2020-05",178
+"Mozambique","2020-06",635
+"Mozambique","2020-07",975
+"Mozambique","2020-08",2052
+"Mozambique","2020-09",4812
+"Mozambique","2020-10",4141
+"Mozambique","2020-11",2832
+"Mozambique","2020-12",2941
+"Mozambique","2021-01",20012
+"Mozambique","2021-02",20696
+"Mozambique","2021-03",8229
+"Mozambique","2021-04",2338
+"Mozambique","2021-05",878
+"Mozambique","2021-06",5609
+"Mozambique","2021-07",37022
+"Myanmar","2020-03",15
+"Myanmar","2020-04",136
+"Myanmar","2020-05",73
+"Myanmar","2020-06",75
+"Myanmar","2020-07",54
+"Myanmar","2020-08",529
+"Myanmar","2020-09",12491
+"Myanmar","2020-10",39333
+"Myanmar","2020-11",38007
+"Myanmar","2020-12",33917
+"Myanmar","2021-01",15515
+"Myanmar","2021-02",1751
+"Myanmar","2021-03",538
+"Myanmar","2021-04",383
+"Myanmar","2021-05",812
+"Myanmar","2021-06",13648
+"Myanmar","2021-07",121842
+"Namibia","2020-03",11
+"Namibia","2020-04",5
+"Namibia","2020-05",8
+"Namibia","2020-06",181
+"Namibia","2020-07",1924
+"Namibia","2020-08",5421
+"Namibia","2020-09",3715
+"Namibia","2020-10",1670
+"Namibia","2020-11",1445
+"Namibia","2020-12",9561
+"Namibia","2021-01",10003
+"Namibia","2021-02",4901
+"Namibia","2021-03",5294
+"Namibia","2021-04",4212
+"Namibia","2021-05",7198
+"Namibia","2021-06",34368
+"Namibia","2021-07",27376
+"Nepal","2020-01",1
+"Nepal","2020-02",0
+"Nepal","2020-03",4
+"Nepal","2020-04",52
+"Nepal","2020-05",1515
+"Nepal","2020-06",11992
+"Nepal","2020-07",6207
+"Nepal","2020-08",19689
+"Nepal","2020-09",38357
+"Nepal","2020-10",92926
+"Nepal","2020-11",62709
+"Nepal","2020-12",27141
+"Nepal","2021-01",10366
+"Nepal","2021-02",3184
+"Nepal","2021-03",3166
+"Nepal","2021-04",45878
+"Nepal","2021-05",238115
+"Nepal","2021-06",77503
+"Nepal","2021-07",46868
+"Netherlands","2020-02",6
+"Netherlands","2020-03",12661
+"Netherlands","2020-04",26845
+"Netherlands","2020-05",7133
+"Netherlands","2020-06",3838
+"Netherlands","2020-07",4107
+"Netherlands","2020-08",18642
+"Netherlands","2020-09",52756
+"Netherlands","2020-10",231652
+"Netherlands","2020-11",174290
+"Netherlands","2020-12",276452
+"Netherlands","2021-01",183693
+"Netherlands","2021-02",111489
+"Netherlands","2021-03",189242
+"Netherlands","2021-04",230167
+"Netherlands","2021-05",153771
+"Netherlands","2021-06",36003
+"Netherlands","2021-07",167846
+"New Zealand","2020-02",1
+"New Zealand","2020-03",646
+"New Zealand","2020-04",832
+"New Zealand","2020-05",25
+"New Zealand","2020-06",24
+"New Zealand","2020-07",34
+"New Zealand","2020-08",190
+"New Zealand","2020-09",96
+"New Zealand","2020-10",111
+"New Zealand","2020-11",100
+"New Zealand","2020-12",103
+"New Zealand","2021-01",142
+"New Zealand","2021-02",74
+"New Zealand","2021-03",123
+"New Zealand","2021-04",112
+"New Zealand","2021-05",61
+"New Zealand","2021-06",69
+"New Zealand","2021-07",122
+"Nicaragua","2020-03",5
+"Nicaragua","2020-04",9
+"Nicaragua","2020-05",745
+"Nicaragua","2020-06",1760
+"Nicaragua","2020-07",1153
+"Nicaragua","2020-08",822
+"Nicaragua","2020-09",676
+"Nicaragua","2020-10",344
+"Nicaragua","2020-11",270
+"Nicaragua","2020-12",262
+"Nicaragua","2021-01",207
+"Nicaragua","2021-02",192
+"Nicaragua","2021-03",232
+"Nicaragua","2021-04",221
+"Nicaragua","2021-05",426
+"Nicaragua","2021-06",854
+"Nicaragua","2021-07",1292
+"Niger","2020-03",27
+"Niger","2020-04",692
+"Niger","2020-05",239
+"Niger","2020-06",117
+"Niger","2020-07",59
+"Niger","2020-08",42
+"Niger","2020-09",21
+"Niger","2020-10",23
+"Niger","2020-11",328
+"Niger","2020-12",1775
+"Niger","2021-01",1194
+"Niger","2021-02",223
+"Niger","2021-03",261
+"Niger","2021-04",227
+"Niger","2021-05",182
+"Niger","2021-06",79
+"Niger","2021-07",111
+"Nigeria","2020-02",1
+"Nigeria","2020-03",134
+"Nigeria","2020-04",1797
+"Nigeria","2020-05",8230
+"Nigeria","2020-06",15532
+"Nigeria","2020-07",17457
+"Nigeria","2020-08",10857
+"Nigeria","2020-09",4840
+"Nigeria","2020-10",4005
+"Nigeria","2020-11",4704
+"Nigeria","2020-12",20050
+"Nigeria","2021-01",43635
+"Nigeria","2021-02",24415
+"Nigeria","2021-03",7234
+"Nigeria","2021-04",2219
+"Nigeria","2021-05",1408
+"Nigeria","2021-06",1100
+"Nigeria","2021-07",4110
+"North America","2020-01",11
+"North America","2020-02",38
+"North America","2020-03",205990
+"North America","2020-04",969410
+"North America","2020-05",856532
+"North America","2020-06",1067975
+"North America","2020-07",2287267
+"North America","2020-08",1784524
+"North America","2020-09",1505079
+"North America","2020-10",2308408
+"North America","2020-11",4955478
+"North America","2020-12",7133826
+"North America","2021-01",7004774
+"North America","2021-02",2849723
+"North America","2021-03",2211275
+"North America","2021-04",2394005
+"North America","2021-05",1366855
+"North America","2021-06",778436
+"North America","2021-07",1549343
+"North Macedonia","2020-02",1
+"North Macedonia","2020-03",328
+"North Macedonia","2020-04",1136
+"North Macedonia","2020-05",761
+"North Macedonia","2020-06",4108
+"North Macedonia","2020-07",4420
+"North Macedonia","2020-08",3587
+"North Macedonia","2020-09",3636
+"North Macedonia","2020-10",13595
+"North Macedonia","2020-11",30306
+"North Macedonia","2020-12",21451
+"North Macedonia","2021-01",9364
+"North Macedonia","2021-02",10094
+"North Macedonia","2021-03",27235
+"North Macedonia","2021-04",22345
+"North Macedonia","2021-05",2905
+"North Macedonia","2021-06",412
+"North Macedonia","2021-07",440
+"Norway","2020-02",15
+"Norway","2020-03",4626
+"Norway","2020-04",3097
+"Norway","2020-05",702
+"Norway","2020-06",439
+"Norway","2020-07",361
+"Norway","2020-08",1542
+"Norway","2020-09",3245
+"Norway","2020-10",6304
+"Norway","2020-11",15819
+"Norway","2020-12",13417
+"Norway","2021-01",13399
+"Norway","2021-02",8040
+"Norway","2021-03",25073
+"Norway","2021-04",16891
+"Norway","2021-05",12146
+"Norway","2021-06",6200
+"Norway","2021-07",5054
+"Oceania","2020-01",9
+"Oceania","2020-02",17
+"Oceania","2020-03",5186
+"Oceania","2020-04",3059
+"Oceania","2020-05",461
+"Oceania","2020-06",745
+"Oceania","2020-07",9464
+"Oceania","2020-08",9117
+"Oceania","2020-09",1452
+"Oceania","2020-10",677
+"Oceania","2020-11",506
+"Oceania","2020-12",747
+"Oceania","2021-01",613
+"Oceania","2021-02",664
+"Oceania","2021-03",5194
+"Oceania","2021-04",5659
+"Oceania","2021-05",5604
+"Oceania","2021-06",5762
+"Oceania","2021-07",24230
+"Oman","2020-02",6
+"Oman","2020-03",186
+"Oman","2020-04",2156
+"Oman","2020-05",9089
+"Oman","2020-06",28633
+"Oman","2020-07",39089
+"Oman","2020-08",6563
+"Oman","2020-09",12863
+"Oman","2020-10",15849
+"Oman","2020-11",9265
+"Oman","2020-12",5168
+"Oman","2021-01",5459
+"Oman","2021-02",7170
+"Oman","2021-03",17722
+"Oman","2021-04",34035
+"Oman","2021-05",23971
+"Oman","2021-06",51321
+"Oman","2021-07",26472
+"Pakistan","2020-02",4
+"Pakistan","2020-03",2114
+"Pakistan","2020-04",15996
+"Pakistan","2020-05",54346
+"Pakistan","2020-06",141010
+"Pakistan","2020-07",64835
+"Pakistan","2020-08",17544
+"Pakistan","2020-09",16957
+"Pakistan","2020-10",21164
+"Pakistan","2020-11",66512
+"Pakistan","2020-12",81696
+"Pakistan","2021-01",64250
+"Pakistan","2021-02",34937
+"Pakistan","2021-03",91566
+"Pakistan","2021-04",152588
+"Pakistan","2021-05",97305
+"Pakistan","2021-06",35584
+"Pakistan","2021-07",57419
+"Palestine","2020-03",119
+"Palestine","2020-04",225
+"Palestine","2020-05",104
+"Palestine","2020-06",1980
+"Palestine","2020-07",9409
+"Palestine","2020-08",10892
+"Palestine","2020-09",17170
+"Palestine","2020-10",13621
+"Palestine","2020-11",32127
+"Palestine","2020-12",52357
+"Palestine","2021-01",20958
+"Palestine","2021-02",24650
+"Palestine","2021-03",58741
+"Palestine","2021-04",54109
+"Palestine","2021-05",11888
+"Palestine","2021-06",5817
+"Palestine","2021-07",2022
+"Panama","2020-03",1181
+"Panama","2020-04",5351
+"Panama","2020-05",6931
+"Panama","2020-06",20087
+"Panama","2020-07",31706
+"Panama","2020-08",27726
+"Panama","2020-09",19613
+"Panama","2020-10",21003
+"Panama","2020-11",32208
+"Panama","2020-12",80984
+"Panama","2021-01",73589
+"Panama","2021-02",20536
+"Panama","2021-03",14136
+"Panama","2021-04",9525
+"Panama","2021-05",13521
+"Panama","2021-06",25681
+"Panama","2021-07",27776
+"Papua New Guinea","2020-03",1
+"Papua New Guinea","2020-04",7
+"Papua New Guinea","2020-05",0
+"Papua New Guinea","2020-06",3
+"Papua New Guinea","2020-07",61
+"Papua New Guinea","2020-08",387
+"Papua New Guinea","2020-09",75
+"Papua New Guinea","2020-10",55
+"Papua New Guinea","2020-11",67
+"Papua New Guinea","2020-12",124
+"Papua New Guinea","2021-01",71
+"Papua New Guinea","2021-02",424
+"Papua New Guinea","2021-03",4716
+"Papua New Guinea","2021-04",5006
+"Papua New Guinea","2021-05",4913
+"Papua New Guinea","2021-06",1188
+"Papua New Guinea","2021-07",557
+"Paraguay","2020-03",65
+"Paraguay","2020-04",201
+"Paraguay","2020-05",720
+"Paraguay","2020-06",1235
+"Paraguay","2020-07",3117
+"Paraguay","2020-08",12324
+"Paraguay","2020-09",23096
+"Paraguay","2020-10",22427
+"Paraguay","2020-11",19239
+"Paraguay","2020-12",25508
+"Paraguay","2021-01",25295
+"Paraguay","2021-02",26247
+"Paraguay","2021-03",55193
+"Paraguay","2021-04",64410
+"Paraguay","2021-05",76307
+"Paraguay","2021-06",67898
+"Paraguay","2021-07",27212
+"Peru","2020-03",1065
+"Peru","2020-04",35911
+"Peru","2020-05",127500
+"Peru","2020-06",120737
+"Peru","2020-07",122279
+"Peru","2020-08",239674
+"Peru","2020-09",164602
+"Peru","2020-10",88412
+"Peru","2020-11",62350
+"Peru","2020-12",52607
+"Peru","2021-01",123102
+"Peru","2021-02",185624
+"Peru","2021-03",224944
+"Peru","2021-04",250638
+"Peru","2021-05",156024
+"Peru","2021-06",96596
+"Peru","2021-07",52329
+"Philippines","2020-01",1
+"Philippines","2020-02",2
+"Philippines","2020-03",2081
+"Philippines","2020-04",6404
+"Philippines","2020-05",9598
+"Philippines","2020-06",19428
+"Philippines","2020-07",55840
+"Philippines","2020-08",127465
+"Philippines","2020-09",90875
+"Philippines","2020-10",69035
+"Philippines","2020-11",50901
+"Philippines","2020-12",42434
+"Philippines","2021-01",51554
+"Philippines","2021-02",50734
+"Philippines","2021-03",170936
+"Philippines","2021-04",290172
+"Philippines","2021-05",192841
+"Philippines","2021-06",182258
+"Philippines","2021-07",149861
+"Poland","2020-03",2311
+"Poland","2020-04",10566
+"Poland","2020-05",10909
+"Poland","2020-06",10607
+"Poland","2020-07",11295
+"Poland","2020-08",21684
+"Poland","2020-09",24142
+"Poland","2020-10",271217
+"Poland","2020-11",628080
+"Poland","2020-12",304067
+"Poland","2021-01",218507
+"Poland","2021-02",193601
+"Poland","2021-03",614731
+"Poland","2021-04",470425
+"Poland","2021-05",80141
+"Poland","2021-06",7629
+"Poland","2021-07",2415
+"Portugal","2020-03",7443
+"Portugal","2020-04",17602
+"Portugal","2020-05",7455
+"Portugal","2020-06",9641
+"Portugal","2020-07",8931
+"Portugal","2020-08",6940
+"Portugal","2020-09",17530
+"Portugal","2020-10",65737
+"Portugal","2020-11",156782
+"Portugal","2020-12",115617
+"Portugal","2021-01",306838
+"Portugal","2021-02",84046
+"Portugal","2021-03",17160
+"Portugal","2021-04",14771
+"Portugal","2021-05",12600
+"Portugal","2021-06",30464
+"Portugal","2021-07",77428
+"Qatar","2020-02",1
+"Qatar","2020-03",780
+"Qatar","2020-04",12628
+"Qatar","2020-05",43501
+"Qatar","2020-06",39178
+"Qatar","2020-07",14607
+"Qatar","2020-08",8083
+"Qatar","2020-09",6982
+"Qatar","2020-10",6796
+"Qatar","2020-11",6277
+"Qatar","2020-12",5001
+"Qatar","2021-01",7501
+"Qatar","2021-02",12329
+"Qatar","2021-03",16300
+"Qatar","2021-04",25688
+"Qatar","2021-05",11806
+"Qatar","2021-06",4613
+"Qatar","2021-07",3451
+"Romania","2020-02",3
+"Romania","2020-03",2242
+"Romania","2020-04",9995
+"Romania","2020-05",7017
+"Romania","2020-06",7713
+"Romania","2020-07",23916
+"Romania","2020-08",36654
+"Romania","2020-09",40032
+"Romania","2020-10",113767
+"Romania","2020-11",234023
+"Romania","2020-12",156901
+"Romania","2021-01",96480
+"Romania","2021-02",73251
+"Romania","2021-03",150809
+"Romania","2021-04",102462
+"Romania","2021-05",22472
+"Romania","2021-06",3055
+"Romania","2021-07",1759
+"Russia","2020-01",2
+"Russia","2020-02",0
+"Russia","2020-03",2335
+"Russia","2020-04",104161
+"Russia","2020-05",299345
+"Russia","2020-06",241086
+"Russia","2020-07",191532
+"Russia","2020-08",153941
+"Russia","2020-09",178397
+"Russia","2020-10",435468
+"Russia","2020-11",669669
+"Russia","2020-12",851411
+"Russia","2021-01",681001
+"Russia","2021-02",390052
+"Russia","2021-03",295834
+"Russia","2021-04",256521
+"Russia","2021-05",262757
+"Russia","2021-06",436082
+"Russia","2021-07",644785
+"Rwanda","2020-03",75
+"Rwanda","2020-04",168
+"Rwanda","2020-05",127
+"Rwanda","2020-06",655
+"Rwanda","2020-07",997
+"Rwanda","2020-08",2041
+"Rwanda","2020-09",777
+"Rwanda","2020-10",297
+"Rwanda","2020-11",797
+"Rwanda","2020-12",2449
+"Rwanda","2021-01",6921
+"Rwanda","2021-02",3546
+"Rwanda","2021-03",2933
+"Rwanda","2021-04",3333
+"Rwanda","2021-05",1847
+"Rwanda","2021-06",12084
+"Rwanda","2021-07",27940
+"Saint Kitts and Nevis","2020-03",8
+"Saint Kitts and Nevis","2020-04",7
+"Saint Kitts and Nevis","2020-05",0
+"Saint Kitts and Nevis","2020-06",0
+"Saint Kitts and Nevis","2020-07",2
+"Saint Kitts and Nevis","2020-08",0
+"Saint Kitts and Nevis","2020-09",2
+"Saint Kitts and Nevis","2020-10",0
+"Saint Kitts and Nevis","2020-11",3
+"Saint Kitts and Nevis","2020-12",10
+"Saint Kitts and Nevis","2021-01",5
+"Saint Kitts and Nevis","2021-02",4
+"Saint Kitts and Nevis","2021-03",3
+"Saint Kitts and Nevis","2021-04",0
+"Saint Kitts and Nevis","2021-05",24
+"Saint Kitts and Nevis","2021-06",378
+"Saint Kitts and Nevis","2021-07",132
+"Saint Lucia","2020-03",13
+"Saint Lucia","2020-04",4
+"Saint Lucia","2020-05",1
+"Saint Lucia","2020-06",1
+"Saint Lucia","2020-07",6
+"Saint Lucia","2020-08",1
+"Saint Lucia","2020-09",1
+"Saint Lucia","2020-10",51
+"Saint Lucia","2020-11",181
+"Saint Lucia","2020-12",94
+"Saint Lucia","2021-01",842
+"Saint Lucia","2021-02",2195
+"Saint Lucia","2021-03",848
+"Saint Lucia","2021-04",314
+"Saint Lucia","2021-05",515
+"Saint Lucia","2021-06",229
+"Saint Lucia","2021-07",233
+"Saint Vincent and the Grenadines","2020-03",1
+"Saint Vincent and the Grenadines","2020-04",15
+"Saint Vincent and the Grenadines","2020-05",10
+"Saint Vincent and the Grenadines","2020-06",3
+"Saint Vincent and the Grenadines","2020-07",25
+"Saint Vincent and the Grenadines","2020-08",6
+"Saint Vincent and the Grenadines","2020-09",4
+"Saint Vincent and the Grenadines","2020-10",10
+"Saint Vincent and the Grenadines","2020-11",11
+"Saint Vincent and the Grenadines","2020-12",36
+"Saint Vincent and the Grenadines","2021-01",780
+"Saint Vincent and the Grenadines","2021-02",655
+"Saint Vincent and the Grenadines","2021-03",192
+"Saint Vincent and the Grenadines","2021-04",116
+"Saint Vincent and the Grenadines","2021-05",171
+"Saint Vincent and the Grenadines","2021-06",190
+"Saint Vincent and the Grenadines","2021-07",55
+"Samoa","2020-11",2
+"Samoa","2020-12",0
+"Samoa","2021-01",0
+"Samoa","2021-02",1
+"Samoa","2021-03",0
+"Samoa","2021-04",0
+"Samoa","2021-05",0
+"Samoa","2021-06",0
+"Samoa","2021-07",0
+"San Marino","2020-02",1
+"San Marino","2020-03",235
+"San Marino","2020-04",333
+"San Marino","2020-05",102
+"San Marino","2020-06",27
+"San Marino","2020-07",1
+"San Marino","2020-08",16
+"San Marino","2020-09",17
+"San Marino","2020-10",196
+"San Marino","2020-11",684
+"San Marino","2020-12",816
+"San Marino","2021-01",597
+"San Marino","2021-02",691
+"San Marino","2021-03",1014
+"San Marino","2021-04",336
+"San Marino","2021-05",24
+"San Marino","2021-06",1
+"San Marino","2021-07",39
+"Sao Tome and Principe","2020-04",14
+"Sao Tome and Principe","2020-05",469
+"Sao Tome and Principe","2020-06",231
+"Sao Tome and Principe","2020-07",157
+"Sao Tome and Principe","2020-08",25
+"Sao Tome and Principe","2020-09",15
+"Sao Tome and Principe","2020-10",34
+"Sao Tome and Principe","2020-11",46
+"Sao Tome and Principe","2020-12",23
+"Sao Tome and Principe","2021-01",243
+"Sao Tome and Principe","2021-02",529
+"Sao Tome and Principe","2021-03",437
+"Sao Tome and Principe","2021-04",79
+"Sao Tome and Principe","2021-05",43
+"Sao Tome and Principe","2021-06",21
+"Sao Tome and Principe","2021-07",58
+"Saudi Arabia","2020-03",1563
+"Saudi Arabia","2020-04",21190
+"Saudi Arabia","2020-05",62508
+"Saudi Arabia","2020-06",105562
+"Saudi Arabia","2020-07",85082
+"Saudi Arabia","2020-08",39867
+"Saudi Arabia","2020-09",18833
+"Saudi Arabia","2020-10",12677
+"Saudi Arabia","2020-11",10078
+"Saudi Arabia","2020-12",5381
+"Saudi Arabia","2021-01",5333
+"Saudi Arabia","2021-02",9309
+"Saudi Arabia","2021-03",12624
+"Saudi Arabia","2021-04",27356
+"Saudi Arabia","2021-05",33073
+"Saudi Arabia","2021-06",35670
+"Saudi Arabia","2021-07",32037
+"Senegal","2020-03",175
+"Senegal","2020-04",758
+"Senegal","2020-05",2712
+"Senegal","2020-06",3148
+"Senegal","2020-07",3439
+"Senegal","2020-08",3379
+"Senegal","2020-09",1371
+"Senegal","2020-10",634
+"Senegal","2020-11",473
+"Senegal","2020-12",3051
+"Senegal","2021-01",7383
+"Senegal","2021-02",7997
+"Senegal","2021-03",4185
+"Senegal","2021-04",1639
+"Senegal","2021-05",1072
+"Senegal","2021-06",1712
+"Senegal","2021-07",15395
+"Serbia","2020-03",900
+"Serbia","2020-04",8109
+"Serbia","2020-05",2403
+"Serbia","2020-06",3152
+"Serbia","2020-07",10988
+"Serbia","2020-08",5854
+"Serbia","2020-09",2145
+"Serbia","2020-10",13403
+"Serbia","2020-11",128484
+"Serbia","2020-12",162485
+"Serbia","2021-01",57340
+"Serbia","2021-02",63996
+"Serbia","2021-03",141337
+"Serbia","2021-04",88961
+"Serbia","2021-05",22915
+"Serbia","2021-06",4090
+"Serbia","2021-07",4081
+"Seychelles","2020-03",10
+"Seychelles","2020-04",1
+"Seychelles","2020-05",0
+"Seychelles","2020-06",70
+"Seychelles","2020-07",33
+"Seychelles","2020-08",22
+"Seychelles","2020-09",8
+"Seychelles","2020-10",9
+"Seychelles","2020-11",30
+"Seychelles","2020-12",73
+"Seychelles","2021-01",949
+"Seychelles","2021-02",1413
+"Seychelles","2021-03",1517
+"Seychelles","2021-04",1738
+"Seychelles","2021-05",5748
+"Seychelles","2021-06",3958
+"Seychelles","2021-07",2483
+"Sierra Leone","2020-03",1
+"Sierra Leone","2020-04",123
+"Sierra Leone","2020-05",737
+"Sierra Leone","2020-06",601
+"Sierra Leone","2020-07",361
+"Sierra Leone","2020-08",199
+"Sierra Leone","2020-09",209
+"Sierra Leone","2020-10",135
+"Sierra Leone","2020-11",46
+"Sierra Leone","2020-12",199
+"Sierra Leone","2021-01",982
+"Sierra Leone","2021-02",294
+"Sierra Leone","2021-03",93
+"Sierra Leone","2021-04",74
+"Sierra Leone","2021-05",93
+"Sierra Leone","2021-06",1428
+"Sierra Leone","2021-07",672
+"Singapore","2020-01",13
+"Singapore","2020-02",89
+"Singapore","2020-03",824
+"Singapore","2020-04",15243
+"Singapore","2020-05",18715
+"Singapore","2020-06",9023
+"Singapore","2020-07",8298
+"Singapore","2020-08",4607
+"Singapore","2020-09",953
+"Singapore","2020-10",250
+"Singapore","2020-11",203
+"Singapore","2020-12",381
+"Singapore","2021-01",937
+"Singapore","2021-02",400
+"Singapore","2021-03",445
+"Singapore","2021-04",764
+"Singapore","2021-05",906
+"Singapore","2021-06",528
+"Singapore","2021-07",1874
+"Slovakia","2020-03",363
+"Slovakia","2020-04",1033
+"Slovakia","2020-05",125
+"Slovakia","2020-06",146
+"Slovakia","2020-07",625
+"Slovakia","2020-08",1625
+"Slovakia","2020-09",6224
+"Slovakia","2020-10",47523
+"Slovakia","2020-11",48265
+"Slovakia","2020-12",73614
+"Slovakia","2021-01",70370
+"Slovakia","2021-02",58170
+"Slovakia","2021-03",53102
+"Slovakia","2021-04",21026
+"Slovakia","2021-05",7510
+"Slovakia","2021-06",1921
+"Slovakia","2021-07",764
+"Slovenia","2020-03",802
+"Slovenia","2020-04",627
+"Slovenia","2020-05",44
+"Slovenia","2020-06",127
+"Slovenia","2020-07",556
+"Slovenia","2020-08",727
+"Slovenia","2020-09",2807
+"Slovenia","2020-10",28617
+"Slovenia","2020-11",41507
+"Slovenia","2020-12",46338
+"Slovenia","2021-01",44321
+"Slovenia","2021-02",23608
+"Slovenia","2021-03",25521
+"Slovenia","2021-04",24690
+"Slovenia","2021-05",13430
+"Slovenia","2021-06",3613
+"Slovenia","2021-07",1445
+"Solomon Islands","2020-10",8
+"Solomon Islands","2020-11",9
+"Solomon Islands","2020-12",0
+"Solomon Islands","2021-01",0
+"Solomon Islands","2021-02",1
+"Solomon Islands","2021-03",1
+"Solomon Islands","2021-04",1
+"Solomon Islands","2021-05",0
+"Solomon Islands","2021-06",0
+"Solomon Islands","2021-07",0
+"Somalia","2020-03",5
+"Somalia","2020-04",596
+"Somalia","2020-05",1375
+"Somalia","2020-06",948
+"Somalia","2020-07",288
+"Somalia","2020-08",98
+"Somalia","2020-09",278
+"Somalia","2020-10",353
+"Somalia","2020-11",510
+"Somalia","2020-12",263
+"Somalia","2021-01",70
+"Somalia","2021-02",2473
+"Somalia","2021-03",4141
+"Somalia","2021-04",2517
+"Somalia","2021-05",747
+"Somalia","2021-06",284
+"Somalia","2021-07",348
+"South Africa","2020-03",1353
+"South Africa","2020-04",4294
+"South Africa","2020-05",27036
+"South Africa","2020-06",118526
+"South Africa","2020-07",341974
+"South Africa","2020-08",133858
+"South Africa","2020-09",47298
+"South Africa","2020-10",51113
+"South Africa","2020-11",64552
+"South Africa","2020-12",267157
+"South Africa","2021-01",396600
+"South Africa","2021-02",59632
+"South Africa","2021-03",34764
+"South Africa","2021-04",33053
+"South Africa","2021-05",84407
+"South Africa","2021-06",308355
+"South Africa","2021-07",417251
+"South America","2020-02",4
+"South America","2020-03",14488
+"South America","2020-04",165743
+"South America","2020-05",721449
+"South America","2020-06",1326739
+"South America","2020-07",1873414
+"South America","2020-08",2199846
+"South America","2020-09",1762746
+"South America","2020-10",1600356
+"South America","2020-11",1465491
+"South America","2020-12",2063883
+"South America","2021-01",2683677
+"South America","2021-02",2090229
+"South America","2021-03",3181475
+"South America","2021-04",3728676
+"South America","2021-05",3908667
+"South America","2021-06",4094840
+"South America","2021-07",2337808
+"South Korea","2020-01",10
+"South Korea","2020-02",3139
+"South Korea","2020-03",6636
+"South Korea","2020-04",988
+"South Korea","2020-05",729
+"South Korea","2020-06",1347
+"South Korea","2020-07",1486
+"South Korea","2020-08",5846
+"South Korea","2020-09",3707
+"South Korea","2020-10",2746
+"South Korea","2020-11",8017
+"South Korea","2020-12",27117
+"South Korea","2021-01",16739
+"South Korea","2021-02",11523
+"South Korea","2021-03",13608
+"South Korea","2021-04",18995
+"South Korea","2021-05",18165
+"South Korea","2021-06",16924
+"South Korea","2021-07",35704
+"South Sudan","2020-04",35
+"South Sudan","2020-05",959
+"South Sudan","2020-06",1013
+"South Sudan","2020-07",315
+"South Sudan","2020-08",205
+"South Sudan","2020-09",177
+"South Sudan","2020-10",201
+"South Sudan","2020-11",204
+"South Sudan","2020-12",449
+"South Sudan","2021-01",371
+"South Sudan","2021-02",3997
+"South Sudan","2021-03",2239
+"South Sudan","2021-04",418
+"South Sudan","2021-05",105
+"South Sudan","2021-06",146
+"South Sudan","2021-07",180
+"Spain","2020-02",45
+"Spain","2020-03",95878
+"Spain","2020-04",117512
+"Spain","2020-05",26044
+"Spain","2020-06",9792
+"Spain","2020-07",39251
+"Spain","2020-08",174336
+"Spain","2020-09",306330
+"Spain","2020-10",416490
+"Spain","2020-11",462509
+"Spain","2020-12",280078
+"Spain","2021-01",814854
+"Spain","2021-02",445434
+"Spain","2021-03",95800
+"Spain","2021-04",239724
+"Spain","2021-05",154313
+"Spain","2021-06",130570
+"Spain","2021-07",559493
+"Sri Lanka","2020-01",1
+"Sri Lanka","2020-02",0
+"Sri Lanka","2020-03",142
+"Sri Lanka","2020-04",520
+"Sri Lanka","2020-05",970
+"Sri Lanka","2020-06",414
+"Sri Lanka","2020-07",768
+"Sri Lanka","2020-08",234
+"Sri Lanka","2020-09",331
+"Sri Lanka","2020-10",7283
+"Sri Lanka","2020-11",13324
+"Sri Lanka","2020-12",19312
+"Sri Lanka","2021-01",20858
+"Sri Lanka","2021-02",18937
+"Sri Lanka","2021-03",9612
+"Sri Lanka","2021-04",15440
+"Sri Lanka","2021-05",78218
+"Sri Lanka","2021-06",72725
+"Sri Lanka","2021-07",40803
+"Sudan","2020-03",7
+"Sudan","2020-04",368
+"Sudan","2020-05",4425
+"Sudan","2020-06",4572
+"Sudan","2020-07",2207
+"Sudan","2020-08",1610
+"Sudan","2020-09",457
+"Sudan","2020-10",158
+"Sudan","2020-11",4241
+"Sudan","2020-12",7455
+"Sudan","2021-01",3880
+"Sudan","2021-02",967
+"Sudan","2021-03",1486
+"Sudan","2021-04",2111
+"Sudan","2021-05",1551
+"Sudan","2021-06",1163
+"Sudan","2021-07",480
+"Suriname","2020-03",9
+"Suriname","2020-04",1
+"Suriname","2020-05",13
+"Suriname","2020-06",492
+"Suriname","2020-07",1135
+"Suriname","2020-08",2384
+"Suriname","2020-09",843
+"Suriname","2020-10",326
+"Suriname","2020-11",109
+"Suriname","2020-12",898
+"Suriname","2021-01",2228
+"Suriname","2021-02",491
+"Suriname","2021-03",193
+"Suriname","2021-04",1241
+"Suriname","2021-05",4591
+"Suriname","2021-06",6778
+"Suriname","2021-07",3296
+"Sweden","2020-02",14
+"Sweden","2020-03",4820
+"Sweden","2020-04",16767
+"Sweden","2020-05",17060
+"Sweden","2020-06",29263
+"Sweden","2020-07",9152
+"Sweden","2020-08",7303
+"Sweden","2020-09",8484
+"Sweden","2020-10",31492
+"Sweden","2020-11",118774
+"Sweden","2020-12",194250
+"Sweden","2021-01",129578
+"Sweden","2021-02",90352
+"Sweden","2021-03",147577
+"Sweden","2021-04",168718
+"Sweden","2021-05",94869
+"Sweden","2021-06",21517
+"Sweden","2021-07",8164
+"Switzerland","2020-02",18
+"Switzerland","2020-03",16587
+"Switzerland","2020-04",12981
+"Switzerland","2020-05",1276
+"Switzerland","2020-06",852
+"Switzerland","2020-07",3518
+"Switzerland","2020-08",6945
+"Switzerland","2020-09",11105
+"Switzerland","2020-10",100969
+"Switzerland","2020-11",172821
+"Switzerland","2020-12",125224
+"Switzerland","2021-01",69024
+"Switzerland","2021-02",33612
+"Switzerland","2021-03",46192
+"Switzerland","2021-04",58850
+"Switzerland","2021-05",34766
+"Switzerland","2021-06",8264
+"Switzerland","2021-07",12263
+"Syria","2020-03",10
+"Syria","2020-04",33
+"Syria","2020-05",79
+"Syria","2020-06",157
+"Syria","2020-07",478
+"Syria","2020-08",2008
+"Syria","2020-09",1435
+"Syria","2020-10",1528
+"Syria","2020-11",2159
+"Syria","2020-12",3547
+"Syria","2021-01",2614
+"Syria","2021-02",1540
+"Syria","2021-03",3321
+"Syria","2021-04",3824
+"Syria","2021-05",1762
+"Syria","2021-06",1020
+"Syria","2021-07",396
+"Taiwan","2020-01",9
+"Taiwan","2020-02",29
+"Taiwan","2020-03",283
+"Taiwan","2020-04",107
+"Taiwan","2020-05",13
+"Taiwan","2020-06",5
+"Taiwan","2020-07",20
+"Taiwan","2020-08",21
+"Taiwan","2020-09",26
+"Taiwan","2020-10",41
+"Taiwan","2020-11",120
+"Taiwan","2020-12",124
+"Taiwan","2021-01",112
+"Taiwan","2021-02",44
+"Taiwan","2021-03",75
+"Taiwan","2021-04",98
+"Taiwan","2021-05",7383
+"Taiwan","2021-06",6293
+"Taiwan","2021-07",795
+"Tajikistan","2020-04",15
+"Tajikistan","2020-05",3915
+"Tajikistan","2020-06",1970
+"Tajikistan","2020-07",1509
+"Tajikistan","2020-08",1174
+"Tajikistan","2020-09",1186
+"Tajikistan","2020-10",1248
+"Tajikistan","2020-11",1177
+"Tajikistan","2020-12",1102
+"Tajikistan","2021-01",12
+"Tajikistan","2021-02",0
+"Tajikistan","2021-03",0
+"Tajikistan","2021-04",0
+"Tajikistan","2021-05",0
+"Tajikistan","2021-06",191
+"Tajikistan","2021-07",1262
+"Tanzania","2020-03",19
+"Tanzania","2020-04",461
+"Tanzania","2020-05",29
+"Tanzania","2020-06",0
+"Tanzania","2020-07",0
+"Tanzania","2020-08",0
+"Tanzania","2020-09",0
+"Tanzania","2020-10",0
+"Tanzania","2020-11",0
+"Tanzania","2020-12",0
+"Tanzania","2021-01",0
+"Tanzania","2021-02",0
+"Tanzania","2021-03",0
+"Tanzania","2021-04",0
+"Tanzania","2021-05",0
+"Tanzania","2021-06",0
+"Tanzania","2021-07",0
+"Thailand","2020-01",15
+"Thailand","2020-02",23
+"Thailand","2020-03",1609
+"Thailand","2020-04",1303
+"Thailand","2020-05",127
+"Thailand","2020-06",90
+"Thailand","2020-07",139
+"Thailand","2020-08",102
+"Thailand","2020-09",157
+"Thailand","2020-10",215
+"Thailand","2020-11",224
+"Thailand","2020-12",3155
+"Thailand","2021-01",12455
+"Thailand","2021-02",6413
+"Thailand","2021-03",2832
+"Thailand","2021-04",36290
+"Thailand","2021-05",94639
+"Thailand","2021-06",99509
+"Thailand","2021-07",267527
+"Timor","2020-03",1
+"Timor","2020-04",23
+"Timor","2020-05",0
+"Timor","2020-06",0
+"Timor","2020-07",0
+"Timor","2020-08",3
+"Timor","2020-09",1
+"Timor","2020-10",2
+"Timor","2020-11",0
+"Timor","2020-12",14
+"Timor","2021-01",26
+"Timor","2021-02",43
+"Timor","2021-03",491
+"Timor","2021-04",1672
+"Timor","2021-05",4718
+"Timor","2021-06",2228
+"Timor","2021-07",1165
+"Togo","2020-03",34
+"Togo","2020-04",82
+"Togo","2020-05",326
+"Togo","2020-06",208
+"Togo","2020-07",291
+"Togo","2020-08",459
+"Togo","2020-09",384
+"Togo","2020-10",547
+"Togo","2020-11",643
+"Togo","2020-12",659
+"Togo","2021-01",1441
+"Togo","2021-02",1827
+"Togo","2021-03",3348
+"Togo","2021-04",2718
+"Togo","2021-05",499
+"Togo","2021-06",451
+"Togo","2021-07",1375
+"Trinidad and Tobago","2020-03",87
+"Trinidad and Tobago","2020-04",29
+"Trinidad and Tobago","2020-05",1
+"Trinidad and Tobago","2020-06",13
+"Trinidad and Tobago","2020-07",39
+"Trinidad and Tobago","2020-08",1590
+"Trinidad and Tobago","2020-09",2772
+"Trinidad and Tobago","2020-10",1161
+"Trinidad and Tobago","2020-11",977
+"Trinidad and Tobago","2020-12",481
+"Trinidad and Tobago","2021-01",414
+"Trinidad and Tobago","2021-02",149
+"Trinidad and Tobago","2021-03",313
+"Trinidad and Tobago","2021-04",2798
+"Trinidad and Tobago","2021-05",13085
+"Trinidad and Tobago","2021-06",8884
+"Trinidad and Tobago","2021-07",4978
+"Tunisia","2020-03",394
+"Tunisia","2020-04",600
+"Tunisia","2020-05",83
+"Tunisia","2020-06",97
+"Tunisia","2020-07",361
+"Tunisia","2020-08",2268
+"Tunisia","2020-09",14610
+"Tunisia","2020-10",41400
+"Tunisia","2020-11",36956
+"Tunisia","2020-12",42371
+"Tunisia","2021-01",69745
+"Tunisia","2021-02",24392
+"Tunisia","2021-03",20741
+"Tunisia","2021-04",55101
+"Tunisia","2021-05",36355
+"Tunisia","2021-06",74629
+"Tunisia","2021-07",154899
+"Turkey","2020-03",13531
+"Turkey","2020-04",106673
+"Turkey","2020-05",43738
+"Turkey","2020-06",35964
+"Turkey","2020-07",30967
+"Turkey","2020-08",39260
+"Turkey","2020-09",48530
+"Turkey","2020-10",56704
+"Turkey","2020-11",263480
+"Turkey","2020-12",746580
+"Turkey","2021-01",268811
+"Turkey","2021-02",224125
+"Turkey","2021-03",615594
+"Turkey","2021-04",1503409
+"Turkey","2021-05",428813
+"Turkey","2021-06",176248
+"Turkey","2021-07",212526
+"Uganda","2020-03",44
+"Uganda","2020-04",39
+"Uganda","2020-05",334
+"Uganda","2020-06",472
+"Uganda","2020-07",265
+"Uganda","2020-08",1818
+"Uganda","2020-09",5157
+"Uganda","2020-10",4366
+"Uganda","2020-11",7964
+"Uganda","2020-12",14757
+"Uganda","2021-01",4363
+"Uganda","2021-02",778
+"Uganda","2021-03",510
+"Uganda","2021-04",999
+"Uganda","2021-05",5281
+"Uganda","2021-06",32830
+"Uganda","2021-07",12818
+"Ukraine","2020-03",645
+"Ukraine","2020-04",9761
+"Ukraine","2020-05",13266
+"Ukraine","2020-06",21582
+"Ukraine","2020-07",26150
+"Ukraine","2020-08",52728
+"Ukraine","2020-09",90314
+"Ukraine","2020-10",184884
+"Ukraine","2020-11",353013
+"Ukraine","2020-12",334654
+"Ukraine","2021-01",174549
+"Ukraine","2021-02",133982
+"Ukraine","2021-03",329501
+"Ukraine","2021-04",399041
+"Ukraine","2021-05",136829
+"Ukraine","2021-06",39202
+"Ukraine","2021-07",27676
+"United Arab Emirates","2020-01",4
+"United Arab Emirates","2020-02",17
+"United Arab Emirates","2020-03",643
+"United Arab Emirates","2020-04",11817
+"United Arab Emirates","2020-05",22076
+"United Arab Emirates","2020-06",14110
+"United Arab Emirates","2020-07",11839
+"United Arab Emirates","2020-08",9725
+"United Arab Emirates","2020-09",23959
+"United Arab Emirates","2020-10",38439
+"United Arab Emirates","2020-11",36231
+"United Arab Emirates","2020-12",38962
+"United Arab Emirates","2021-01",95787
+"United Arab Emirates","2021-02",87915
+"United Arab Emirates","2021-03",69920
+"United Arab Emirates","2021-04",58792
+"United Arab Emirates","2021-05",50600
+"United Arab Emirates","2021-06",62071
+"United Arab Emirates","2021-07",41817
+"United Kingdom","2020-01",2
+"United Kingdom","2020-02",59
+"United Kingdom","2020-03",38754
+"United Kingdom","2020-04",139956
+"United Kingdom","2020-05",78768
+"United Kingdom","2020-06",27677
+"United Kingdom","2020-07",19577
+"United Kingdom","2020-08",33290
+"United Kingdom","2020-09",117765
+"United Kingdom","2020-10",558947
+"United Kingdom","2020-11",618941
+"United Kingdom","2020-12",862499
+"United Kingdom","2021-01",1331952
+"United Kingdom","2021-02",360640
+"United Kingdom","2021-03",171155
+"United Kingdom","2021-04",72264
+"United Kingdom","2021-05",70985
+"United Kingdom","2021-06",314067
+"United Kingdom","2021-07",954434
+"United States","2020-01",7
+"United States","2020-02",17
+"United States","2020-03",192276
+"United States","2020-04",888804
+"United States","2020-05",717688
+"United States","2020-06",843440
+"United States","2020-07",1925231
+"United States","2020-08",1459482
+"United States","2020-09",1208552
+"United States","2020-10",1930288
+"United States","2020-11",4504912
+"United States","2020-12",6429546
+"United States","2021-01",6149098
+"United States","2021-02",2402096
+"United States","2021-03",1813678
+"United States","2021-04",1885745
+"United States","2021-05",916731
+"United States","2021-06",397378
+"United States","2021-07",938949
+"Uruguay","2020-03",338
+"Uruguay","2020-04",305
+"Uruguay","2020-05",180
+"Uruguay","2020-06",113
+"Uruguay","2020-07",328
+"Uruguay","2020-08",331
+"Uruguay","2020-09",451
+"Uruguay","2020-10",1078
+"Uruguay","2020-11",2733
+"Uruguay","2020-12",13262
+"Uruguay","2021-01",22619
+"Uruguay","2021-02",16256
+"Uruguay","2021-03",47555
+"Uruguay","2021-04",92879
+"Uruguay","2021-05",96075
+"Uruguay","2021-06",74847
+"Uruguay","2021-07",11443
+"Uzbekistan","2020-03",172
+"Uzbekistan","2020-04",1867
+"Uzbekistan","2020-05",1584
+"Uzbekistan","2020-06",4880
+"Uzbekistan","2020-07",15506
+"Uzbekistan","2020-08",17884
+"Uzbekistan","2020-09",14824
+"Uzbekistan","2020-10",10215
+"Uzbekistan","2020-11",6162
+"Uzbekistan","2020-12",3966
+"Uzbekistan","2021-01",1651
+"Uzbekistan","2021-02",1215
+"Uzbekistan","2021-03",2943
+"Uzbekistan","2021-04",7939
+"Uzbekistan","2021-05",9527
+"Uzbekistan","2021-06",10342
+"Uzbekistan","2021-07",15107
+"Vanuatu","2020-11",1
+"Vanuatu","2020-12",0
+"Vanuatu","2021-01",0
+"Vanuatu","2021-02",0
+"Vanuatu","2021-03",2
+"Vanuatu","2021-04",1
+"Vanuatu","2021-05",0
+"Vanuatu","2021-06",0
+"Vanuatu","2021-07",0
+"Vatican","2020-03",6
+"Vatican","2020-04",5
+"Vatican","2020-05",1
+"Vatican","2020-06",0
+"Vatican","2020-07",0
+"Vatican","2020-08",0
+"Vatican","2020-09",0
+"Vatican","2020-10",15
+"Vatican","2020-11",0
+"Vatican","2020-12",0
+"Vatican","2021-01",0
+"Vatican","2021-02",0
+"Vatican","2021-03",0
+"Vatican","2021-04",0
+"Vatican","2021-05",0
+"Vatican","2021-06",0
+"Vatican","2021-07",0
+"Venezuela","2020-03",135
+"Venezuela","2020-04",198
+"Venezuela","2020-05",1177
+"Venezuela","2020-06",4322
+"Venezuela","2020-07",12742
+"Venezuela","2020-08",28154
+"Venezuela","2020-09",28394
+"Venezuela","2020-10",16891
+"Venezuela","2020-11",10381
+"Venezuela","2020-12",11164
+"Venezuela","2021-01",13369
+"Venezuela","2021-02",12189
+"Venezuela","2021-03",21381
+"Venezuela","2021-04",37186
+"Venezuela","2021-05",36482
+"Venezuela","2021-06",38547
+"Venezuela","2021-07",29267
+"Vietnam","2020-01",2
+"Vietnam","2020-02",14
+"Vietnam","2020-03",196
+"Vietnam","2020-04",58
+"Vietnam","2020-05",58
+"Vietnam","2020-06",27
+"Vietnam","2020-07",203
+"Vietnam","2020-08",486
+"Vietnam","2020-09",50
+"Vietnam","2020-10",86
+"Vietnam","2020-11",167
+"Vietnam","2020-12",118
+"Vietnam","2021-01",352
+"Vietnam","2021-02",631
+"Vietnam","2021-03",155
+"Vietnam","2021-04",325
+"Vietnam","2021-05",4504
+"Vietnam","2021-06",9620
+"Vietnam","2021-07",100069
+"World","2020-01",9370
+"World","2020-02",76087
+"World","2020-03",790499
+"World","2020-04",2405681
+"World","2020-05",2906074
+"World","2020-06",4269652
+"World","2020-07",7146907
+"World","2020-08",7904244
+"World","2020-09",8504362
+"World","2020-10",12129873
+"World","2020-11",17268936
+"World","2020-12",19348070
+"World","2021-01",19446155
+"World","2021-02",11152296
+"World","2021-03",14719299
+"World","2021-04",22503021
+"World","2021-05",19676337
+"World","2021-06",11470896
+"World","2021-07",13126822
+"Yemen","2020-04",6
+"Yemen","2020-05",317
+"Yemen","2020-06",835
+"Yemen","2020-07",570
+"Yemen","2020-08",230
+"Yemen","2020-09",76
+"Yemen","2020-10",29
+"Yemen","2020-11",14
+"Yemen","2020-12",22
+"Yemen","2021-01",22
+"Yemen","2021-02",164
+"Yemen","2021-03",2072
+"Yemen","2021-04",1960
+"Yemen","2021-05",425
+"Yemen","2021-06",178
+"Yemen","2021-07",102
+"Zambia","2020-03",35
+"Zambia","2020-04",71
+"Zambia","2020-05",951
+"Zambia","2020-06",537
+"Zambia","2020-07",4369
+"Zambia","2020-08",6134
+"Zambia","2020-09",2662
+"Zambia","2020-10",1673
+"Zambia","2020-11",1215
+"Zambia","2020-12",3078
+"Zambia","2021-01",33492
+"Zambia","2021-02",24317
+"Zambia","2021-03",9884
+"Zambia","2021-04",3168
+"Zambia","2021-05",3677
+"Zambia","2021-06",59685
+"Zambia","2021-07",38008
+"Zimbabwe","2020-03",8
+"Zimbabwe","2020-04",32
+"Zimbabwe","2020-05",138
+"Zimbabwe","2020-06",413
+"Zimbabwe","2020-07",2578
+"Zimbabwe","2020-08",3328
+"Zimbabwe","2020-09",1341
+"Zimbabwe","2020-10",529
+"Zimbabwe","2020-11",1583
+"Zimbabwe","2020-12",3917
+"Zimbabwe","2021-01",19521
+"Zimbabwe","2021-02",2701
+"Zimbabwe","2021-03",793
+"Zimbabwe","2021-04",1375
+"Zimbabwe","2021-05",704
+"Zimbabwe","2021-06",10903
+"Zimbabwe","2021-07",51847
