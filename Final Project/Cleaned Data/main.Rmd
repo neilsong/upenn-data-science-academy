@@ -8,10 +8,11 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 ```
 
 ```{r}
-gdp <- fread('GDP_per_capita_cleaned.csv')
 cc <- fread('../oecd-new/Consumer confidence_monthly.csv')
-infl <- fread('../oecd-new/CPI_Inflation_monthly.csv')
-imex <- fread('../oecd-new/')
+infl <- fread('../oecd-new/monthly-inflation.csv')
+unemployment <- fread('../oecd-new/monthly-unemployment.csv')
+interest_rate <- read.csv("~/Documents/GitHub/Penn/upenn-data-science-academy/Final Project/Data/OECD Data/long_term_interest_rates.csv", header=T, stringsAsFactors = FALSE)
+
 dfs <- df %>% arrange(desc(Value)) %>% select(LOCATION, Country, Value)
 
 
