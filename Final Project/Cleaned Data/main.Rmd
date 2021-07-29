@@ -4,33 +4,331 @@ options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
 pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
-               plotROC, usmap, glmnet, car, rworldmap, countrycode)
+               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies, DiagrammeR)
 ```
 
 ```{r}
 gdp <- fread('GDP_per_capita_cleaned.csv')
-cc <- fread('../oecd-new/Consumer confidence_monthly.csv')
-infl <- fread('../oecd-new/CPI_Inflation_monthly.csv')
-imex <- fread('../oecd-new/')
-dfs <- df %>% arrange(desc(Value)) %>% select(LOCATION, Country, Value)
-
-
-rate <- rate[Country %in% unique(dfs$Country)]
+cc <- fread('../oecd-new/monthly-consumer-confidence.csv')
+infl <- fread('../oecd-new/monthly-inflation.csv')
+# imex <- fread('../oecd-new/monthly-imports-exports.csv')
+unem <- fread('../oecd-new/monthly-unemployment.csv')
 
 
 
 
-# rate <- rate[Frequency != "Quarterly"]
-# rate <- rate %>% 
-#     select(Subject, LOCATION, Country, Time, Unit, Value) %>%
-#     rename(code = LOCATION, country=Country, month = Time, value = Value, unit=Unit, sub=Subject)
+cc <- cc[Country %in% unique(gdp$Country)]
+infl <- infl[Country %in% unique(gdp$Country)]
+# imex <- imex[Country %in% unique(gdp$Country)]
+unem <- unem[Country %in% unique(gdp$Country)]
 
-# subs <- c("Exports in goods, s.a.", "Imports in goods, s.a.", "Consumer prices: all items", "Long-term interest rate", "Monthly unemployment rate: all persons, s.a.", "Consumer confidence indicator, s.a.", "Producer prices - Manufacturing ", "Manufacturing - Confidence indicator, s.a.", "GDP (ratio to trend, smoothed)")
+netcont <- Reduce(intersect, list(unique(cc$Country), unique(infl$Country), unique(unem$Country)))
 
-# rate <- rate %>%
-#     filter(sub %in% subs)
+cc <- cc %>% select(LOCATION, Country, TIME, Value) %>%
+    rename(code = LOCATION, month = TIME, value = Value, country =Country) %>%
+    filter(country %in% netcont)
+infl <- infl %>% select(LOCATION, Country, TIME, Value) %>%
+    rename(code = LOCATION, month = TIME, value = Value, country =Country) %>%
+    filter(country %in% netcont)
+unem <- unem %>% select(LOCATION, Country, TIME, Value) %>%
+    rename(code = LOCATION, month = TIME, value = Value, country =Country) %>%
+    filter(country %in% netcont)
+# imex <- imex %>% select(LOCATION, Country, Variable, TIME, Value) %>%
+#     rename(code = LOCATION, month = TIME, value = Value, country =Country, var = Variable) %>%
+#     filter(country %in% netcont))
 
-# rate <- rate %>%
-#     filter(unit!="Index")
+# imex <- imex %>% 
+#     mutate(var = ifelse(var=='International trade in goods - exports', 1, 0)) %>%
+#     mutate(value = as.numeric(value))
 
+# im <- imex %>%
+#     filter(var==0) %>%
+#     rename(imval = value)
+
+# ex <- imex %>%
+#     filter(var==1) %>%
+#     rename(exval = value)
+
+# imex <- im %>%
+#     left_join(ex, by = c('code', 'month', 'country')) %>%
+#     mutate(value = exval - imval) %>%
+#     select(code, month, country, value)
+
+# join_imex <- imex %>%
+#     rename(imexval = value)
+
+join_cc <- cc %>%
+    rename(ccval = value)
+
+join_infl <- infl %>%
+    rename(inflval = value)
+
+join_unem <- unem %>%
+    rename(unemval = value)
+
+df <- join_cc %>%
+    left_join(join_infl, by = c('code', 'country', 'month')) %>%
+    left_join(join_unem, by = c('code', 'country', 'month'))
+
+df %>%
+    group_by(country) %>%
+    summarize(min = range(month)[1], max=range(month)[2]) %>%
+    arrange(max)
+```
+```{r}
+totval <- imex %>%
+    group_by(country) %>%
+    summarize(totval = sum(value)) %>%
+    arrange(desc(totval))
+
+ggplot(cc, aes(x=month, y=value, group=country, color=country)) +
+    geom_point() +
+    geom_line() +
+    theme_bw() +
+    #theme(legend.position = "none") + 
+    labs(x = "Month", y = "Consumer Confidence Index")
+
+ggplot(infl, aes(x=month, y=value, group=country, color=country)) +
+    geom_point() +
+    geom_line() +
+    theme_bw() +
+    #theme(legend.position = "none") +
+    labs(x = "Month", y = "Inflation Index")
+
+ggplot(imex, aes(x=month, y=value, group=country, color=country)) +
+    geom_point() +
+    geom_line() +
+    theme_bw() +
+    #theme(legend.position = "none") +
+    labs(x = "Net Exports", y = "Month")
+
+ggplot(unem, aes(x=month, y=value, group=country, color=country)) + 
+    geom_point() +
+    geom_line() +
+    theme_bw() +
+    #theme(legend.position = "none") +
+    labs(x = "Unemployment", y = "Month")
+```
+
+```{r}
+# import covid data
+covid <- fread('covid-new-cases.csv')
+
+covid <- covid %>%
+    rename(covid=newcase) %>%
+    mutate(covid = log(covid + 71))
+
+df <- df %>%
+    left_join(covid, by = c('country', 'month'))
+
+# drop na
+df <- df %>%
+    filter(!is.na(ccval)) %>%
+    filter(!is.na(inflval)) %>%
+    filter(!is.na(unemval)) %>%
+    filter(!is.na(covid))
+```
+
+```{r Plot Data}
+# ggplot(df, aes(x=log(covid+70), y=ccval, group=country, color=country)) +
+#     geom_point() +
+#     theme_bw()
+
+# ggplot(df, aes(x=log(covid+70), y=ccval, group=country, color=country)) +
+#     geom_point() +
+#     theme_bw() + 
+#     facet_wrap(~country) +
+#     theme(legend.position = "none")
+    
+
+ggplot(df, aes(x=covid, y=ccval, group=country, color=country)) +
+    geom_point() +
+    theme_bw()
+
+ggplot(df, aes(x=covid, y=ccval, group=country, color=country)) +
+    geom_point() +
+    theme_bw() + 
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    facet_wrap(~country) + 
+    theme(legend.position = "none")
+
+ggplot(df, aes(x=covid, y=inflval, group=country, color=country)) +
+    geom_point() +
+    theme_bw()
+
+ggplot(df, aes(x=covid, y=inflval, group=country, color=country)) +
+    geom_point() +
+    theme_bw() + 
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    facet_wrap(~country) + 
+    theme(legend.position = "none")
+
+ggplot(df, aes(x=covid, y=unemval, group=country, color=country)) +
+    geom_point() +
+    theme_bw()
+
+ggplot(df, aes(x=covid, y=unemval, group=country, color=country)) +
+    geom_point() +
+    theme_bw() +
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    facet_wrap(~country) +
+    theme(legend.position = "none")
+
+
+ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
+    geom_point() +
+    geom_line() +
+    theme_bw()
+    # theme(legend.position = "bottom")
+
+ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
+    geom_point() +
+    theme_bw() +
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    facet_wrap(~country) +
+    theme(legend.position = "none")
+
+```
+
+```{r Create COVID Models}
+## nlin - naive multiple linear regression
+## mixed - country:random mixed linear regression
+## nrf - naive random forest
+## xg - grid searched, naive xgboost random forest
+## svm - naive svm
+
+set.seed(123)
+
+#plot first 3 trees of model
+# xgb.plot.tree(model = xg, trees = 0:2)
+
+importance_matrix <- xgb.importance(model = xg)
+xgb.plot.importance(importance_matrix, xlab = "Feature Importance")
+
+
+nlin <- lm(covid ~ country + month, data=df)
+mixed <- lmer(covid ~ month + (1|country), data=df)
+nrf <- randomForest(covid ~ month + country, data=df, ntree=100)
+```
+
+
+```{r Fit XGBoost Model COVID}
+title <- "Naive XGBoost"
+traindf <- df %>% 
+    select(country, month, covid) %>%
+    mutate(month_num = as.factor(as.numeric(substr(month, 6, 7)))) %>%
+    mutate(year = as.numeric(substr(month, 1, 4))) %>%
+    select(country, month_num, year, covid) %>%
+    rename(month = month_num)
+
+tmp <- traindf %>% select(country, month)
+tmp1 <- dummy.data.frame(tmp)
+d <- data.frame(tmp1, traindf %>% select(year, covid))
+m <- as.matrix(d)
+indices <- sample(1:nrow(traindf), size = 0.75 * nrow(traindf))
+train <- m[indices,]
+test <- m[-indices,]
+
+xg <-
+  xgboost(
+    data = train[, 1:41],
+    label = train[, 42],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 3,
+    eta = .36,
+    nthreads = 4,
+  )
+
+pred_xgb <- predict(xg, test[, 1:41])
+
+yhat <- pred_xgb
+y <- test[, 42]
+postResample(yhat, y)
+
+r <- y - yhat
+plot(r, ylab = "residuals", main = title)
+
+plot(y,
+     yhat,
+     xlab = "actual",
+     ylab = "predicted",
+     main = title)
+abline(lm(yhat ~ y))
+```
+
+```{r Hyperparameters Grid Search}
+hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+xgb_train_rmse <- NULL
+xgb_test_rmse <- NULL
+
+for (j in 1:nrow(hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = train[, 1:41],
+    label = train[, 42],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = hyper_grid$max_depth[j],
+    eta = hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+hyper_grid[which.min(xgb_test_rmse), ]
+```
+
+```{r Create and Predict Econ Models}
+
+## nlin - naive multiple linear regression
+## mixed - country:random mixed linear regression
+## nrf - naive random forest
+## xg - naive xgboost random forest
+## svm - naive svm
+
+nlincc <- lm(ccval ~ covid + country, data=df)
+nlininfl <- lm(inflval ~ covid + country, data=df)
+nlinunem <- lm(unemval ~ covid + country, data=df)
+
+nrfcc <- randomForest(ccval ~ covid + country, data=df, ntree=100)
+nrfinfl <- randomForest(inflval ~ covid + country, data=df, ntree=100)
+nrfunem <- randomForest(unemval ~ covid + country, data=df, ntree=100)
+
+lincc <- df %>%
+    group_by(country) %>%
+    summarize(model = lm(ccval ~ covid, data=df)) %>%
+    select(model)
+lininfl <- df %>%
+    group_by(country) %>%
+    summarize(model = lm(inflval ~ covid, data=df)) %>%
+    select(model)
+    
+
+mixed <- c(lmer(ccval ~ covid + (1|country), data=df))
+mixed <- c(lmer(inflval ~ covid + (1|country), data=df), mixed)
+mixed <- c(lmer(unemval ~ covid + (1|country), data=df), mixed)
+
+```
+
+```{r}
+plot(mixed[[1]])
+plot(mixed[[2]])
+plot(mixed[[3]])
+```
+
+```{r}
+plot(nlincc)
+plot(nlininfl)
+plot(nlinunem)
 ```
