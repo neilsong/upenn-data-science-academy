@@ -19,7 +19,7 @@ rate <- rate %>%
     select(Subject, LOCATION, Country, Time, Unit, Value) %>%
     rename(code = LOCATION, country=Country, month = Time, value = Value, unit=Unit, sub=Subject)
 
-subs <- c("Exports in goods, s.a.", "Imports in goods, s.a.", "Consumer prices: all items", "Long-term interest rate", "Monthly unemployment rate: all persons, s.a.", "Consumer confidence indicator, s.a.", "Producer prices - Manufacturing ", "Manufacturing - Confidence indicator, s.a.")
+subs <- c("Exports in goods, s.a.", "Imports in goods, s.a.", "Consumer prices: all items", "Long-term interest rate", "Monthly unemployment rate: all persons, s.a.", "Consumer confidence indicator, s.a.", "Producer prices - Manufacturing ", "Manufacturing - Confidence indicator, s.a.", "GDP (ratio to trend, smoothed)")
 
 rate <- rate %>%
     filter(sub %in% subs)
