@@ -11,7 +11,7 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 cc <- fread('../oecd-new/Consumer confidence_monthly.csv')
 infl <- fread('../oecd-new/monthly-inflation.csv')
 unemployment <- fread('../oecd-new/monthly-unemployment.csv')
-interest_rate <- read.csv("~/Documents/GitHub/Penn/upenn-data-science-academy/Final Project/Data/OECD Data/long_term_interest_rates.csv", header=T, stringsAsFactors = FALSE)
+interest_rate <- fread('../oecd-new/monthly-inflation.csv')
 
 dfs <- df %>% arrange(desc(Value)) %>% select(LOCATION, Country, Value)
 
