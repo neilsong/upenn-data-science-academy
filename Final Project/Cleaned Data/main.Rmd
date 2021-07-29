@@ -35,3 +35,9 @@ rate <- rate[Country %in% unique(dfs$Country)]
 #     filter(unit!="Index")
 
 ```
+
+```{r}
+unemployment <- unemployment %>% select(Country,TIME,Value)
+
+```
+
