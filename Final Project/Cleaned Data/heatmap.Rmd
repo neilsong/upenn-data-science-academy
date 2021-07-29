@@ -28,7 +28,7 @@ mapped_data <- joinCountryData2Map(GDP, joinCode = "ISO3",
 par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
 mapCountryData(mapped_data, nameColumnToPlot = "V64")
 
-GDPSort <- GDP %>% arrange(desc(V64)) %>% select(V1, V2, V64)
+GDPSort <- GDP %>% arrange(desc(Global Economy and GDP)) %>% select(V1, V2, V64)
 ```
 
 ```{r}
