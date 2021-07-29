@@ -1,0 +1,30 @@
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=9, fig.height=6, warning=FALSE)
+options(scipen = 0, digits = 3)  # controls base R output
+# check if you have ISLR package, if not, install it
+if(!require('pacman')) {install.packages('pacman')}
+pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
+               plotROC, usmap, glmnet, car, rworldmap, countrycode)
+```
+
+```{r}
+gdp <- fread('GDP_per_capita_cleaned.csv')
+rate <- fread('GDP_growth_rate_cleaned.csv')
+dfs <- df %>% arrange(desc(Value)) %>% select(LOCATION, Country, Value)
+
+
+rate <- rate[Country %in% unique(dfs$Country)]
+rate <- rate[Frequency != "Quarterly"]
+rate <- rate %>% 
+    select(Subject, LOCATION, Country, Time, Unit, Value) %>%
+    rename(code = LOCATION, country=Country, month = Time, value = Value, unit=Unit, sub=Subject)
+
+subs <- c("Exports in goods, s.a.", "Imports in goods, s.a.", "Consumer prices: all items", "Long-term interest rate", "Monthly unemployment rate: all persons, s.a.", "Consumer confidence indicator, s.a.", "Producer prices - Manufacturing ", "Manufacturing - Confidence indicator, s.a.", "GDP (ratio to trend, smoothed)")
+
+rate <- rate %>%
+    filter(sub %in% subs)
+
+rate <- rate %>%
+    filter(unit!="Index")
+
+```
