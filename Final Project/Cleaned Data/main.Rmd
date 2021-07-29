@@ -8,12 +8,12 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 ```
 
 ```{r}
+
 gdp <- fread('GDP_per_capita_cleaned.csv')
 cc <- fread('../oecd-new/monthly-consumer-confidence.csv')
 infl <- fread('../oecd-new/monthly-inflation.csv')
 # imex <- fread('../oecd-new/monthly-imports-exports.csv')
 unem <- fread('../oecd-new/monthly-unemployment.csv')
-
 
 
 

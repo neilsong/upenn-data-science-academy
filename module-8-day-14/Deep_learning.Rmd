@@ -1,0 +1,1148 @@
+---
+title: "Introduction to Deep Learning"
+author: "Modern Data Mining"
+date: ''
+output:
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '4'
+urlcolor: blue
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, cache.lazy = FALSE) # notice cache=T here
+knitr::opts_chunk$set(fig.height=4, fig.width=7, fig.align = 'center', warning = F)
+
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(keras, ggplot2, glmnet, RColorBrewer, wordcloud, neuralnet, imager,
+               plotly, latex2exp, data.table, randomForest)
+```
+
+
+\pagebreak
+
+# Objective {-}
+
+This lecture provides an introduction to Neural Network and Convolutional Neural Network. We will see how neural network borrows the idea of cognitive science and models the behavior of neurons so as to mimic the perception process of human being. On high level, Neural Network is a "parametric" model with huge number of unknown parameters. It is easy to understand the entire set up with knowledge of regressions. Thank to the CS people who has been developing efficient, fast computation algorithm we are able to estimate millions unknown parameters within no time. 
+
+Though the neural network model is easy for us to understand but there are a set of new terminologies introduced. Based on the neural network model, we will set up the architecture (model specification) with input layer, hidden layers and output layer and apply the package to several case studies. A well known case study MNIST will be carried out here through the basic NN. 
+
+Since the most successful application of deep learning (Neural Network with more layers) is image recognition and Language processing among others, we will also explore the image-specialized Convolutional Neural Network (CNN) and see how it performs compared to the regular neural network on MNIST. The core of CNN is the convolutional layer and the pooling layer. 
+
+While keeping this lecture compact with core ideas about NN we have left many details out.  If you are interested to learn more, you can refer to this wonderful [Neural Networks course](http://cs231n.github.io). We will use some graphic illustrations from there. Also a well organized website with data mining elements including Neural Networks can be found 
+[HERE](http://ufldl.stanford.edu/tutorial/supervised/MultiLayerNeuralNetworks/).
+
+
+**Acknowledgment**: This lecture is built gradually and expanded to the current real implementable shape. Several former TAs have been contributing to the success of current version. It is impossible without their help. Junhui Cai (current Ph.D student in the stat dept), John Brooke Waldt (former MS student in CS department) and Ryan Galea (former MBA student), I thank them!
+
+
+# Introduction {-}
+
+Table of Contents
+
+
+1. Installation
+    + Python
+    + Tensor Flow
+    + Keras 
+2. Neural Network
+    + Modelling: Non-linear, large number of parameters
+    + Architecture: 
+        - Input layer, Hidden layer, Output layer
+        - Neuron, Activation functions
+        - Weights (coefficients)
+    + Loss functions:
+        - N-entropy (same as -loglikelihood for categorical output)
+        - Sum of Squared errors (continuous output)
+    + Minimization:
+        - Stochastic Gradient Decent (SGD) (Details in Appendix)
+        - Back-propagation (Chain rule)
+3. Two cases:
+    + Binary Classification: Yelp Review 
+    + Multiclass Classification: MNIST Digit Recognition
+        - Image processing
+        - Classification with 10 classes
+        
+4. Convolutional Neural Network (CNN) (Put in a seperate lecture)
+    + Architecture: Convolutional layer, Pooling layer
+    + CNN with MNIST (Black/White)
+    + CNN with CIFAR10 (Colored Images with 10 classes)
+
+5. Data needed:
+    + `YELP_tm_freq.csv` 
+    + `MNIST` available with `keras`
+    + A few images needed
+
+
+Appendix
+
+  + Gradient Descent
+  + MNIST with RF
+
+Note: 
+
+  + Window users may need `Ubuntu dual boot`
+  + K layers recommended if K classes.
+  + For regression
+      - the last layer: layer_dense(units = 1)
+      - model %>% compile(
+            optimizer = "rmsprop",
+            loss = "mse",
+            metrics = c("mae") mean absolute error (MAE)
+  + Can take k-fold cv to build a model
+  
+  
+## Python and Keras
+
+*Python* is another commonly-used programming language, especially in machine learning community. A lot of popular libraries, including Tensor flow and Keras that we will use in this lecture, are developed in Python. Hence, we need to install Python first and use R interfaces to interact with those libraries. Here's the [link](https://www.anaconda.com/distribution/) to Python Anaconda distribution (version). Anaconda is a package manager and provides a one stop shop to install Python (and R) and some of the most popular libraries for data science. Anaconda Python also optimizes for numerical computation (because it is built against Intel's math kernel library). Note that for Windows users, in order to use Keras v2.2.4, you have to install Anaconda distribution; otherwise for Mac/Linux users, you can either use Anaconda Python or [Vanilla Python](https://www.python.org/downloads/).
+
+*TensorFlow* is a machine learning library developed by Google. *Keras* is a high-level Application Programming Interface (API) for TensorFlow to build and train deep learning models. It runs on top of TensorFlow and is used for fast prototyping, advanced research, and production. An R interface to Keras by RStudio is available. Here is an official [installation guide](https://tensorflow.rstudio.com/keras/reference/install_keras.html). 
+
+To install keras run the following chunk:
+```{r eval = F}
+devtools::install_github("rstudio/keras")
+library(keras)
+install_keras()  # a cpu based tensorflow installed 
+#install_keras(tensorflow = "gpu")
+```
+
+For further assistance see: https://keras.rstudio.com/ 
+ - Detailed functions can be found in /API
+ - Deep Learning keras cheat sheet: https://www.rstudio.com/resources/cheatsheets/
+
+# Neural Network
+
+We have discussed various machine learning methods in previous lectures. *Deep learning* is another one of these approaches. It attempts to learn from data successive layers of increasing meaningful representation.
+
+Let's consider a classification problem. For each sample $(X_i, Y_i)$ where $i = 1, \ldots, n$, we have 
+
+* $\mathbf X_i = (X_{i1}, \ldots, X_{ip})$ is a $p$-dimensional input features
+* $\mathbf Y_i = (Y_{i1}, \ldots, Y_{iK})$ is a $K$-dimensional class indicator
+    + for continuous response, $K=1$
+    + for $K$-class classification, $Y_{ij} = 1$ if it is of class $j$ where $j = 1, \ldots, K$
+
+Given the features/predictors, we would like to build a probability model for y (categorical). We then can predict y accordingly. Or build a predictive equation for a continuous response y. 
+
+
+## Prelude: logistic regression
+
+Logistic regression is most popular model to model the relationship between probability of one level of y vs. all the predictors.  For example, we have 3 covariates $(x_1, x_2, x_3)$ and a label $y \in \{0,1\}$. We model probability of $P(y=1|x_1, x_2, x_3)$ through a linear logit link function: 
+
+\[logit(Prob(Y=1 | X_1, X_2, X_3)) = \beta_0 + \beta_1 X_1 +  \beta_2 X_2 +  \beta_3 X_3  \]
+
+Or equivalently this is same to model 
+\[Prob(Y=1 | X_1, X_2, X_3) = \frac{e^{\beta_0 + \beta_1 X_1 +  \beta_2 X_2 +  \beta_3 X_3}}
+{1+ e^{\beta_0 + \beta_1 X_1 +  \beta_2 X_2 +  \beta_3 X_3}}\]
+
+Let us rephrase the model process in the following neural network with only an input layer and an output layer.
+
+* **Input layer** consists of 3 inputs units (3 features): $x_1, x_2, x_3$
+* **Output layer**: contains $s_1, s_2$:
+  \[s_1 = b_{1}^{(1)} + W_{11}^{(1)}x_1 + W_{12}^{(1)}x_2 + W_{13}^{(1)}x_3\]
+    \[s_2 = b_{2}^{(1)} + W_{21}^{(1)}x_1 + W_{22}^{(1)}x_2 + W_{23}^{(1)}x_3\]
+* **Softmax**: models:
+\[Prob(Y=1|x_1, x_2, x_3) = \frac{e^{s_1}}{e^{s_1}+e^{s_2}}\]
+\[Prob(Y=0|x_1, x_2, x_3) = \frac{e^{s_2}}{e^{s_1}+e^{s_2}} \]
+   
+The following figure illustrates the model above.
+
+```{r out.width = "400px", echo = F, fig.cap="Logistic regression as 0-layer neural network"}
+knitr::include_graphics("img/logit.png")
+```
+
+We only need to estimate the first set of unknown parameters: $b_{1}^{(1)}, W_{11}^{(1)}, W_{12}^{(1)},  W_{13}^{(1)}$ since
+\[P(Y=1) + P(Y=0) = 1 \]
+
+**The above classical logistic regression model is a simple network:**
+
+- 0 layer
+
+- softmax as output (meaning logit function)
+
+- classification is done through thresholding the probability
+
+- it is simple and we can interpret the probability model
+
+- BUT, it is restrictive for the model format. 
+
+A natural way to expand the logistic regression model is to include non-linear equations for $s_1$ and $s_2$. One way to do it is by creating many intermediate composite functions sequentially, starting from the input, layers by layers to the output layer. This is called Neural Network. 
+
+## Architecture
+
+Neural network is easily described by a diagram or so called architecture. It shows the model between input and output. A neural network consists of three major layers: input layer, hidden layers and output layer. When we say $N$-layer neural network, we do not count the input layer as convention.
+
+
+As a simple example, consider the setup: we have $(x_1, x_2, x_3, y)$, where there are 3 features and one binary response. Let's start with the following neural network with **one hidden layer** with one hidden layer consists of **4 neurons**. We have 3 features for each data point and 2 classes to predict. 
+
+```{r out.width = "500px", echo = F, fig.cap="1-layer Neural network model"}
+knitr::include_graphics("img/nn.png")
+```
+
+For each data point $(x,y)$, 
+
+* **Input layer** consists of **3 inputs** units (3 features): $x_1, x_2, x_3$
+* **Hidden layer** consists of **4 neurons**. Each neuron is given by first taking a linear combination then apply an **activation** function $f_1$
+    \[a_1^{(1)} = f_1(b_{1}^{(1)} + W_{11}^{(1)}x_1 + W_{12}^{(1)}x_2 + W_{13}^{(1)}x_3)\]
+    \[a_2^{(1)} = f_1(b_{2}^{(1)} + W_{21}^{(1)}x_1 + W_{22}^{(1)}x_2 + W_{23}^{(1)}x_3)\]
+    \[a_3^{(1)} = f_1(b_{3}^{(1)} + W_{31}^{(1)}x_1 + W_{32}^{(1)}x_2 + W_{33}^{(1)}x_3)\]
+    \[a_4^{(1)} = f_1(b_{4}^{(1)} + W_{41}^{(1)}x_1 + W_{42}^{(1)}x_2 + W_{43}^{(1)}x_3)\]
+where $a_i^{(1)}$ denotes the $i$-th activated neuron in hidden layer 1.  
+* $f_1(x)$ is called an activation function. Here we take **ReLU** function:
+\[f_1(x) = \max (0, x) \]
+
+* **Output layer** consists of 2 output units
+    \[s_1 = b_{1}^{(2)}+W_{11}^{(2)}a_1^{(1)} + W_{12}^{(1)}a_2^{(1)} + W_{13}^{(1)}a_3^{(1)} + W_{14}^{(1)}a_4^{(1)}\]
+    \[s_2 = b_{2}^{(2)}W_{21}^{(2)}a_1^{(1)} + W_{22}^{(1)}a_2^{(1)} + W_{23}^{(1)}a_3^{(1)} + W_{24}^{(1)}a_4^{(1)}\]
+   
+* **Softmax**: models:
+\[Prob(Y=1|x_1, x_2, x_3) = \frac{e^{s_1}}{e^{s_1}+e^{s_2}} = \frac{e^{b_{1}^{(2)}+W_{11}^{(2)a_1^{(1)} + W_{12}^{(1)}a_2^{(1)} + W_{13}^{(1)}a_3^{(1)} + W_{14}^{(1)}a_4^{(1)}} }}{e^{s_1}+e^{s_2}}\]
+\[Prob(Y=0|x_1, x_2, x_3) = \frac{e^{s_2}}{e^{s_1}+e^{s_2}}=\frac{e^{ b_{2}^{(2)}W_{21}^{(2)}a_1^{(1)} + W_{22}^{(1)}a_2^{(1)} + W_{23}^{(1)}a_3^{(1)} + W_{24}^{(1)}a_4^{(1)}} }{e^{s_1}+e^{s_2}} \]
+
+
+
+* **Unknown parameters:** All weights $W^{(1)}$'s, $b^{(1)}$'s and  $W^{(2)}$'s, $b^{(2)}$' are unknown parameters.
+
+ To write in a compact way, we have the following unknown: the hidden layer $W^{(1)}$ is a matrix of $3\times 4$, $b^{(1)}$ is $4\times 1$ and the output layer $W^{(2)}$ is $4\times 1$ and $b^{(2)}$ is $1\times 1$ with a total number of $12+4+4+1=21$ parameters. 
+ 
+
+**This model is different from the classical logistic regression model** since we have introduced the non-linear part in the model. 
+
+Summarize a general neural network or architecture:
+
+* **Input layer**: holds the input training data
+
+* **Hidden layer** (Fully-connected layer): computes the neurons according to a weight matrix $W$. We need to specify the number of hidden layers, the number of neurons in each hidden layer and the activation function.
+
+  + **Number of hidden layers (depth)** basically controls how deep we want the network to be. The more hidden layers the more complex our model is and hence the so called **deep learning**.
+  + **Number of neurons** controls how many neurons we want for each hidden layer.
+  + **Activation function**. As mentioned, ReLU is most commonly-used activation function and Softmax is usually used for last hidden layer to output class scores to output layer.
+  + **Weight matrix** is a matrix of unknown coefficients. Each column is the $W$'s above for each neuron. Note that for a hidden layer with $q$ neurons, if we have a $p$-dimensional input, the weight matrix for this hidden layer will be $(p+1) \times q$ where the additional $1$ corresponds to the bias term or the `intercept` term. 
+
+* **Output layer**: contains the class scores for classification. The dimension is usually the same as the number of classes. 
+
+Neural network described above is flexible to handle
+
+* **y can have K many levels**: we only need to output $s_1, s_2,...s_K$ one for each outcome.
+
+* **y can be continuous**: output  one $s_1$.
+
+### Activation functions  
+
+Commonly used activation function can be any of the following non-linear functions:   
+
+- Rectified Linear Unit (ReLU, pronounce as REL-loo) - Quicker to train!!   
+    $$f=max(0, x)$$
+
+- Logit/Sigmoid:    
+    $$f = \frac{1}{1+e^{-x}}$$
+    
+- Hyperbolic Tangent: - Similar to logit
+    $$f=\tanh(x)$$
+
+The most commonly used activation function is **ReLU** because it converges faster with simple implement (by thresholding). The **leaky ReLU**, $f=max(\epsilon x, x)$, is also used in very deep network.
+
+The following figures show the shape of activation functions
+
+```{r echo=F, fig.align='center'}
+x <- seq(-5, 5, .1)
+x_len <- length(x)
+tanh_y <- tanh(x)
+sigmoid_y <- 1/(1+exp(-x))
+relu_y <- pmax(0, x)
+eps <- 1e-1
+relu_leaky_y <- pmax(eps*x, x)
+
+act_func <- c("tanh", "Sigmoid", "ReLU", "Leaky ReLU")
+act_func_df <- data.frame(
+  method = factor(rep(act_func, each = x_len), 
+               levels = act_func, ordered = T),
+  x = x,
+  y = c(tanh_y, sigmoid_y, relu_y, relu_leaky_y)
+  )
+
+act_func_df %>%
+  ggplot(aes(x = x, y = y, col = method)) +
+  geom_line() +
+  ylab("f(x)") +
+  facet_wrap(.~method, nrow = 1) + 
+  theme_bw() + theme(legend.position = "none")
+```
+
+### Connections with biological/cognitive science
+
+The basic computational unit of the brain is a neuron, as shown in the first figure below.  Each neuron receives signals (impulses) from other neurons and processes and produces output signals to other neurons. Analogously, Neural network receives the input matrix, processes the input and output the signal with an activation function $h$ in the picture or $f$ in our notation.
+
+
+```{r echo = F, fig.show='hold', out.width = "350px"}
+knitr::include_graphics(c("img/neuron.png", "img/neuron_model.jpg"))
+```
+
+## Loss functions
+
+Once a model is specified or an architecture is defined, we then need to estimate all the weights and biases (or all the unknown parameters). The standard loss for classification is the **cross entropy** which is exactly the -log likelihood function. We then minimize the **cross entropy** or maximize the log likelihood to get all the unknown parameters. 
+
+* **Logistic loss classifier**
+  $$L = - \frac{1}{n}\sum_{i=1}^n\sum_{j=1}^K 1 y_{ij} \log(p_{ij})$$
+  where $p_{i,j}$ is the probability of $i$ being in class $j$.
+  
+* **Softmax classifier**: one of the most popular choices. Denote the scores in the output layer as $(s_1, \ldots, s_K)$. Then the loss function is 
+  $$L = - \frac{1}{n}\sum_{i=1}^n \sum_{j=1}^K 1 y_{ij} \log\Bigg(\frac{e^{s_{y_{ij}}}}{\sum_j e^{s_{ij}} } \Bigg)$$
+
+**Remark**: For the softmax we take:
+* $$p_j=Prob(Y=j|x_1, ... x_p) = \frac{e^ {s_j}}{\sum_{j=1}^{j=K} {e^ {s_j}}}$$
+  Here K is number of classes. 
+
+* The second sum for each subject $i$ there is only one $y_{i, j} \neq 0$. 
+  
+## Regularization
+
+As we have seen, the number of parameters grows fast as we specify more hidden layers. Over-parameterization can lead to overfitting. There are two major ways to regularize the model.
+
+* $L_1$ or $L_2$ penalty term to shrink parameters
+    + Just like Ridge or Lasso
+    + Do not need to do Feature Selection before hand
+* Dropout 
+    + The most popular way
+    + Randomly (temporarily) remove a fraction of the neurons (with replacement). The figure is taken from the [Dropout paper](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf) by Srivastava et. al. 
+
+```{r echo = F, out.width = "350px"}
+knitr::include_graphics("img/dropout.jpg")
+```
+ 
+
+## Fitting models
+
+To fit the model, we will find the minimizers of all the coefficients like we did in glm. Here the number of parameters are huge. So fast, efficient algorithms are needed. This is where tensor flow gets in. **gradient descent** combined with the trick of **back-propagation** did it.  (You may skip the remaining paragraphs which are rather technical about the minimization problems.)
+
+In this course, we barely mention how packages actually solve the optimization problems. Optimization is a very general yet crucial field and has been developing for years. Neural networks and deep learning could not have been so popular without recent development in optimization (and of course computation power). Refer to an excellent [convex optimization course](http://www.stat.cmu.edu/~ryantibs/convexopt/) if you are interested. 
+
+The most important optimization techniques for neural networks and deep learning are **gradient descent** and **back-propagation**. These are NOT new ideas as neural networks! Gradient descent was invented by Cauchy in 1847 and back-propagation was popularized by [Rumelhart, Hinton (one of three Turning Award 2018 laureates) and Williams](http://www.cs.toronto.edu/~hinton/absps/naturebp.pdf) (17k citations!) in 1986 (Back-propagation was derived by multiple researches in early 60's). 
+
+
+**Gradient descent** is an algorithm to find the maximizer/minimizer (using the first-order information, i.e. gradient). There are lots of developments in recent years to accelerate (e.g. stochastic gradient descent (SGD), Momentum, adaptive gradient descent (Adagrad), RMSprop). For neural networks, it is worth mentioning that since the loss function is generally not convex, gradient descent does not guarantee global convergence and is often trapped in saddle points. Research in escaping the saddle point and, in general, non-convex optimization is very active.
+
+There exists other algorithm for example the Newton's method that uses the second-order information, i.e. Hessian. The second-order methods enjoy a faster convergence rate. In reality, however, computing the Hessian for millions of parameters is very expensive. Hence it it not common to apply second-order methods to large-scale deep learning.
+
+
+**Back-propagation** is a technique to calculate the gradients for gradient descent. It is a simple yet power idea using chain rule. Each iteration needs to update millions of parameters using gradient descent and thus needs to compute millions of gradients. Back-propagation starts from the last layer and computes the gradients for parameters of the last layer, and then backprops (passes the gradients) to the previous layer to compute the gradients for parameters of the second last layer and so on. Backpropagation then allows us to efficiently compute the gradients and then update the parameters. 
+
+**A detailed explanation about GD/SGD is provided in the Appendix!!**
+
+We are now ready to use Keras to implement neural networks with real case studies. 
+
+# Case 1: Yelp Textming NN
+
+How well can we predict ratings from a review? The Yelp data available to us here is 100000 previous reviews together with ratings. Use bag of words, each review is already processed in the term frequency format. There are  $p=1072$ words retained. The response variable is a binary `rating`, 1 being a good review and 0 being a bad review. 
+
+In this section we will implement a Neural Network model with two layers and varying number of neutrons. Package `keras` is used. 
+
+
+## Data Preparation
+
+**Read the data**:  `YELP_tm_freq.csv` is a processed the Yelp data. It contains the response `ratings`and reviews. `data3` extracted: the first variable is the response `rating` and the remaining variables are words or input of $x_1, \ldots, x_{1072}$.    
+
+```{r results=FALSE}
+# Data prep
+data2 <- fread("YELP_TM_freq.csv")  # fread the term freq tables
+names(data2)[c(1:5, 500:510)] # notice that user_id, stars and date are in the data2
+dim(data2)
+data3 <- data2[, -c(1:3)]; dim(data3)# the first element is the rating
+names(data3)[1:3]
+levels(as.factor(data3$rating))
+
+```
+
+**Data preparation for NN**:
+
+  + We need to split data into two sets: training data and validation
+  + Training data will be split internally to tune any parameters
+  + We reserve the validation data set to give an honest evaluation for the testing error. That is the only time it will be used.
+  + All the data **need** to be either matrix or vectors.
+
+
+**Validation data: `data3_val`**: reserve 10,000
+```{r results='hide'}
+# Split data
+set.seed(1)  # for the purpose of reproducibility
+n <- nrow(data3)
+validation.index <- sample(n, 10000)
+length(validation.index)   # reserve 10000
+data3_val <- data3[validation.index, ] # 
+## validation input/y
+data3_xval <- as.matrix(data3_val[, -1])  # make sure it it is a matrix
+data3_yval <- as.matrix(data3_val[, 1]) # make sure it it is a matrix
+```
+
+**Training data: `data3_xtrain`/`data3_ytrain`**: Use 90,000 as the training data. Internally we need to split this training data again to tune the parameters. Keras refer the split internal datasets as training/validation. (We have call this pair training/testing)
+
+```{r}
+## training input/y: need to be matrix/vector
+data3_xtrain <- data3[-validation.index, -1]   #dim(data3_xtrain)
+data3_ytrain <- data3[-validation.index, 1]   
+data3_xtrain <- as.matrix(data3_xtrain) # make sure it it is a matrix
+data3_ytrain <- as.matrix(data3_ytrain) # make sure it it is a matrix
+```
+
+
+
+### Fully Connected Neural Network
+
+Now the data is prepared, let's begin working with our full dataset using the `keras` package. The first step is to define our model. By defining, we mean specifying the number and type of layers to include in our model and what will happen to our data in each layer. For our purposes `keras_model_sequential()` is the function to run when defining our model. 
+
+To add a fully connected or dense layer we use the command `layer_dense()`.
+
+When building the layer, the shape of the input needs to be specified. This refers to the length of each input vector, which in our case is 1072 (the 1072 possible words in our frequency dictionary).
+
+We also need to specify how many hidden units our layer will contain (these are represented by the nodes or neurons in the earlier graphic). Having more hidden units (a higher-dimensional representation space) allows your network to learn more-complex representations, but it makes the network more computationally expensive and may lead to learning unwanted patterns. Here we use 16 neurons in the first layer and 8 neurons in the second layer. 
+
+Finally, we need to specify the activation function. Here we use the *rectified linear unit* or ReLU function mentioned earlier. This has the effect of zeroing out negative values (equivalent to $\max(0, X)$).
+
+The final layer of the model specifies our output. As this is a classification problem we want to find $P(Y=1)$. To set our output as a probability we specify the activation to be the "sigmoid" function (which as you recall is just the logistic function for which we are familiar.)
+
+**Define the Model/Architecture:**
+  + two layers with 16 and 8 neurons in each layer
+  + Activation function is `Relu`
+  + Output layer is `Sigmoid`
+  
+```{r}
+# set seed for keras
+use_session_with_seed(10)
+
+p <- dim(data3_xtrain)[2] # number of input variables
+model <- keras_model_sequential() %>%
+  layer_dense(units = 16, activation = "relu", input_shape = c(p)) %>% 
+  # 1 layer with 16 neurons. default activation is relu
+  layer_dense(units = 8, activation = "relu") %>%  
+  # layer 2 with 8 neurons
+  layer_dense(units = 2, activation = "softmax") # output
+print(model)
+```
+
+As we can see in the table above our model has a total of **17322** parameters:    
+
+  + The input to the model are yelp reviews that are each coded as 1072 length sequences of frequencies. 
+  + Our model's first layer is 16 nodes that are fully connected    
+  + At each node a different set of weights $W's$ will be applied to each value of the 1072 word sequence (i.e. each node will have 1072 weights and the network will have (1072 +1) * 16 = 17168 weights total) to compute the weighted sum to which a bias will be added and then the activation function will be applied.  
+  + These values will then flow to our second layer with (16+1)*8=136 where weights will be applied to each value (16 weights total) and the weighted sum computed, the bias value will then be added and the activation function will then be applied 
+  + The final layer which is output will have (8+1)*2=18 parameters
+  + Combined our model with two layers and one final output, there are a total of 17168+136+18=17322 parameters across the model or architecture.   
+
+Next we need to compile our model. This step refers to specifying the optimizer logarithm we want to use (we will always use 'rmsprop'), the loss function (since this is a binary classification problem we use 'binary_crossentropy')  and the metric used to evaluate the performance. (here we use accuracy which is the fraction of reviews that are correctly classified).
+
+**Compile the Model**
+
+```{r}
+##Compile the Model
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "sparse_categorical_crossentropy",
+  metrics = c("accuracy")
+)
+```
+
+Before we fit our model, let us explain internally how the model is trained. The data will be split to
+
+- training data
+- validation data (we call this testing data in our class)
+
+For example we may want to use 85% of the data as an internal training data and the remaining data as a validation data by specifying `validation_split = 0.15`. The training data will be used to get all the parameters and the loss and accuracy will be evaluated by the internal validation data.
+
+
+We can now fit our model. The batch size refers to the number of samples per batch. This is part of the trick used to update the gradients with a batch number of reviews. The epoch refers to the number of iterations over the training data. Each epoch we cycle through all the data points one batch at a time. For test purposes we use 20 epochs. 
+
+**Note that compile() and fit() modify the model object in place, unlike most R functions.** So after we compiled and fitted `model`, `model` has already changed. If we fit again on a fitted model, it will not retrain the model again. The output of the `fit()` function is history accuracy and loss of training process. So the `fit1` in the following chunk will store the training history but NOT the `model` object.
+
+```{r}
+fit1 <- model %>% fit(
+  data3_xtrain,
+  data3_ytrain,
+  epochs = 20,
+  batch_size = 512,
+  validation_split = .15 # set 15% of the data3_xtain, data3_ytrain as the validation data
+)
+
+plot(fit1)
+```
+
+
+
+
+**All 17323 parameters**
+With our model now fit, lets take a look at the values for the 17313 parameters in our model.
+```{r}
+weights <- model %>% get_weights()
+# str(weights) # show each layers of W's and b's
+# hist(weights[[1]])   # W^(1)
+# weights[[2]] # b's for layer 1
+```
+
+**Predictions:**
+Lets see if we can gain further intuition by manually using the above parameter values for prediction. Below are the predicted probabilities from the model for the first five values in our training set.
+```{r}
+round(model %>% predict(data3_xtrain[1:5,]), 3)
+```
+
+Lets see if we can manually compute these probabilities for the first five reviews in our training set using the computed weights shown previously. **If you understand this chunk you have mastered  basic elements of NN.**
+```{r}
+n5 <- 5
+
+# first layer: z_1 = W_1 X + b_1; a_1 = ReLU(z_1)
+z_1 <- data3_xtrain[1:n5, ] %*% weights[[1]] 
+# add beta (weights[[2]]) to every row 
+z_1 <- z_1 + matrix(rep(weights[[2]], n5), nrow = n5, byrow = T)
+a_1 <- matrix(pmax(0, z_1), nrow = n5)
+
+# second layer: z_2 = W_2 a_1 + b_2; a_2 = ReLU(z_2)
+z_2 <- a_1 %*% weights[[3]]
+z_2 <- z_2 + matrix(rep(weights[[4]], n5), nrow = n5, byrow = T)
+a_2 <- matrix(pmax(0,  z_2), nrow = n5)
+
+# output layer: softmax(W_3 a_2 + b_3)
+z_out <- a_2 %*% weights[[5]] 
+z_out <- z_out + matrix(rep(weights[[6]], n5), nrow = n5, byrow = T)
+prob.pred <- t(apply(z_out, 1, function(z) exp(z)/sum(exp(z))))
+
+round(prob.pred, 3)
+```
+
+Its really that simple! The model would then continue computing the probabilities for the remainder of the reviews in our training set and then feed these numbers into our loss function. The value computed by our loss function on our training data is as follows:
+```{r}
+fit1$metrics$loss[20]  # fit1$metrics keeps all the evaluations
+```
+
+
+### Tuning Parameter Selection  
+
+From the graph below we see that by about 6 epochs our validation loss has bottomed out and we receive no further benefit from additional iterations
+
+```{r}
+plot(fit1)
+```
+
+To avoid overfitting lets use 6 epochs in our final model. (We could also play with unit numbers and batch size to see if this has an impact). Now that we are ready to fit our final model we can use all of training data.
+
+**Final training with all the training data:**
+
+Here we have put all the steps together to get the final NN predictive equation
+* Training data: data3_xtrain, data3_ytrain
+* Validation data: data3_xvalidation, data3_yvalidation
+* NN model:
+  + two layers with 16 and 8 neurons in each layer
+  + Activation function is `Relu`
+  + Output layer is `Sigmoid`
+* Epoch is 6
+
+
+```{r}
+p <- dim(data3_xtrain)[2] # number of input variables
+
+#retain the nn:
+model <- keras_model_sequential() %>%
+  layer_dense(units = 16, activation = "relu", input_shape = c(p)) %>% 
+  # 1 layer with 16 neurons. default activation is relu
+  layer_dense(units = 8, activation = "relu") %>%  # layer 2 with 8 neurons
+  layer_dense(units = 2, activation = "softmax") # output
+
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "sparse_categorical_crossentropy",
+  metrics = c("accuracy")
+)
+
+ model %>% fit(data3_xtrain, data3_ytrain, epochs = 6, batch_size = 512)
+```
+
+
+### Assessing Performance  
+
+We can use the evaluate function to assess our performance on the validation data to report a final performance of the model built. 
+```{r warning=F, message=F}
+results <- model %>% evaluate(data3_xval, data3_yval) ; results
+```
+
+Our accuracy on the validation data is an impressive 81% (19% of mis-classification error) with only two fully connected layers! Meaning that we correctly classified 80% of the reviews as positive or negative (this is a misclassification error of 20). With additional layers and different types of layers we could improve on this even further.
+
+### Prediction  
+
+Finally we can do prediction. Let us see how well we predict the first 5 reviews in the validation data. 
+
+**Get probabilities:**
+```{r}
+pred.prob <- model %>% predict(data3_xval[1:5,])
+pred.prob
+```
+
+**Get the labels:**
+```{r}
+y.pred <- model %>% predict_classes(data3_xval[1:5,])  # majority vote!
+y.pred
+data.frame(yhat=y.pred, y=data3_yval[1:5, 1])
+```
+
+
+
+
+
+
+# Summary and Remarks {-}
+
+We have introduced Neural network and immplemented it using keras. Neural network provides a non-linear model to predict response variables. They can be catogorical or continuous responses. 
+
+We have run Yelp review case study apply dense layers. Since we have used bag of words to process the data. So the advantage of Neural nets are not seen here. 
+
+Many open questions re NN models
+
+* **How many layers and how deep within each layer?**
+* **Which activation funtion to use in each layer?**
+
+Often we may adopt existing successful studies
+
+* **Apply their architecture**
+* Often we may input their weights as initial values 
+
+
+
+
+In the next section we will apply NN's to image recognition case study. The accuracy of prediction is shown much better there. 
+
+
+    
+# Case 2: Multiclass Classification (MNIST)
+
+## Image classification (MNIST)
+
+### MNIST Dataset
+
+Modified National Institute of Standards and Technology dataset (NNIST) (see details about the data http://yann.lecun.com/exdb/mnist/index.html) is 
+
+* Collection of handwritten digits, from 0 to 9
+* 60,000 training and 10,000 testing images
+* Essentially a multinomial classification problem 
+* Commonly used for training image recognition systems
+* Useful because relatively 'clean' and well-labeled
+* Very [well-studied](http://yann.lecun.com/exdb/mnist/index.html)
+
+*Objective*: classify handwritten numbers from 0 to 9 correctly
+
+The data has been used since 1998 to test the performance of a newly proposed method. As our first image processing case study we will immplement simple NN models below. The purpose is to get the model working. Neverthelss it shows the powerful/accurate NN model for image data. We continue to run a more complex, state of the art Convolution Neural Network in a seperate lecture to see further error reduction. 
+
+
+The data is available with `keras` package and it can be loaded as follows:
+```{r echo=TRUE}
+mnist <- dataset_mnist()
+c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
+```
+
+Lets take a look at the data structure. The `x` are images of size 28x28 pixels and `y` labels which digits the image actually is. 
+
+```{r echo=TRUE}
+dim(train_images)
+#print(train_images[1, , ]) # the pixels are described in a matrix of 28 by 28 already
+dim(train_labels)
+levels(as.factor(train_labels)) # 10 digits
+table(as.factor(train_labels)) # frequencies
+```
+
+Let's take a look at the first 30 images in the training set. `purrr` as part of the `tidyverse` is a useful/convenient package hadling funcitons. 
+```{r echo=TRUE}
+index <- 1:30
+
+par(mfcol = c(5,6), mar = rep(1, 4), oma = rep(0.2, 4))
+mnist$train$x[index,,] %>% 
+  purrr::array_tree(1) %>%
+  purrr::set_names(mnist$train$y[index]) %>% 
+  purrr::map(as.raster, max = 255) %>%
+  purrr::iwalk(~{plot(.x); title(.y)})
+```
+
+### Images vectorization
+
+Images are just a matrix of pixels. Usually we use three color channels, red, green and blue. Each pixel is a 3-tuple that indicates how much we want from (red, green, blue) ranging from 0 to 255. For example, (255, 0, 0) represents red and (255, 255, 0) represents yellow. Black and white is represented as (0,0,0) and (255,255,255) respectively. For black and white pictures, there will be only one color channel so each pixel only has one number indicating darkness, which is called greyscale. To summarize,
+
+- Images are 2D matrix (black and white)
+- Values are representation of color
+- In this case, number from 0 to 255 to represent darkness
+- Each image is represented as 28x28 matrix, with values between 0 and 255 
+- Translates into $X_1, X_2...X_{784}$ continuous variables
+- Goal is to predict $Y$, what the digit is, between 0 and 9
+- Image recognition is transformed to a classification problem
+- Large dimension problems
+- For color image, there will be 3 color channels (RGB) and sometimes additionally an alpha channel for opacity. Then images are represented as 3D matrix.
+
+We can vectorize the 2D matrix using the function `array_reshape()` as follows:
+```{r}
+train_images <- array_reshape(train_images, c(60000, 28*28)) #correct shape to what is expected by keras
+#train_images[1, ]
+train_images <- train_images /255 #make values between 0 and 1
+dim(train_images)
+
+###Vectorize the data
+test_images <- array_reshape(test_images, c(10000, 28*28))
+test_images <- test_images / 255
+
+###Vectorize the labels
+train_labels <- to_categorical(train_labels) #convert to vector of length of labels, with 0 and 1s to represent if label value is true or false
+test_labels <- to_categorical(test_labels)
+```
+
+### Multiple outcome classifications
+
+It is an easy extension to handle multiple classes from a binary settings. We will use logit function to model the probability of y being in each class j. 
+
+- $P(y=j|x_1, \ldots, x_{784}) = \frac{e^{s_j}}{\sum_{j=1}^{j=10} e^{s_j}}$
+- Use plurality rule to get a label $\hat y = \arg\max_{j} {P(y=j)}$
+- Use entropy to estimate all the weights (unknown parameters).
+
+
+### Fully Connected Neural Network
+
+
+We are now ready to build a NN to first estimate the probability of each input and use polarity vote to get a label. 
+
+The set up for a multiclass classification neural network is very similar to what we did for binary classification, with a few notable differences. Firstly, each input now has two dimensions (a 28x28 matrix representing the height and width of each image). To save time, the optimal values for the hyper parameters have been identified using the methods described previously. The output unit value is 10 as we have 10 possible label classifications: 0 to 9. 
+
+
+The compiler settings are all the same except that for our loss function we use categorical cross entropy rather than binary cross entropy. This is similar to our binary function implementation, except that it allows for multiple classifications.
+
+We start a NN model with 1 layer, 512 neurons and activated with `relu` function. The probability of each outcome is obtained via softmax transformation. 
+
+
+
+
+```{r}
+##Define the model
+model <- keras_model_sequential() %>%
+  layer_dense(units = 512, activation = 'relu', input_shape = c(28*28)) %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+##Compile the model
+model %>% compile(
+  optimizer = "rmsprop",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+
+##fit the model
+mod_fit <- model %>% fit(
+  #train_images, train_labels, epochs = 40, batch_size=128, validation_split = 0.2 # epoths = 10 is enough
+  train_images, train_labels, epochs = 10, batch_size=128, validation_split = 0.2
+  
+)
+plot(mod_fit)
+```
+
+Lets see how we perform on the test data:
+```{r}
+results <- model %>% evaluate(test_images, test_labels)
+results
+```
+Our accuracy is **an amazing 98%!** Meaning that we correctly classified the number images 98% of the time!
+
+### Prediction Fun
+
+With our model trained, lets have some fun. Open up MS paint or similar paint software and do the following:      
+
+  + Set the image dimensions to 28 x 28 pixels
+  + Zoom in and draw a number in black using the brush tool between 0 and 9
+  + Save the image as "untitled.png"
+  
+*Note the following:* prior to running our image through our model we need to pre-process the image to be in the same format as the samples used to fit our model. These samples are 28x28, with the number centered in a 20x20 box (i.e. there is 4x4 white space border around the number). 
+
+```{r echo = T, eval = F}
+library(imager)
+image <- load.image('img/Untitled.png') ; 
+plot(image) #Load image and plot
+
+##If image has white background with black text do (1-image below) to invert colors, otherwise replace (1-image) with (image)
+image <- (1- image) %>% autocrop() %>%  grayscale() #Make grayscale and crop out white space
+image <- imager::imresize(image, min(20/height(image), 20/width(image))) #Resize image to fit in 20 x 20 box
+image <- pad(image,28-width(image), pos = 0, "x") #Center image and create top and bottom border
+image <- pad(image,28-height(image), pos = 0, "y")#Center image and create border left and right border
+image <- resize(image, size_y = 28, size_x = 28) #Ensures that dimensions are 28 x 28
+plot(image)
+
+tester <- aperm(image, c(4,3,2,1)) #Inverse array format to be consistent with input format
+image_test <- array_reshape(tester, c(1, 28*28)) #Convert to vector to be consistent with input format
+
+prediction <- model %>% predict(image_test)    # round(prediction, 2), almost with 100% sure to predict the image being a 9
+paste("The number you drew was a", which.max(prediction[,]) - 1)
+```
+Hooray.... we predicted it right, an awesome 9!
+
+
+### Remark
+
+We have stretched out the pixels into a vector of 784 dimension. Clearly the spacial structure is not preserved. In a seperate  lecture we introduce convolution neural network which will keep the local information at each pixel as an input. It works much better for image data. 
+
+
+
+
+# Conclusion {-}
+
+We took a glimpse at neural network in this lecture. 
+We learned how to model the perception process of human being using neural network. The basic elements of the neural network architecture are neurons and layers. There are lots of tuning parameters and thousands or millions of parameters to estimate. 
+
+Using the `keras` package, we apply neural network to IMBD and MNIST. Since MNIST is image, we learned how to handle image data. We also did a real prediction using the model we trained. 
+
+
+
+# Appendix
+
+Lets compare the performance of our neural network to other machine learning approaches we have learned.
+
+## Gradient Descent
+### Simple example: quadratic
+
+Let's start with something simple, a quadratic function $f(\theta) = \theta^2$. We want to find the minimizer that minimizes $f(\theta)$. We know that when $\theta = 0$, $f(\theta) = 0$ and it reaches the minimal value. So $\theta^* = 0$ is our minimizer. 
+```{r}
+# quadratic function
+square <- function(theta) theta^2
+
+theta_seq <- seq(-2,2,.1)
+plot(theta_seq, square(theta_seq), type = 'l')
+```
+
+How do we find the minimizer $\theta^* = 0$ using gradient descent? We use the gradient/derivative to guide us with direction that moves to the minimal. We take a small step every time.
+
+In this example, the derivative is $f'(\theta) = 2\theta$. Every step, we move towards $-\alpha f'(\theta)$ where $\alpha$ is the learning step. Let's take $\alpha = 0.1$ for now. If we initiate $\theta^{(0)} = 2$, then the derivative at $\theta = 0$ is $2\theta = 2\times 2 = 4$. The first step is $\theta^{(1)} = \theta^{(0)} -\alpha f'(\theta^{(0)}) = 2 - 0.1\times 4 = 1.6$. We iterate until the derivative $|f'(\theta^{(t)})| < \epsilon$ where $\epsilon$ is a very small number, which means $\theta^{(t)}$ is very close to $\theta^*$.
+
+******
+**Algorithm 1**:  Gradient descent for one parameter
+
+******
+
+1. Initiate $\theta^{(0)}$
+2. While ($|f'(\theta^{(t)})| < \epsilon$)
+
+    \[\theta^{(t+1)} \leftarrow \theta^{(t)} -\alpha f'(\theta^{(t)})\]
+    
+******
+
+The following chunk is to illustrate the gradient descent method. You may skip it.
+
+```{r}
+# set up learning rate
+learning_rate <- 0.1
+```
+
+```{r include=FALSE}
+# gradient for quadratic function x^2
+gradient_square <- function(theta) 2*theta
+
+# gradient update step
+gradient_update <- function(theta, gradient, step = 1e-2)  theta - step*gradient(theta)
+
+# gradient history
+gradient_descent_trace <- function(x = NULL, y = NULL, init, gradient, step = 1e-1, eps = 1e-5, max_iteration = 1e5) {
+  
+  # record the history theta and gradient
+  p <- length(init)
+  theta_history <- matrix(rep(NA, max_iteration*p), ncol = p)
+  
+  # initial theta and gradient
+  theta_history[1,] <- theta <- init
+  
+  i <- 1
+  while(abs(gradient(theta)) > eps & i < max_iteration){
+    theta <- gradient_update(theta, gradient, step)
+    theta_history[i+1,] <- theta
+    i <- i + 1
+  }
+  
+  # trim the history
+  theta_history <- theta_history[!is.na(theta_history)]
+  
+  matrix(theta_history, ncol = p)
+}
+```
+
+```{r include=FALSE}
+theta0 <- 2
+x0 <- -theta0
+x1 <- theta0
+# theta grid
+theta_grid <- data.frame(theta = theta_seq, 
+                         y = square(theta_seq))
+
+# theta trace
+theta_trace <- gradient_descent_trace(init = theta0, 
+                                      gradient = gradient_square,
+                                      step = learning_rate,
+                                      max_iteration = 100)
+
+grad_trace_df <- data.frame(theta = theta_trace, 
+                            grad = gradient_square(theta_trace),
+                            y = square(theta_trace),
+                            step = 1:length(theta_trace))
+
+# gradient line
+grad_trace_df <- grad_trace_df %>%
+  mutate(y0 = y + grad*(x0 - theta), 
+         y1 = y + grad*(x1 - theta))
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+grad_trace_df_sub <- grad_trace_df %>%
+  slice(1:20) %>%
+  mutate(hover = paste0("theta: ", round(theta, 2), 
+                        "<br>gradient: ", round(grad, 2)))
+
+fig <- plot_ly(data = theta_grid,
+               x = ~theta, 
+               y = ~y,
+               type = 'scatter',
+               mode ='lines',
+               line = list(color = '#1f77b4', width = 1.5),
+              showlegend = F) %>% 
+  add_trace(data = grad_trace_df_sub,
+              x = ~theta, 
+              y = ~y, 
+              frame = ~step, 
+            text = ~hover,
+            type = 'scatter',
+              mode = 'markers',
+              showlegend = F) %>% 
+  add_segments(data = grad_trace_df_sub,
+               x = ~x0, 
+               xend = ~x1, 
+               y = ~y0, 
+               yend = ~y1,
+               frame = ~step, 
+               line = list(color = 'red', width = 1.5),
+              showlegend = F) %>%
+  layout(
+    yaxis = list(
+      range=c(-.5,square(theta0)+1)
+    )
+  ) %>%
+  add_text(
+    data = grad_trace_df_sub,
+    x= 0.5,
+    y= 3,
+    frame  = ~step, 
+    text = ~hover
+  ) %>% 
+  animation_slider(
+  currentvalue = list(prefix = "Step ", font = list(color="red"))
+) 
+
+fig
+```
+
+Now try different learning rate see how it affects the convergence. (especially when the learning rate is 1.)
+
+### OLS 
+
+Now we move on to a more realistic case: OLS. Recall that the loss function for OLS is 
+\[
+L(x,y; \theta) = \frac{1}{n} \sum_{i=1}^n [(y_i - \theta^\top x_i)]^2
+\]
+
+For OLS we can write out the explicit solution, so we do not need gradient descent to solve OLS. However not every optimization problem has an explicit solution. Using gradient descent to solve OLS is for pedagogical reason. 
+
+Let's consider only two variables $x_1$ and $x_2$ and the response is $y = \beta_1 x_1 + \beta_2 x_2 + \epsilon$. We want to use gradient descent to estimate $\beta_1$ and $\beta_2$. The loss function is
+\[
+L(x,y; \theta) =  \frac{1}{n} \sum_{i=1}^n [(y_i - \theta_1 x_{1,i} - \theta_2 x_{2,i}) ]^2
+\]
+
+To get the gradient
+\begin{align}
+\frac{\partial L}{\partial \theta_1} &= -  \frac{2}{n} \sum_{i=1}^n x_{1,i} (y - \theta_1 x_{1,i} - \theta_2 x_{2,i})\\
+\frac{\partial L}{\partial \theta_2} &= -  \frac{2}{n} \sum_{i=1}^n x_{2,i} (y - \theta_1 x_{1,i} - \theta_2 x_{2,i})
+\end{align}
+
+Then the update step is
+\begin{align}
+\theta_1^{(t+1)} &\leftarrow \theta_1^{(t)} + \alpha \frac{2}{n} \sum_{i=1}^n x_{1,i} (y - \theta_1^{(t)} x_{1,i} - \theta_2^{(t)} x_{2,i})\\
+\theta_2^{(t+1)} &\leftarrow \theta_2^{(t)} + \alpha \frac{2}{n} \sum_{i=1}^n x_{2,i} (y - \theta_1^{(t)} x_{1,i} - \theta_2^{(t)} x_{2,i})
+\end{align}
+
+To write it in a compact form
+\[
+\boldsymbol\theta^{(t+1)} \leftarrow \boldsymbol\theta^{(t)} - \alpha \nabla L(\boldsymbol\theta^{(t)} )
+\]
+where $\alpha$ is learning rate and $\nabla L(\boldsymbol\theta)$ is the gradient for the loss function $L(\boldsymbol\theta)$.
+
+
+******
+**Algorithm 2**:  Gradient descent for multiple parameters
+
+******
+
+1. Initiate $\theta^{(0)}$
+2. While ($\|\nabla L(\boldsymbol\theta^{(t)})\|_2 < \epsilon$)
+
+    \[\boldsymbol\theta^{(t+1)} \leftarrow \boldsymbol\theta^{(t)} - \alpha \nabla L(\boldsymbol\theta^{(t)} )\]
+    
+******
+
+Let's $y = x_1  + 2 x_2 + \epsilon$ as example, i.e, $\beta_1 = 1$ and $\beta_2 = 2$ and we generate 100 $(x_{1,i}, x_{2_i}, y_i)$. we want to estimate $\beta_1$ and $\beta_2$ using 100 observed $(x_{1,i}, x_{2_i}, y_i)$. To do so, we minimize our loss function RSS by iteratively updating our estimate of $\beta_1$ and $\beta_2$ following Algorithm 2. The following illustrates the path of our estimate using Algorithm 2.
+```{r}
+n <- 100
+beta <- c(1,2)
+x <- cbind(rnorm(n), rnorm(n))
+y <- x%*% beta  + rnorm(n,.1)
+```
+
+```{r include=FALSE}
+rss <- function(x, y, theta) {
+  sum((y - x %*% theta)^2)/length(y)
+}
+
+gradient_ols <- function(theta, xx=x, yy=y) {
+  # (y-bx)
+  n <- length(y)
+  tmp <- -2*(yy - xx %*% theta)/n
+  # partial gradient: sum x*(y-bx)
+  colSums(sweep(xx, 1, tmp, FUN = "*"))
+}
+```
+
+```{r include=FALSE}
+# theta trace
+theta_trace <- gradient_descent_trace(x, y, c(0,0), 
+                                      gradient_ols,
+                                      step = 1e-1,
+                                      max_iteration = 100)
+zhat <- rep(NA, nrow(theta_trace))
+for(i in 1:nrow(theta_trace)) {
+  zhat[i] <- rss(x, y, c(theta_trace[i,]))
+}
+
+grad_trace_df <- data.frame(theta_trace, 
+                            z = zhat,
+                            step = 1:nrow(theta_trace))
+names(grad_trace_df) <- c("theta1", "theta2", "z", "step")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=6}
+beta <- c(1,2)
+theta1 <- seq(beta[1]-2, beta[1]+1, .1)
+theta2 <- seq(beta[2]-2, beta[2]+1, .1)
+z <- matrix(NA, nrow = length(theta1), ncol = length(theta2))
+for(i in seq_along(theta1)) {
+  t1 <- theta1[i]
+  for(j in seq_along(theta2)) {
+    t2 <- theta2[j]
+    z[i,j] <- rss(x, y, c(t1, t2))
+  }
+}
+
+grad_trace_df_sub <- grad_trace_df %>%
+  slice(1:20)
+
+fig <- plot_ly(x = theta1, y = theta2, 
+              z = z)  %>% 
+  add_surface(opacity = 0.5,
+              colorbar=list(title='RSS')) %>% 
+  add_trace( x = ~grad_trace_df$theta1, y = ~grad_trace_df$theta2, 
+                    z = ~grad_trace_df$z,
+                    type = 'scatter3d',mode = 'lines',
+                    line = list(color = 'yellow', width = 10)) %>% 
+  add_markers(data = grad_trace_df_sub,
+            x = ~theta1, 
+            y = ~theta2, 
+            z = ~z,
+            frame = ~step, 
+            type = 'scatter',
+            mode = 'markers',
+            showlegend = F) %>%
+  animation_slider(
+    currentvalue = list(prefix = "Step ", font = list(color="red"))
+  ) %>%
+  layout(legend = list(title = "RSS"),
+         scene = list(
+           xaxis = list(title = "theta 1"),
+           yaxis = list(title = "theta 2"),
+           zaxis = list(title = "RSS")
+         ))
+
+fig
+```
+
+
+### Stochastic gradient descent (SGD)
+
+For complex problem, calculating the gradient using all the samples for each update can be computationally intensive. Stochastic gradient descent provides a way to estimate the gradient using fewer samples for each step so that computation for each update is reduced. 
+
+Note that the loss function is a sum, so as the gradient. We can then take one or a few data points to estimate the full gradient. Taking one data point for each update is called vanilla SGD; while taking batches of data points to called batched SGD. However, SGD takes longer than GD to converge. There are many methods to improve SGD so that it converges as fast as GD but also computationally efficient.
+
+We usually see the convergence plot with x-axis being number of epochs and y-axis being the training and testing error. One epoch means the full data is used for updated. For example, if we use 10 batch SGD, i.e. we split the data into 10 folds and we update using each of the 10 folds imperatively. We updated 10 times but it only counts as 1 epoch. The reason of using epoch instead of update times is for a fair comparison among optimization methods.
+
+
+
+## MNIST with RandomForest
+
+Let's apply random forest using `ranger` library to MNIST dataset and how it performs.
+
+Read and restructure the data.
+
+```{r eval = F}
+mnist <- dataset_mnist()
+c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
+
+train_images <- array_reshape(train_images, c(60000, 28*28)) #corrects shape to what is expected by keras
+train_images <- train_images / 255 #make values between 0 and 1
+
+###Vectorize the data
+test_images <- array_reshape(test_images, c(10000, 28*28))
+test_images <- test_images / 255
+
+###Vectorize the labels
+train_labels <- to_categorical(train_labels) #convert to vector of length of labels, with 0 and 1s to represent if label value is true or false
+test_labels <- to_categorical(test_labels)
+```
+
+Train the model.
+
+```{r, echo = TRUE, message=FALSE, eval = F}
+# faster implementation of random forests
+pvals <- 0:9   # preparing y for random forest
+rf_y <- rep(0, nrow(train_labels))
+for (i in 1:nrow(train_labels)) {
+  rf_y[i] <- pvals[train_labels[i,]==1]
+}
+rf_data <- data.frame(y = as.factor(rf_y), x = train_images)
+
+set.seed(1)
+rf <- ranger::ranger(y ~ ., rf_data, num.trees = 200)
+dim(rf_data)
+names(rf)
+rf$mtry  #default is about sqrt(p)=sqrt(784)
+rf$min.node.size  # deepest tree 
+rf$prediction.error # oob testing error which is very close to our actural testing error
+rf$num.trees # 200 as we have spedified.
+
+```
+
+Testing random forest we get an error rate of ~2.86% (Accuracy of ~97%). Not bad!
+
+```{r, echo = TRUE, eval = F}
+pvals <- 0:9   # preparing y for random forest
+rf_y_test <- rep(0, nrow(test_labels))
+for (i in 1:nrow(test_labels)) {
+  rf_y_test[i] <- pvals[test_labels[i,]==1]
+}
+
+rf_data_test <- data.frame(y = as.factor(rf_y_test), x = test_images)
+
+pred_rf <- predict(rf, data = rf_data_test[,-1])
+err <- mean(pred_rf$predictions != rf_y_test) #for ranger
+#err <- mean(pred_rf != MNIST::mnist_test$y)
+err * 100
+```
+

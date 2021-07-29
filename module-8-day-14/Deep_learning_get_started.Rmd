@@ -1,0 +1,180 @@
+---
+title: "Deep Learning Get Started"
+author: "Modern Data Mining"
+date: ''
+output:
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '4'
+urlcolor: blue
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+knitr::opts_chunk$set(fig.height=4, fig.width=7, fig.align = 'center', warning = F)
+
+if(!require('pacman')) {
+  install.packages('pacman')
+}
+pacman::p_load(keras, ggplot2, glmnet, RColorBrewer, wordcloud, neuralnet, imager,
+               plotly, latex2exp)
+```
+
+
+\pagebreak
+
+# Introduction {-}
+
+Table of Contents
+
+1. Installation
+    + Python
+    + Tensorflow and Keras
+2. First neural network
+    + Multiclass Classification: MNIST Digit Recognition
+    + Build a neural network
+    + Train the neural network
+    + Evalute accuracy of the model
+    + Save and load the model
+        
+
+The goal of this file is to guide you install the essentials for deep learning and get you started. We will first install **Python** (another programming language) and then two deep learning toolboxes, **Tensorflow** and **Keras**. 
+
+After all the installation, try to run this file. 
+
+
+# Python, Tensorflow, and Keras
+
+## Install Python
+
+Here are the installation guides for different platforms. [Download conda for your platform](https://www.anaconda.com/products/individual) (it is in the Anaconda Installers section) and follow the step in the installer.
+
+* MacOS: https://conda.io/projects/conda/en/latest/user-guide/install/macos.html
+* Windows: https://conda.io/projects/conda/en/latest/user-guide/install/windows.html
+* Linux: https://conda.io/projects/conda/en/latest/user-guide/install/linux.html
+
+*Python* is another commonly-used programming language, especially in machine learning community. A lot of popular libraries, including Tensorflow and Keras that we will use in this lecture, are developed in Python. Hence, we need to install Python first and use R interfaces to interact with those libraries. Here's the [link](https://www.anaconda.com/distribution/) to Python Anaconda distribution (version). Anaconda is a package manager and provides a one stop shop to install Python (and R) and some of the most popular libraries for data science. Anaconda Python also optimizes for numerical computation (because it is built against Intel's math kernel library). Note that for Windows users, in order to use Kera, you have to install Anaconda distribution; otherwise for Mac/Linux users, you can either use Anaconda Python or [Vanilla Python](https://www.python.org/downloads/).
+
+## Tensorflow and Keras
+
+After we install Python, we can come back to R and let R install Tensorflow and Keras.
+
+First, install the tensorflow R package. 
+```{r}
+if(!require("tensorflow")) install.packages("tensorflow")
+```
+
+Then, use the `install_tensorflow()` function to install TensorFlow.
+```{r, eval = F}
+library(tensorflow)
+install_tensorflow()
+```
+
+You can confirm that the installation succeeded with:
+```{r}
+library(tensorflow)
+tf$constant("Hellow Tensorflow")
+```
+
+
+Similarly for Keras, install the Keras R package.
+```{r}
+if(!require("keras")) install.packages("keras")
+```
+
+Then, use the `install_keras()` function to install Keras
+```{r, eval = F}
+library(keras)
+install_keras()
+```
+
+*TensorFlow* is a machine learning library developed by Google. *Keras* is a high-level Application Programming Interface (API) for TensorFlow to build and train deep learning models. It runs on top of TensorFlow and is used for fast prototyping, advanced research, and production. An R interface to Keras by RStudio is available. Here is an official [installation guide](https://tensorflow.rstudio.com/installation/). 
+
+For more information about TensorFlow in R: https://tensorflow.rstudio.com/
+    
+# Multiclass Classification (MNIST)
+
+Now we are ready to train our first neural network! We will use Keras to build a neural network to classify the handwritten digits into digits. 
+
+**Case: MNIST Dataset**
+
+* Modified National Institute of Standards and Technology dataset
+* Collection of handwritten digits, from 0 to 9
+* 60,000 training and 10,000 testing images
+* Essentially a multinomial classification problem 
+* Commonly used for training image recognition systems
+* Useful because relatively 'clean' and well-labeled
+* Very [well-studied](http://yann.lecun.com/exdb/mnist/)
+
+*Objective*: classify handwritten numbers from 0 to 9 correctly
+
+We load the data and transform it as follows. The images are in fact numbers from 0 to 255 that represents the intensity of each pixel. In this dataset, each image is of dimension 28x28. We scale each pixel to 0 to 1.
+
+```{r echo=TRUE}
+mnist <- dataset_mnist()
+c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
+
+train_images <- train_images /255 # make values between 0 and 1
+dim(train_images) # 60000 samples, 28 x 28 each picture.
+
+test_images <- test_images / 255
+```
+
+After data preparation, we are ready to build a neural network and train! 
+
+```{r}
+##Define the model
+model <- keras_model_sequential() %>%
+  layer_flatten(input_shape = c(28, 28)) %>% 
+  layer_dense(units = 512, activation = 'relu') %>%
+  layer_dropout(0.2) %>% 
+  layer_dense(units = 10, activation = 'softmax')
+
+summary(model)
+
+##Compile the model
+model %>% 
+  compile(
+    loss = "sparse_categorical_crossentropy",
+    optimizer = "adam",
+    metrics = "accuracy"
+  )
+
+##fit the model
+model %>% fit(
+  train_images, train_labels, epochs = 5, validation_split = 0.2
+)
+```
+
+
+Lets see how we perform on the test data:
+```{r}
+results <- model %>% evaluate(test_images, test_labels)
+results
+```
+Our accuracy is an amazing 98%! Meaning that we correctly classified the number images 98% of the time!
+
+Now we can save our Keras model for later use.
+```{r}
+save_model_tf(object = model, filepath = "MNIST_model")
+```
+
+Then we can load the model. 
+
+```{r}
+reload_model <- load_model_tf(filepath = "MNIST_model")
+```
+
+
+Now you are ready for the deep learning! Welcome to new world!
