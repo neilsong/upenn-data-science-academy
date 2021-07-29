@@ -65,10 +65,10 @@ df %>%
     arrange(max)
 ```
 ```{r}
-totval <- imex %>%
-    group_by(country) %>%
-    summarize(totval = sum(value)) %>%
-    arrange(desc(totval))
+#totval <- imex %>%
+    #group_by(country) %>%
+    #summarize(totval = sum(value)) %>%
+    #arrange(desc(totval))
 ggplot(cc, aes(x=month, y=value, group=country, color=country)) +
     geom_point() +
     geom_line() +
@@ -80,19 +80,19 @@ ggplot(infl, aes(x=month, y=value, group=country, color=country)) +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Month", y = "Inflation Index")
-ggplot(imex, aes(x=month, y=value, group=country, color=country)) +
-    geom_point() +
-    geom_line() +
-    theme_bw() +
+    labs(x = "Month", y = "CPI Inflation Index")
+#ggplot(imex, aes(x=month, y=value, group=country, color=country)) +
+   # geom_point() +
+   # geom_line() +
+   # theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Net Exports", y = "Month")
+    #labs(x = "Net Exports", y = "Month")
 ggplot(unem, aes(x=month, y=value, group=country, color=country)) + 
     geom_point() +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Unemployment", y = "Month")
+    labs(x = "Month", y = "Unemployment Rate (%)")
 ```
 
 ```{r}
