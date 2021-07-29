@@ -30,16 +30,3 @@ mapCountryData(mapped_data, nameColumnToPlot = "V64")
 
 GDPSort <- GDP %>% arrange(desc(V64)) %>% select(V1, V2, V64)
 ```
-
-```{r}
-GDPMiddle <- GDPSort[94:104]
-GDPBot <- GDPSort[183:198]
-GDPTop <- GDPSort[1:5]
-
-df <- data.frame(country=rep("", 32),
-                 gdp=rep(0,32),
-                 code=rep("",32))
-df$country <- c(GDPTop$V1, GDPMiddle$V1, GDPBot$V1)
-df$code <- c(GDPTop$V2, GDPMiddle$V2, GDPBot$V2)
-df$gdp <- c(GDPTop$V64, GDPMiddle$V64, GDPBot$V64)
-```
