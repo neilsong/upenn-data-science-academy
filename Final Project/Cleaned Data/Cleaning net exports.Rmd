@@ -20,6 +20,8 @@ exports_imports %>%
 
 exports <- exports %>% select(Country,TIME,Value)
 
+
+
 ```
 ```{r}
 imports<- 
@@ -33,5 +35,12 @@ imports <- imports %>% select(Country,TIME,Value)
 ```{r}
 net_exports<- exports
 net_exports[,3]<-exports[,3]-imports[,3]
+
+Time <- net_exports$TIME
+```
+
+```{r}
+lm1 <- lm(net_exports ~ Time, data=net_exports)
+summary(lm1)
 ```
 
