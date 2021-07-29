@@ -124,4 +124,16 @@ gdatatop %>%
   facet_wrap(~ Country)
 
 ```
+```{r}
+gdatatop <- newdata[newdata$Country=="Latvia" | newdata$Country=="Czech Republic" | newdata$Country=="Colombia" | newdata$Country=="Mexico",]
+
+gdatatop %>% 
+  ggplot(aes(x = month, y = Value)) +
+  geom_line(aes(col = year)) +
+  geom_point(aes(col = year)) +
+  labs(x = "Months", y="Long-Run Interest Rates (in %)") +
+  geom_smooth(method = 'lm', formula = 'y~x', se = TRUE)+
+  scale_x_continuous(breaks = seq(0,12, by = 1)) + 
+  facet_wrap(~ Country)
+```
 
