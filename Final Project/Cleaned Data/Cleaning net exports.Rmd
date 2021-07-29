@@ -1,0 +1,37 @@
+---
+title: "Cleaning Net Exports"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+exports_imports <- read.csv("~/Documents/GitHub/Penn/upenn-data-science-academy/Final Project/OECD NEW DATA USE FROM HERE/monthly imports & exports .csv")
+```
+
+```{r}
+exports_imports
+
+exports<- 
+exports_imports %>%
+  filter(Variable == "International trade in goods - exports")
+
+exports <- exports %>% select(Country,TIME,Value)
+
+```
+```{r}
+imports<- 
+exports_imports %>%
+  filter(Variable == "International trade in goods - imports")
+
+imports <- imports %>% select(Country,TIME,Value)
+
+```
+
+```{r}
+net_exports<- exports
+net_exports[,3]<-exports[,3]-imports[,3]
+```
+
