@@ -1065,7 +1065,7 @@ maxunemval <- predf %>%
   select(country, unemval)
 
 perc_unem <- maxval %>%
-  mutate(inflval = (maxunemval$unemval - minunemval$unemval)/minunemval$unemval * 100) %>%
+  mutate(unemval = (maxunemval$unemval - minunemval$unemval)/minunemval$unemval * 100) %>%
   select(country, inflval)
 ```
 
