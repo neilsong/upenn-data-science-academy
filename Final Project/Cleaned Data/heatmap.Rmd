@@ -22,12 +22,14 @@ GDP$V2 <- countrycode(GDP$V2, origin="wb", destination="iso3c")
 GDP <- GDP %>% filter(!is.na(V2)) %>% filter(!is.na(V64))
 GDP$V64 <- log(GDP$V64/1000)
 
+GDP <- GDP %>%
+    filter(GDP$V1 %in% unique(predf$country))
+
 mapped_data <- joinCountryData2Map(GDP, joinCode = "ISO3", 
     nameJoinColumn = "V2")
 
 par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
-mapCountryData(mapped_data, nameColumnToPlot = "V64")
-
+mapCountryData(mapped_data, nameColumnToPlot = "V64", mapTitle="GDP", colourPalette="diverging")
 GDPSort <- GDP %>% arrange(desc(Global Economy and GDP)) %>% select(V1, V2, V64)
 ```
 

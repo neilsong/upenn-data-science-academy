@@ -75,7 +75,8 @@ ggplot(school_closures_month, aes(x = Month, y = month_avg, color = Code)) +
   geom_line()+
   geom_point() +
   theme_bw() +
-  theme(legend.position = "none")
+  
+  labs(title="School Closures Over Time", y="School Closures")
 
 saveRDS(school_closures_month, file = "school_closures.rds")
 ```

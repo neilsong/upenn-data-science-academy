@@ -4,7 +4,10 @@ options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
 pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
-               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies, DiagrammeR, e1071)
+               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies, DiagrammeR, e1071, rsvg, DiagrammeRsvg, remotes)
+install_github("drsimonj/pipelearner")
+install_github("mtennekes/tabplot")
+install_github("erblast/oetteR")
 ```
 
 ```{r}
@@ -256,7 +259,7 @@ nrf_stats <- postResample(yhat,y)
 ```{r COVID SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "COVID New Cases Support Vector Machine Regression"
 
 cov_svm_tuned <- svm(
   formula = covid ~ month+year+country,
@@ -277,14 +280,14 @@ cov_svm_stats<-postResample(yhat,y)
 res <- r(cov_test$covid - pred_svm_tuned)
 
 # plot(res, ylab = "residuals", main = title)
-# plot(
-#   cov_test$covid,
-#   pred_svm_tuned,
-#   main = title,
-#   ylab = "predicted",
-#   xlab = "actual"
-# )
-# abline(lm(pred_svm_tuned ~ cov_test$covid))
+plot(
+  cov_test$covid,
+  pred_svm_tuned,
+  main = title,
+  ylab = "predicted",
+  xlab = "actual"
+)
+abline(lm(pred_svm_tuned ~ cov_test$covid))
 ```
 
 ```{r Fit XGBoost Model COVID}
@@ -318,20 +321,21 @@ cov_xg_stats <- postResample(cov_yhat, cov_y)
 cov_xg_rmse <- cov_xg_stats[[1]]
 
 cov_r <- cov_y - cov_yhat
-# plot(cov_r, ylab = "residuals", main = title)
+plot(cov_r, ylab = "residuals", main = title)
 
-# plot(cov_y,
-#      cov_yhat,
-#      xlab = "actual",
-#      ylab = "predicted",
-#      main = title)
-# abline(lm(cov_yhat ~ cov_y))
+plot(cov_y,
+     cov_yhat,
+     xlab = "actual",
+     ylab = "predicted",
+     main = cov_title)
+abline(lm(cov_yhat ~ cov_y))
 
-# #plot first 3 trees of model
-# # xgb.plot.tree(model = xg, trees = 0:2)
+#plot first 3 trees of model
+cov_trees <- xgb.plot.tree(model = cov_xg, trees = 0:2, render=F)
+export_graph(cov_trees, 'tree.png', width=3000, height=4000)
 
-# cov_importance_matrix <- xgb.importance(model = cov_xg)
-# xgb.plot.importance(cov_importance_matrix, xlab = "Feature Importance")
+cov_importance_matrix <- xgb.importance(model = cov_xg)
+xgb.plot.importance(cov_importance_matrix, xlab = "COVID Feature Importance")
 ```
 
 ```{r Fit Econ Models}
@@ -410,7 +414,18 @@ nrfpolicy <- randomForest(policy ~ covid + month + year + country, data=econ_tra
 nrfpolicy_pred <- predict(nrfpolicy, econ_test)
 nrfpolicy_stats <- postResample(nrfpolicy_pred, econ_test$policy)
 
+plot(
+  econ_test$ccval,
+  nrfcc_pred,
+  main = "Consumer Confidence Index Random Forest Regression",
+  ylab = "predicted",
+  xlab = "actual"
+)
+abline(lm(nrfcc_pred ~ econ_test$ccval))
+plot(nrfcc, 
+  main = "Consumer Confidence Index Random Forest Regression",)
 
+plot(cc_svm_tuned)
 
 # mixedcc <- lmer(ccval ~ covid + month + year + pubcam + sah + closure + policy + (1|country), data=econ_train)
 # mixedcc_pred <- predict(mixedcc, newdata = econ_test)
@@ -445,7 +460,7 @@ nrfpolicy_stats <- postResample(nrfpolicy_pred, econ_test$policy)
 ```{r CC Econ SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "Consumer Confidence Index Support Vector Machine Regression"
 
 cc_svm_tuned <- svm(
   formula = ccval ~ . - inflval - unemval,
@@ -466,20 +481,20 @@ cc_svm_stats<-postResample(yhat,y)
 res <- r(econ_test$ccval - pred_svm_tuned)
 
 # plot(res, ylab = "residuals", main = title)
-# plot(
-#   cov_test$ccval,
-#   pred_svm_tuned,
-#   main = title,
-#   ylab = "predicted",
-#   xlab = "actual"
-# )
-# abline(lm(pred_svm_tuned ~ cov_test$ccval))
+plot(
+  econ_test$ccval,
+  pred_svm_tuned,
+  main = title,
+  ylab = "predicted",
+  xlab = "actual"
+)
+abline(lm(pred_svm_tuned ~ econ_test$ccval))
 ```
 
 ```{r Infl Econ SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "Inflation Index Support Vector Machine Regression"
 
 infl_svm_tuned <- svm(
   formula = inflval ~ . - ccval - unemval,
@@ -512,7 +527,7 @@ res <- r(econ_test$inflval - pred_svm_tuned)
 ```{r Unemval Econ SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "Unemployment Index Support Vector Machine Regression"
 
 unem_svm_tuned <- svm(
   formula = unemval ~ . - ccval - inflval,
@@ -546,7 +561,7 @@ res <- r(econ_test$unemval - pred_svm_tuned)
 ```{r Pubcam Econ SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "Public Campaign Support Vector Machine Regression"
 
 pubcam_svm_tuned <- svm(
   formula = pubcam ~ covid + month + year + country,
@@ -580,7 +595,7 @@ res <- r(econ_test$pubcam - pred_svm_tuned)
 ```{r Sah Econ SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "Stay at Home Support Vector Machine Regression"
 
 sah_svm_tuned <- svm(
   formula = sah ~ covid + month + year + country,
@@ -614,7 +629,7 @@ res <- r(econ_test$sah - pred_svm_tuned)
 ```{r Closure Econ SVM Model}
 r <- function(data) {round(data, 1)}
 
-title <- "Support Vector Machine Regression"
+title <- "School Closure Support Vector Machine Regression"
 
 closure_svm_tuned <- svm(
   formula = closure ~ covid + month + year + country,
@@ -1016,6 +1031,7 @@ plot(nlincc)
 plot(nlininfl)
 plot(nlinunem)
 ```
+
 
 
 ```{r}
