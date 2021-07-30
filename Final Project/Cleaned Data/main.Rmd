@@ -4,7 +4,7 @@ options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
 if(!require('pacman')) {install.packages('pacman')}
 pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
-               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies, DiagrammeR)
+               plotROC, usmap, glmnet, car, rworldmap, countrycode, bit64, devtools, lme4, randomForest, xgboost, caret, dummies, DiagrammeR, e1071)
 ```
 
 ```{r}
@@ -15,7 +15,10 @@ infl <- fread('../oecd-new/monthly-inflation.csv')
 # imex <- fread('../oecd-new/monthly-imports-exports.csv')
 unem <- fread('../oecd-new/monthly-unemployment.csv')
 
-
+public_campaigns <- readRDS(file = "public_campaigns.rds")
+sah <- readRDS(file = "sah.rds")
+school_closures <- readRDS(file = "school_closures.rds")
+vaccination_policy <- readRDS(file = "vaccination_policy.rds")
 
 cc <- cc[Country %in% unique(gdp$Country)]
 infl <- infl[Country %in% unique(gdp$Country)]
@@ -24,16 +27,47 @@ unem <- unem[Country %in% unique(gdp$Country)]
 
 netcont <- Reduce(intersect, list(unique(cc$Country), unique(infl$Country), unique(unem$Country)))
 
-cc <- cc %>% select(LOCATION, Country, TIME, Value) %>%
+cc <- cc %>% dplyr::select(LOCATION, Country, TIME, Value) %>%
     rename(code = LOCATION, month = TIME, value = Value, country =Country) %>%
     filter(country %in% netcont)
-infl <- infl %>% select(LOCATION, Country, TIME, Value) %>%
+infl <- infl %>% dplyr::select(LOCATION, Country, TIME, Value) %>%
     rename(code = LOCATION, month = TIME, value = Value, country =Country) %>%
     filter(country %in% netcont)
-unem <- unem %>% select(LOCATION, Country, TIME, Value) %>%
+unem <- unem %>% dplyr::select(LOCATION, Country, TIME, Value) %>%
     rename(code = LOCATION, month = TIME, value = Value, country =Country) %>%
     filter(country %in% netcont)
-# imex <- imex %>% select(LOCATION, Country, Variable, TIME, Value) %>%
+
+netcode <- Reduce(intersect, list(unique(cc$code), unique(infl$code), unique(unem$code)))
+
+public_campaigns <- public_campaigns %>%
+    rename(code = Code, pubcam = month_avg) %>%
+    filter(code %in% netcode) %>%
+    mutate(month = (substr(Month, 1,7))) %>%
+    group_by(code) %>%
+    dplyr::select(code, month, pubcam)
+
+sah <- sah %>%
+    rename(code = Code, sah = month_avg) %>%
+    filter(code %in% netcode) %>%
+    mutate(month = (substr(Month, 1,7))) %>%
+    group_by(code) %>%
+    dplyr::select(code, month, sah)
+
+school_closures <- school_closures %>%
+    rename(code = Code, closure = month_avg) %>%
+    filter(code %in% netcode) %>%
+    mutate(month = (substr(Month, 1,7))) %>%
+    group_by(code) %>%
+    dplyr::select(code, month, closure)
+
+vaccination_policy <- vaccination_policy %>%
+    rename(code = Code, policy = month_avg) %>%
+    filter(code %in% netcode) %>%
+    mutate(month = (substr(Month, 1,7))) %>%
+    group_by(code) %>%
+    dplyr::select(code, month, policy)
+
+# imex <- imex %>% dplyr::select(LOCATION, Country, Variable, TIME, Value) %>%
 #     rename(code = LOCATION, month = TIME, value = Value, country =Country, var = Variable) %>%
 #     filter(country %in% netcont))
 
@@ -52,7 +86,7 @@ unem <- unem %>% select(LOCATION, Country, TIME, Value) %>%
 # imex <- im %>%
 #     left_join(ex, by = c('code', 'month', 'country')) %>%
 #     mutate(value = exval - imval) %>%
-#     select(code, month, country, value)
+#     dplyr::select(code, month, country, value)
 
 # join_imex <- imex %>%
 #     rename(imexval = value)
@@ -68,7 +102,13 @@ join_unem <- unem %>%
 
 df <- join_cc %>%
     left_join(join_infl, by = c('code', 'country', 'month')) %>%
-    left_join(join_unem, by = c('code', 'country', 'month'))
+    left_join(join_unem, by = c('code', 'country', 'month')) %>%
+    left_join(public_campaigns, by = c('code', 'month')) %>%
+    left_join(sah, by = c('code', 'month')) %>%
+    left_join(school_closures, by = c('code', 'month')) %>%
+    left_join(vaccination_policy, by = c('code', 'month'))
+
+df[is.na(df)] <- 0
 
 df %>%
     group_by(country) %>%
@@ -148,7 +188,7 @@ ggplot(df, aes(x=covid, y=ccval, group=country, color=country)) +
 ggplot(df, aes(x=covid, y=ccval, group=country, color=country)) +
     geom_point() +
     theme_bw() + 
-    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) + 
     theme(legend.position = "none")
 
@@ -159,7 +199,7 @@ ggplot(df, aes(x=covid, y=inflval, group=country, color=country)) +
 ggplot(df, aes(x=covid, y=inflval, group=country, color=country)) +
     geom_point() +
     theme_bw() + 
-    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) + 
     theme(legend.position = "none")
 
@@ -170,7 +210,7 @@ ggplot(df, aes(x=covid, y=unemval, group=country, color=country)) +
 ggplot(df, aes(x=covid, y=unemval, group=country, color=country)) +
     geom_point() +
     theme_bw() +
-    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) +
     theme(legend.position = "none")
 
@@ -184,7 +224,7 @@ ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
 ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
     geom_point() +
     theme_bw() +
-    geom_smooth(method = "lm", se=FALSE, color="black", formula = y ~ x) +
+    geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) +
     theme(legend.position = "none")
 
@@ -197,42 +237,90 @@ ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
 ## xg - grid searched, naive xgboost random forest
 ## svm - naive svm
 
+cov_traindf <- df %>% 
+    dplyr::select(country, month, covid) %>%
+    mutate(month_num = as.factor(as.numeric(substr(month, 6, 7)))) %>%
+    mutate(year = as.numeric(substr(month, 1, 4))) %>%
+    dplyr::select(country, month_num, year, covid) %>%
+    rename(month = month_num)
+
 set.seed(123)
 
-#plot first 3 trees of model
-# xgb.plot.tree(model = xg, trees = 0:2)
+cov_indices <- sample(1:nrow(cov_traindf), size = 0.75 * nrow(cov_traindf))
+cov_train <- cov_traindf[cov_indices,]
+cov_test <- cov_traindf[-cov_indices,]
 
-importance_matrix <- xgb.importance(model = xg)
-xgb.plot.importance(importance_matrix, xlab = "Feature Importance")
+nlin <- lm(covid ~ country + month + year, data=cov_train)
+pred_nlin <- predict(nlin, cov_test)
+yhat<-pred_nlin
+y<-cov_test$covid
 
+nlin_stats <- postResample(yhat,y)
 
-nlin <- lm(covid ~ country + month, data=df)
-mixed <- lmer(covid ~ month + (1|country), data=df)
-nrf <- randomForest(covid ~ month + country, data=df, ntree=100)
+mixed <- lmer(covid ~ month + year + (1|country), data=cov_train)
+pred_mixed <- predict(mixed, cov_test)
+yhat_mixed <- pred_mixed
+y_mixed <- cov_test$covid
+mixed_stats <- postResample(yhat_mixed,y_mixed)
+
+nrf <- randomForest(covid ~ month + country + year, data=cov_train, ntree=100)
+pred_nrf <- predict(nrf, cov_test)
+yhat<-pred_nrf
+y<-cov_test$covid
+
+nrf_stats <- postResample(yhat,y)
 ```
 
 
+```{r COVID SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+cov_svm_tuned <- svm(
+  formula = covid ~ month+year+country,
+  data    = cov_train,
+  gamma = .125,
+  cost = 32,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(cov_svm_tuned,cov_test)
+
+yhat<-pred_svm_tuned 
+y<-cov_test$covid
+cov_svm_stats<-postResample(yhat,y)
+
+# summary(cov_svm_tuned)
+
+res <- r(cov_test$covid - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$covid,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$covid))
+```
+
 ```{r Fit XGBoost Model COVID}
-title <- "Naive XGBoost"
-traindf <- df %>% 
-    select(country, month, covid) %>%
-    mutate(month_num = as.factor(as.numeric(substr(month, 6, 7)))) %>%
-    mutate(year = as.numeric(substr(month, 1, 4))) %>%
-    select(country, month_num, year, covid) %>%
-    rename(month = month_num)
+cov_title <- "Naive COVID XGBoost"
 
-tmp <- traindf %>% select(country, month)
-tmp1 <- dummy.data.frame(tmp)
-d <- data.frame(tmp1, traindf %>% select(year, covid))
-m <- as.matrix(d)
-indices <- sample(1:nrow(traindf), size = 0.75 * nrow(traindf))
-train <- m[indices,]
-test <- m[-indices,]
+cov_tmp <- cov_traindf %>% dplyr::select(country, month)
+cov_tmp1 <- dummy.data.frame(cov_tmp)
+cov_d <- data.frame(cov_tmp1, cov_traindf %>% dplyr::select(year, covid))
+cov_m <- as.matrix(cov_d)
+cov_indices <- sample(1:nrow(cov_traindf), size = 0.75 * nrow(cov_traindf))
+cov_xg_train <- cov_m[cov_indices,]
+cov_xg_test <- cov_m[-cov_indices,]
 
-xg <-
+cov_xg <-
   xgboost(
-    data = train[, 1:41],
-    label = train[, 42],
+    data = cov_xg_train[, 1:41],
+    label = cov_xg_train[, 42],
     nrounds = 1000,
     objective = "reg:squarederror",
     early_stopping_rounds = 6,
@@ -241,94 +329,1203 @@ xg <-
     nthreads = 4,
   )
 
-pred_xgb <- predict(xg, test[, 1:41])
+cov_pred_xgb <- predict(cov_xg, cov_xg_test[, 1:41])
 
-yhat <- pred_xgb
-y <- test[, 42]
-postResample(yhat, y)
+cov_yhat <- cov_pred_xgb
+cov_y <- cov_xg_test[, 42]
+cov_xg_stats <- postResample(cov_yhat, cov_y)
+cov_xg_rmse <- cov_xg_stats[[1]]
 
-r <- y - yhat
-plot(r, ylab = "residuals", main = title)
+cov_r <- cov_y - cov_yhat
+# plot(cov_r, ylab = "residuals", main = title)
 
-plot(y,
-     yhat,
-     xlab = "actual",
-     ylab = "predicted",
-     main = title)
-abline(lm(yhat ~ y))
+# plot(cov_y,
+#      cov_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(cov_yhat ~ cov_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = xg, trees = 0:2)
+
+# cov_importance_matrix <- xgb.importance(model = cov_xg)
+# xgb.plot.importance(cov_importance_matrix, xlab = "Feature Importance")
 ```
 
-```{r Hyperparameters Grid Search}
-hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
-                          eta = seq(.1, .4, .02))
-
-xgb_train_rmse <- NULL
-xgb_test_rmse <- NULL
-
-for (j in 1:nrow(hyper_grid)) {
-  set.seed(123)
-  m_xgb_untuned <- xgb.cv(
-    data = train[, 1:41],
-    label = train[, 42],
-    nrounds = 1000,
-    objective = "reg:squarederror",
-    early_stopping_rounds = 6,
-    nfold = 5,
-    max_depth = hyper_grid$max_depth[j],
-    eta = hyper_grid$eta[j],
-    nthread = 4
-  )
-  
-  xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
-  xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
-  
-  cat(j, "\n")
-}
-
-#ideal hyperparamters
-hyper_grid[which.min(xgb_test_rmse), ]
-```
-
-```{r Create and Predict Econ Models}
+```{r Fit Econ Models}
 
 ## nlin - naive multiple linear regression
-## mixed - country:random mixed linear regression
 ## nrf - naive random forest
 ## xg - naive xgboost random forest
 ## svm - naive svm
+econ_traindf <- df %>% 
+    dplyr::select(-code) %>%
+    mutate(month_num = as.factor(as.numeric(substr(month, 6, 7)))) %>%
+    mutate(year = as.numeric(substr(month, 1, 4))) %>%
+    dplyr::select(-month) %>%
+    rename(month = month_num)
 
-nlincc <- lm(ccval ~ covid + country, data=df)
-nlininfl <- lm(inflval ~ covid + country, data=df)
-nlinunem <- lm(unemval ~ covid + country, data=df)
+set.seed(124)
 
-nrfcc <- randomForest(ccval ~ covid + country, data=df, ntree=100)
-nrfinfl <- randomForest(inflval ~ covid + country, data=df, ntree=100)
-nrfunem <- randomForest(unemval ~ covid + country, data=df, ntree=100)
+econ_indices <- sample(1:nrow(econ_traindf), size = 0.75 * nrow(econ_traindf))
+econ_train <- econ_traindf[cov_indices,]
+econ_test <- econ_traindf[-cov_indices,]
 
-lincc <- df %>%
-    group_by(country) %>%
-    summarize(model = lm(ccval ~ covid, data=df)) %>%
-    select(model)
-lininfl <- df %>%
-    group_by(country) %>%
-    summarize(model = lm(inflval ~ covid, data=df)) %>%
-    select(model)
-    
+nlincc <- lm(ccval ~. -inflval -unemval, data=econ_train)
+nlincc_pred <- predict(nlincc, econ_test)
+nlincc_stats <- postResample(nlincc_pred, econ_test$ccval)
 
-mixed <- c(lmer(ccval ~ covid + (1|country), data=df))
-mixed <- c(lmer(inflval ~ covid + (1|country), data=df), mixed)
-mixed <- c(lmer(unemval ~ covid + (1|country), data=df), mixed)
+nlininfl <- lm(inflval ~. -ccval -unemval, data=econ_train)
+nlininfl_pred <- predict(nlininfl, econ_test)
+nlininfl_stats <- postResample(nlininfl_pred, econ_test$inflval)
+
+nlinunem <- lm(unemval ~. -ccval -inflval, data=econ_train)
+nlinunem_pred <- predict(nlinunem, econ_test)
+nlinunem_stats <- postResample(nlinunem_pred, econ_test$unemval)
+
+nlinpubcam <- lm(pubcam ~covid + month + year + country, data=econ_train)
+nlinpubcam_pred <- predict(nlinpubcam, econ_test)
+nlinpubcam_stats <- postResample(nlinpubcam_pred, econ_test$pubcam)
+
+nlinsah <- lm(sah ~covid + month + year + country, data=econ_train)
+nlinsah_pred <- predict(nlinsah, econ_test)
+nlinsah_stats <- postResample(nlinsah_pred, econ_test$sah)
+
+nlinclosure <- lm(closure ~covid + month + year + country, data=econ_train)
+nlinclosure_pred <- predict(nlinclosure, econ_test)
+nlinclosure_stats <- postResample(nlinclosure_pred, econ_test$closure)
+
+nlinpolicy <- lm(policy ~covid + month + year + country, data=econ_train)
+nlinpolicy_pred <- predict(nlinpolicy, econ_test)
+nlinpolicy_stats <- postResample(nlinpolicy_pred, econ_test$policy)
+
+
+nrfcc <- randomForest(ccval ~. -inflval -unemval, data=econ_train, ntree=1000)
+nrfcc_pred <- predict(nrfcc, econ_test)
+nrfcc_stats <- postResample(nrfcc_pred, econ_test$ccval)
+
+nrfinfl <- randomForest(inflval ~. -ccval -unemval, data=econ_train, ntree=1000)
+nrfinfl_pred <- predict(nrfinfl, econ_test)
+nrfinfl_stats <- postResample(nrfinfl_pred, econ_test$inflval)
+
+nrfunem <- randomForest(unemval ~. -ccval -inflval, data=econ_train, ntree=1000)
+nrfunem_pred <- predict(nrfunem, econ_test)
+nrfunem_stats <- postResample(nrfunem_pred, econ_test$unemval)
+
+nrfpubcam <- randomForest(pubcam ~covid + month + year + country, data=econ_train, ntree=1000)
+nrfpubcam_pred <- predict(nrfpubcam, econ_test)
+nrfpubcam_stats <- postResample(nrfpubcam_pred, econ_test$pubcam)
+
+nrfsah <- randomForest(sah ~covid + month + year + country, data=econ_train, ntree=1000)
+nrfsah_pred <- predict(nrfsah, econ_test)
+nrfsah_stats <- postResample(nrfsah_pred, econ_test$sah)
+
+nrfclosure <- randomForest(closure ~covid + month + year + country , data=econ_train, ntree=1000)
+nrfclosure_pred <- predict(nrfclosure, econ_test)
+nrfclosure_stats <- postResample(nrfclosure_pred, econ_test$closure)
+
+nrfpolicy <- randomForest(policy ~ covid + month + year + country, data=econ_train, ntree=1000)
+nrfpolicy_pred <- predict(nrfpolicy, econ_test)
+nrfpolicy_stats <- postResample(nrfpolicy_pred, econ_test$policy)
+
+
+
+# mixedcc <- lmer(ccval ~ covid + month + year + pubcam + sah + closure + policy + (1|country), data=econ_train)
+# mixedcc_pred <- predict(mixedcc, newdata = econ_test)
+# mixedcc_stats <- postResample(mixedcc_pred, econ_test$ccval)
+
+# mixedinfl <- lmer(inflval ~ covid +month + year + pubcam + sah + closure + policy + (1|country), data=econ_train)
+# mixedinfl_pred <- predict(mixedinfl, data=econ_test)
+# mixedinfl_stats <- postResample(mixedinfl_pred, econ_test$inflval)
+
+# mixedunem <- lmer(unemval ~ covid +month + year + pubcam + sah + closure + policy + (1|country), data=econ_train)
+# mixedunem_pred <- predict(mixedunem, econ_test)
+# mixedunem_stats <- postResample(mixedunem_pred, econ_test$unemval)
+
+# mixedpubcam <- lmer(pubcam ~ covid + month + year + (1|country), data=econ_train)
+# mixedpubcam_pred <- predict(mixedpubcam, econ_test)
+# mixedpubcam_stats <- postResample(mixedpubcam_pred, econ_test$pubcam)
+
+# mixedsah <- lmer(sah ~ covid + month + year + (1|country), data=econ_train)
+# mixedsah_pred <- predict(mixedsah, econ_test)
+# mixedsah_stats <- postResample(mixedsah_pred, econ_test$sah)
+
+# mixedclosure <- lmer(closure ~ covid + month + year + (1|country), data=econ_train)
+# mixedclosure_pred <- predict(mixedclosure, econ_test)
+# mixedclosure_stats <- postResample(mixedclosure_pred, econ_test$closure)
+
+# mixedpolicy <- lmer(policy ~ covid + month + year + (1|country), data=econ_train)
+# mixedpolicy_pred <- predict(mixedpolicy, econ_test)
+# mixedpolicy_stats <- postResample(mixedpolicy_pred, econ_test$policy)
+
+```
+
+```{r CC Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+cc_svm_tuned <- svm(
+  formula = ccval ~ . - inflval - unemval,
+  data    = econ_train,
+  gamma = 0.03125,
+  cost = 32,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(cc_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$ccval
+cc_svm_stats<-postResample(yhat,y)
+
+# summary(cc_svm_tuned)
+
+res <- r(econ_test$ccval - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$ccval,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$ccval))
+```
+
+```{r Infl Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+infl_svm_tuned <- svm(
+  formula = inflval ~ . - ccval - unemval,
+  data    = econ_train,
+  gamma = 0.03125,
+  cost = 32,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(infl_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$inflval
+infl_svm_stats<-postResample(yhat,y)
+
+# summary(infl_svm_tuned)
+
+res <- r(econ_test$inflval - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$inflval,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$inflval))
+```
+```{r Unemval Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+unem_svm_tuned <- svm(
+  formula = unemval ~ . - ccval - inflval,
+  data    = econ_train,
+  gamma = 0.125,
+  cost = 2,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(unem_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$unemval
+unemval_svm_stats<-postResample(yhat,y)
+
+# summary(unem_svm_tuned)
+
+res <- r(econ_test$unemval - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$unemval,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$unemval))
+```
+
+```{r Pubcam Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+pubcam_svm_tuned <- svm(
+  formula = pubcam ~ covid + month + year + country,
+  data    = econ_train,
+  gamma = 0.0625,
+  cost = 32,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(pubcam_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$pubcam
+pubcamval_svm_stats<-postResample(yhat,y)
+
+# summary(pubcam_svm_tuned)
+
+res <- r(econ_test$pubcam - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$pubcam,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$pubcam))
+```
+
+```{r Sah Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+sah_svm_tuned <- svm(
+  formula = sah ~ covid + month + year + country,
+  data    = econ_train,
+  gamma = 0.25,
+  cost = 8,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(sah_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$sah
+sahval_svm_stats<-postResample(yhat,y)
+
+# summary(sah_svm_tuned)
+
+res <- r(econ_test$sah - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$sah,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$sah))
+```
+
+```{r Closure Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+closure_svm_tuned <- svm(
+  formula = closure ~ covid + month + year + country,
+  data    = econ_train,
+  gamma = 0.25,
+  cost = 4,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(closure_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$closure
+closureval_svm_stats<-postResample(yhat,y)
+
+# summary(closure_svm_tuned)
+
+res <- r(econ_test$closure - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$closure,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$closure))
+```
+
+```{r Policy Econ SVM Model}
+r <- function(data) {round(data, 1)}
+
+title <- "Support Vector Machine Regression"
+
+policy_svm_tuned <- svm(
+  formula = policy ~ covid + month + year + country,
+  data    = econ_train,
+  gamma = 0.03125,
+  cost = 32,
+  scale=TRUE
+  )
+
+pred_svm_tuned <- predict(policy_svm_tuned,econ_test)
+
+yhat<-pred_svm_tuned 
+y<-econ_test$policy
+policyval_svm_stats<-postResample(yhat,y)
+
+# summary(policy_svm_tuned)
+
+res <- r(econ_test$policy - pred_svm_tuned)
+
+# plot(res, ylab = "residuals", main = title)
+# plot(
+#   cov_test$policy,
+#   pred_svm_tuned,
+#   main = title,
+#   ylab = "predicted",
+#   xlab = "actual"
+# )
+# abline(lm(pred_svm_tuned ~ cov_test$policy))
+```
+
+
+```{r Prep XGBoost Model Econ}
+
+econ_tmp <- econ_traindf %>% dplyr::select(country, month)
+econ_tmp1 <- dummy.data.frame(econ_tmp)
+econ_d <- data.frame(econ_tmp1, econ_traindf %>% dplyr::select(-c(country, month)))
+econ_m <- as.matrix(econ_d)
+econ_indices <- sample(1:nrow(econ_traindf), size = 0.75 * nrow(econ_traindf))
+econ_xg_train <- econ_m[econ_indices,]
+econ_xg_test <- econ_m[-econ_indices,]
+```
+
+```{r Fit XGBoost Model CC}
+cc_title <- "Naive CC XGBoost"
+
+cc_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 44:49)],
+    label = econ_xg_train[, 41],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 5,
+    eta = 0.16,
+    nthreads = 4,
+  )
+
+cc_pred_xgb <- predict(cc_xg, econ_xg_test[, c(1:40, 44:49)])
+
+cc_yhat <- cc_pred_xgb
+cc_y <- econ_xg_test[, 41]
+cc_xg_stats <- postResample(cc_yhat, cc_y)
+cc_xg_rmse <- cc_xg_stats[[1]]
+
+cc_r <- cc_y - cc_yhat
+# plot(cc_r, ylab = "residuals", main = title)
+
+# plot(cc_y,
+#      cc_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(cc_yhat ~ cc_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = cc_xg, trees = 0:2)
+
+# cc_importance_matrix <- xgb.importance(model = cc_xg)
+# xgb.plot.importance(cc_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Fit XGBoost Model Infl}
+
+infl_title <- "Naive Infl XGBoost"
+
+infl_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 44:49)],
+    label = econ_xg_train[, 42],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 2,
+    eta = 0.1,
+    nthreads = 4,
+  )
+
+infl_pred_xgb <- predict(infl_xg, econ_xg_test[, c(1:40, 44:49)])
+
+infl_yhat <- infl_pred_xgb
+infl_y <- econ_xg_test[, 42]
+infl_xg_stats <- postResample(infl_yhat, infl_y)
+infl_xg_rmse <- infl_xg_stats[[1]]
+
+infl_r <- infl_y - infl_yhat
+# plot(infl_r, ylab = "residuals", main = title)
+
+# plot(infl_y,
+#      infl_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(infl_yhat ~ infl_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = infl_xg, trees = 0:2)
+
+# infl_importance_matrix <- xgb.importance(model = infl_xg)
+# xgb.plot.importance(infl_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Fit XGBoost Model Unem}
+
+unem_title <- "Naive Unem XGBoost"
+
+unem_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 44:49)],
+    label = econ_xg_train[, 43],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 2,
+    eta = 0.1,
+    nthreads = 4,
+  )
+
+unem_pred_xgb <- predict(unem_xg, econ_xg_test[, c(1:40, 44:49)])
+
+unem_yhat <- unem_pred_xgb
+unem_y <- econ_xg_test[, 43]
+unem_xg_stats <- postResample(unem_yhat, unem_y)
+unem_xg_rmse <- unem_xg_stats[[1]]
+
+unem_r <- unem_y - unem_yhat
+# plot(unem_r, ylab = "residuals", main = title)
+
+# plot(unem_y,
+#      unem_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(unem_yhat ~ unem_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = unem_xg, trees = 0:2)
+
+# unem_importance_matrix <- xgb.importance(model = unem_xg)
+# xgb.plot.importance(unem_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Fit XGBoost Model Pubcam}
+
+pubcam_title <- "Naive Pubcam XGBoost"
+
+pubcam_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 44],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 2,
+    eta = 0.36,
+    nthreads = 4,
+  )
+
+pubcam_pred_xgb <- predict(pubcam_xg, econ_xg_test[, c(1:40, 48:49)])
+
+pubcam_yhat <- pubcam_pred_xgb
+pubcam_y <- econ_xg_test[, 44]
+pubcam_xg_stats <- postResample(pubcam_yhat, pubcam_y)
+pubcam_xg_rmse <- pubcam_xg_stats[[1]]
+
+pubcam_r <- pubcam_y - pubcam_yhat
+# plot(pubcam_r, ylab = "residuals", main = title)
+
+# plot(pubcam_y,
+#      pubcam_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(pubcam_yhat ~ pubcam_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = pubcam_xg, trees = 0:2)
+
+# pubcam_importance_matrix <- xgb.importance(model = pubcam_xg)
+# xgb.plot.importance(pubcam_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Fit XGBoost Model SAH}
+
+sah_title <- "Naive SAH XGBoost"
+
+sah_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 45],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 7,
+    eta = 0.18,
+    nthreads = 4,
+  )
+
+sah_pred_xgb <- predict(sah_xg, econ_xg_test[, c(1:40, 48:49)])
+
+sah_yhat <- sah_pred_xgb
+sah_y <- econ_xg_test[, 45]
+sah_xg_stats <- postResample(sah_yhat, sah_y)
+sah_xg_rmse <- sah_xg_stats[[1]]
+
+sah_r <- sah_y - sah_yhat
+# plot(sah_r, ylab = "residuals", main = title)
+
+# plot(sah_y,
+#      sah_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(sah_yhat ~ sah_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = sah_xg, trees = 0:2)
+
+# sah_importance_matrix <- xgb.importance(model = sah_xg)
+# xgb.plot.importance(sah_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Fit XGBoost Model Closure}
+
+closure_title <- "Naive Closure XGBoost"
+
+closure_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 46],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 7,
+    eta = 0.38,
+    nthreads = 4,
+  )
+
+closure_pred_xgb <- predict(closure_xg, econ_xg_test[, c(1:40, 48:49)])
+
+closure_yhat <- closure_pred_xgb
+closure_y <- econ_xg_test[, 46]
+closure_xg_stats <- postResample(closure_yhat, closure_y)
+closure_xg_rmse <- closure_xg_stats[[1]]
+
+closure_r <- closure_y - closure_yhat
+# plot(closure_r, ylab = "residuals", main = title)
+
+# plot(closure_y,
+#      closure_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(closure_yhat ~ closure_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = closure_xg, trees = 0:2)
+
+# closure_importance_matrix <- xgb.importance(model = closure_xg)
+# xgb.plot.importance(closure_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Fit XGBoost Model Policy}
+
+policy_title <- "Naive Policy XGBoost"
+
+policy_xg <-
+  xgboost(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 47],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    max_depth = 3,
+    eta = 0.32,
+    nthreads = 4,
+  )
+
+policy_pred_xgb <- predict(policy_xg, econ_xg_test[, c(1:40, 48:49)])
+
+policy_yhat <- policy_pred_xgb
+policy_y <- econ_xg_test[, 47]
+policy_xg_stats <- postResample(policy_yhat, policy_y)
+policy_xg_rmse <- policy_xg_stats[[1]]
+
+policy_r <- policy_y - policy_yhat
+# plot(policy_r, ylab = "residuals", main = title)
+
+# plot(policy_y,
+#      policy_yhat,
+#      xlab = "actual",
+#      ylab = "predicted",
+#      main = title)
+# abline(lm(policy_yhat ~ policy_y))
+
+# #plot first 3 trees of model
+# # xgb.plot.tree(model = policy_xg, trees = 0:2)
+
+# policy_importance_matrix <- xgb.importance(model = policy_xg)
+# xgb.plot.importance(policy_importance_matrix, xlab = "Feature Importance")
+```
+
+```{r Predict COVID, CC, Infl, Unem}
+
+end <- econ_traindf %>%
+  group_by(country, year) %>%
+  filter(year == 2021) %>%
+  mutate(month = as.numeric(month)) %>%
+  summarize(maxmonth = max(month))
+
+predf <- econ_traindf  %>% filter(F)
+
+for (i in 1:nrow(end)) {
+  icountry <- as.character(end$country[i])
+  iyear <- as.numeric(end$year[i])
+  imonth <- end$maxmonth[i] + 1
+  for (j in imonth:12) {
+    pred <- cov_test %>% filter(F) %>% mutate(country = factor(country, levels=unique(cov_test$country)))
+    pred <- pred %>%
+    add_row(country = as.factor(icountry), year = iyear, month = as.factor(j), covid=0)
+    pred$covid[1] <- predict(cov_svm_tuned, pred)[1]
+    predi <- econ_traindf %>% filter(F) %>% mutate(country = factor(country, levels=unique(cov_test$country)))
+    predi <- predi %>%
+      right_join(pred, by=c("country", "year", "month", "covid"))
+    predi[is.na(predi)] <- 0
+    predf <- predf %>%
+    add_row(country=icountry, year=iyear, month=as.factor(j), ccval=predict(cc_svm_tuned, predi)[1], inflval=predict(infl_svm_tuned, predi)[1], unemval=predict(unem_svm_tuned, predi)[1], pubcam=predict(pubcam_svm_tuned, predi)[1], sah=predict(sah_svm_tuned, predi)[1], closure=predict(closure_svm_tuned, predi)[1], policy=predict(policy_svm_tuned, predi)[1],
+      covid=pred$covid[1])
+  }
+}
 
 ```
 
 ```{r}
-plot(mixed[[1]])
-plot(mixed[[2]])
-plot(mixed[[3]])
+plot(mixedcc)
+plot(mixedinfl)
+plot(mixedunem)
 ```
 
 ```{r}
 plot(nlincc)
 plot(nlininfl)
 plot(nlinunem)
+```
+
+
+```{r Econ CC SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,6,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = ccval ~ . - inflval - unemval,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$ccval
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r Econ Infl SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,5,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = inflval ~ . - ccval - unemval,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$inflval
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+
+```{r Econ Unem SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,5,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = unemval ~ . - ccval - inflval,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$unemval
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r Econ Pubcam SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,6,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = pubcam ~ covid + month + year + country,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$pubcam
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r Econ Sah SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,5,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = sah ~ covid + month + year + country,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$sah
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r Econ Closure SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,5,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = closure ~ covid + month + year + country,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$closure
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r Econ Policy SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-6,5,1),
+  gamma= 2^seq(-5,5,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = policy ~ covid + month + year + country,
+    data    = econ_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = econ_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- econ_test$policy
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r CC XGBoost Hyperparameters Grid Search}
+cc_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+cc_xgb_train_rmse <- NULL
+cc_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(cc_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 44:49)],
+    label = econ_xg_train[, 41],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = cc_hyper_grid$max_depth[j],
+    eta = cc_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  cc_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  cc_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+cc_hyper_grid[which.min(cc_xgb_test_rmse), ]
+```
+
+```{r Infl XGBoost Hyperparameters Grid Search}
+infl_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+infl_xgb_train_rmse <- NULL
+infl_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(infl_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 44:49)],
+    label = econ_xg_train[, 42],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = infl_hyper_grid$max_depth[j],
+    eta = infl_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  infl_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  infl_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+infl_hyper_grid[which.min(infl_xgb_test_rmse), ]
+```
+
+```{r Unem XGBoost Hyperparameters Grid Search}
+unem_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+unem_xgb_train_rmse <- NULL
+unem_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(unem_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 44:49)],
+    label = econ_xg_train[, 43],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = unem_hyper_grid$max_depth[j],
+    eta = unem_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  unem_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  unem_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+unem_hyper_grid[which.min(unem_xgb_test_rmse), ]
+```
+
+```{r Pubcam XGBoost Hyperparameters Grid Search}
+pubcam_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+pubcam_xgb_train_rmse <- NULL
+pubcam_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(pubcam_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 44],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = pubcam_hyper_grid$max_depth[j],
+    eta = pubcam_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  pubcam_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  pubcam_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+pubcam_hyper_grid[which.min(pubcam_xgb_test_rmse), ]
+```
+
+```{r Sah XGBoost Hyperparameters Grid Search}
+sah_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+sah_xgb_train_rmse <- NULL
+sah_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(sah_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 45],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = sah_hyper_grid$max_depth[j],
+    eta = sah_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  sah_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  sah_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+sah_hyper_grid[which.min(sah_xgb_test_rmse), ]
+```
+
+```{r Closure XGBoost Hyperparameters Grid Search}
+closure_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+closure_xgb_train_rmse <- NULL
+closure_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(closure_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 46],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = closure_hyper_grid$max_depth[j],
+    eta = closure_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  closure_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  closure_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+closure_hyper_grid[which.min(closure_xgb_test_rmse), ]
+```
+
+```{r Policy XGBoost Hyperparameters Grid Search}
+policy_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+policy_xgb_train_rmse <- NULL
+policy_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(policy_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = econ_xg_train[, c(1:40, 48:49)],
+    label = econ_xg_train[, 47],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = policy_hyper_grid$max_depth[j],
+    eta = policy_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  policy_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  policy_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+policy_hyper_grid[which.min(policy_xgb_test_rmse), ]
+```
+
+```{r COVID SVM Hypergrid}
+hyper_grid <- expand.grid(
+  cost = 2^seq(-5,5,1),
+  gamma= 2^seq(-5,5,1)  
+)
+e <- NULL
+
+for(j in 1:nrow(hyper_grid)){
+  set.seed(123)
+  m_svm_untuned <- svm(
+    formula = covid ~ .,
+    data    = cov_train,
+    gamma = hyper_grid$gamma[j],
+    cost = hyper_grid$cost[j]
+  )  
+  
+  pred_svm_untuned <-predict(
+    m_svm_untuned,
+    newdata = cov_test
+  )
+  
+  yhat <- pred_svm_untuned
+  y <- cov_test$covid
+  e[j] <- postResample(yhat, y)[1]
+}
+
+e[which.min(e)]  #minimum MSE
+hyper_grid$gamma[which.min(e)]
+hyper_grid$cost[which.min(e)]
+```
+
+```{r XGBoost COVID Hyperparameters Grid Search}
+cov_hyper_grid <- expand.grid(max_depth = seq(1, 7, 1),
+                          eta = seq(.1, .4, .02))
+
+cov_xgb_train_rmse <- NULL
+cov_xgb_test_rmse <- NULL
+
+for (j in 1:nrow(cov_hyper_grid)) {
+  set.seed(123)
+  m_xgb_untuned <- xgb.cv(
+    data = cov_xg_train[, 1:41],
+    label = cov_xg_train[, 42],
+    nrounds = 1000,
+    objective = "reg:squarederror",
+    early_stopping_rounds = 6,
+    nfold = 5,
+    max_depth = cov_hyper_grid$max_depth[j],
+    eta = cov_hyper_grid$eta[j],
+    nthread = 4
+  )
+  
+  cov_xgb_train_rmse[j] <- m_xgb_untuned$evaluation_log$train_rmse_mean[m_xgb_untuned$best_iteration]
+  cov_xgb_test_rmse[j] <- m_xgb_untuned$evaluation_log$test_rmse_mean[m_xgb_untuned$best_iteration]
+  
+  cat(j, "\n")
+}
+
+#ideal hyperparamters
+cov_hyper_grid[which.min(cov_xgb_test_rmse), ]
 ```
