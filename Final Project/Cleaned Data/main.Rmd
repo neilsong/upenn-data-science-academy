@@ -1,4 +1,4 @@
-```{r setup, include=FALSE, echo = FALSE}
+````{r setup, include=FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=9, fig.height=6, warning=FALSE)
 options(scipen = 0, digits = 3)  # controls base R output
 # check if you have ISLR package, if not, install it
@@ -8,23 +8,23 @@ pacman::p_load(tidyverse, dplyr, ggplot2, data.table, lubridate,
 ```
 
 ```{r}
-
 gdp <- fread('GDP_per_capita_cleaned.csv')
 cc <- fread('../oecd-new/monthly-consumer-confidence.csv')
 infl <- fread('../oecd-new/monthly-inflation.csv')
 # imex <- fread('../oecd-new/monthly-imports-exports.csv')
 unem <- fread('../oecd-new/monthly-unemployment.csv')
 
+
 public_campaigns <- readRDS(file = "public_campaigns.rds")
 sah <- readRDS(file = "sah.rds")
 school_closures <- readRDS(file = "school_closures.rds")
 vaccination_policy <- readRDS(file = "vaccination_policy.rds")
 
+
 cc <- cc[Country %in% unique(gdp$Country)]
 infl <- infl[Country %in% unique(gdp$Country)]
 # imex <- imex[Country %in% unique(gdp$Country)]
 unem <- unem[Country %in% unique(gdp$Country)]
-
 netcont <- Reduce(intersect, list(unique(cc$Country), unique(infl$Country), unique(unem$Country)))
 
 cc <- cc %>% dplyr::select(LOCATION, Country, TIME, Value) %>%
@@ -82,24 +82,18 @@ vaccination_policy <- vaccination_policy %>%
 # ex <- imex %>%
 #     filter(var==1) %>%
 #     rename(exval = value)
-
 # imex <- im %>%
 #     left_join(ex, by = c('code', 'month', 'country')) %>%
 #     mutate(value = exval - imval) %>%
 #     dplyr::select(code, month, country, value)
-
 # join_imex <- imex %>%
 #     rename(imexval = value)
-
 join_cc <- cc %>%
     rename(ccval = value)
-
 join_infl <- infl %>%
     rename(inflval = value)
-
 join_unem <- unem %>%
     rename(unemval = value)
-
 df <- join_cc %>%
     left_join(join_infl, by = c('code', 'country', 'month')) %>%
     left_join(join_unem, by = c('code', 'country', 'month')) %>%
@@ -109,58 +103,56 @@ df <- join_cc %>%
     left_join(vaccination_policy, by = c('code', 'month'))
 
 df[is.na(df)] <- 0
-
 df %>%
     group_by(country) %>%
     summarize(min = range(month)[1], max=range(month)[2]) %>%
     arrange(max)
 ```
 ```{r}
-totval <- imex %>%
-    group_by(country) %>%
-    summarize(totval = sum(value)) %>%
-    arrange(desc(totval))
-
+#totval <- imex %>%
+    #group_by(country) %>%
+    #summarize(totval = sum(value)) %>%
+    #arrange(desc(totval))
 ggplot(cc, aes(x=month, y=value, group=country, color=country)) +
     geom_point() +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") + 
     labs(x = "Month", y = "Consumer Confidence Index")
-
+    theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1)) 
 ggplot(infl, aes(x=month, y=value, group=country, color=country)) +
     geom_point() +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Month", y = "Inflation Index")
-
-ggplot(imex, aes(x=month, y=value, group=country, color=country)) +
-    geom_point() +
-    geom_line() +
-    theme_bw() +
+    labs(x = "Month", y = "CPI Inflation Index")
+    theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1)) 
+#ggplot(imex, aes(x=month, y=value, group=country, color=country)) +
+   # geom_point() +
+   # geom_line() +
+   # theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Net Exports", y = "Month")
-
+    #labs(x = "Net Exports", y = "Month")
 ggplot(unem, aes(x=month, y=value, group=country, color=country)) + 
     geom_point() +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Unemployment", y = "Month")
+    labs(x = "Month", y = "Unemployment Rate (%)") +
+    theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1)) 
 ```
 
 ```{r}
 # import covid data
 covid <- fread('covid-new-cases.csv')
-
 covid <- covid %>%
     rename(covid=newcase) %>%
     mutate(covid = log(covid + 71))
-
 df <- df %>%
     left_join(covid, by = c('country', 'month'))
-
 # drop na
 df <- df %>%
     filter(!is.na(ccval)) %>%
@@ -173,61 +165,50 @@ df <- df %>%
 # ggplot(df, aes(x=log(covid+70), y=ccval, group=country, color=country)) +
 #     geom_point() +
 #     theme_bw()
-
 # ggplot(df, aes(x=log(covid+70), y=ccval, group=country, color=country)) +
 #     geom_point() +
 #     theme_bw() + 
 #     facet_wrap(~country) +
 #     theme(legend.position = "none")
     
-
 ggplot(df, aes(x=covid, y=ccval, group=country, color=country)) +
     geom_point() +
     theme_bw()
-
 ggplot(df, aes(x=covid, y=ccval, group=country, color=country)) +
     geom_point() +
     theme_bw() + 
     geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) + 
     theme(legend.position = "none")
-
 ggplot(df, aes(x=covid, y=inflval, group=country, color=country)) +
     geom_point() +
     theme_bw()
-
 ggplot(df, aes(x=covid, y=inflval, group=country, color=country)) +
     geom_point() +
     theme_bw() + 
     geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) + 
     theme(legend.position = "none")
-
 ggplot(df, aes(x=covid, y=unemval, group=country, color=country)) +
     geom_point() +
     theme_bw()
-
 ggplot(df, aes(x=covid, y=unemval, group=country, color=country)) +
     geom_point() +
     theme_bw() +
     geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) +
     theme(legend.position = "none")
-
-
 ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
     geom_point() +
     geom_line() +
     theme_bw()
     # theme(legend.position = "bottom")
-
 ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
     geom_point() +
     theme_bw() +
     geom_smooth(method = "lm", se=FALSE, color="black", formula = cov_y ~ x) +
     facet_wrap(~country) +
     theme(legend.position = "none")
-
 ```
 
 ```{r Create COVID Models}
@@ -1277,7 +1258,6 @@ for (j in 1:nrow(cc_hyper_grid)) {
   
   cat(j, "\n")
 }
-
 #ideal hyperparamters
 cc_hyper_grid[which.min(cc_xgb_test_rmse), ]
 ```
