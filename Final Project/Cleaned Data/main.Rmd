@@ -75,12 +75,16 @@ ggplot(cc, aes(x=month, y=value, group=country, color=country)) +
     theme_bw() +
     #theme(legend.position = "none") + 
     labs(x = "Month", y = "Consumer Confidence Index")
+    theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1)) 
 ggplot(infl, aes(x=month, y=value, group=country, color=country)) +
     geom_point() +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") +
     labs(x = "Month", y = "CPI Inflation Index")
+    theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1)) 
 #ggplot(imex, aes(x=month, y=value, group=country, color=country)) +
    # geom_point() +
    # geom_line() +
@@ -92,7 +96,9 @@ ggplot(unem, aes(x=month, y=value, group=country, color=country)) +
     geom_line() +
     theme_bw() +
     #theme(legend.position = "none") +
-    labs(x = "Month", y = "Unemployment Rate (%)")
+    labs(x = "Month", y = "Unemployment Rate (%)") +
+    theme(text = element_text(size=20),
+        axis.text.x = element_text(angle=90, hjust=1)) 
 ```
 
 ```{r}
@@ -169,7 +175,7 @@ ggplot(covid, aes(x=month, y=covid, group=country, color=country)) +
 ## svm - naive svm
 set.seed(123)
 #plot first 3 trees of model
-# xgb.plot.tree(model = xg, trees = 0:2)
+xgb.plot.tree(model = xg, trees = 0:2)
 importance_matrix <- xgb.importance(model = xg)
 xgb.plot.importance(importance_matrix, xlab = "Feature Importance")
 nlin <- lm(covid ~ country + month, data=df)
@@ -260,7 +266,7 @@ nrfinfl <- randomForest(inflval ~ covid + country, data=df, ntree=100)
 nrfunem <- randomForest(unemval ~ covid + country, data=df, ntree=100)
 lincc <- df %>%
     group_by(country) %>%
-    summarize(model = lm(ccval ~ covid, data=df)) %>%
+    summarise(model = lm(ccval ~ covid, data=df)) %>%
     select(model)
 lininfl <- df %>%
     group_by(country) %>%
