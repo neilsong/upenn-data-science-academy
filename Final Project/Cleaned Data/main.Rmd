@@ -983,9 +983,9 @@ predf <- econ_traindf  %>% filter(F)
 for (i in 1:nrow(end)) {
   icountry <- as.character(end$country[i])
   iyear <- as.numeric(end$year[i])
-  imonth <- end$maxmonth[i] + 1
+  imonth <- end$maxmonth[1] + 1
   for (j in imonth:12) {
-    pred <- cov_test %>% filter(F) %>% mutate(country = factor(country, levels=unique(cov_test$country)))
+     pred <- cov_test %>% filter(F) %>% mutate(country = factor(country, levels=unique(cov_test$country)))
     pred <- pred %>%
     add_row(country = as.factor(icountry), year = iyear, month = as.factor(j), covid=0)
     pred$covid[1] <- predict(cov_svm_tuned, pred)[1]
@@ -993,9 +993,13 @@ for (i in 1:nrow(end)) {
     predi <- predi %>%
       right_join(pred, by=c("country", "year", "month", "covid"))
     predi[is.na(predi)] <- 0
+    predi$pubcam[1] <- predict(pubcam_svm_tuned, predi)
+    predi$sah[1] <- predict(sah_svm_tuned, predi)
+    predi$closure[1] <- predict(closure_svm_tuned, predi)
+    predi$policy[1] <- predict(policy_svm_tuned, predi)
+    
     predf <- predf %>%
-    add_row(country=icountry, year=iyear, month=as.factor(j), ccval=predict(cc_svm_tuned, predi)[1], inflval=predict(infl_svm_tuned, predi)[1], unemval=predict(unem_svm_tuned, predi)[1], pubcam=predict(pubcam_svm_tuned, predi)[1], sah=predict(sah_svm_tuned, predi)[1], closure=predict(closure_svm_tuned, predi)[1], policy=predict(policy_svm_tuned, predi)[1],
-      covid=pred$covid[1])
+    add_row(country=icountry, year=iyear, month=as.factor(j), ccval=predict(cc_svm_tuned, predi)[1], inflval=predict(infl_svm_tuned, predi)[1], unemval=predict(unem_svm_tuned, predi)[1], pubcam=predi$pubcam[1], sah=predi$sah[1], closure=predi$closure[1], policy=predi$policy[1], covid=pred$covid[1])
   }
 }
 
