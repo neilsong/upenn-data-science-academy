@@ -1,7 +1,23 @@
 ---
+title: "A COVID Global Economy: Policy Responses, Inflationary Concerns and Consumer Confidence"
+author: "By Aaron Tom, Neil Song, Ben Zhao, Luke Melcher, and Tanvi Kigga"
+date: ''
 output:
-  html_document: default
-  pdf_document: default
+  html_document:
+    code_folding: show
+    highlight: haddock
+    number_sections: yes
+    theme: lumen
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '4'
+urlcolor: blue
+editor_options: 
+  chunk_output_type: inline
 ---
 ````{r setup, include=FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=9, fig.height=6, warning=FALSE)
@@ -16,26 +32,8 @@ install_github("erblast/oetteR")
 ```
 
 
- 
- 
+Abstract
 
-
-
-# A COVID Global Economy: Policy Responses, Inflationary Concerns and Consumer Confidence
-
-
-
-
-
-
-
-
-## By Aaron Tom, Neil Song, Ben Zhao, Luke Melcher, and Tanvi Kigga
-
-
-
-
-# Abstract
 COVID-19 has drastically changed our lives, and there is no doubt that it has affected the economy as well on a global scale. The global economy in 2020 was characterized by severe decline in early stages of the pandemic and a trend of recovery in later and current stages. The goal of our study is to examine the effect that COVID-19 has had on the global economy, and to to predict trends in economic indicators for each of the countries in our data set through COVID policy. The three economic variables we chose to examine the economy from were consumer confidence index, inflation rate index (CPI), and unemployment rate. We used our data to create a double prediction layer model. We then used 4 different types of models to determine the best model for our data, we also separated data into training and testing data for the model. We then used the model to predict future economic data. Overall there is a positive correlation for consumer confidence, negative correlation for unemployment, and mostly positive correlation for inflation, over the period of July 2021-December 2021.
 Methods Used
 We first coded a heatmap based off of the World Bank GDP data for January 2019 of the GDP of most of the countries in the world, in order to gain perspective on the global economy and what countries we could use in our analysis. But to analyze trends in the economy, yearly data wouldn’t work in the timeframe of 2-3 years, so we choose to use the OECD (Organisation for Economic Co-operation and Development) database, which is limited to about 50 countries compared to the 200+ countries in the world.
@@ -43,7 +41,8 @@ It took quite a while to find the OECD database which contained many economic in
 In the end, we found several monthly economic indicators from roughly the past 30 months: unemployment rate, consumer confidence index, and inflation rate. The problem with analyzing all countries through the world bank is that some countries don't have monthly data, other countries have no data at all, so instead we have normal distribution from 28 countries of the top 100 GDP countries in the world from the OECD. When looking closer at the data, it is actually fairly normally distributed. Our OECD dataset includes countries like US #1, Finland #42 , Latvia #95 (GDP) so we have around a normal distribution of the top 100 GDP countries in the world 
 Our model involves 3 layers: a base predictor layer, a 1st layer, and a 2nd layer which is the prediction layer. The base layer contains: Month, Year, Country, Covid Rate. The 1st layer contains Covid policy data: Public Campaigns, Vaccination Policies, School Closures, Stay at Home Orders. The prediction layer contains economic data: Unemployment Rates, Consumer Confidence, and Inflation Rates 
 
-# Graphical EDA from Slides
+Graphical EDA from Slides
+
 In our EDA (exploratory data analysis), there was a surge in unemployment rates in the beginning of the pandemic over March 2020 to April 2020. Countries that experienced the largest unemployment rates spikes were Costa Rica, Columbia, Greece, Spain, Chile, and the United States.
 We saw a dip in confidence in the beginning of the pandemic, but rising confidence in recovery months in late 2020 and 2021.
 Consumer confidence index is a survey that measures how optimistic or pessimistic someone is regarding their financial situation. A high confidence index indicates optimism about the market which means people will spend more money. A low confidence index indicates pessimism about the market which means that  people will spend less money, to be conservative, or save money.
@@ -57,7 +56,8 @@ Analyzing each of the 28 countries would be too much- we will examine one countr
 
 
 
-# Bibliography
+Bibliography
+
 "A Gentle Introduction to XGBoost for Applied Machine Learning." Machine Learning Mastery. Last modified February 17, 2021. Accessed August 4, 2021. https://machinelearningmastery.com/gentle-introduction-xgboost-applied-machine-learning/.
 "Global Economic Effects of COVID-19." Congressional Research Service. Last modified July 9, 2021. Accessed July 25, 2021. https://fas.org/sgp/crs/row/R46270.pdf.
 Organisation for Economic Co-operation and Development. Accessed August 2, 2021. https://stats.oecd.org/.
