@@ -1092,7 +1092,6 @@ plot(nlinunem)
 
 ```{r}
 
-
 predf %>% ggplot(aes(x=month, y=ccval, group=country, color=country)) + geom_point() + geom_line()+ theme_bw()
 
 groupedcc <- predf %>% 
@@ -1107,7 +1106,7 @@ maxccval <- predf %>%
   filter(month==12) %>%
   select(country, ccval)
 
-perc_cc <- maxval %>%
+perc_cc <- maxccval %>%
   mutate(ccval = (maxccval$ccval - minccval$ccval)/minccval$ccval * 100)
 
 
@@ -1121,7 +1120,7 @@ maxinflval <- predf %>%
   filter(month==12) %>%
   select(country, inflval)
 
-perc_infl <- maxval %>%
+perc_infl <- mininflval %>%
   mutate(inflval = (maxinflval$inflval - mininflval$inflval)/mininflval$inflval * 100) %>%
   select(country, inflval)
 
@@ -1136,9 +1135,9 @@ maxunemval <- predf %>%
   filter(month==12) %>%
   select(country, unemval)
 
-perc_unem <- maxval %>%
+perc_unem <- maxunemval %>%
   mutate(unemval = (maxunemval$unemval - minunemval$unemval)/minunemval$unemval * 100) %>%
-  select(country, inflval)
+  select(country, unemval)
 ```
 
 ```{r Econ CC SVM Hypergrid}
