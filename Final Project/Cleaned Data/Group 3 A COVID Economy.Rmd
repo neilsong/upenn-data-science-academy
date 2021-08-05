@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 ````{r setup, include=FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = FALSE, results="show", fig.width=9, fig.height=6, warning=FALSE)
 options(scipen = 0, digits = 3)  # controls base R output
@@ -476,7 +481,7 @@ abline(lm(nrfcc_pred ~ econ_test$ccval))
 plot(nrfcc, 
   main = "Consumer Confidence Index Random Forest Regression",)
 
-plot(cc_svm_tuned)
+#plot(cc_svm_tuned)
 
 # mixedcc <- lmer(ccval ~ covid + month + year + pubcam + sah + closure + policy + (1|country), data=econ_train)
 # mixedcc_pred <- predict(mixedcc, newdata = econ_test)
@@ -1072,9 +1077,9 @@ for (i in 1:nrow(end)) {
 ```
 
 ```{r}
-plot(mixedcc)
-plot(mixedinfl)
-plot(mixedunem)
+#plot(mixedcc)
+#plot(mixedinfl)
+#plot(mixedunem)
 ```
 
 ```{r}
