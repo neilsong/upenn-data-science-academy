@@ -1107,7 +1107,7 @@ maxccval <- predf %>%
   filter(month==12) %>%
   select(country, ccval)
 
-perc_cc <- maxval %>%
+perc_cc <- maxccval %>%
   mutate(ccval = (maxccval$ccval - minccval$ccval)/minccval$ccval * 100)
 
 
@@ -1121,7 +1121,7 @@ maxinflval <- predf %>%
   filter(month==12) %>%
   select(country, inflval)
 
-perc_infl <- maxval %>%
+perc_infl <- maxinflval %>%
   mutate(inflval = (maxinflval$inflval - mininflval$inflval)/mininflval$inflval * 100) %>%
   select(country, inflval)
 
@@ -1136,9 +1136,9 @@ maxunemval <- predf %>%
   filter(month==12) %>%
   select(country, unemval)
 
-perc_unem <- maxval %>%
-  mutate(unemval = (maxunemval$unemval - minunemval$unemval)/minunemval$unemval * 100) %>%
-  select(country, inflval)
+#perc_unem <- maxval %>%
+ # mutate(unemval = (maxunemval$unemval - minunemval$unemval)/minunemval$unemval * 100) %>%
+ # select(country, inflval)
 ```
 
 ```{r Econ CC SVM Hypergrid}
